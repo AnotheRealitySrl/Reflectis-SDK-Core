@@ -13,6 +13,6 @@
   "category": "Unity",
   "repository": {
     "type": "git",
-    "url": "ssh://git@github.com/AnotheRealitySrl/SPACS-Utilities"
+    "url": "https://github.com/AnotheRealitySrl/SPACS-Utilities"
   }
 }
