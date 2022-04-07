@@ -2,7 +2,7 @@
   "name": "com.anotherealitysrl.spacs-utilities",
   "displayName": "SPACS-Utilities",
   "version": "0.1.0",
-  "unity": "2020.3",
+  "unity": "2020.1",
   "description": "SPACS Utilities module",
   "dependencies": {
     "com.unity.inputsystem": "1.2.0"
