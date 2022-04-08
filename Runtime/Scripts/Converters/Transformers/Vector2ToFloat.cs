@@ -1,8 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
-#if !UNITY_2020_1_OR_NEWER
-using static SPACS.Logic.Events.BasicEvents;
-#endif
 
 namespace SPACS.Logic.Transformers
 {
@@ -24,11 +21,7 @@ namespace SPACS.Logic.Transformers
         private EAxis axis = default;
 
         [SerializeField, Tooltip("The event fired when the transformed value has been calculated")]
-#if UNITY_2020_1_OR_NEWER
         private UnityEvent<float> OnProcess = default;
-#else
-        private FloatUnityEvent OnProcess = default;
-#endif
 
         ///////////////////////////////////////////////////////////////////////////
         /// <summary>

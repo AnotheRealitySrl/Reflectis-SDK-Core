@@ -1,8 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
-#if !UNITY_2020_1_OR_NEWER
-using static SPACS.Logic.Events.BasicEvents;
-#endif
 
 namespace SPACS.Logic.Values
 {
@@ -31,11 +28,7 @@ namespace SPACS.Logic.Values
 
         [Tooltip("The update event")]
         [SerializeField]
-#if UNITY_2020_1_OR_NEWER
         public UnityEvent<float> OnUpdate = default;
-#else
-        public FloatUnityEvent OnUpdate = default;
-#endif
 
         protected override void FireEvent() => OnUpdate.Invoke(Value);
 

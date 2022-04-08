@@ -1,9 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 using SPACS.Utilities;
-#if !UNITY_2020_1_OR_NEWER
-using static SPACS.Logic.Events.BasicEvents;
-#endif
 
 namespace SPACS.Logic.Values
 {
@@ -22,19 +19,11 @@ namespace SPACS.Logic.Values
         [Header("Events")]
         [Tooltip("Update event fired when the local pose changes")]
         [SerializeField]
-#if UNITY_2020_1_OR_NEWER
         internal UnityEvent<Pose> OnLocalPoseUpdate = default;
-#else
-        internal PoseUnityEvent OnLocalPoseUpdate = default;
-#endif
 
         [Tooltip("Update event fired when the world pose changes")]
         [SerializeField]
-#if UNITY_2020_1_OR_NEWER
         internal UnityEvent<Pose> OnWorldPoseUpdate = default;
-#else
-        internal PoseUnityEvent OnWorldPoseUpdate = default;
-#endif
 
         private Pose initialPose = default;
 

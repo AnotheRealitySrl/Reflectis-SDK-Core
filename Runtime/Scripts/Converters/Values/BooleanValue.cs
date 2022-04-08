@@ -1,8 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
-#if !UNITY_2020_1_OR_NEWER
-using static SPACS.Logic.Events.BasicEvents;
-#endif
 
 namespace SPACS.Logic.Values
 {
@@ -12,17 +9,11 @@ namespace SPACS.Logic.Values
     /// </summary>
     public class BooleanValue : BaseValue
     {
-        [Tooltip("The actual boolean value")]
-        [SerializeField]
-        private bool value = false;
-
         [Tooltip("The update event")]
-        [SerializeField]
-#if UNITY_2020_1_OR_NEWER
         public UnityEvent<bool> OnUpdate;
-#else
-        public BooleanUnityEvent OnUpdate;
-#endif
+
+        [Tooltip("The actual boolean value"), SerializeField]
+        private bool value = false;
 
 
         ///////////////////////////////////////////////////////////////////////////

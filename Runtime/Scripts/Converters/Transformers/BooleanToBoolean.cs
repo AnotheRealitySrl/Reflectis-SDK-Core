@@ -1,9 +1,6 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.Events;
-#if !UNITY_2020_1_OR_NEWER
-using static SPACS.Logic.Events.BasicEvents;
-#endif
 
 namespace SPACS.Logic.Transformers
 {
@@ -27,11 +24,7 @@ namespace SPACS.Logic.Transformers
 
         [Tooltip("The event fired when the transformed value has been calculated")]
         [SerializeField]
-#if UNITY_2020_1_OR_NEWER
         private UnityEvent<bool> OnProcess = default;
-#else
-        private BooleanUnityEvent OnProcess = default;
-#endif
 
 
         /// <summary> If true, the value will be inverted </summary>
