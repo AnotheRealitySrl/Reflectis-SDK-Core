@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace SPACS.Extra.Runtime
+namespace SPACS.Utilities
 {
     /// <summary>
     /// Static class that helps in managing Object Pooling.

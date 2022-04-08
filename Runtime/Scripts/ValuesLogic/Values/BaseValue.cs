@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace SPACS.Logic.Values
+namespace SPACS.Utilities
 {
     ///////////////////////////////////////////////////////////////////////////
     /// <summary>

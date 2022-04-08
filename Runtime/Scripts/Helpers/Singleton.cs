@@ -2,28 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
+namespace SPACS.Utilities
 {
-    //Classe generica per i singleton
-    private static T instance;
-
-    public static T Instance
+    public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     {
-        get
+        //Classe generica per i singleton
+        private static T instance;
+
+        public static T Instance
         {
-            if (instance != null)
+            get
             {
-                return instance;
-            }
-            else
-            {
-                return null;
+                if (instance != null)
+                {
+                    return instance;
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
-    }
 
-    protected virtual void Awake()
-    {
-        instance = this as T;
+        protected virtual void Awake()
+        {
+            instance = this as T;
+        }
     }
 }

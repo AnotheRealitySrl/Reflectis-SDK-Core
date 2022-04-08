@@ -1,22 +1,26 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
-namespace SPACS.Logic.Transformers
+namespace SPACS.Utilities
 {
     ///////////////////////////////////////////////////////////////////////////
     /// <summary>
-    /// This transformer converts a float value to a boolean value. The
-    /// transformed value will be fired into an event
+    /// This transformer applies a multiplier and an offset to a float value
+    /// and fires the transformed value into an event
     /// </summary>
-    public class FloatToBoolean : MonoBehaviour
+    public class FloatToFloat : MonoBehaviour
     {
-        [Tooltip("The threshold to use as true/false separator")]
+        [Tooltip("The multiplier to apply on the input float")]
         [SerializeField]
-        private float threshold = 0.5f;
+        private float multiplier = 1.0f;
+
+        [Tooltip("The offset to apply on the input float")]
+        [SerializeField]
+        private float offset = 0.0f;
 
         [Tooltip("The event fired when the transformed value has been calculated")]
         [SerializeField]
-        private UnityEvent<bool> OnProcess = default;
+        private UnityEvent<float> OnProcess = default;
 
         ///////////////////////////////////////////////////////////////////////////
         /// <summary>
@@ -30,7 +34,8 @@ namespace SPACS.Logic.Transformers
             if (!gameObject.activeInHierarchy)
                 return;
 
-            OnProcess.Invoke(f > threshold);
+            float result = (offset + f) * multiplier;
+            OnProcess.Invoke(result);
         }
     }
 }

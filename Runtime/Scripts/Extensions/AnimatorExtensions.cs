@@ -3,23 +3,26 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public static class AnimatorExtensions
+namespace SPACS.Utilities
 {
-    /// <summary>
-    /// Check if the animator contains the given paramter
-    /// </summary>
-    /// <returns><c>true</c>, if animator has parameter, <c>false</c> otherwise.</returns>
-    /// <param name="_Anim">Animator.</param>
-    /// <param name="_ParamName">Parameter name.</param>
-    public static bool ContainsParam(this Animator _Anim, string _ParamName)
+    public static class AnimatorExtensions
     {
-        foreach (AnimatorControllerParameter param in _Anim.parameters)
+        /// <summary>
+        /// Check if the animator contains the given paramter
+        /// </summary>
+        /// <returns><c>true</c>, if animator has parameter, <c>false</c> otherwise.</returns>
+        /// <param name="_Anim">Animator.</param>
+        /// <param name="_ParamName">Parameter name.</param>
+        public static bool ContainsParam(this Animator _Anim, string _ParamName)
         {
-            if (param.name == _ParamName)
+            foreach (AnimatorControllerParameter param in _Anim.parameters)
             {
-                return true; 
+                if (param.name == _ParamName)
+                {
+                    return true;
+                }
             }
+            return false;
         }
-        return false;
     }
 }

@@ -3,25 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public static class ActionUtils
+namespace SPACS.Utilities
 {
-    public static void ToggleAction(InputActionReference actionReference, bool enableAction)
+    public static class ActionUtils
     {
-        var action = GetInputAction(actionReference);
-        if (action != null && enableAction && !action.enabled)
+        public static void ToggleAction(InputActionReference actionReference, bool enableAction)
         {
-            action.Enable();
+            var action = GetInputAction(actionReference);
+            if (action != null && enableAction && !action.enabled)
+            {
+                action.Enable();
+            }
+            if (action != null && !enableAction && action.enabled)
+            {
+                action.Disable();
+            }
         }
-        if (action != null && !enableAction && action.enabled)
-        {
-            action.Disable();
-        }
-    }
 
-    public static InputAction GetInputAction(InputActionReference actionReference)
-    {
+        public static InputAction GetInputAction(InputActionReference actionReference)
+        {
 #pragma warning disable IDE0031 // Use null propagation -- Do not use for UnityEngine.Object types
-        return actionReference != null ? actionReference.action : null;
+            return actionReference != null ? actionReference.action : null;
 #pragma warning restore IDE0031
+        }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
-namespace SPACS.Logic.Transformers
+namespace SPACS.Utilities
 {
     ///////////////////////////////////////////////////////////////////////////
     /// <summary>

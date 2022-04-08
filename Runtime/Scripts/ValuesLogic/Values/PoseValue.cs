@@ -2,7 +2,7 @@
 using UnityEngine.Events;
 using SPACS.Utilities;
 
-namespace SPACS.Logic.Values
+namespace SPACS.Utilities
 {
     ///////////////////////////////////////////////////////////////////////////
     /// <summary>
