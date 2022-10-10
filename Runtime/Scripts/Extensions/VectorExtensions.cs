@@ -23,20 +23,26 @@ namespace SPACS.Utilities
         ///////////////////////////////////////////////////////////////////////////
         public static Vector3? DeserializeVector3(this string sourceString)
         {
-            if (sourceString == null || sourceString == string.Empty)
+            try
+            {
+                // Trim extranious parenthesis and split delimted values into an array
+                string[] splitString = sourceString.Substring(1, sourceString.Length - 2).Split(',');
+
+                // Build new Vector3 from array elements
+                return new Vector3(
+                    float.Parse(splitString[0], CultureInfo.InvariantCulture),
+                    float.Parse(splitString[1], CultureInfo.InvariantCulture),
+                    float.Parse(splitString[2], CultureInfo.InvariantCulture));
+            }
+            catch (System.Exception)
             {
                 return null;
             }
-
-            // Trim extranious parenthesis and split delimted values into an array
-            string[] splitString = sourceString.Substring(1, sourceString.Length - 2).Split(", "[0]);
-
-            // Build new Vector3 from array elements
-            return new Vector3(
-                float.Parse(splitString[0], CultureInfo.InvariantCulture), 
-                float.Parse(splitString[1], CultureInfo.InvariantCulture), 
-                float.Parse(splitString[2], CultureInfo.InvariantCulture));
         }
 
+        public static string SerializeVector3(this Vector3 v)
+        {
+            return string.Format(CultureInfo.InvariantCulture, "({0}, {1}, {2})", v.x, v.y, v.z);
+        }
     }
 }
