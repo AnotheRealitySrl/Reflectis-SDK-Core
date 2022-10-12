@@ -56,7 +56,7 @@ namespace SPACS.Utilities.FadeSystem.Runtime
         public void FadeFromDesaturated(Action onEnd = null) => fadeManager.FadeFromDesaturated(onEnd);
 
         public void UpdateObjsUnaffectedByFade(List<GameObject> objsUnaffectedByFade) => fadeManager.ObjsUnaffectedByFade = objsUnaffectedByFade;
-        public void REsetObjsUnaffectedByFade(List<GameObject> objsUnaffectedByFade) => fadeManager.ObjsUnaffectedByFade.Clear();
+        public void ResetObjsUnaffectedByFade() => fadeManager.ObjsUnaffectedByFade.Clear();
 
         #endregion
     }
