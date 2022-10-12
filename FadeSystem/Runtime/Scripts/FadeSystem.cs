@@ -38,7 +38,7 @@ namespace SPACS.Utilities.FadeSystem.Runtime
         {
             if (!Instantiate(volumeManagerPrefab, Camera.main.transform).TryGetComponent(out fadeManager))
             {
-                throw new Exception("No Volume manager specified");
+                throw new Exception("No fade manager specified");
             }
 
             fadeManager.FadeTime = fadeTime;
@@ -51,12 +51,12 @@ namespace SPACS.Utilities.FadeSystem.Runtime
         #region Public API
 
         public void FadeToBlack(Action onEnd = null) => fadeManager.FadeToBlack(onEnd);
-
         public void FadeFromBlack(Action onEnd = null) => fadeManager.FadeFromBlack(onEnd);
-
         public void FadeToDesaturated(Action onEnd = null) => fadeManager.FadeToDesaturated(onEnd);
-
         public void FadeFromDesaturated(Action onEnd = null) => fadeManager.FadeFromDesaturated(onEnd);
+
+        public void UpdateObjsUnaffectedByFade(List<GameObject> objsUnaffectedByFade) => fadeManager.ObjsUnaffectedByFade = objsUnaffectedByFade;
+        public void REsetObjsUnaffectedByFade(List<GameObject> objsUnaffectedByFade) => fadeManager.ObjsUnaffectedByFade.Clear();
 
         #endregion
     }
