@@ -1,9 +1,9 @@
 {
-  "name": "com.anotherealitysrl.spacs-utilities",
-  "displayName": "SPACS-Utilities",
+  "name": "com.anotherealitysrl.spacs-toolkit",
+  "displayName": "SPACS-Toolkit",
   "version": "1.0.0",
   "unity": "2020.1",
-  "description": "SPACS Utilities module",
+  "description": "SPACS Toolkit module",
   "dependencies": {
     "com.unity.inputsystem": "1.2.0"
   },

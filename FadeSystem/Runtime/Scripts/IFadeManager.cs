@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace SPACS.Utilities.FadeSystem.Runtime
+namespace SPACS.Toolkit.FadeSystem.Runtime
 {
     public interface IFadeManager
     {

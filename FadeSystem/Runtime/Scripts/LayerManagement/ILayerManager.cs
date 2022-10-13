@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SPACS.Utilities.FadeSystem.Runtime
+namespace SPACS.Toolkit.FadeSystem.Runtime
 {
     public interface ILayerManager
     {

@@ -1,0 +1,18 @@
+{
+    "name": "SPACS.Toolkit.FadeSystem.Runtime",
+    "rootNamespace": "",
+    "references": [
+        "SPACS.Core.Runtime",
+        "Unity.RenderPipelines.Core.Runtime",
+        "SPACS.Tweening.Runtime"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

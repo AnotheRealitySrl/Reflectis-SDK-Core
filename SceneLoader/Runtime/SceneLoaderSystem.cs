@@ -12,7 +12,7 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
 using UnityEngine.SceneManagement;
 
-namespace SPACS.Utilities.SceneLoader.Runtime
+namespace SPACS.Toolkit.SceneLoader.Runtime
 {
     [CreateAssetMenu(menuName = "AnotheReality/Systems/Utilities/SceneLoader", fileName = "SceneLoaderConfig")]
     public class SceneLoaderSystem : BaseSystem

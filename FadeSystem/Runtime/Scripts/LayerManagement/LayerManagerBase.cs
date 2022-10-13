@@ -4,7 +4,7 @@ using System.Linq;
 
 using UnityEngine;
 
-namespace SPACS.Utilities.FadeSystem.Runtime
+namespace SPACS.Toolkit.FadeSystem.Runtime
 {
     public abstract class LayerManagerBase : ScriptableObject, ILayerManager
     {
