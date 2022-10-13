@@ -16,5 +16,5 @@ MonoBehaviour:
   volumeManagerPrefab: {fileID: 3682281058176429380, guid: 3ff7b911d12f79d41ab99d561a689a29,
     type: 3}
   fadeTime: 1
-  unaffectedByFadeLayerName: UnaffectedByFade
-  objsUnaffectedByFade: []
+  fadeOnStart: 1
+  layerManager: {fileID: 11400000, guid: 4ca313f8886b29947b951a0ce13628e1, type: 2}

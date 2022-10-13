@@ -12,6 +12,5 @@ namespace SPACS.Utilities.FadeSystem.Runtime
         void ResetObjsUnaffectedByFade();
         void MoveObjectsToLayer();
         void ResetObjectsLayer();
-
     }
 }

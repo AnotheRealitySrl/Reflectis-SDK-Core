@@ -17,13 +17,26 @@ namespace SPACS.Utilities.SceneLoader.Runtime
     [CreateAssetMenu(menuName = "AnotheReality/Systems/Utilities/SceneLoader", fileName = "SceneLoaderConfig")]
     public class SceneLoaderSystem : BaseSystem
     {
+        #region Private variables
+
+        private readonly List<SceneInstance> activeAddressableScenes = new();
+
+        #endregion
+
+        #region Properties
+
         public bool IsLoading { get; private set; }
         public UnityEvent<AsyncOperationHandle> LoadingAddressableEvent { get; private set; } = new();
+
+        public UnityEvent OnBeforeLoad { get; private set; }
+        public UnityEvent OnLoadCompleted { get; private set; }
 
         public override void Init()
         {
             //activeScenes.Add(SceneManager.GetActiveScene());
         }
+
+        #endregion
 
         #region Public methods
 
@@ -108,7 +121,7 @@ namespace SPACS.Utilities.SceneLoader.Runtime
             await InvokeLoadingEvent(loadSceneOperation);
         }
 
-        public void LoadAddressableAdditiveScene(List<string> scenesToLoad, UnityAction onBeforeLoadCallback = null, UnityAction onAfterLoadCallback = null)
+        public void LoadAddressableScenesAdditive(List<string> scenesToLoad, UnityAction onBeforeLoadCallback = null, UnityAction onAfterLoadCallback = null)
         {
             IsLoading = true;
             onBeforeLoadCallback?.Invoke();
@@ -116,7 +129,7 @@ namespace SPACS.Utilities.SceneLoader.Runtime
             int scenesLoaded = 0;
             foreach (string sceneName in scenesToLoad)
             {
-                AsyncOperationHandle<SceneInstance> loadSceneOperation = Addressables.LoadSceneAsync(sceneName);
+                AsyncOperationHandle<SceneInstance> loadSceneOperation = Addressables.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
 
                 loadSceneOperation.Completed += (op) =>
                 {
@@ -124,6 +137,7 @@ namespace SPACS.Utilities.SceneLoader.Runtime
                     {
                         case AsyncOperationStatus.Succeeded:
                             scenesLoaded++;
+                            activeAddressableScenes.Add(op.Result);
                             if (scenesLoaded == scenesToLoad.Count - 1)
                             {
                                 onAfterLoadCallback?.Invoke();
@@ -138,34 +152,36 @@ namespace SPACS.Utilities.SceneLoader.Runtime
             }
         }
 
-        public void UnloadAddressableAdditiveScene(List<string> scenesToUnload, UnityAction onBeforeLoadCallback = null, UnityAction onAfterLoadCallback = null)
+        public void UnloadAddressableScenesAdditive(List<string> scenesToUnload, UnityAction onBeforeLoadCallback = null, UnityAction onAfterLoadCallback = null)
         {
-            //IsLoading = true;
-            //onBeforeLoadCallback?.Invoke();
+            IsLoading = true;
+            onBeforeLoadCallback?.Invoke();
 
-            //int scenesLoaded = 0;
-            //foreach (string sceneName in scenesToUnload)
-            //{
-            //    AsyncOperationHandle<SceneInstance> loadSceneOperation = Addressables.UnloadSceneAsync(sceneName);
+            int scenesLoaded = 0;
+            foreach (string sceneName in scenesToUnload)
+            {
+                SceneInstance scene = activeAddressableScenes.Find(x => x.Scene.name == sceneName);
+                AsyncOperationHandle<SceneInstance> loadSceneOperation = Addressables.UnloadSceneAsync(scene);
 
-            //    loadSceneOperation.Completed += (op) =>
-            //    {
-            //        switch (loadSceneOperation.Status)
-            //        {
-            //            case AsyncOperationStatus.Succeeded:
-            //                scenesLoaded++;
-            //                if (scenesLoaded == scenesToUnload.Count - 1)
-            //                {
-            //                    onAfterLoadCallback?.Invoke();
-            //                    IsLoading = false;
-            //                    return;
-            //                }
-            //                break;
-            //            case AsyncOperationStatus.Failed:
-            //                throw new Exception("Failed loading Scene");
-            //        }
-            //    };
-            //}
+                loadSceneOperation.Completed += (op) =>
+                {
+                    switch (loadSceneOperation.Status)
+                    {
+                        case AsyncOperationStatus.Succeeded:
+                            scenesLoaded++;
+                            activeAddressableScenes.Remove(op.Result);
+                            if (scenesLoaded == scenesToUnload.Count - 1)
+                            {
+                                onAfterLoadCallback?.Invoke();
+                                IsLoading = false;
+                                return;
+                            }
+                            break;
+                        case AsyncOperationStatus.Failed:
+                            throw new Exception("Failed loading Scene");
+                    }
+                };
+            }
         }
 
         #endregion
