@@ -17,8 +17,6 @@ namespace SPACS.Utilities.SceneLoader.Runtime
     [CreateAssetMenu(menuName = "AnotheReality/Systems/Utilities/SceneLoader", fileName = "SceneLoaderConfig")]
     public class SceneLoaderSystem : BaseSystem
     {
-        private List<SceneInstance> activeScenes = new();
-
         public bool IsLoading { get; private set; }
         public UnityEvent<AsyncOperationHandle> LoadingAddressableEvent { get; private set; } = new();
 
