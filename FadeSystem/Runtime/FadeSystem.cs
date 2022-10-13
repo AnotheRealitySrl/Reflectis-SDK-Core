@@ -13,16 +13,11 @@ namespace SPACS.Utilities.FadeSystem.Runtime
     {
         #region Inspector variables
 
-        //[Header("Fade system references")]
-        //[SerializeField] private Camera camera;
-
-        [Header("Component")]
-        [SerializeField] private GameObject volumeManagerPrefab;
-
         [Header("Configuration")]
-        [SerializeField] private float fadeTime;
-        [SerializeField] private string unaffectedByFadeLayerName;
-        [SerializeField] private List<GameObject> objsUnaffectedByFade;
+        [SerializeField] private GameObject volumeManagerPrefab;
+        [SerializeField] private float fadeTime = 1f;
+        [SerializeField] private bool fadeOnStart = true;
+        [SerializeField] private LayerManagerBase layerManager;
 
         #endregion
 
@@ -42,8 +37,17 @@ namespace SPACS.Utilities.FadeSystem.Runtime
             }
 
             fadeManager.FadeTime = fadeTime;
-            fadeManager.UnaffectedByFadeLayerName = unaffectedByFadeLayerName;
-            fadeManager.ObjsUnaffectedByFade = objsUnaffectedByFade;
+            fadeManager.FadeOnStart = fadeOnStart;
+
+            if (layerManager != null)
+            {
+                fadeManager.LayerManager = layerManager;
+
+                fadeManager.OnFadeStart?.AddListener(layerManager.MoveObjectsToLayer);
+                fadeManager.OnFadeEnd?.AddListener(layerManager.ResetObjectsLayer);
+
+                fadeManager.Init();
+            }
         }
 
         #endregion
@@ -55,8 +59,8 @@ namespace SPACS.Utilities.FadeSystem.Runtime
         public void FadeToDesaturated(Action onEnd = null) => fadeManager.FadeToDesaturated(onEnd);
         public void FadeFromDesaturated(Action onEnd = null) => fadeManager.FadeFromDesaturated(onEnd);
 
-        public void UpdateObjsUnaffectedByFade(List<GameObject> objsUnaffectedByFade) => fadeManager.ObjsUnaffectedByFade = objsUnaffectedByFade;
-        public void ResetObjsUnaffectedByFade() => fadeManager.ObjsUnaffectedByFade.Clear();
+        public void UpdateObjsUnaffectedByFade(List<GameObject> objsUnaffectedByFade) => fadeManager.LayerManager?.UpdateObjsUnaffectedByFade(objsUnaffectedByFade);
+        public void ResetObjsUnaffectedByFade() => fadeManager.LayerManager?.ResetObjsUnaffectedByFade();
 
         #endregion
     }

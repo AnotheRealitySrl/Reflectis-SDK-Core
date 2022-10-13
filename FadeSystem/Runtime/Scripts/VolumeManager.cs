@@ -3,6 +3,7 @@ using SPACS.Tween;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Rendering;
 
 namespace SPACS.Utilities.FadeSystem.Runtime
@@ -26,9 +27,24 @@ namespace SPACS.Utilities.FadeSystem.Runtime
 
         #region Interface implementation
 
-        public string UnaffectedByFadeLayerName { get; set; }
-        public List<GameObject> ObjsUnaffectedByFade { get; set; }
         public float FadeTime { get; set; }
+        public bool FadeOnStart { get; set; }
+
+        public ILayerManager LayerManager { get; set; }
+
+        public UnityEvent OnFadeStart { get; } = new();
+        public UnityEvent OnFadeEnd { get; } = new();
+
+        public void Init()
+        {
+            // Desaturated volume begins always deactivated;
+            desaturateVolume.weight = 0;
+
+            if (FadeOnStart)
+            {
+                FadeFromBlack();
+            }
+        }
 
         public void FadeToBlack(System.Action onEnd = null)
         {
@@ -37,12 +53,7 @@ namespace SPACS.Utilities.FadeSystem.Runtime
                 if (blackCoroutine != null)
                     StopCoroutine(blackCoroutine);
 
-                foreach (var go in ObjsUnaffectedByFade)
-                {
-                    go.layer = LayerMask.NameToLayer(UnaffectedByFadeLayerName);
-                }
-
-
+                LayerManager.MoveObjectsToLayer();
                 blackCoroutine = StartCoroutine(FadeVolumeWeight(fadeVolume, fadeVolume.weight, 1, FadeTime * (1f - fadeVolume.weight), onEnd));
             }
         }
@@ -57,11 +68,7 @@ namespace SPACS.Utilities.FadeSystem.Runtime
                 blackCoroutine = StartCoroutine(FadeVolumeWeight(fadeVolume, fadeVolume.weight, 0, FadeTime * fadeVolume.weight, () =>
                 {
                     onEnd?.Invoke();
-
-                    foreach (var go in ObjsUnaffectedByFade)
-                    {
-                        go.layer = 0;
-                    }
+                    LayerManager.ResetObjectsLayer();
                 }));
             }
         }
@@ -73,11 +80,7 @@ namespace SPACS.Utilities.FadeSystem.Runtime
                 if (desaturatedCoroutine != null)
                     StopCoroutine(desaturatedCoroutine);
 
-                foreach (var go in ObjsUnaffectedByFade)
-                {
-                    go.layer = LayerMask.NameToLayer(UnaffectedByFadeLayerName);
-                }
-
+                LayerManager.MoveObjectsToLayer();
                 desaturatedCoroutine = StartCoroutine(FadeVolumeWeight(desaturateVolume, desaturateVolume.weight, 1, FadeTime * (1f - desaturateVolume.weight), onEnd));
             }
         }
@@ -92,11 +95,7 @@ namespace SPACS.Utilities.FadeSystem.Runtime
                 desaturatedCoroutine = StartCoroutine(FadeVolumeWeight(desaturateVolume, desaturateVolume.weight, 0, FadeTime * desaturateVolume.weight, () =>
                 {
                     onEnd?.Invoke();
-
-                    foreach (var go in ObjsUnaffectedByFade)
-                    {
-                        go.layer = 0;
-                    }
+                    LayerManager.ResetObjectsLayer();
                 }));
             }
         }
@@ -121,11 +120,6 @@ namespace SPACS.Utilities.FadeSystem.Runtime
             yield return null;
         }
 
-        private bool TryGetLayerByName(string layerName, out int layerMask)
-        {
-            layerMask = LayerMask.NameToLayer(layerName);
-            return layerMask > -1;
-        }
 
         #endregion
     }
