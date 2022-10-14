@@ -8,7 +8,7 @@ namespace SPACS.Toolkit.FadeSystem.Runtime
 {
     public abstract class LayerManagerBase : ScriptableObject, ILayerManager
     {
-        public List<(GameObject, int)> ObjsUnaffectedByFade { get; set; }
+        public List<(GameObject, int)> ObjsUnaffectedByFade { get; set; } = new();
 
         public abstract void UpdateObjsUnaffectedByFade(List<GameObject> objsUnaffectedByFade);
 
