@@ -2,9 +2,9 @@
     "name": "SPACS.Toolkit.FadeSystem.Runtime",
     "rootNamespace": "",
     "references": [
-        "SPACS.Core.Runtime",
-        "Unity.RenderPipelines.Core.Runtime",
-        "SPACS.Tweening.Runtime"
+        "GUID:df380645f10b7bc4b97d4f5eb6303d95",
+        "GUID:ab59f74e483e1ee4595bfefea56493f2",
+        "GUID:b45cd1742d86bcd45861fb768110c250"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

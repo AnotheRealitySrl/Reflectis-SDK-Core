@@ -9,7 +9,7 @@ using UnityEngine.Rendering;
 namespace SPACS.Toolkit.FadeSystem.Runtime
 {
     [CreateAssetMenu(menuName = "AnotheReality/Systems/Utilities/FadeSystem", fileName = "FadeSystemConfig")]
-    public class FadeSystem : BaseSystem
+    public class FadeManagerSystem : BaseSystem
     {
         #region Inspector variables
 
