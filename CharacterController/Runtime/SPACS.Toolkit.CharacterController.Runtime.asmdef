@@ -1,0 +1,17 @@
+{
+    "name": "SPACS.Toolkit.CharacterController.Runtime",
+    "rootNamespace": "",
+    "references": [
+        "GUID:ab59f74e483e1ee4595bfefea56493f2",
+        "GUID:5c2627465b8cefd4c974f0048b33e30f"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
