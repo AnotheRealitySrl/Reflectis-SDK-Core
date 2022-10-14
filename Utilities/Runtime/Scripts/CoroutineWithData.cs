@@ -2,7 +2,7 @@ using System.Collections;
 
 using UnityEngine;
 
-namespace SPACS.Toolkit
+namespace SPACS.Toolkit.Utilities.Runtime
 {
     public class CoroutineWithData
     {

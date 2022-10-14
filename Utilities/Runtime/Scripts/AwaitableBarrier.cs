@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
 
-namespace SPACS.Toolkit
+namespace SPACS.Toolkit.Utilities.Runtime
 {
 	public class AwaitableBarrier
 	{

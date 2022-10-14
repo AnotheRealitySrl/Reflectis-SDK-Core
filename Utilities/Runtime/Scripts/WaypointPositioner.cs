@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace SPACS.Toolkit
+namespace SPACS.Toolkit.Utilities.Runtime
 {
     ///////////////////////////////////////////////////////////////////////////
     /// <summary>
