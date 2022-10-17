@@ -11,14 +11,14 @@ namespace SPACS.Toolkit.CharacterController.Runtime
         #region Inspector variables
 
         [Header("Character controller")]
-        [SerializeField] protected CharacterControllerBase characterControllerPrefab;
+        [SerializeField] protected GameObject characterControllerPrefab;
         [SerializeField] protected Pose spawnPose;
 
         #endregion
 
         #region Properties
 
-        public CharacterControllerBase CharacterControllerInstance { get; private set; }
+        public ICharacterController CharacterControllerInstance { get; private set; }
 
         #endregion
 
@@ -26,7 +26,10 @@ namespace SPACS.Toolkit.CharacterController.Runtime
 
         public override void Init()
         {
-            Instantiate(characterControllerPrefab.gameObject, spawnPose.position, spawnPose.rotation).GetComponent<CharacterControllerBase>();
+            if (Instantiate(characterControllerPrefab, spawnPose.position, spawnPose.rotation).TryGetComponent(out ICharacterController CharacterControllerInstance))
+            {
+                this.CharacterControllerInstance = CharacterControllerInstance;
+            }
         }
 
         #endregion

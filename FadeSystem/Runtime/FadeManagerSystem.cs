@@ -17,7 +17,7 @@ namespace SPACS.Toolkit.FadeSystem.Runtime
         [SerializeField] private GameObject volumeManagerPrefab;
         [SerializeField] private float fadeTime = 1f;
         [SerializeField] private bool fadeOnStart = true;
-        [SerializeField] private LayerManagerBase layerManager;
+        [SerializeField] private ILayerManager layerManager;
 
         #endregion
 

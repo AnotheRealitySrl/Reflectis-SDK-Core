@@ -1,7 +1,16 @@
-﻿namespace SPACS.Toolkit.CharacterController.Runtime
+﻿using System.Threading.Tasks;
+
+using UnityEngine;
+
+namespace SPACS.Toolkit.CharacterController.Runtime
 {
     public class CharacterControllerBase : ICharacterController
     {
-        public AvatarLinkerBase AvatarLinker { get; private set; }
+        public Transform HeadReference { get; private set; }
+
+        public virtual void Setup(ICharacterController source)
+        {
+            HeadReference = source.HeadReference;
+        }
     }
 }
