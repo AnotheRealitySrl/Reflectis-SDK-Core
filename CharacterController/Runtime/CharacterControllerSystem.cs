@@ -1,5 +1,6 @@
 using SPACS.Core;
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,7 +19,7 @@ namespace SPACS.Toolkit.CharacterController.Runtime
 
         #region Properties
 
-        public ICharacterController CharacterControllerInstance { get; private set; }
+        public ICharacterController CharacterControllerInstance { get; protected set; }
 
         #endregion
 
@@ -26,10 +27,11 @@ namespace SPACS.Toolkit.CharacterController.Runtime
 
         public override void Init()
         {
-            if (Instantiate(characterControllerPrefab, spawnPose.position, spawnPose.rotation).TryGetComponent(out ICharacterController CharacterControllerInstance))
+            if (!Instantiate(characterControllerPrefab, spawnPose.position, spawnPose.rotation).TryGetComponent(out ICharacterController characterController))
             {
-                this.CharacterControllerInstance = CharacterControllerInstance;
+                throw new Exception("Character controller not found");
             }
+            CharacterControllerInstance = characterController;
         }
 
         #endregion
