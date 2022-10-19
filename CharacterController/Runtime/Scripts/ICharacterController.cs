@@ -9,7 +9,5 @@ namespace SPACS.Toolkit.CharacterController.Runtime
     public interface ICharacterController
     {
         Transform HeadReference { get; }
-
-        Task<ICharacterController> Setup(ICharacterController source);
     }
 }

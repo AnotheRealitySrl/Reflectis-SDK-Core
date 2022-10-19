@@ -17,7 +17,7 @@ namespace SPACS.Toolkit.FadeSystem.Runtime
         [SerializeField] private GameObject volumeManagerPrefab;
         [SerializeField] private float fadeTime = 1f;
         [SerializeField] private bool fadeOnStart = true;
-        [SerializeField] private ILayerManager layerManager;
+        [SerializeField] private LayerManagerBase layerManager;
 
         #endregion
 
@@ -39,15 +39,15 @@ namespace SPACS.Toolkit.FadeSystem.Runtime
             fadeManager.FadeTime = fadeTime;
             fadeManager.FadeOnStart = fadeOnStart;
 
-            if (layerManager != null)
+            if (layerManager)
             {
                 fadeManager.LayerManager = layerManager;
 
                 fadeManager.OnFadeStart?.AddListener(layerManager.MoveObjectsToLayer);
                 fadeManager.OnFadeEnd?.AddListener(layerManager.ResetObjectsLayer);
-
-                fadeManager.Init();
             }
+
+            fadeManager.Init();
         }
 
         #endregion
