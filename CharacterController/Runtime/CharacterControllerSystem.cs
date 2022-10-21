@@ -19,7 +19,7 @@ namespace SPACS.Toolkit.CharacterController.Runtime
 
         #region Properties
 
-        public ICharacterController CharacterControllerInstance { get; protected set; }
+        public CharacterControllerBase CharacterControllerInstance { get; protected set; }
 
         #endregion
 
@@ -27,11 +27,19 @@ namespace SPACS.Toolkit.CharacterController.Runtime
 
         public override void Init()
         {
-            if (!Instantiate(characterControllerPrefab, spawnPose.position, spawnPose.rotation).TryGetComponent(out ICharacterController characterController))
+            if (!characterControllerPrefab)
             {
-                throw new Exception("Character controller not found");
+                CharacterControllerInstance = FindObjectOfType<CharacterControllerBase>();
             }
-            CharacterControllerInstance = characterController;
+            else
+            {
+                if (!Instantiate(characterControllerPrefab, spawnPose.position, spawnPose.rotation).TryGetComponent(out CharacterControllerBase characterController))
+                {
+                    throw new Exception("Character controller not found");
+                }
+                CharacterControllerInstance = characterController;
+            }
+            
         }
 
         #endregion

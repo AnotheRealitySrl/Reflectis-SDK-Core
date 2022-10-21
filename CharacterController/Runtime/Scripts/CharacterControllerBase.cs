@@ -4,11 +4,23 @@ using UnityEngine;
 
 namespace SPACS.Toolkit.CharacterController.Runtime
 {
-    public abstract class CharacterControllerBase<T> : MonoBehaviour, ICharacterController where T : ICharacterController
+    public abstract class CharacterControllerBase : MonoBehaviour, ICharacterController
     {
-        public Transform HeadReference { get; private set; }
+        #region Inspector variables
 
-        public abstract Task<T> Setup(T source);
+        [SerializeField] protected Transform pivotReference;
+        [SerializeField] protected Transform headReference;
+
+        #endregion
+
+        #region Interface implementation
+
+        public Transform PivotReference => pivotReference;
+        public Transform HeadReference => headReference;
+
+        public abstract Task<CharacterControllerBase> Setup(CharacterControllerBase source);
+
+        #endregion
 
     }
 }

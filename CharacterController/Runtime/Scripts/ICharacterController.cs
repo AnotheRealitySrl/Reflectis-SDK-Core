@@ -8,6 +8,9 @@ namespace SPACS.Toolkit.CharacterController.Runtime
 {
     public interface ICharacterController
     {
+        Transform PivotReference { get; }
         Transform HeadReference { get; }
+
+        Task<CharacterControllerBase> Setup(CharacterControllerBase source);
     }
 }
