@@ -11,6 +11,6 @@ namespace SPACS.Toolkit.CharacterController.Runtime
         Transform PivotReference { get; }
         Transform HeadReference { get; }
 
-        Task<CharacterControllerBase> Setup(CharacterControllerBase source);
+        Task Setup(CharacterControllerBase source);
     }
 }

@@ -8,6 +8,7 @@ namespace SPACS.Toolkit.CharacterController.Runtime
     {
         #region Inspector variables
 
+        [Header("Avatar references")]
         [SerializeField] protected Transform pivotReference;
         [SerializeField] protected Transform headReference;
 
@@ -18,7 +19,7 @@ namespace SPACS.Toolkit.CharacterController.Runtime
         public Transform PivotReference => pivotReference;
         public Transform HeadReference => headReference;
 
-        public abstract Task<CharacterControllerBase> Setup(CharacterControllerBase source);
+        public abstract Task Setup(CharacterControllerBase source);
 
         #endregion
 
