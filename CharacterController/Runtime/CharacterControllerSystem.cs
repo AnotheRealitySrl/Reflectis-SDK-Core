@@ -43,6 +43,15 @@ namespace SPACS.Toolkit.CharacterController.Runtime
         }
 
         #endregion
+
+        #region Public API
+
+        public void MoveCharacter(Pose newPose)
+        {
+            CharacterControllerInstance.transform.SetPositionAndRotation(newPose.position, newPose.rotation);
+        }
+
+        #endregion
     }
 
 }
