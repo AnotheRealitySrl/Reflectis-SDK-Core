@@ -4,22 +4,19 @@ using UnityEngine;
 
 namespace SPACS.Toolkit.CharacterController.Runtime
 {
-    public abstract class CharacterControllerBase : MonoBehaviour, ICharacterController
+    public abstract class CharacterControllerBase : CharacterBase, ICharacterController
     {
         #region Inspector variables
 
-        [Header("Avatar references")]
-        [SerializeField] protected Transform pivotReference;
-        [SerializeField] protected Transform headReference;
+        [SerializeField] protected Camera cam;
+        [SerializeField] protected ICharacterController.InteractionType interactorsType;
 
         #endregion
 
         #region Interface implementation
 
-        public Transform PivotReference => pivotReference;
-        public Transform HeadReference => headReference;
-
-        public abstract Task Setup(CharacterControllerBase source);
+        public Camera Camera => cam;
+        public ICharacterController.InteractionType InteractorsType => interactorsType;
 
         #endregion
 

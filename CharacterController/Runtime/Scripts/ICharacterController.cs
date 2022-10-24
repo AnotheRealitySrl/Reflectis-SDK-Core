@@ -6,11 +6,23 @@ using UnityEngine;
 
 namespace SPACS.Toolkit.CharacterController.Runtime
 {
-    public interface ICharacterController
+    public interface ICharacterController : ICharacter
     {
-        Transform PivotReference { get; }
-        Transform HeadReference { get; }
+        #region Enums
 
-        Task Setup(CharacterControllerBase source);
+        public enum InteractionType
+        {
+            Controllers,
+            Hands
+        }
+
+        #endregion
+
+        #region Interface properties
+
+        Camera Camera { get; }
+        InteractionType InteractorsType { get; }
+
+        #endregion
     }
 }
