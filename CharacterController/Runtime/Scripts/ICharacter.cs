@@ -12,7 +12,9 @@ namespace SPACS.Toolkit.CharacterController.Runtime
         Transform HeadReference { get; }
         Transform LeftInteractorReference { get; }
         Transform RightInteractorReference { get; }
+        Transform LabelReference { get; }
 
         Task Setup(CharacterControllerBase source);
+        Task Unsetup();
     }
 }
