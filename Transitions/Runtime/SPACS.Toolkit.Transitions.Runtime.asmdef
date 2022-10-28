@@ -1,0 +1,16 @@
+{
+    "name": "SPACS.Toolkit.Transitions.Runtime",
+    "rootNamespace": "",
+    "references": [
+        "GUID:ccca149858d47314ca2c1b4f127c645e"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
