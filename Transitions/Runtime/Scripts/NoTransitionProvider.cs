@@ -8,14 +8,14 @@ namespace SPACS.Toolkit.Transitions.Runtime
         [SerializeField, Tooltip("The GameObject to activate")]
         private GameObject content;
 
-        public override async Task EnterTransition()
+        public override async Task EnterTransitionAsync()
         {
             await Task.Yield();
             content.SetActive(true);
             await Task.Yield();
         }
 
-        public override async Task ExitTransition()
+        public override async Task ExitTransitionAsync()
         {
             await Task.Yield();
             content.SetActive(false);

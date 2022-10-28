@@ -11,7 +11,7 @@ namespace SPACS.Toolkit.Transitions.Runtime
     {
         [SerializeField] private List<Animator> animatorsList;
 
-        public override async Task EnterTransition()
+        public override async Task EnterTransitionAsync()
         {
             IEnumerable<Task> animatorsTaskList = animatorsList.Select(async animator => 
             {
@@ -29,7 +29,7 @@ namespace SPACS.Toolkit.Transitions.Runtime
             await Task.WhenAll(animatorsTaskList);
         }
 
-        public override async Task ExitTransition()
+        public override async Task ExitTransitionAsync()
         {
             IEnumerable<Task> animatorsTaskList = animatorsList.Select(async animator =>
             {

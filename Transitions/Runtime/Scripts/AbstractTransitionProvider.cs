@@ -6,20 +6,24 @@ namespace SPACS.Toolkit.Transitions.Runtime
 {
     public abstract class AbstractTransitionProvider : MonoBehaviour
     {
-        public virtual async Task DoTransition(bool value)
+        public virtual async void DoTransition(bool value) => await DoTransitionAsync(value);
+        public virtual async Task DoTransitionAsync(bool value)
         {
             if (value)
             {
-                await EnterTransition();
+                await EnterTransitionAsync();
             }
             else
             {
-                await ExitTransition();
+                await ExitTransitionAsync();
             }
         }
 
-        public abstract Task EnterTransition();
-        public abstract Task ExitTransition();
+        public virtual async void EnterTransition() => await EnterTransitionAsync();
+        public virtual async void ExitTransition() => await ExitTransitionAsync();
+
+        public abstract Task EnterTransitionAsync();
+        public abstract Task ExitTransitionAsync();
     }
 }
 

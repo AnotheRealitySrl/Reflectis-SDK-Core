@@ -9,7 +9,7 @@ namespace SPACS.Toolkit.Transitions.Runtime
     {
         [SerializeField] private Animator animator;
 
-        public override async Task EnterTransition()
+        public override async Task EnterTransitionAsync()
         {
             if (animator.ContainsParam("Visible"))
             {
@@ -22,7 +22,7 @@ namespace SPACS.Toolkit.Transitions.Runtime
             }
         }
 
-        public override async Task ExitTransition()
+        public override async Task ExitTransitionAsync()
         {
             if (animator.ContainsParam("Visible"))
             {
