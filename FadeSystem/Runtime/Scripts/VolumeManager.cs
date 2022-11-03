@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 namespace SPACS.Toolkit.FadeSystem.Runtime
 {
@@ -39,6 +40,9 @@ namespace SPACS.Toolkit.FadeSystem.Runtime
         {
             // Desaturated volume begins always deactivated;
             desaturateVolume.weight = 0;
+
+            var cameraData = Camera.main.GetUniversalAdditionalCameraData();
+            cameraData.cameraStack.Add(GetComponentInChildren<Camera>());
 
             if (FadeOnStart)
             {
