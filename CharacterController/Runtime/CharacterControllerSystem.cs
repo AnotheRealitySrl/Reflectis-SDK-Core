@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace SPACS.Toolkit.CharacterController.Runtime
 {
@@ -20,6 +21,12 @@ namespace SPACS.Toolkit.CharacterController.Runtime
         #region Properties
 
         public CharacterControllerBase CharacterControllerInstance { get; protected set; }
+
+        #endregion
+
+        #region Unity Events
+
+        public UnityEvent<CharacterControllerBase> OnCharacterControllerAssociated { get; } = new();
 
         #endregion
 
