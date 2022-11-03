@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace SPACS.Toolkit.CharacterController.Runtime
 {
-    public abstract class CharacterControllerBase : CharacterBase, ICharacterController
+    public class CharacterControllerBase : CharacterBase, ICharacterController
     {
         #region Inspector variables
 
