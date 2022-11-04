@@ -6,11 +6,11 @@ namespace SPACS.Toolkit.CharacterController.Runtime
 {
     public enum EFingerType
     {
-        Thumb,
         Index,
         Middle,
         Ring,
-        Pinky
+        Pinky,
+        Thumb
     }
 }
 
