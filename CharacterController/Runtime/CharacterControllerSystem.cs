@@ -26,7 +26,7 @@ namespace SPACS.Toolkit.CharacterController.Runtime
 
         #region Unity Events
 
-        public UnityEvent<CharacterControllerBase> OnCharacterControllerAssociated { get; } = new();
+        public UnityEvent<CharacterControllerBase> OnCharacterControllerSetupComplete { get; } = new();
 
         #endregion
 
