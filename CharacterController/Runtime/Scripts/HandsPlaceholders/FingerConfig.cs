@@ -8,10 +8,14 @@ namespace SPACS.Toolkit.CharacterController.Runtime
     [Serializable]
     public class FingerConfig
     {
+        [SerializeField] private float tipRadius; 
+
         [SerializeField] private Quaternion[] minGripRotPose;
         [SerializeField] private Vector3[] minGripPosPose;
         [SerializeField] private Quaternion[] maxGripRotPose;
         [SerializeField] private Vector3[] maxGripPosPose;
+
+        public float TipRadius { get => tipRadius; set => tipRadius = value; }
 
         public Quaternion[] MinGripRotPose { get => minGripRotPose; set => minGripRotPose = value; }
         public Vector3[] MinGripPosPose { get => minGripPosPose; set => minGripPosPose = value; }
