@@ -1,8 +1,8 @@
 {
-    "name": "SPACS.Toolkit.Transitions.Runtime",
-    "rootNamespace": "",
+    "name": "SPACS.SDK.CharacterController",
+    "rootNamespace": "SPACS.SDK.CharacterController",
     "references": [
-        "GUID:ccca149858d47314ca2c1b4f127c645e"
+        "GUID:ab59f74e483e1ee4595bfefea56493f2"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

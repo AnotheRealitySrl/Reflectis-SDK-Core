@@ -2,7 +2,7 @@ using System;
 using System.Runtime.CompilerServices;
 using UnityEngine.Networking;
 
-namespace SPACS.Toolkit.Extensions.Runtime
+namespace SPACS.SDK.Extensions
 {
     public static class UnityWebRequestExtension
     {

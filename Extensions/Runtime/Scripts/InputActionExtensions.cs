@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace SPACS.Toolkit.Extensions.Runtime
+namespace SPACS.SDK.Extensions
 {
     public static class InputActionExtensions
     {

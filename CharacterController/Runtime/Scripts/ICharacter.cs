@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 using UnityEngine;
 
-namespace SPACS.Toolkit.CharacterController.Runtime
+namespace SPACS.SDK.CharacterController
 {
     public interface ICharacter
     {

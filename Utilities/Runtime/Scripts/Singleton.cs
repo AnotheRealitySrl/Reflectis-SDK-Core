@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SPACS.Toolkit.Utilities.Runtime
+namespace SPACS.SDK.Utilities
 {
     public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     {

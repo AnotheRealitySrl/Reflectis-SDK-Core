@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 
 
-namespace SPACS.Toolkit.Transitions.Runtime
+namespace SPACS.SDK.Transitions
 {
     public abstract class AbstractTransitionProvider : MonoBehaviour
     {

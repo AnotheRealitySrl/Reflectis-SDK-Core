@@ -1,9 +1,9 @@
-﻿using SPACS.Toolkit.Extensions.Runtime;
+﻿using SPACS.SDK.Extensions;
 
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace SPACS.Toolkit.Transitions.Runtime
+namespace SPACS.SDK.Transitions
 {
     public class AnimatorTransitionProvider : AbstractTransitionProvider
     {

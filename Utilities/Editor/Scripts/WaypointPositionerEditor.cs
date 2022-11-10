@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace SPACS.Toolkit.Utilities.Runtime
+namespace SPACS.SDK.Utilities
 {
     /// <summary>
     /// Custom editor for an <see cref="WaypointPositioner"/>.

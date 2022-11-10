@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-namespace SPACS.Toolkit.FadeSystem.Runtime
+namespace SPACS.SDK.FadeSystem
 {
     [CreateAssetMenu(menuName = "AnotheReality/Systems/Utilities/FadeSystem", fileName = "FadeSystemConfig")]
     public class FadeManagerSystem : BaseSystem

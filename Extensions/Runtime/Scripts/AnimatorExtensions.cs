@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace SPACS.Toolkit.Extensions.Runtime
+namespace SPACS.SDK.Extensions
 {
     public static class AnimatorExtensions
     {

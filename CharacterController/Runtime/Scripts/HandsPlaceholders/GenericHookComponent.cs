@@ -6,7 +6,7 @@ using System.Linq;
 
 using UnityEngine;
 
-namespace SPACS.Toolkit.CharacterController.Runtime
+namespace SPACS.SDK.CharacterController
 {
     public class GenericHookComponent : MonoBehaviour
     {

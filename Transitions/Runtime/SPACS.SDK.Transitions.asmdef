@@ -1,10 +1,8 @@
 {
-    "name": "SPACS.Toolkit.SceneLoader.Runtime",
-    "rootNamespace": "",
+    "name": "SPACS.SDK.Transitions",
+    "rootNamespace": "SPACS.SDK.Transitions",
     "references": [
-        "GUID:ab59f74e483e1ee4595bfefea56493f2",
-        "GUID:9e24947de15b9834991c9d8411ea37cf",
-        "GUID:84651a3751eca9349aac36a66bba901b"
+        "GUID:ccca149858d47314ca2c1b4f127c645e"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

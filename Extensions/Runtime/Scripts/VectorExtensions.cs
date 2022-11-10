@@ -4,7 +4,7 @@ using System.Linq;
 
 using UnityEngine;
 
-namespace SPACS.Toolkit.Extensions.Runtime
+namespace SPACS.SDK.Extensions
 {
     public static class VectorExtensions
     {

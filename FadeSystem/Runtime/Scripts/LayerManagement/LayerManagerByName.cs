@@ -4,7 +4,7 @@ using System.Linq;
 
 using UnityEngine;
 
-namespace SPACS.Toolkit.FadeSystem.Runtime
+namespace SPACS.SDK.FadeSystem
 {
     [CreateAssetMenu(menuName = "AnotheReality/Systems/Utilities/FadeSystem/LayerManagerByName", fileName = "LayerManagerByNameConfig")]
     public class LayerManagerByName : LayerManagerBase

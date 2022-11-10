@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace SPACS.Toolkit.CharacterController.Runtime
+namespace SPACS.SDK.CharacterController
 {
     public class CharacterControllerSystem : BaseSystem
     {
