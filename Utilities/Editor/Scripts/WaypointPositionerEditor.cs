@@ -1,13 +1,13 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace SPACS.SDK.Utilities
+namespace SPACS.SDK.Utilities.Editor
 {
     /// <summary>
     /// Custom editor for an <see cref="WaypointPositioner"/>.
     /// </summary>
     [CustomEditor(typeof(WaypointPositioner))]
-    public class WaypointPositionerEditor : Editor
+    public class WaypointPositionerEditor : UnityEditor.Editor
     {
         WaypointPositioner waypointPositioner;
 
