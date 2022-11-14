@@ -15,7 +15,7 @@ namespace SPACS.SDK.CharacterController
         [Header("General")]
         [SerializeField] protected bool SpawnCharacterOnInit = false;
         [Header("Character controller")]
-        [SerializeField] protected GameObject characterControllerPrefab;
+        [SerializeField] protected CharacterControllerBase characterControllerPrefab;
         [SerializeField] protected Pose spawnPose;
 
         #endregion
@@ -64,6 +64,11 @@ namespace SPACS.SDK.CharacterController
         public void MoveCharacter(Pose newPose)
         {
             CharacterControllerInstance.transform.SetPositionAndRotation(newPose.position, newPose.rotation);
+        }
+
+        public virtual void Destroy() {
+            if (CharacterControllerInstance != null)
+                Destroy(CharacterControllerInstance.gameObject);
         }
 
         #endregion
