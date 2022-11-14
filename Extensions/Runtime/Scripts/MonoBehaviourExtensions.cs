@@ -48,6 +48,29 @@ namespace SPACS.SDK.Extensions
                 return go.AddComponent<T>();
             }
         }
+
+        /// <summary>
+        /// Cloning serializable values from original one.
+        /// </summary>
+        /// <param name="_this"></param>
+        /// <param name="original"></param>
+        public static void CopyValuesFromOtherComponent(this Component _this, Component original) {
+            var json = JsonUtility.ToJson(original);
+            JsonUtility.FromJsonOverwrite(json, _this);
+        }
+
+        /// <summary>
+        /// Add typed component cloning serializable values from original one.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="_this"></param>
+        /// <param name="original"></param>
+        public static void AddComponent<T>(this GameObject _this, T original) where T : Component {
+            var json = JsonUtility.ToJson(original);
+            Component newComponent = _this.gameObject.AddComponent<T>();
+            JsonUtility.FromJsonOverwrite(json, newComponent);
+        }
+
     }
 
 }
