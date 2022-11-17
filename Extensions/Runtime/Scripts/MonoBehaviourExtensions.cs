@@ -62,13 +62,14 @@ namespace SPACS.SDK.Extensions
         /// <summary>
         /// Add typed component cloning serializable values from original one.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="_this"></param>
-        /// <param name="original"></param>
-        public static void AddComponent<T>(this GameObject _this, T original) where T : Component {
+        /// <typeparam name="T">Return component just created.</typeparam>
+        /// <param name="_this">This gameobject.</param>
+        /// <param name="original">Original component to clone to the new one.</param>
+        public static T AddComponent<T>(this GameObject _this, T original) where T : Component {
             var json = JsonUtility.ToJson(original);
-            Component newComponent = _this.gameObject.AddComponent<T>();
+            T newComponent = _this.gameObject.AddComponent<T>();
             JsonUtility.FromJsonOverwrite(json, newComponent);
+            return newComponent;
         }
 
     }
