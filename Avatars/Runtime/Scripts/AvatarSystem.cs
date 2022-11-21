@@ -13,6 +13,9 @@ namespace SPACS.SDK.Avatars
     {
         #region Inspector variables
 
+        [Header("General")]
+        [SerializeField] private bool spawnAvatarOnInit;
+
         [Header("Avatar Prefab")]
         [SerializeField] private AvatarControllerBase avatarPrefab;
 
@@ -49,17 +52,23 @@ namespace SPACS.SDK.Avatars
 
         #region System implementation
 
-        public override async void Init()
+        public override void Init()
+        {
+            if (spawnAvatarOnInit)
+                Spawn();
+        }
+
+        #endregion
+
+        #region Public API
+
+        private async void Spawn()
         {
             await CreateAvatarInstance(avatarPrefab);
 
             AvatarConfigChanged.AddListener(UpdateAvatarInstanceCustomization);
             PlayerNickNameChanged.AddListener(UpdateAvatarInstanceNickName);
         }
-
-        #endregion
-
-        #region Public API
 
         public async Task CreateAvatarInstance(AvatarControllerBase avatar)
         {
