@@ -8,12 +8,13 @@ using UnityEngine.Events;
 
 namespace SPACS.SDK.CharacterController
 {
+    [CreateAssetMenu(menuName = "AnotheReality/Systems/CharacterController/CharacterControllerBase", fileName = "CharacterControllerBaseConfig")]
     public class CharacterControllerSystem : BaseSystem
     {
         #region Inspector variables
 
         [Header("General")]
-        [SerializeField] protected bool SpawnCharacterOnInit = false;
+        [SerializeField] protected bool spawnCharacterOnInit = false;
         [Header("Character controller")]
         [SerializeField] protected CharacterControllerBase characterControllerPrefab;
         [SerializeField] protected Pose spawnPose;
@@ -36,7 +37,7 @@ namespace SPACS.SDK.CharacterController
 
         public override void Init()
         {
-            if (SpawnCharacterOnInit)
+            if (spawnCharacterOnInit)
                 Spawn();
         }
 
