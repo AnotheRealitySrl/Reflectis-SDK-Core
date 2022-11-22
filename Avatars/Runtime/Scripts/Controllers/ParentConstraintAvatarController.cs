@@ -1,11 +1,6 @@
-using SPACS.SDK.CharacterController;
-
-using System.Collections;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-
-using UnityEngine;
 using UnityEngine.Animations;
+using SPACS.SDK.CharacterController;
 
 namespace SPACS.SDK.Avatars
 {
@@ -29,13 +24,19 @@ namespace SPACS.SDK.Avatars
                 headParentConstraint.constraintActive = true;
             }
 
-            ParentConstraint leftHandConstraint = LeftInteractorReference.gameObject.AddComponent<ParentConstraint>();
-            leftHandConstraint.AddSource(new ConstraintSource { sourceTransform = source.LeftInteractorReference, weight = 1 });
-            leftHandConstraint.constraintActive = true;
+            if (LeftInteractorReference && source.LeftInteractorReference)
+            {
+                ParentConstraint leftHandConstraint = LeftInteractorReference.gameObject.AddComponent<ParentConstraint>();
+                leftHandConstraint.AddSource(new ConstraintSource { sourceTransform = source.LeftInteractorReference, weight = 1 });
+                leftHandConstraint.constraintActive = true;
+            }
 
-            ParentConstraint rightHandConstraint = RightInteractorReference.gameObject.AddComponent<ParentConstraint>();
-            rightHandConstraint.AddSource(new ConstraintSource { sourceTransform = source.RightInteractorReference, weight = 1 });
-            rightHandConstraint.constraintActive = true;
+            if (RightInteractorReference && source.RightInteractorReference)
+            {
+                ParentConstraint rightHandConstraint = RightInteractorReference.gameObject.AddComponent<ParentConstraint>();
+                rightHandConstraint.AddSource(new ConstraintSource { sourceTransform = source.RightInteractorReference, weight = 1 });
+                rightHandConstraint.constraintActive = true;
+            }
         }
     }
 }
