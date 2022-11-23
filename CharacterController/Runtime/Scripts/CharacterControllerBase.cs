@@ -13,7 +13,7 @@ namespace SPACS.SDK.CharacterController
 
         #region Interface implementation
 
-        public Camera Camera => cam;
+        public Camera Camera { get => cam; set => cam = value; }
         public ICharacterController.InteractionType InteractorsType => interactorsType;
 
         #endregion
