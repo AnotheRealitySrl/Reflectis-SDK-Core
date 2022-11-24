@@ -8,6 +8,7 @@ namespace SPACS.SDK.Systems
     public interface IComunicationSystem : ISystem
     {
         void AskPermissions();
+
         void LoadAuthenticationData(string appId, string token, string channelName);
 
         void LoadEngine();
@@ -17,13 +18,15 @@ namespace SPACS.SDK.Systems
 
         void DisconnectFromRoom();
 
-        void MuteAllRemoteStream(Room room);
+        void MuteAllRemoteStream(bool muteAudio, bool muteVideo);
 
         void MuteUser(RemoteUser _user);
 
+        void MuteLocalUser(bool muteAudio, bool muteVideo);
+
         void DestroyVideoView(uint uid);
 
-        void MakeVideoView(string parentName, GameObject image, uint uid = 0, string channelId = "");
+        GameObject MakeVideoView(string parentName, GameObject videoView, uint uid = 0, string channelId = "");
 
         //void MakeVideoView(uint uid, string parentName, GameObject image, bool islocal, string channelId = "");
 
@@ -53,7 +56,7 @@ namespace SPACS.SDK.Systems
 
     public struct Room
     {
-        public string Name;
+        public string name;
 
         public bool hasAudio;
         public bool hasVideo;
@@ -63,15 +66,38 @@ namespace SPACS.SDK.Systems
 
         public int videoHeight;
         public int videoWidth;
+
+        public Room(string name, bool hasAudio, bool hasVideo, bool muteAudio, bool muteVideo, int videoHeight, int videoWidth)
+        {
+            this.name = name;
+
+            this.hasAudio = hasAudio;
+            this.hasVideo = hasVideo;
+
+            this.muteAudio = muteAudio;
+            this.muteVideo = muteVideo;
+
+            this.videoHeight = videoHeight;
+            this.videoWidth = videoWidth;
+        }
     }
 
     public struct RemoteUser
     {
-        public uint uId;
+        public uint uid;
 
         public bool muteAudio;
         public bool muteVideo;
+
+        public RemoteUser(uint uid, bool muteAudio, bool muteVideo)
+        {
+            this.uid = uid;
+            this.muteAudio = muteAudio;
+            this.muteVideo= muteVideo;
+        }
     }
+
+
 
     [System.Serializable]
     public class StringEvent : UnityEvent<string>
