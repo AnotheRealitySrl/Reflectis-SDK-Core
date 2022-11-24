@@ -6,6 +6,7 @@ namespace SPACS.SDK.Avatars
 {
     public interface IAvatarConfigManager
     {
+        public ScriptableObject AvatarConfigTemplates { get; }
         IAvatarConfig AvatarConfig { get; }
 
         void UpdateAvatarCustomization(IAvatarConfig config);
