@@ -31,7 +31,6 @@ namespace SPACS.SDK.Avatars
 
         // Non serve?
         public AvatarControllerBase AvatarInstance { get; private set; }
-        public ScriptableObject AvatarInstanceConfigTemplates => avatarConfigurationTemplates;
         public IAvatarConfig AvatarInstanceConfig => avatarConfigManager?.AvatarConfig;
         public string LayerNameHiddenToPlayer => layerNameHiddenToPlayer;
 
