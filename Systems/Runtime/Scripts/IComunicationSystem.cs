@@ -23,7 +23,9 @@ namespace SPACS.SDK.Systems
 
         void DestroyVideoView(uint uid);
 
-        void MakeVideoView(uint uid, string parentName, GameObject image, bool islocal, string channelId = "");
+        void MakeVideoView(string parentName, GameObject image, uint uid = 0, string channelId = "");
+
+        //void MakeVideoView(uint uid, string parentName, GameObject image, bool islocal, string channelId = "");
 
         string GetChannelName();
 
@@ -32,12 +34,12 @@ namespace SPACS.SDK.Systems
         StringEvent OnError { get; }
         StringEvent OnGetMessage { get; }
 
-        UnityEvent OnJoinChannelSuccess { get; }
+        UintEvent OnJoinChannelSuccess { get; }
 
         UnityEvent OnRejoinChannelSuccess { get; }
         UnityEvent OnLeaveChannel { get; }
 
-        UnityEvent OnUserJoined { get; }
+        UintEvent OnUserJoined { get; }
         UnityEvent OnUserLeft { get; }
 
         UnityEvent OnUserOffline { get; }
@@ -75,5 +77,10 @@ namespace SPACS.SDK.Systems
     public class StringEvent : UnityEvent<string>
     {
     }
-}
 
+    [System.Serializable]
+    public class UintEvent : UnityEvent<uint>
+    {
+
+    }
+}
