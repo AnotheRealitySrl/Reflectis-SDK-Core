@@ -12,6 +12,7 @@ namespace SPACS.SDK.Systems
         void LoadAuthenticationData(string appId, string token, string channelName);
 
         void LoadEngine();
+        void UnloadEngine();
 
         //Buono sia per video che audio 
         void ConnectToRoom(Room _room);
@@ -28,9 +29,10 @@ namespace SPACS.SDK.Systems
 
         GameObject MakeVideoView(string parentName, GameObject videoView, uint uid = 0, string channelId = "");
 
-        //void MakeVideoView(uint uid, string parentName, GameObject image, bool islocal, string channelId = "");
-
         string GetChannelName();
+
+        void SetRoomType(RoomType roomType);
+        RoomType GetRoomType();
 
         #region Actions
 
@@ -43,16 +45,23 @@ namespace SPACS.SDK.Systems
         UnityEvent OnLeaveChannel { get; }
 
         UintEvent OnUserJoined { get; }
-        UnityEvent OnUserLeft { get; }
+        UintEvent OnUserLeft { get; }
 
         UnityEvent OnUserOffline { get; }
 
-        UnityEvent OnRemoteAudioStateChanged { get; }
-        UnityEvent OnRemoteVideoStateChanged { get; }
+        RemoteUserEvent OnRemoteAudioStateChanged { get; }
+        RemoteUserEvent OnRemoteVideoStateChanged { get; }
 
         UnityEvent OnClientRoleChanged { get; }
         #endregion
     }
+
+    public enum RoomType
+    {
+        Video,
+        Audio
+    }
+
 
     public struct Room
     {
@@ -106,6 +115,12 @@ namespace SPACS.SDK.Systems
 
     [System.Serializable]
     public class UintEvent : UnityEvent<uint>
+    {
+
+    }
+
+    [System.Serializable]
+    public class RemoteUserEvent : UnityEvent<uint, bool>
     {
 
     }
