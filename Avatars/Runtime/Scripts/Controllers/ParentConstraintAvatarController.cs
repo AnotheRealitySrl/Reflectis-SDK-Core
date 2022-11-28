@@ -6,35 +6,35 @@ namespace SPACS.SDK.Avatars
 {
     public class ParentConstraintAvatarController : AvatarControllerBase
     {
-        public override async Task Setup(CharacterControllerBase source)
+        public override async Task Setup(CharacterControllerBase sourceController)
         {
-            await base.Setup(source);
+            await base.Setup(sourceController);
 
-            if (PivotReference && source.PivotReference)
+            if (sourceCharacter.PivotReference && sourceController.PivotReference)
             {
-                ParentConstraint pivotConstraint = PivotReference.gameObject.AddComponent<ParentConstraint>();
-                pivotConstraint.AddSource(new ConstraintSource { sourceTransform = source.PivotReference, weight = 1 });
+                ParentConstraint pivotConstraint = sourceCharacter.PivotReference.gameObject.AddComponent<ParentConstraint>();
+                pivotConstraint.AddSource(new ConstraintSource { sourceTransform = sourceController.PivotReference, weight = 1 });
                 pivotConstraint.constraintActive = true;
             }
 
-            if (HeadReference && source.HeadReference)
+            if (sourceCharacter.HeadReference && sourceController.HeadReference)
             {
-                ParentConstraint headParentConstraint = HeadReference.gameObject.AddComponent<ParentConstraint>();
-                headParentConstraint.AddSource(new ConstraintSource { sourceTransform = source.HeadReference, weight = 1 });
+                ParentConstraint headParentConstraint = sourceCharacter.HeadReference.gameObject.AddComponent<ParentConstraint>();
+                headParentConstraint.AddSource(new ConstraintSource { sourceTransform = sourceController.HeadReference, weight = 1 });
                 headParentConstraint.constraintActive = true;
             }
 
-            if (LeftInteractorReference && source.LeftInteractorReference)
+            if (sourceCharacter.LeftInteractorReference && sourceController.LeftInteractorReference)
             {
-                ParentConstraint leftHandConstraint = LeftInteractorReference.gameObject.AddComponent<ParentConstraint>();
-                leftHandConstraint.AddSource(new ConstraintSource { sourceTransform = source.LeftInteractorReference, weight = 1 });
+                ParentConstraint leftHandConstraint = sourceCharacter.LeftInteractorReference.gameObject.AddComponent<ParentConstraint>();
+                leftHandConstraint.AddSource(new ConstraintSource { sourceTransform = sourceController.LeftInteractorReference, weight = 1 });
                 leftHandConstraint.constraintActive = true;
             }
 
-            if (RightInteractorReference && source.RightInteractorReference)
+            if (sourceCharacter.RightInteractorReference && sourceController.RightInteractorReference)
             {
-                ParentConstraint rightHandConstraint = RightInteractorReference.gameObject.AddComponent<ParentConstraint>();
-                rightHandConstraint.AddSource(new ConstraintSource { sourceTransform = source.RightInteractorReference, weight = 1 });
+                ParentConstraint rightHandConstraint = sourceCharacter.RightInteractorReference.gameObject.AddComponent<ParentConstraint>();
+                rightHandConstraint.AddSource(new ConstraintSource { sourceTransform = sourceController.RightInteractorReference, weight = 1 });
                 rightHandConstraint.constraintActive = true;
             }
         }

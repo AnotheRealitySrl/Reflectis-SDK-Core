@@ -24,5 +24,6 @@ namespace SPACS.SDK.CharacterController
         InteractionType InteractorsType { get; }
 
         #endregion
+
     }
 }

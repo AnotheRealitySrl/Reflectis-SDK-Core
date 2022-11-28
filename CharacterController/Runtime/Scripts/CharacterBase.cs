@@ -20,7 +20,7 @@ namespace SPACS.SDK.CharacterController
         public Transform RightInteractorReference => rightHandReference;
         public Transform LabelReference => labelReference;
 
-        public virtual Task Setup(CharacterControllerBase source) => Task.CompletedTask;
+        public virtual Task Setup() => Task.CompletedTask;
         public virtual Task Unsetup() => Task.CompletedTask;
     }
 }
