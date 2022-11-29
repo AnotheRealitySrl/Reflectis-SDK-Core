@@ -5,7 +5,7 @@ using System;
 
 namespace SPACS.SDK.Systems
 {
-    public interface IComunicationSystem : ISystem
+    public interface ICommunicationSystem : ISystem
     {
         void AskPermissions();
 
@@ -14,7 +14,6 @@ namespace SPACS.SDK.Systems
         void LoadEngine();
         void UnloadEngine();
 
-        //Buono sia per video che audio 
         void ConnectToRoom(Room _room);
 
         void DisconnectFromRoom();
