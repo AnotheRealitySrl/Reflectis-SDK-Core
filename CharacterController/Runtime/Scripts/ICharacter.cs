@@ -14,7 +14,7 @@ namespace SPACS.SDK.CharacterController
         Transform RightInteractorReference { get; }
         Transform LabelReference { get; }
 
-        Task Setup(CharacterControllerBase source);
+        Task Setup();
         Task Unsetup();
     }
 }

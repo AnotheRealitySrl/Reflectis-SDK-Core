@@ -3,10 +3,18 @@ using SPACS.SDK.Transitions;
 
 using System.Threading.Tasks;
 
+using UnityEngine;
+
 namespace SPACS.SDK.Avatars
 {
-    public class AvatarControllerBase : CharacterControllerBase
+    public class AvatarControllerBase : MonoBehaviour, IAvatarController
     {
+        #region Inspector variables
+
+        [SerializeField] protected CharacterBase sourceCharacter;
+
+        #endregion
+
         #region Private variables
 
         private AbstractTransitionProvider transitionProvider;
@@ -15,7 +23,8 @@ namespace SPACS.SDK.Avatars
 
         #region Properties
 
-        protected CharacterControllerBase SourceController { get; private set; }
+        public CharacterControllerBase SourceController { get; private set; }
+        public CharacterBase SourceCharacter { get => sourceCharacter; private set => sourceCharacter = value; }
 
         #endregion
 
@@ -23,6 +32,11 @@ namespace SPACS.SDK.Avatars
 
         private void Awake()
         {
+            if (!sourceCharacter)
+            {
+                sourceCharacter = GetComponent<CharacterBase>();
+            }
+
             transitionProvider = GetComponent<AbstractTransitionProvider>();
         }
 
@@ -30,15 +44,15 @@ namespace SPACS.SDK.Avatars
 
         #region Public API
 
-        public async override Task Setup(CharacterControllerBase source)
+        public virtual async Task Setup(CharacterControllerBase source)
         {
             SourceController = string.IsNullOrEmpty(source.gameObject.scene.name)
-                ? Instantiate(source.gameObject).GetComponent<CharacterControllerBase>()
+                ? Instantiate(source.gameObject).GetComponent<AvatarControllerBase>().SourceController
                 : source;
             await DoTransition(true);
         }
 
-        public async override Task Unsetup()
+        public async Task Unsetup()
         {
             await DoTransition(false);
             Destroy(gameObject);

@@ -31,7 +31,6 @@ namespace SPACS.SDK.Avatars
 
         // Non serve?
         public AvatarControllerBase AvatarInstance { get; private set; }
-        public IAvatarConfig AvatarInstanceConfig => avatarConfigManager?.AvatarConfig;
         public string LayerNameHiddenToPlayer => layerNameHiddenToPlayer;
 
         #endregion
@@ -85,7 +84,7 @@ namespace SPACS.SDK.Avatars
 
             avatarConfigManager = AvatarInstance.GetComponent<IAvatarConfigManager>();
 
-            ccs.OnCharacterControllerSetupComplete.Invoke(AvatarInstance);
+            await AvatarInstance.SourceCharacter.Setup();
         }
 
         public async Task DestroyAvatarInstance()
