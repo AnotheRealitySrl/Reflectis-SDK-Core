@@ -29,7 +29,7 @@ namespace SPACS.SDK.CharacterController
 
         #region Unity Events
 
-        public UnityEvent<CharacterControllerBase> OnCharacterControllerSetupComplete { get; } = new();
+        public UnityEvent<CharacterBase> OnCharacterControllerSetupComplete { get; } = new();
 
         #endregion
 
