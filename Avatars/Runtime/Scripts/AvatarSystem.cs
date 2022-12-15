@@ -15,6 +15,7 @@ namespace SPACS.SDK.Avatars
 
         [Header("General")]
         [SerializeField] private bool spawnAvatarOnInit;
+        [SerializeField] private bool setupCharacterOnCreation;
 
         [Header("Avatar Prefab")]
         [SerializeField] private AvatarControllerBase avatarPrefab;
@@ -84,7 +85,10 @@ namespace SPACS.SDK.Avatars
 
             avatarConfigManager = AvatarInstance.GetComponent<IAvatarConfigManager>();
 
-            await AvatarInstance.SourceCharacter.Setup();
+            if (setupCharacterOnCreation)
+            {
+                await AvatarInstance.SourceCharacter.Setup();
+            }
         }
 
         public async Task DestroyAvatarInstance()
