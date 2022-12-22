@@ -2,7 +2,8 @@
     "name": "SPACS.SDK.Transitions",
     "rootNamespace": "SPACS.SDK.Transitions",
     "references": [
-        "GUID:ccca149858d47314ca2c1b4f127c645e"
+        "GUID:ccca149858d47314ca2c1b4f127c645e",
+        "GUID:7fae0548e4a70a647b73c7b4ba9edb83"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
