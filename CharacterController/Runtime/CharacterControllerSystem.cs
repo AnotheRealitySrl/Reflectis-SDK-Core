@@ -62,7 +62,7 @@ namespace SPACS.SDK.CharacterController
 
         }
 
-        public void MoveCharacter(Pose newPose)
+        public virtual void MoveCharacter(Pose newPose)
         {
             CharacterControllerInstance.transform.SetPositionAndRotation(newPose.position, newPose.rotation);
         }

@@ -25,11 +25,13 @@ namespace SPACS.SDK.Transitions
         public override async Task EnterTransitionAsync()
         {
             await canvasGroup.DOFade(1f, fadeTime).SetEase(easingFunction).AsyncWaitForCompletion();
+            canvasGroup.gameObject.SetActive(true);
         }
 
         public override async Task ExitTransitionAsync()
         {
             await canvasGroup.DOFade(0f, fadeTime).SetEase(easingFunction).AsyncWaitForCompletion();
+            canvasGroup.gameObject.SetActive(false);
         }
     }
 }
