@@ -30,8 +30,9 @@ namespace SPACS.SDK.Avatars
 
         #region Properties
 
-        // Non serve?
         public AvatarControllerBase AvatarInstance { get; private set; }
+        // TODO: should be removed?
+        public ScriptableObject AvatarConfiguratonTemplates => avatarConfigurationTemplates;
         public string LayerNameHiddenToPlayer => layerNameHiddenToPlayer;
 
         #endregion
