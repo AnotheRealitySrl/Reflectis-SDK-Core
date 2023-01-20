@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace SPACS.SDK.CharacterController
 {
-    public class CharacterControllerBase : CharacterBase, ICharacterController
+    public class CharacterControllerBase :  , ICharacterController
     {
         #region Inspector variables
 
