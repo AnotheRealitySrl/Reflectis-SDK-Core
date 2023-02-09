@@ -20,11 +20,11 @@ namespace SPACS.SDK.Transitions
             if (!canvasGroup)
             {
                 canvasGroup = GetComponentInChildren<CanvasGroup>();
-                if (!isActive)
-                {
-                    canvasGroup.gameObject.SetActive(false);
-                    canvasGroup.alpha = 0;
-                }
+            }
+            if (!isActive)
+            {
+                canvasGroup.gameObject.SetActive(false);
+                canvasGroup.alpha = 0;
             }
         }
 
