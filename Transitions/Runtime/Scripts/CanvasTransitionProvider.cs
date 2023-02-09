@@ -13,12 +13,18 @@ namespace SPACS.SDK.Transitions
         [SerializeField] private CanvasGroup canvasGroup;
         [SerializeField] private float fadeTime = 1f;
         [SerializeField] private Ease easingFunction = Ease.InOutQuad;
+        [SerializeField] private bool isActive;
 
         private void Awake()
         {
             if (!canvasGroup)
             {
                 canvasGroup = GetComponentInChildren<CanvasGroup>();
+                if (!isActive)
+                {
+                    canvasGroup.gameObject.SetActive(false);
+                    canvasGroup.alpha = 0;
+                }
             }
         }
 

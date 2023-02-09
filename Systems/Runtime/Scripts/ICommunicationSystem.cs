@@ -25,6 +25,9 @@ namespace SPACS.SDK.Systems {
 
         string GetChannelName();
 
+        void SetVolume(int volume);
+        float GetSystemVolume();
+
         #region Events
 
         event Action<string> OnJoinChannelSuccess;
@@ -37,8 +40,6 @@ namespace SPACS.SDK.Systems {
         event Action<int, bool> OnRemoteVideoStateChanged;
 
         #endregion
-
-
     }
 
     public struct CommunicationMessage {
@@ -60,7 +61,7 @@ namespace SPACS.SDK.Systems {
 
         public bool hasChat { get { return true; } }
         public bool hasAudio { get { return true; } }
-        public bool hasVideo { get { return Type == ChannelType.Video_Audio ? true : false; } }
+        public bool hasVideo { get { return Type == ChannelType.Video_Audio; } }
 
         public bool muteAudio;
         public bool muteVideo;
