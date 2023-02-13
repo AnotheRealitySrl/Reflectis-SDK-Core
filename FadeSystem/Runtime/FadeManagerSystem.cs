@@ -62,6 +62,7 @@ namespace SPACS.SDK.FadeSystem
         public void UpdateObjsUnaffectedByFade(List<GameObject> objsUnaffectedByFade) => fadeManager.LayerManager?.UpdateObjsUnaffectedByFade(objsUnaffectedByFade);
         public void ResetObjsUnaffectedByFade() => fadeManager.LayerManager?.ResetObjsUnaffectedByFade();
 
+        public void InterruptFade() => fadeManager.InterruptFade();
         #endregion
     }
 

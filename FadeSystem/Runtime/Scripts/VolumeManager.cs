@@ -103,6 +103,16 @@ namespace SPACS.SDK.FadeSystem
             }
         }
 
+        public void InterruptFade()
+        {
+            if (blackCoroutine != null)
+                StopCoroutine(blackCoroutine);
+
+            if (desaturatedCoroutine != null)
+                StopCoroutine(desaturatedCoroutine);
+
+            StopAllCoroutines();
+        }
         #endregion
 
         #region Private methods

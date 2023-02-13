@@ -24,5 +24,6 @@ namespace SPACS.SDK.FadeSystem
         void FadeFromBlack(System.Action onEnd = null);
         void FadeToDesaturated(System.Action onEnd = null);
         void FadeFromDesaturated(System.Action onEnd = null);
+        void InterruptFade();
     }
 }
