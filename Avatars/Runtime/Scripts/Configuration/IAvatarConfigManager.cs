@@ -10,7 +10,7 @@ namespace SPACS.SDK.Avatars
         IAvatarConfig AvatarConfig { get; }
 
         void UpdateAvatarCustomization(IAvatarConfig config);
-        void EnableAvatarMeshes(bool enable);
+        void EnableAvatarMeshes(bool enable, float time);
         void EnableHandMeshes(bool enable);
         void EnableHandMesh(int id, bool enable);
         void UpdateAvatarNickName(string newName);
