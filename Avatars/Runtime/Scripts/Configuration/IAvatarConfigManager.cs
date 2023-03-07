@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+
 using UnityEngine;
 
 namespace SPACS.SDK.Avatars
@@ -9,7 +11,7 @@ namespace SPACS.SDK.Avatars
         public ScriptableObject AvatarConfigTemplates { get; }
         IAvatarConfig AvatarConfig { get; }
 
-        void UpdateAvatarCustomization(IAvatarConfig config);
+        Task UpdateAvatarCustomization(IAvatarConfig config);
         void EnableAvatarMeshes(bool enable);
         void EnableHandMeshes(bool enable);
         void EnableHandMesh(int id, bool enable);
