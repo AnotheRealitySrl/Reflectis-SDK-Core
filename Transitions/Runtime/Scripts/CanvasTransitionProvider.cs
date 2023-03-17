@@ -14,6 +14,7 @@ namespace SPACS.SDK.Transitions
         [SerializeField] private float fadeTime = 1f;
         [SerializeField] private Ease easingFunction = Ease.InOutQuad;
         [SerializeField] private bool isActive;
+        [SerializeField] private bool activateGameObject = true;
 
         private void Awake()
         {
@@ -23,21 +24,30 @@ namespace SPACS.SDK.Transitions
             }
             if (!isActive)
             {
-                canvasGroup.gameObject.SetActive(false);
+                if (activateGameObject)
+                {
+                    canvasGroup.gameObject.SetActive(false);
+                }
                 canvasGroup.alpha = 0;
             }
         }
 
         public override async Task EnterTransitionAsync()
         {
-            canvasGroup.gameObject.SetActive(true);
+            if (activateGameObject)
+            {
+                canvasGroup.gameObject.SetActive(true);
+            }
             await canvasGroup.DOFade(1f, fadeTime).SetEase(easingFunction).AsyncWaitForCompletion();
         }
 
         public override async Task ExitTransitionAsync()
         {
             await canvasGroup.DOFade(0f, fadeTime).SetEase(easingFunction).AsyncWaitForCompletion();
-            canvasGroup.gameObject.SetActive(false);
+            if (activateGameObject)
+            {
+                canvasGroup.gameObject.SetActive(false);
+            }
         }
     }
 }
