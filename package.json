@@ -14,5 +14,12 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/AnotheRealitySrl/SPACS-Utilities"
-  }
+  },
+  "samples": [
+    {
+      "displayName": "URP Volume fading sample",
+      "description": "URP Volume fading sample",
+      "path": "FadeSystem/Samples~/URPVolumeSample"
+    }
+  ]
 }
