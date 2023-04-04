@@ -1,0 +1,19 @@
+{
+    "name": "SPACS.SDK.FadeSystem",
+    "rootNamespace": "SPACS.SDK.FadeSystem",
+    "references": [
+        "GUID:df380645f10b7bc4b97d4f5eb6303d95",
+        "GUID:15fc0a57446b3144c949da3e2b9737a9",
+        "GUID:ab59f74e483e1ee4595bfefea56493f2",
+        "GUID:6621723ab2f3cff4a8be0e8c1642af94"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
