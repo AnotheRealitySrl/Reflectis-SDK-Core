@@ -62,9 +62,9 @@ namespace SPACS.SDK.Avatars
 
         #region Public API
 
-        private async void Spawn()
+        public async void Spawn(AvatarControllerBase newAvatar)
         {
-            await CreateAvatarInstance(avatarPrefab);
+            await CreateAvatarInstance(newAvatar);
 
             AvatarConfigChanged.AddListener(UpdateAvatarInstanceCustomization);
             PlayerNickNameChanged.AddListener(UpdateAvatarInstanceNickName);
@@ -105,6 +105,12 @@ namespace SPACS.SDK.Avatars
         public void EnableAvatarInstanceMeshes(bool enable) => avatarConfigManager?.EnableAvatarMeshes(enable);
         public void EnableAvatarInstanceHandMeshes(bool enable) => avatarConfigManager?.EnableHandMeshes(enable);
         public void EnableAvatarInstanceHandMesh(int id, bool enable) => avatarConfigManager?.EnableHandMesh(id, enable);
+
+        #endregion
+
+        #region Private methods
+
+        private void Spawn() => Spawn(avatarPrefab);
 
         #endregion
     }
