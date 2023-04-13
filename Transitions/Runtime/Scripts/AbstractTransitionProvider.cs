@@ -6,9 +6,14 @@ namespace SPACS.SDK.Transitions
 {
     public abstract class AbstractTransitionProvider : MonoBehaviour
     {
+        [SerializeField] private bool reverseTransitions;
+
         public virtual async void DoTransition(bool value) => await DoTransitionAsync(value);
         public virtual async Task DoTransitionAsync(bool value)
         {
+            if (reverseTransitions)
+                value = !value;
+
             if (value)
             {
                 await EnterTransitionAsync();
