@@ -66,7 +66,7 @@ namespace SPACS.SDK.SceneLoader
                 loadSceneOperation.completed += (op) =>
                 {
                     scenesLoaded++;
-                    if (scenesLoaded == scenesToLoad.Count - 1)
+                    if (scenesLoaded == scenesToLoad.Count)
                     {
                         onAfterLoadCallback?.Invoke();
                         IsLoading = false;
@@ -88,7 +88,7 @@ namespace SPACS.SDK.SceneLoader
                 loadSceneOperation.completed += (op) =>
                 {
                     scenesLoaded++;
-                    if (scenesLoaded == scenesToUnload.Count - 1)
+                    if (scenesLoaded == scenesToUnload.Count)
                     {
                         onAfterLoadCallback?.Invoke();
                         IsLoading = false;
@@ -138,7 +138,7 @@ namespace SPACS.SDK.SceneLoader
                         case AsyncOperationStatus.Succeeded:
                             scenesLoaded++;
                             activeAddressableScenes.Add(op.Result);
-                            if (scenesLoaded == scenesToLoad.Count - 1)
+                            if (scenesLoaded == scenesToLoad.Count)
                             {
                                 onAfterLoadCallback?.Invoke();
                                 IsLoading = false;
@@ -170,7 +170,7 @@ namespace SPACS.SDK.SceneLoader
                         case AsyncOperationStatus.Succeeded:
                             scenesLoaded++;
                             activeAddressableScenes.Remove(op.Result);
-                            if (scenesLoaded == scenesToUnload.Count - 1)
+                            if (scenesLoaded == scenesToUnload.Count)
                             {
                                 onAfterLoadCallback?.Invoke();
                                 IsLoading = false;
