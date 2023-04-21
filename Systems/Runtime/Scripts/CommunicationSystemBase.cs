@@ -10,14 +10,14 @@ public abstract class CommunicationSystemBase : BaseSystem, ICommunicationSystem
 {
     [SerializeField] protected string appId;
 
-    public event Action<string> OnJoinChannelSuccess;
-    public event Action<string> OnRejoinChannelSuccess;
-    public event Action OnLeaveChannel;
-    public event Action<CommunicationMessage> OnError;
-    public event Action<int> OnUserJoined;
-    public event Action<int> OnUserLeave;
-    public event Action<int, bool> OnRemoteAudioStateChanged;
-    public event Action<int, bool> OnRemoteVideoStateChanged;
+    public virtual event Action<string> OnJoinChannelSuccess;
+    public virtual event Action<string> OnRejoinChannelSuccess;
+    public virtual event Action OnLeaveChannel;
+    public virtual event Action<CommunicationMessage> OnError;
+    public virtual event Action<int> OnUserJoined;
+    public virtual event Action<int> OnUserLeave;
+    public virtual event Action<int, bool> OnRemoteAudioStateChanged;
+    public virtual event Action<int, bool> OnRemoteVideoStateChanged;
 
     protected CommunicatioChannel _currentRoom;
 
