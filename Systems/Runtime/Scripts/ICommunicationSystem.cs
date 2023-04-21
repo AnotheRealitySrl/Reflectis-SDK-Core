@@ -6,6 +6,7 @@ using System;
 namespace SPACS.SDK.Systems {
     public interface ICommunicationSystem : ISystem {
         CommunicatioChannel CurrentRoom { get; }
+        string AppId { get; }
 
         void AskPermissions();
         void InitEngine();
