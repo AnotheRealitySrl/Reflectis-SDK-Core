@@ -23,8 +23,11 @@ namespace SPACS.SDK.Avatars
 
         #region Properties
 
-        public CharacterControllerBase SourceController { get; private set; }
+        // This character
         public CharacterBase SourceCharacter { get => sourceCharacter; private set => sourceCharacter = value; }
+
+        // The character controller which this character is attached to.
+        public CharacterControllerBase SourceController { get; private set; }
 
         #endregion
 
@@ -44,14 +47,27 @@ namespace SPACS.SDK.Avatars
 
         #region Public API
 
+
+        /// <summary>
+        /// Setups the avatar controller base given a source controller. 
+        /// The source controller is the object which the avatar is attached to.
+        /// </summary>
+        /// <param name="source">The source controller wich the htis avatar controller is attached to.</param>
+        /// <returns>Task</returns>
         public virtual async Task Setup(CharacterControllerBase source)
         {
+            // If the source controller is already instantiated, use that.
+            // Otherwise, instantiate the source controller.
             SourceController = string.IsNullOrEmpty(source.gameObject.scene.name)
                 ? Instantiate(source.gameObject).GetComponent<AvatarControllerBase>().SourceController
                 : source;
             await DoTransition(true);
         }
 
+        /// <summary>
+        /// Unsetups the current source controller.
+        /// </summary>
+        /// <returns>Task</returns>
         public async Task Unsetup()
         {
             await DoTransition(false);

@@ -70,8 +70,14 @@ namespace SPACS.SDK.Avatars
             PlayerNickNameChanged.AddListener(UpdateAvatarInstanceNickName);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="avatar">The current controller</param>
+        /// <returns>Task</returns>
         public async Task CreateAvatarInstance(AvatarControllerBase avatar)
         {
+            // Destroys the old avatar instance
             if (AvatarInstance)
             {
                 await DestroyAvatarInstance();
@@ -79,9 +85,11 @@ namespace SPACS.SDK.Avatars
 
             CharacterControllerSystem ccs = SM.GetSystem<CharacterControllerSystem>();
 
+            // Checks if the referenced avatar is already in scene
             AvatarInstance = string.IsNullOrEmpty(avatar.gameObject.scene.name)
                 ? Instantiate(avatar).GetComponent<AvatarControllerBase>()
                 : avatar;
+            // Attaches the new avatar instance to the character controller instance
             await AvatarInstance.Setup(ccs.CharacterControllerInstance);
 
             avatarConfigManager = AvatarInstance.GetComponent<IAvatarConfigManager>();
@@ -92,6 +100,10 @@ namespace SPACS.SDK.Avatars
             }
         }
 
+        /// <summary>
+        /// Destroys the current avatar instance
+        /// </summary>
+        /// <returns>Task</returns>
         public async Task DestroyAvatarInstance()
         {
             await AvatarInstance.Unsetup();
@@ -110,6 +122,9 @@ namespace SPACS.SDK.Avatars
 
         #region Private methods
 
+        /// <summary>
+        /// Called on init, spawns a predefined avatar
+        /// </summary>
         private void Spawn() => Spawn(avatarPrefab);
 
         #endregion
