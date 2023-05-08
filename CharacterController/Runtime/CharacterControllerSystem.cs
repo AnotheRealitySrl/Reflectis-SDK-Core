@@ -45,10 +45,6 @@ namespace SPACS.SDK.CharacterController
 
         #region Public API
 
-        //public virtual void Spawn(Pose _startingPose) { 
-
-        //}
-
         public virtual void Spawn() {
 
             if (!characterControllerPrefab) {
