@@ -10,6 +10,8 @@ namespace SPACS.SDK.Systems
             Proximity = 2
         }
 
+        void EnableDesktopInteraction(bool enable);
+
         void StartSelecting(BaseInteractableGO interactable, DesktopSelectionType mode);
         void StopSelecting(BaseInteractableGO interactable, DesktopSelectionType mode);
     }
