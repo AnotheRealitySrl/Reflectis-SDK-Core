@@ -56,6 +56,9 @@ namespace SPACS.SDK.Avatars
         {
             if (spawnAvatarOnInit)
                 Spawn();
+
+            AvatarConfigChanged.AddListener(UpdateAvatarInstanceCustomization);
+            PlayerNickNameChanged.AddListener(UpdateAvatarInstanceNickName);
         }
 
         #endregion
@@ -66,8 +69,8 @@ namespace SPACS.SDK.Avatars
         {
             await CreateAvatarInstance(newAvatar);
 
-            AvatarConfigChanged.AddListener(UpdateAvatarInstanceCustomization);
-            PlayerNickNameChanged.AddListener(UpdateAvatarInstanceNickName);
+            //AvatarConfigChanged.AddListener(UpdateAvatarInstanceCustomization);
+            //PlayerNickNameChanged.AddListener(UpdateAvatarInstanceNickName);
         }
 
         /// <summary>
