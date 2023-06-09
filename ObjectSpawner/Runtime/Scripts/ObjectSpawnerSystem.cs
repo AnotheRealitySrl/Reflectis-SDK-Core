@@ -1,4 +1,3 @@
-using log4net;
 using SPACS.Core;
 using SPACS.SDK.CharacterController;
 using System.Collections;
