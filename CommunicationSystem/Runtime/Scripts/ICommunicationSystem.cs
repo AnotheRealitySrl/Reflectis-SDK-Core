@@ -3,8 +3,10 @@ using UnityEngine.Events;
 using SPACS.Core;
 using System;
 
-namespace SPACS.SDK.Systems {
-    public interface ICommunicationSystem : ISystem {
+namespace SPACS.SDK.CommunicationSystem
+{
+    public interface ICommunicationSystem : ISystem
+    {
         CommunicatioChannel CurrentRoom { get; }
         string AppId { get; }
 
@@ -43,19 +45,22 @@ namespace SPACS.SDK.Systems {
         #endregion
     }
 
-    public struct CommunicationMessage {
+    public struct CommunicationMessage
+    {
         public int ID;
         public string Message;
     }
 
-    public enum ChannelType {
+    public enum ChannelType
+    {
         None = 0,
         Chat = 1,
         Audio = 2,
         Video_Audio = 3,
     }
 
-    public struct CommunicatioChannel {
+    public struct CommunicatioChannel
+    {
         public string name;
 
         public ChannelType Type;
@@ -70,7 +75,8 @@ namespace SPACS.SDK.Systems {
         public int videoHeight;
         public int videoWidth;
 
-        public CommunicatioChannel(string name, ChannelType type, bool muteAudio, bool muteVideo, int videoHeight, int videoWidth) {
+        public CommunicatioChannel(string name, ChannelType type, bool muteAudio, bool muteVideo, int videoHeight, int videoWidth)
+        {
             this.name = name;
 
             Type = type;
@@ -82,7 +88,8 @@ namespace SPACS.SDK.Systems {
             this.videoWidth = videoWidth;
         }
 
-        public CommunicatioChannel(string name, ChannelType type, bool muteAudio, bool muteVideo) {
+        public CommunicatioChannel(string name, ChannelType type, bool muteAudio, bool muteVideo)
+        {
             this.name = name;
             Type = type;
 
@@ -93,7 +100,8 @@ namespace SPACS.SDK.Systems {
             videoWidth = 360;
         }
 
-        public CommunicatioChannel(string name, ChannelType type) {
+        public CommunicatioChannel(string name, ChannelType type)
+        {
             this.name = name;
             Type = type;
 
@@ -106,20 +114,19 @@ namespace SPACS.SDK.Systems {
     }
 
 
-    public struct RemoteUser {
+    public struct RemoteUser
+    {
         public uint uid;
 
         public bool muteAudio;
         public bool muteVideo;
 
-        public RemoteUser(uint uid, bool muteAudio, bool muteVideo) {
+        public RemoteUser(uint uid, bool muteAudio, bool muteVideo)
+        {
             this.uid = uid;
             this.muteAudio = muteAudio;
             this.muteVideo = muteVideo;
         }
     }
-
-
-
 
 }
