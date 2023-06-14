@@ -10,6 +10,7 @@ namespace SPACS.SDK.DesktopInteraction
             Proximity = 2
         }
 
+        void Deinit();
         void EnableDesktopInteraction(bool enable);
 
         void StartSelecting(BaseInteractableGO interactable, DesktopSelectionType mode);
