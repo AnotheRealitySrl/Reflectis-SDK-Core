@@ -1,6 +1,6 @@
 using SPACS.Core;
 
-namespace SPACS.SDK.Systems
+namespace SPACS.SDK.DesktopInteraction
 {
     public interface IDesktopInteractionSystem : ISystem
     {

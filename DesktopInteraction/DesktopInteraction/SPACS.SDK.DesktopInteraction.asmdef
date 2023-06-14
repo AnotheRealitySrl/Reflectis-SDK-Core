@@ -1,5 +1,5 @@
 {
-    "name": "SPACS.SDK.Systems",
+    "name": "SPACS.SDK.DesktopInteraction",
     "rootNamespace": "",
     "references": [
         "SPACS.Core"
