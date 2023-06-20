@@ -5,7 +5,7 @@ using UnityEngine;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-using SPACS.SDK.Extensions;
+using SPACS.SDK.Utilities.Extensions;
 
 namespace SPACS.SDK.Utilities
 {

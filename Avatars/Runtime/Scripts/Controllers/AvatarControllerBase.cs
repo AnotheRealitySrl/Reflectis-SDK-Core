@@ -1,5 +1,5 @@
 using SPACS.SDK.CharacterController;
-using SPACS.SDK.Transitions;
+using SPACS.SDK.Utilities.Transitions;
 
 using System.Threading.Tasks;
 
