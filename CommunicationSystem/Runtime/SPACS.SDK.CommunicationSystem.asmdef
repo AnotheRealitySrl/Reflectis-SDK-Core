@@ -1,6 +1,6 @@
 {
     "name": "SPACS.SDK.CommunicationSystem",
-    "rootNamespace": "",
+    "rootNamespace": "SPACS.SDK.CommunicationSystem",
     "references": [
         "SPACS.Core"
     ],

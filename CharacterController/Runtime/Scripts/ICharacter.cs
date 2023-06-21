@@ -6,15 +6,46 @@ using UnityEngine;
 
 namespace SPACS.SDK.CharacterController
 {
+    /// <summary>
+    /// Represents the structure of a character
+    /// </summary>
     public interface ICharacter
     {
-        Transform PivotReference { get;}
+        /// <summary>
+        /// The pivot of the character
+        /// </summary>
+        Transform PivotReference { get; }
+
+        /// <summary>
+        /// The head of the character
+        /// </summary>
         Transform HeadReference { get; }
+
+        /// <summary>
+        /// The left intereactor of the character (suitable mostly for VR)
+        /// </summary>
         Transform LeftInteractorReference { get; }
+
+        /// <summary>
+        /// The right intereactor of the character (suitable mostly for VR)
+        /// </summary>
         Transform RightInteractorReference { get; }
+
+        /// <summary>
+        /// If the character has a reference to a label with its information
+        /// </summary>
         Transform LabelReference { get; }
 
+        /// <summary>
+        /// Setups a character controller
+        /// </summary>
+        /// <returns>Task</returns>
         Task Setup();
+
+        /// <summary>
+        /// Unsetups a character controller
+        /// </summary>
+        /// <returns>Task</returns>
         Task Unsetup();
     }
 }

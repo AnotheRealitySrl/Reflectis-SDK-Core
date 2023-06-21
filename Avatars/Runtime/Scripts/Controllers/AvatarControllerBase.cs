@@ -1,5 +1,5 @@
 using SPACS.SDK.CharacterController;
-using SPACS.SDK.Utilities.Transitions;
+using SPACS.SDK.Transitions;
 
 using System.Threading.Tasks;
 
@@ -47,13 +47,6 @@ namespace SPACS.SDK.Avatars
 
         #region Public API
 
-
-        /// <summary>
-        /// Setups the avatar controller base given a source controller. 
-        /// The source controller is the object which the avatar is attached to.
-        /// </summary>
-        /// <param name="source">The source controller wich the htis avatar controller is attached to.</param>
-        /// <returns>Task</returns>
         public virtual async Task Setup(CharacterControllerBase source)
         {
             // If the source controller is already instantiated, use that.
@@ -64,10 +57,6 @@ namespace SPACS.SDK.Avatars
             await DoTransition(true);
         }
 
-        /// <summary>
-        /// Unsetups the current source controller.
-        /// </summary>
-        /// <returns>Task</returns>
         public async Task Unsetup()
         {
             await DoTransition(false);

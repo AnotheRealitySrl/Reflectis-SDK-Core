@@ -9,16 +9,15 @@ namespace SPACS.SDK.CharacterController
         #region Inspector variables
 
         [SerializeField] protected Camera cam;
-        [SerializeField] protected ICharacterController.InteractionType interactorsType;
+        [SerializeField] protected ICharacterController.EInteractionType interactorsType;
 
         #endregion
 
         #region Interface implementation
 
         public Camera Camera { get => cam; set => cam = value; }
-        public ICharacterController.InteractionType InteractorsType => interactorsType;
+        public ICharacterController.EInteractionType InteractorsType => interactorsType;
 
         #endregion
-
     }
 }

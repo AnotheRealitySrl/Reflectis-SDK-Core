@@ -8,7 +8,10 @@ using UnityEngine.Events;
 
 namespace SPACS.SDK.Avatars
 {
-    [CreateAssetMenu(menuName = "AnotheReality/Systems/Avatars/AvatarSystem", fileName = "AvatarSystemConfig")]
+    /// <summary>
+    /// System that manages the lyfecicle of my avatar, i.e. the avatar associated to the character controller
+    /// </summary>
+    [CreateAssetMenu(menuName = "SPACS/SDK-Avatars/AvatarSystem", fileName = "AvatarSystemConfig")]
     public class AvatarSystem : BaseSystem
     {
         #region Inspector variables
@@ -46,6 +49,7 @@ namespace SPACS.SDK.Avatars
 
         #region Private variables
 
+        // The config manager associated to the avatar instance
         private IAvatarConfigManager avatarConfigManager;
 
         #endregion
@@ -65,16 +69,17 @@ namespace SPACS.SDK.Avatars
 
         #region Public API
 
+        /// <summary>
+        /// Spawns an avatar. It could be a prefab or an avatar in scene
+        /// </summary>
+        /// <param name="newAvatar">The avatar to spawn</param>
         public async void Spawn(AvatarControllerBase newAvatar)
         {
             await CreateAvatarInstance(newAvatar);
-
-            //AvatarConfigChanged.AddListener(UpdateAvatarInstanceCustomization);
-            //PlayerNickNameChanged.AddListener(UpdateAvatarInstanceNickName);
         }
 
         /// <summary>
-        /// 
+        /// Updates the avatar instance, i.e. the avatar associated with the character controller.
         /// </summary>
         /// <param name="avatar">The current controller</param>
         /// <returns>Task</returns>
@@ -115,10 +120,39 @@ namespace SPACS.SDK.Avatars
             avatarConfigManager = null;
         }
 
+        /// <summary>
+        /// Updates the configuration of the avatar instances
+        /// </summary>
+        /// <param name="config">The new configuration of the avatar instance</param>
+        /// <param name="onBeforeAction">Called before che configuration update takes place</param>
+        /// <param name="onAfterAction">Called after che configuration operation has completed</param>
+        /// <returns></returns>
         public void UpdateAvatarInstanceCustomization(IAvatarConfig config) => avatarConfigManager?.UpdateAvatarCustomization(config);
+
+        /// <summary>
+        /// Shows/hides the meshes of the avatar instance
+        /// </summary>
+        /// <param name="enable"></param>
         public void UpdateAvatarInstanceNickName(string newName) => avatarConfigManager?.UpdateAvatarNickName(newName);
+
+        /// <summary>
+        /// Shows/hides avatar's hands (only for half-body avatars)
+        /// </summary>
+        /// <param name="enable"></param>
         public void EnableAvatarInstanceMeshes(bool enable) => avatarConfigManager?.EnableAvatarMeshes(enable);
+
+        /// <summary>
+        /// Shows/hides a specific hand mesh (only for half-body avatars)
+        /// </summary>
+        /// <param name="id">The hand to update (0 for left, 1 for right)</param>
+        /// <param name="enable"></param>
         public void EnableAvatarInstanceHandMeshes(bool enable) => avatarConfigManager?.EnableHandMeshes(enable);
+
+
+        /// <summary>
+        /// Updates the nickname of the avatar instance (usually shown on top of avatar's head)
+        /// </summary>
+        /// <param name="newName">The new name</param>
         public void EnableAvatarInstanceHandMesh(int id, bool enable) => avatarConfigManager?.EnableHandMesh(id, enable);
 
         #endregion

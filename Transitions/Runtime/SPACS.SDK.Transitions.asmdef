@@ -1,9 +1,9 @@
 {
-    "name": "SPACS.SDK.Utilities",
-    "rootNamespace": "SPACS.SDK.Utilities",
+    "name": "SPACS.SDK.Transitions",
+    "rootNamespace": "SPACS.SDK.Transitions",
     "references": [
-        "Unity.InputSystem",
-        "Unity.TextMeshPro"
+        "DOTween.Modules",
+        "SPACS.SDK.Utilities"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

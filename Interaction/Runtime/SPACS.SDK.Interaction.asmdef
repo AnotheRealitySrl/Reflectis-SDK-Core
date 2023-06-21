@@ -1,9 +1,8 @@
 {
-    "name": "SPACS.SDK.Utilities",
-    "rootNamespace": "SPACS.SDK.Utilities",
+    "name": "SPACS.SDK.Interaction",
+    "rootNamespace": "SPACS.SDK.Interaction",
     "references": [
-        "Unity.InputSystem",
-        "Unity.TextMeshPro"
+        "SPACS.Core"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

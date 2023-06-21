@@ -1,16 +1,19 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 using UnityEngine;
 
 namespace SPACS.SDK.CharacterController
 {
+    /// <summary>
+    /// Represents a character controller, i.e. an ICharacter that is controlled by the user
+    /// </summary>
     public interface ICharacterController : ICharacter
     {
         #region Enums
 
-        public enum InteractionType
+        public enum EInteractionType
         {
             Controllers,
             Hands
@@ -20,10 +23,16 @@ namespace SPACS.SDK.CharacterController
 
         #region Interface properties
 
+        /// <summary>
+        /// Reference to the main camera
+        /// </summary>
         Camera Camera { get; }
-        InteractionType InteractorsType { get; }
+
+        /// <summary>
+        /// Controllers/Hands
+        /// </summary>
+        EInteractionType InteractorsType { get; }
 
         #endregion
-
     }
 }

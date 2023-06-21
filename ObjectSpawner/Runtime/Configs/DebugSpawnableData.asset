@@ -20,5 +20,5 @@ MonoBehaviour:
   originOffset: {x: 0, y: 1, z: 0}
   layerMask:
     serializedVersion: 2
-    m_Bits: 4244639103
+    m_Bits: 4160749943
   onlyOneNpc: 1
