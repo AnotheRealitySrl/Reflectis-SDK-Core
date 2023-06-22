@@ -12,15 +12,15 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="SPACS.SDK.Avatars.AvatarControllerBase">
-    <Position X="4" Y="0.5" Width="2" />
+    <Position X="6.25" Y="0.75" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAACAACAABAAAAAAAAAAAAQABAABAAQAAAAAAAAEA=</HashCode>
       <FileName>Packages\SPACS-SDK\Avatars\Runtime\Scripts\Controllers\AvatarControllerBase.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
+    <Lollipop Position="0.1" />
   </Class>
   <Class Name="SPACS.SDK.Avatars.ParentConstraintAvatarController">
-    <Position X="7" Y="1" Width="1.5" />
+    <Position X="9.5" Y="0.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Packages\SPACS-SDK\Avatars\Runtime\Scripts\Controllers\ParentConstraintAvatarController.cs</FileName>
@@ -34,7 +34,7 @@
     </TypeIdentifier>
   </Interface>
   <Interface Name="SPACS.SDK.Avatars.IAvatarConfigManager">
-    <Position X="8" Y="5.25" Width="1.5" />
+    <Position X="8.25" Y="5.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ABAAAgAAAAAIAAAIAAAhAAAAAAAAAABAAAAAAAgAAAA=</HashCode>
       <FileName>Packages\SPACS-SDK\Avatars\Runtime\Scripts\Configuration\IAvatarConfigManager.cs</FileName>
@@ -44,9 +44,9 @@
     </ShowAsAssociation>
   </Interface>
   <Interface Name="SPACS.SDK.Avatars.IAvatarController">
-    <Position X="10.75" Y="3" Width="1.5" />
+    <Position X="2.5" Y="1" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAACAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAACAACAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Packages\SPACS-SDK\Avatars\Runtime\Scripts\Controllers\IAvatarController.cs</FileName>
     </TypeIdentifier>
   </Interface>

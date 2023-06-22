@@ -7,7 +7,7 @@ using UnityEngine;
 namespace SPACS.SDK.CharacterController
 {
     /// <summary>
-    /// Represents the structure of a character
+    /// Represents the structure of a character. A character rig has some transform that are useful for its manipulation
     /// </summary>
     public interface ICharacter
     {

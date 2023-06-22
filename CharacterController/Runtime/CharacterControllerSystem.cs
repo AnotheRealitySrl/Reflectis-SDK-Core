@@ -8,7 +8,7 @@ using UnityEngine.Events;
 
 namespace SPACS.SDK.CharacterController
 {
-    [CreateAssetMenu(menuName = "AnotheReality/Systems/CharacterController/CharacterControllerBase", fileName = "CharacterControllerBaseConfig")]
+    [CreateAssetMenu(menuName = "SPACS/SDK-CharacterController/CharacterControllerBaseSystemConfig", fileName = "CharacterControllerBaseSystemConfig")]
     public class CharacterControllerSystem : BaseSystem
     {
         #region Inspector variables

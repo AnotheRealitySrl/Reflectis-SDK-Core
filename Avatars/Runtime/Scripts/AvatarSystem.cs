@@ -9,7 +9,7 @@ using UnityEngine.Events;
 namespace SPACS.SDK.Avatars
 {
     /// <summary>
-    /// System that manages the lyfecicle of my avatar, i.e. the avatar associated to the character controller
+    /// System that manages the lyfecicle of the avatar instance, i.e. the avatar associated to the character controller
     /// </summary>
     [CreateAssetMenu(menuName = "SPACS/SDK-Avatars/AvatarSystem", fileName = "AvatarSystemConfig")]
     public class AvatarSystem : BaseSystem

@@ -6,6 +6,9 @@ using UnityEngine;
 
 namespace SPACS.SDK.CharacterController
 {
+    /// <summary>
+    /// Base implementation of <see cref="ICharacter"/>.
+    /// </summary>
     public class CharacterBase : MonoBehaviour, ICharacter
     {
         [SerializeField] protected Transform pivotReference;
