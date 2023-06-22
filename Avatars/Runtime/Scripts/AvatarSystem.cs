@@ -12,7 +12,7 @@ namespace SPACS.SDK.Avatars
     /// System that manages the lyfecicle of the avatar instance, i.e. the avatar associated to the character controller
     /// </summary>
     [CreateAssetMenu(menuName = "SPACS/SDK-Avatars/AvatarSystem", fileName = "AvatarSystemConfig")]
-    public class AvatarSystem : BaseSystem
+    public class AvatarSystem : BaseSystem, IAvatarSystem
     {
         #region Inspector variables
 
@@ -56,10 +56,10 @@ namespace SPACS.SDK.Avatars
 
         #region System implementation
 
-        public override void Init()
+        public override async void Init()
         {
             if (spawnAvatarOnInit)
-                Spawn();
+                await CreateAvatarInstance(avatarPrefab);
 
             AvatarConfigChanged.AddListener(UpdateAvatarInstanceCustomization);
             PlayerNickNameChanged.AddListener(UpdateAvatarInstanceNickName);
@@ -69,20 +69,6 @@ namespace SPACS.SDK.Avatars
 
         #region Public API
 
-        /// <summary>
-        /// Spawns an avatar. It could be a prefab or an avatar in scene
-        /// </summary>
-        /// <param name="newAvatar">The avatar to spawn</param>
-        public async void Spawn(AvatarControllerBase newAvatar)
-        {
-            await CreateAvatarInstance(newAvatar);
-        }
-
-        /// <summary>
-        /// Updates the avatar instance, i.e. the avatar associated with the character controller.
-        /// </summary>
-        /// <param name="avatar">The current controller</param>
-        /// <returns>Task</returns>
         public async Task CreateAvatarInstance(AvatarControllerBase avatar)
         {
             // Destroys the old avatar instance
@@ -108,10 +94,6 @@ namespace SPACS.SDK.Avatars
             }
         }
 
-        /// <summary>
-        /// Destroys the current avatar instance
-        /// </summary>
-        /// <returns>Task</returns>
         public async Task DestroyAvatarInstance()
         {
             await AvatarInstance.Unsetup();
@@ -120,49 +102,11 @@ namespace SPACS.SDK.Avatars
             avatarConfigManager = null;
         }
 
-        /// <summary>
-        /// Updates the configuration of the avatar instances
-        /// </summary>
-        /// <param name="config">The new configuration of the avatar instance</param>
-        /// <param name="onBeforeAction">Called before che configuration update takes place</param>
-        /// <param name="onAfterAction">Called after che configuration operation has completed</param>
-        /// <returns></returns>
         public void UpdateAvatarInstanceCustomization(IAvatarConfig config) => avatarConfigManager?.UpdateAvatarCustomization(config);
-
-        /// <summary>
-        /// Shows/hides the meshes of the avatar instance
-        /// </summary>
-        /// <param name="enable"></param>
         public void UpdateAvatarInstanceNickName(string newName) => avatarConfigManager?.UpdateAvatarNickName(newName);
-
-        /// <summary>
-        /// Shows/hides avatar's hands (only for half-body avatars)
-        /// </summary>
-        /// <param name="enable"></param>
         public void EnableAvatarInstanceMeshes(bool enable) => avatarConfigManager?.EnableAvatarMeshes(enable);
-
-        /// <summary>
-        /// Shows/hides a specific hand mesh (only for half-body avatars)
-        /// </summary>
-        /// <param name="id">The hand to update (0 for left, 1 for right)</param>
-        /// <param name="enable"></param>
         public void EnableAvatarInstanceHandMeshes(bool enable) => avatarConfigManager?.EnableHandMeshes(enable);
-
-
-        /// <summary>
-        /// Updates the nickname of the avatar instance (usually shown on top of avatar's head)
-        /// </summary>
-        /// <param name="newName">The new name</param>
         public void EnableAvatarInstanceHandMesh(int id, bool enable) => avatarConfigManager?.EnableHandMesh(id, enable);
-
-        #endregion
-
-        #region Private methods
-
-        /// <summary>
-        /// Called on init, spawns a predefined avatar
-        /// </summary>
-        private void Spawn() => Spawn(avatarPrefab);
 
         #endregion
     }

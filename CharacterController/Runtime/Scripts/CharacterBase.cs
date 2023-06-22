@@ -7,7 +7,7 @@ using UnityEngine;
 namespace SPACS.SDK.CharacterController
 {
     /// <summary>
-    /// Base implementation of <see cref="ICharacter"/>.
+    /// Base implementation of <see cref="ICharacter"/>. It only exposes the properties defined in the interface.
     /// </summary>
     public class CharacterBase : MonoBehaviour, ICharacter
     {

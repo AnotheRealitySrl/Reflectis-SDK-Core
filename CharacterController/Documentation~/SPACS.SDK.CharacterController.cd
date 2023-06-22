@@ -53,6 +53,7 @@
     <ShowAsAssociation>
       <Property Name="CharacterControllerInstance" />
     </ShowAsAssociation>
+    <Lollipop Position="0.2" />
   </Class>
   <Interface Name="SPACS.SDK.CharacterController.ICharacter">
     <Position X="0.75" Y="0.75" Width="1.5" />

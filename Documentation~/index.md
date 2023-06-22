@@ -1,18 +1,12 @@
-# SPACS-Utilities
+# SPACS-SDK
 
 ## How to install
 
-### Using Unity Package Manager
+Import from Git URL using Unity Package Manager: `https://github.com/AnotheRealitySrl/SPACS-SDK.git`
 
-Import from Git URL with Unity Package Manager: `https://github.com/AnotheRealitySrl/SPACS-Utilities.git`
+Dependencies:
 
-### Edit project manifest
-
-In alternative of using Unity Package Manager, add to the manifest.json the following dependencies:
-
-```
-"com.anotherealitysrl.spacs-utilities": "https://github.com/AnotheRealitySrl/SPACS-Utilities.git"
-```
+- `https://github.com/AnotheRealitySrl/SPACS-Core.git`
 
 ## Documentation of modules
 
