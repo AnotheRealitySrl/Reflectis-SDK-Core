@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace SPACS.SDK.ObjectSpawner
 {
-    [CreateAssetMenu(menuName = "AnotheReality/Utils/SpawnableData", fileName = "SpawnableData")]
+    [CreateAssetMenu(menuName = "SPACS/SDK-ObjectSpawner/SpawnableData", fileName = "SpawnableData")]
     public class SpawnableData : ScriptableObject
     {
         [SerializeField]

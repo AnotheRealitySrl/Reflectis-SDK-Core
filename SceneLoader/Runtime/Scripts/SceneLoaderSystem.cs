@@ -14,7 +14,7 @@ using UnityEngine.SceneManagement;
 
 namespace SPACS.SDK.SceneLoader
 {
-    [CreateAssetMenu(menuName = "AnotheReality/Systems/Utilities/SceneLoader", fileName = "SceneLoaderConfig")]
+    [CreateAssetMenu(menuName = "SPACS/SDK-SceneLoader/SceneLoaderSystemConfig", fileName = "SceneLoaderSystemConfig")]
     public class SceneLoaderSystem : BaseSystem
     {
         #region Private variables

@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace SPACS.SDK.Fade
 {
-    [CreateAssetMenu(menuName = "SPACS/Systems/FadeSystem", fileName = "FadeSystemConfig")]
+    [CreateAssetMenu(menuName = "SPACS/SDK-Fade/FadeSystemConfig", fileName = "FadeSystemConfig")]
     public class FadeManagerSystem : BaseSystem
     {
         #region Inspector variables

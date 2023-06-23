@@ -8,7 +8,7 @@ using UnityEngine.AddressableAssets;
 
 namespace SPACS.SDK.ObjectSpawner
 {
-    [CreateAssetMenu(menuName = "AnotheReality/Systems/ObjectSpawner", fileName = "ObjectSpawnerSystem")]
+    [CreateAssetMenu(menuName = "SPACS/SDk-ObjectSpawner/ObjectSpawnerSystemConfig", fileName = "ObjectSpawnerSystemConfig")]
 
     public class ObjectSpawnerSystem : BaseSystem
     {
