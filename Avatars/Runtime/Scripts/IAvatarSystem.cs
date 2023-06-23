@@ -1,15 +1,12 @@
-using SPACS.Core;
-using SPACS.SDK.CharacterController;
-
-using System.Collections;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
-using UnityEngine;
 using UnityEngine.Events;
 
 namespace SPACS.SDK.Avatars
 {
+    /// <summary>
+    /// The avatar system manages the lifecycle of the avatar instance, i.e. the avatar associated to the character controller
+    /// </summary>
     public interface IAvatarSystem
     {
         #region Properties

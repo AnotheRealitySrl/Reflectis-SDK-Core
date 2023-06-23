@@ -8,9 +8,6 @@ using UnityEngine.Events;
 
 namespace SPACS.SDK.Avatars
 {
-    /// <summary>
-    /// System that manages the lyfecicle of the avatar instance, i.e. the avatar associated to the character controller
-    /// </summary>
     [CreateAssetMenu(menuName = "SPACS/SDK-Avatars/AvatarSystem", fileName = "AvatarSystemConfig")]
     public class AvatarSystem : BaseSystem, IAvatarSystem
     {
@@ -20,11 +17,8 @@ namespace SPACS.SDK.Avatars
         [SerializeField] private bool spawnAvatarOnInit;
         [SerializeField] private bool setupCharacterOnCreation;
 
-        [Header("Avatar Prefab")]
+        [Header("Avatar prefab")]
         [SerializeField] private AvatarControllerBase avatarPrefab;
-
-        [Header("Avatar configuration templates")]
-        [SerializeField] private ScriptableObject avatarConfigurationTemplates;
 
         [Header("Layer settings")]
         [SerializeField] private string layerNameHiddenToPlayer = "HiddenToPlayer";
@@ -34,8 +28,6 @@ namespace SPACS.SDK.Avatars
         #region Properties
 
         public AvatarControllerBase AvatarInstance { get; private set; }
-        // TODO: should be removed?
-        public ScriptableObject AvatarConfiguratonTemplates => avatarConfigurationTemplates;
         public string LayerNameHiddenToPlayer => layerNameHiddenToPlayer;
 
         #endregion

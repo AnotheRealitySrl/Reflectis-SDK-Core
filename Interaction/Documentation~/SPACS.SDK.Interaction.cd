@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="SPACS.SDK.Interaction.ActionScriptable">
+    <Position X="6" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>Packages\SPACS-SDK\Interaction\Runtime\Scripts\ActionScriptable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SPACS.SDK.Interaction.BaseInteractableGO" BaseTypeListCollapsed="true">
+    <Position X="2.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAAAAAAAAAAAAIAQAAAAAAAAAAAAIAAY=</HashCode>
+      <FileName>Packages\SPACS-SDK\Interaction\Runtime\Scripts\BaseInteractableGO.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="SPACS.SDK.Interaction.IInteractable">
+    <Position X="1" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAQ=</HashCode>
+      <FileName>Packages\SPACS-SDK\Interaction\Runtime\Scripts\IInteractable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SPACS.SDK.DesktopInteraction.IDesktopInteractionSystem">
+    <Position X="9.5" Y="2.5" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="SPACS.SDK.DesktopInteraction.IDesktopInteractionSystem.DesktopSelectionType" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Packages\SPACS-SDK\Interaction\Runtime\Scripts\DesktopInteraction\IDesktopInteractionSystem.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAABAABIA=</HashCode>
+      <FileName>Packages\SPACS-SDK\Interaction\Runtime\Scripts\DesktopInteraction\IDesktopInteractionSystem.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
