@@ -13,10 +13,8 @@ namespace SPACS.SDK.CharacterController
     {
         #region Inspector variables
 
-        [Header("General")]
+        [Header("Character controller settings")]
         [SerializeField] protected bool spawnCharacterOnInit = false;
-
-        [Header("Character controller")]
         [SerializeField] protected CharacterControllerBase characterControllerPrefab;
         [SerializeField] protected Pose spawnPose;
 
