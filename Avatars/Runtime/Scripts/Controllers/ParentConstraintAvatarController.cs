@@ -6,7 +6,7 @@ namespace SPACS.SDK.Avatars
 {
     /// <summary>
     /// This avatar controller attaches a <see cref="ParentConstraint"> to each node specified in the <see cref="AvatarControllerBase.CharacterReference", 
-    /// and, for each <see cref="ParentConstraint">, sets the corresponding element in the <see cref="AvatarControllerBase.SourceCharacterController> as constraint
+    /// and, for each <see cref="ParentConstraint">, sets the corresponding element in the <see cref="AvatarControllerBase.SourceCharacterController"> as constraint
     /// </summary>
     public class ParentConstraintAvatarController : AvatarControllerBase
     {

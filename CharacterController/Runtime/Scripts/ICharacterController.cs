@@ -7,7 +7,7 @@ using UnityEngine;
 namespace SPACS.SDK.CharacterController
 {
     /// <summary>
-    /// Represents a character controller, i.e. an ICharacter that is controlled by the user
+    /// Represents a character controller, i.e. an character that is controlled by some other entity (spoiler: the user, most of the times)
     /// </summary>
     public interface ICharacterController : ICharacter
     {

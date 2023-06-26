@@ -8,7 +8,9 @@ using UnityEngine;
 namespace SPACS.SDK.Avatars
 {
     /// <summary>
-    /// An avatar controller handles the hook between a CharacterBase (e.g. an avatar), and a CharacterControllerBase (e.g., usually, the CharacterControllerInstance)
+    /// Base implementation of an <see cref="IAvatarController">. 
+    /// Provides <see cref="Setup"> and <see cref="Unsetup"> virtual methods, 
+    /// specific hooking into another <see cref="CharacterControllerBase"/> must be implemented.
     /// </summary>
     public class AvatarControllerBase : MonoBehaviour, IAvatarController
     {
@@ -55,7 +57,7 @@ namespace SPACS.SDK.Avatars
             await DoTransition(true);
         }
 
-        public async Task Unsetup()
+        public virtual async Task Unsetup()
         {
             await DoTransition(false);
 
