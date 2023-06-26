@@ -31,7 +31,7 @@ namespace SPACS.SDK.CharacterController
         /// Creates the character controller instance. 
         /// A character controller can be referenced as a prefab through the serialized field `characterControllerPrefab`, or can be already in scene
         /// </summary>
-        void CreateCharacterControllerInstance();
+        void CreateCharacterControllerInstance(CharacterControllerBase characterController);
 
         /// <summary>
         /// Destroys the character controller instance
