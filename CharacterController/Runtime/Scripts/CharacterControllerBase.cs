@@ -4,6 +4,11 @@ using UnityEngine;
 
 namespace SPACS.SDK.CharacterController
 {
+    /// <summary>
+    /// Base implementation of <see cref="ICharacterController"/>.
+    /// In addition of the properties provided by <see cref="CharacterBase"/>, 
+    /// it provides a reference to the main camera and the type of interaction used in VR (controllers, hands).
+    /// </summary>
     public class CharacterControllerBase : CharacterBase, ICharacterController
     {
         #region Inspector variables
