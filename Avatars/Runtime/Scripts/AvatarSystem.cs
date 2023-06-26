@@ -22,8 +22,11 @@ namespace SPACS.SDK.Avatars
         [SerializeField, Tooltip("Is the avatar already in scene or should be instantiated from a prefab?")] 
         private bool avatarAlreadyInScene;
 
-        [Header("Avatar prefab")]
-        [SerializeField, HideIf(nameof(avatarAlreadyInScene)), Tooltip("Reference to the avatar prefab")]
+        [Header("Avatar instantiation")]
+#if ODIN_INSPECTOR
+        [HideIf(nameof(avatarAlreadyInScene))]
+#endif
+        [SerializeField, Tooltip("Reference to the avatar prefab")]
         private AvatarControllerBase avatarPrefab;
 
         [Header("General settings")]
@@ -115,7 +118,7 @@ namespace SPACS.SDK.Avatars
 
             if (setupAvatarInstanceAutomatically)
             {
-                await AvatarInstance.SourceCharacter.Setup();
+                await AvatarInstance.CharacterReference.Setup();
             }
         }
 

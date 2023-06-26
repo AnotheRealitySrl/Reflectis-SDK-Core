@@ -13,7 +13,15 @@ namespace SPACS.SDK.Avatars
     {
         #region Properties
 
-        public CharacterControllerBase SourceController { get; }
+        /// <summary>
+        /// "This" character, i.e. the character (avatar) that is associated to this avatar controller
+        /// </summary>
+        public CharacterBase CharacterReference { get; }
+
+        /// <summary>
+        /// The character controller to which this avatar controller "hooks up"
+        /// <summary>
+        public CharacterControllerBase SourceCharacterController { get; }
 
         #endregion
 

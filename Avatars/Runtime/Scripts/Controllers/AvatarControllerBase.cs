@@ -7,11 +7,15 @@ using UnityEngine;
 
 namespace SPACS.SDK.Avatars
 {
+    /// <summary>
+    /// An avatar controller handles the hook between a CharacterBase (e.g. an avatar), and a CharacterControllerBase (e.g., usually, the CharacterControllerInstance)
+    /// </summary>
     public class AvatarControllerBase : MonoBehaviour, IAvatarController
     {
         #region Inspector variables
 
-        [SerializeField] protected CharacterBase sourceCharacter;
+        [SerializeField, Tooltip("\"This\" character, i.e. the character (avatar) that is associated to this avatar controller")] 
+        protected CharacterBase characterReference;
 
         #endregion
 
@@ -23,11 +27,8 @@ namespace SPACS.SDK.Avatars
 
         #region Properties
 
-        // This character
-        public CharacterBase SourceCharacter { get => sourceCharacter; private set => sourceCharacter = value; }
-
-        // The character controller which this character is attached to.
-        public CharacterControllerBase SourceController { get; private set; }
+        public CharacterBase CharacterReference { get => characterReference; private set => characterReference = value; }
+        public CharacterControllerBase SourceCharacterController { get; private set; }
 
         #endregion
 
@@ -35,9 +36,9 @@ namespace SPACS.SDK.Avatars
 
         private void Awake()
         {
-            if (!sourceCharacter)
+            if (!characterReference)
             {
-                sourceCharacter = GetComponent<CharacterBase>();
+                characterReference = GetComponent<CharacterBase>();
             }
 
             transitionProvider = GetComponent<AbstractTransitionProvider>();
@@ -47,21 +48,19 @@ namespace SPACS.SDK.Avatars
 
         #region Public API
 
-        public virtual async Task Setup(CharacterControllerBase source)
+        public virtual async Task Setup(CharacterControllerBase sourceController)
         {
-            // If the source controller is already instantiated, use that.
-            // Otherwise, instantiate the source controller.
-            SourceController = string.IsNullOrEmpty(source.gameObject.scene.name)
-                ? Instantiate(source.gameObject).GetComponent<AvatarControllerBase>().SourceController
-                : source;
+            SourceCharacterController = sourceController;
+
             await DoTransition(true);
         }
 
         public async Task Unsetup()
         {
             await DoTransition(false);
+
             Destroy(gameObject);
-            SourceController = null;
+            SourceCharacterController = null;
         }
 
         #endregion

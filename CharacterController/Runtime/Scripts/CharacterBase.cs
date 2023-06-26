@@ -11,6 +11,7 @@ namespace SPACS.SDK.CharacterController
     /// </summary>
     public class CharacterBase : MonoBehaviour, ICharacter
     {
+        [Header("Character structure")]
         [SerializeField] protected Transform pivotReference;
         [SerializeField] protected Transform headReference;
         [SerializeField] protected Transform leftHandReference;

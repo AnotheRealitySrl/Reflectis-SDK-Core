@@ -1,3 +1,5 @@
+using Sirenix.OdinInspector;
+
 using SPACS.Core;
 
 using System;
@@ -20,10 +22,16 @@ namespace SPACS.SDK.CharacterController
         [SerializeField, Tooltip("Is the character conroller already in scene or should be instantiated from a prefab?")]
         private bool characterControllerAlreadyInScene;
 
-
-        [SerializeField, Tooltip("Reference to the character controller. It can be already a GameObject in scene or a prefab in the Assets folder")]
+        [Header("Character controller instantiation")]
+#if ODIN_INSPECTOR
+        [HideIf(nameof(characterControllerAlreadyInScene))]
+#endif
+        [SerializeField, Tooltip("Reference to the character controller prefab")]
         protected CharacterControllerBase characterControllerPrefab;
-        
+
+#if ODIN_INSPECTOR
+        [HideIf(nameof(characterControllerAlreadyInScene))]
+#endif
         [SerializeField, Tooltip("Spawn position and rotation of the character controller")]
         protected Pose spawnPose;
 
