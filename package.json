@@ -19,7 +19,7 @@
     {
       "displayName": "URP Volume fading sample",
       "description": "This is a sample of fade manager implemented with post-processing",
-      "path": "FadeSystem/Samples~/URPVolumeSample"
+      "path": "Fade/Samples~/URPVolumeSample"
     }
   ]
 }
