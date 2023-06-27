@@ -4,9 +4,15 @@
 
 Import from Git URL using Unity Package Manager: `https://github.com/AnotheRealitySrl/SPACS-SDK.git`
 
+Alternatively, if you need to modify the content of the package, import it as a submodule under the `Packages` folder.
+
 Dependencies:
 
 - `https://github.com/AnotheRealitySrl/SPACS-Core.git`
+
+External dependencies:
+
+- [Dotween](http://dotween.demigiant.com/)
 
 ## Documentation of modules
 
