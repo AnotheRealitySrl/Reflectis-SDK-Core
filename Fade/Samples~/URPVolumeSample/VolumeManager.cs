@@ -6,7 +6,7 @@ using UnityEngine.Events;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-namespace SPACS.SDK.FadeSystem
+namespace SPACS.SDK.Fade.Samples
 {
     public class VolumeManager : MonoBehaviour, IFadeManager
     {
