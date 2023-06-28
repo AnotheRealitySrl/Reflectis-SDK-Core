@@ -1,7 +1,6 @@
 using SPACS.Core;
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -15,7 +14,7 @@ using UnityEngine.SceneManagement;
 namespace SPACS.SDK.SceneLoader
 {
     [CreateAssetMenu(menuName = "SPACS/SDK-SceneLoader/SceneLoaderSystemConfig", fileName = "SceneLoaderSystemConfig")]
-    public class SceneLoaderSystem : BaseSystem
+    public class SceneLoaderSystem : BaseSystem, ISceneLoaderSystem
     {
         #region Private variables
 
@@ -31,14 +30,18 @@ namespace SPACS.SDK.SceneLoader
         public UnityEvent OnBeforeLoad { get; private set; }
         public UnityEvent OnLoadCompleted { get; private set; }
 
+        #endregion
+
+        #region System implementation
+
         public override void Init()
         {
-            //activeScenes.Add(SceneManager.GetActiveScene());
+            // Nothing to do
         }
 
         #endregion
 
-        #region Public methods
+        #region Public API
 
         public void LoadScene(string sceneName, UnityAction onBeforeLoadCallback = null, UnityAction onAfterLoadCallback = null)
         {

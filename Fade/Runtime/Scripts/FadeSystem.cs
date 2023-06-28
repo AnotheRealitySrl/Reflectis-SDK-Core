@@ -8,15 +8,22 @@ using UnityEngine;
 namespace SPACS.SDK.Fade
 {
     [CreateAssetMenu(menuName = "SPACS/SDK-Fade/FadeSystemConfig", fileName = "FadeSystemConfig")]
-    public class FadeManagerSystem : BaseSystem
+    public class FadeSystem : BaseSystem, IFadeSystem
     {
         #region Inspector variables
 
         [Header("Configuration")]
-        [SerializeField] private GameObject volumeManagerPrefab;
-        [SerializeField] private float fadeTime = 1f;
-        [SerializeField] private bool fadeOnStart = true;
-        [SerializeField] private LayerManagerBase layerManager;
+        [SerializeField, Tooltip("Reference to the fade manager prefab")] 
+        private GameObject fadeManagerPrefab;
+
+        [SerializeField, Tooltip("Fade time")] 
+        private float fadeTime = 1f;
+
+        [SerializeField, Tooltip("Performs fade in during initialization")] 
+        private bool fadeOnStart = true;
+
+        [SerializeField, Tooltip("Reference to the layer manager, i.e. the object that manages any objects unaffected by fade.")]
+        private LayerManagerBase layerManager;
 
         #endregion
 
@@ -30,7 +37,7 @@ namespace SPACS.SDK.Fade
 
         public override void Init()
         {
-            if (!Instantiate(volumeManagerPrefab, Camera.main.transform).TryGetComponent(out fadeManager))
+            if (!Instantiate(fadeManagerPrefab, Camera.main.transform).TryGetComponent(out fadeManager))
             {
                 throw new Exception("No fade manager specified");
             }
@@ -62,7 +69,7 @@ namespace SPACS.SDK.Fade
         public void ResetObjsUnaffectedByFade() => fadeManager.LayerManager?.ResetObjsUnaffectedByFade();
 
         public void InterruptFade() => fadeManager.InterruptFade();
+
         #endregion
     }
-
 }

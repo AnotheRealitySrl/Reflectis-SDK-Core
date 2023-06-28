@@ -8,17 +8,21 @@ using UnityEngine;
 
 namespace SPACS.SDK.Transitions
 {
+    /// <summary>
+    /// Transition provider that operates on a multiple animators simultauneously
+    /// </summary>
     public class MultipleAnimatorsTransitionProvider : AbstractTransitionProvider
     {
-        [SerializeField] private List<Animator> animatorsList;
+        [SerializeField] private List<Animator> animatorsList = new();
+        [SerializeField] private string animatorParameter = "Visible";
 
         public override async Task EnterTransitionAsync()
         {
             IEnumerable<Task> animatorsTaskList = animatorsList.Select(async animator => 
             {
-                if (animator.ContainsParam("Visible"))
+                if (animator.ContainsParam(animatorParameter))
                 {
-                    animator.SetBool("Visible", true);
+                    animator.SetBool(animatorParameter, true);
                 }
 
                 while (animator.IsInTransition(0) || animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1)
@@ -34,9 +38,9 @@ namespace SPACS.SDK.Transitions
         {
             IEnumerable<Task> animatorsTaskList = animatorsList.Select(async animator =>
             {
-                if (animator.ContainsParam("Visible"))
+                if (animator.ContainsParam(animatorParameter))
                 {
-                    animator.SetBool("Visible", false);
+                    animator.SetBool(animatorParameter, false);
                 }
 
                 while (animator.IsInTransition(0) || animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1)

@@ -6,6 +6,9 @@ using UnityEngine;
 
 namespace SPACS.SDK.CommunicationSystem
 {
+    /// <summary>
+    /// Base implementation of <see cref="ICommunicationSystem"/>
+    /// </summary>
     public abstract class CommunicationSystemBase : BaseSystem, ICommunicationSystem
     {
         [SerializeField] protected string appId;
@@ -19,17 +22,13 @@ namespace SPACS.SDK.CommunicationSystem
         public virtual event Action<int, bool> OnRemoteAudioStateChanged;
         public virtual event Action<int, bool> OnRemoteVideoStateChanged;
 
-        protected CommunicatioChannel _currentRoom;
-
-        public CommunicatioChannel CurrentRoom
-        {
-            get { return _currentRoom; }
-            set { _currentRoom = value; }
-        }
+        protected CommunicationChannel currentChannel;
+        public CommunicationChannel CurrentChannel { get =>  currentChannel; set => currentChannel = value; }
+        
         public string AppId { get => appId; set => appId = value; }
 
         public abstract void AskPermissions();
-        public abstract void ConnectToChannel(CommunicatioChannel _room);
+        public abstract void ConnectToChannel(CommunicationChannel channel);
         public abstract void DestroyVideoView(uint uid);
         public abstract void DisconnectFromChannel();
         public abstract void DisposeEngine();

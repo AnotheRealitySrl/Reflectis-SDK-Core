@@ -6,6 +6,9 @@ using UnityEngine;
 
 namespace SPACS.SDK.Transitions
 {
+    /// <summary>
+    /// Transition provider that operates on the alpha value of a canvas group
+    /// </summary>
     public class CanvasTransitionProvider : AbstractTransitionProvider
     {
         [SerializeField] private CanvasGroup canvasGroup;
