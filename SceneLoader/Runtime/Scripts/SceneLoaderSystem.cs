@@ -200,8 +200,8 @@ namespace SPACS.SDK.SceneLoader
                 while
                     (!loadSceneOperation.IsDone);
             });
-           
-            
+
+
         }
 
         #endregion

@@ -1,7 +1,5 @@
 using SPACS.SDK.CharacterController;
 
-using System.Collections;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SPACS.SDK.Avatars

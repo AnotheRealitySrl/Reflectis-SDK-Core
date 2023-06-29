@@ -1,8 +1,6 @@
 using SPACS.Core;
 using SPACS.SDK.CharacterController;
-using System.Collections;
-using System.Collections.Generic;
-using System.Data;
+
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 

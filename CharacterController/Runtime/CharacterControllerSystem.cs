@@ -3,8 +3,7 @@ using Sirenix.OdinInspector;
 using SPACS.Core;
 
 using System;
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -16,7 +15,7 @@ namespace SPACS.SDK.CharacterController
         #region Inspector variables
 
         [Header("Initialization")]
-        [SerializeField, Tooltip("Create a character controller instance on system init")] 
+        [SerializeField, Tooltip("Create a character controller instance on system init")]
         protected bool createCharacterControllerInstanceOnInit = true;
 
         [SerializeField, Tooltip("Is the character conroller already in scene or should be instantiated from a prefab?")]
@@ -84,7 +83,7 @@ namespace SPACS.SDK.CharacterController
 
         #region Public API
 
-        public virtual void CreateCharacterControllerInstance(CharacterControllerBase characterController) 
+        public virtual void CreateCharacterControllerInstance(CharacterControllerBase characterController)
         {
             // Destroys the old character controller instance
             if (CharacterControllerInstance)

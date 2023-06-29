@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+
 using UnityEngine;
 
 namespace SPACS.SDK.Transitions
@@ -8,7 +9,7 @@ namespace SPACS.SDK.Transitions
     /// </summary>
     public abstract class AbstractTransitionProvider : MonoBehaviour
     {
-        [SerializeField, Tooltip("If true, methods DoTranition and DoTransitionAsync revert their boolean parameter value")] 
+        [SerializeField, Tooltip("If true, methods DoTranition and DoTransitionAsync revert their boolean parameter value")]
         private bool reverseTransitions;
 
 

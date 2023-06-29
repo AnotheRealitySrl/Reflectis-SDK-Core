@@ -16,7 +16,7 @@ namespace SPACS.SDK.Avatars
     {
         #region Inspector variables
 
-        [SerializeField, Tooltip("\"This\" character, i.e. the character (avatar) that is associated to this avatar controller")] 
+        [SerializeField, Tooltip("\"This\" character, i.e. the character (avatar) that is associated to this avatar controller")]
         protected CharacterBase characterReference;
 
         #endregion

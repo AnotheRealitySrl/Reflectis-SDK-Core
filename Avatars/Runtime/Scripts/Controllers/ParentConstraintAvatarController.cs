@@ -1,6 +1,8 @@
-using System.Threading.Tasks;
-using UnityEngine.Animations;
 using SPACS.SDK.CharacterController;
+
+using System.Threading.Tasks;
+
+using UnityEngine.Animations;
 
 namespace SPACS.SDK.Avatars
 {

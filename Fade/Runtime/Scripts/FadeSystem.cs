@@ -13,13 +13,13 @@ namespace SPACS.SDK.Fade
         #region Inspector variables
 
         [Header("Configuration")]
-        [SerializeField, Tooltip("Reference to the fade manager prefab")] 
+        [SerializeField, Tooltip("Reference to the fade manager prefab")]
         private GameObject fadeManagerPrefab;
 
-        [SerializeField, Tooltip("Fade time")] 
+        [SerializeField, Tooltip("Fade time")]
         private float fadeTime = 1f;
 
-        [SerializeField, Tooltip("Performs fade in during initialization")] 
+        [SerializeField, Tooltip("Performs fade in during initialization")]
         private bool fadeOnStart = true;
 
         [SerializeField, Tooltip("Reference to the layer manager, i.e. the object that manages any objects unaffected by fade.")]

@@ -2,22 +2,25 @@
 
 ## Unreleased
 
-### Changed:
+### Changed
 
-- Merged Extensions module into Utilities one
-- Renamed "FadeSystem" (asmdef, namespaces, etc.) in "Fade"
+- Utilities: Merged Extensions module into Utilities one
+- Fade: Renamed "FadeSystem" (asmdef, namespaces, etc.) in "Fade"
+- CharacterController: change methods signatures in `ICharacterControllerSystem` API for better clarity
+- Avatar: change methods signatures in `IAvatarSystem` API for better clarity
 
-### Added:
+### Added
 
 - New Interaction module, with interactable objects base logic and scriptable actions from SPACS-Core, and with new IDesktopInteractionSystem interface
 - New Object Spawner system
 - Avatars: Spawn method in AvatarSystem's API
 - Avatars: onBeforeAction and onAfterAction callbacks on avatar customization change
-- Transitions: flag for performing reverse transitions in AbstractTransitionsProvider
-- Communication system: Communication system base class
+- Transitions: flag for performing reverse transitions in `AbstractTransitionsProvider`
+- Transitions: `AnimatorTransitionProvider` now has a configurable string parameter
+- Communication system: system base class
 - Documentation
 
-### Fixed:
+### Fixed
 
 - Fade: condition that checks when all scenes have been loaded/unloaded
 
@@ -25,11 +28,11 @@
 
 ## v2.0.0
 
-### Changed:
+### Changed
 
 - Migrate to SPACS system framework
 
-### Added:
+### Added
 
 - Fade system (with URP volume fade sample)
 - Scene loader system

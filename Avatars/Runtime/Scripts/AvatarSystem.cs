@@ -16,10 +16,10 @@ namespace SPACS.SDK.Avatars
         #region Inspector variables
 
         [Header("Initialization")]
-        [SerializeField, Tooltip("Create an avatar instance on system init")] 
+        [SerializeField, Tooltip("Create an avatar instance on system init")]
         private bool createAvatarInstanceOnInit = true;
 
-        [SerializeField, Tooltip("Is the avatar already in scene or should be instantiated from a prefab?")] 
+        [SerializeField, Tooltip("Is the avatar already in scene or should be instantiated from a prefab?")]
         private bool avatarAlreadyInScene;
 
         [Header("Avatar instantiation")]
@@ -30,10 +30,10 @@ namespace SPACS.SDK.Avatars
         private AvatarControllerBase avatarPrefab;
 
         [Header("General settings")]
-        [SerializeField, Tooltip("If true, once a new avatar instance is created, the method Setup of its SourceCharacter is called")] 
+        [SerializeField, Tooltip("If true, once a new avatar instance is created, the method Setup of its SourceCharacter is called")]
         private bool setupAvatarInstanceAutomatically;
 
-        [SerializeField, Tooltip("Objects in this layer are hidden to the player (useful for VR avatars)")] 
+        [SerializeField, Tooltip("Objects in this layer are hidden to the player (useful for VR avatars)")]
         private string layerNameHiddenToPlayer = "HiddenToPlayer";
 
         #endregion
@@ -88,7 +88,7 @@ namespace SPACS.SDK.Avatars
                     }
                 }
             }
-                
+
             AvatarConfigChanged.AddListener(UpdateAvatarInstanceCustomization);
             PlayerNickNameChanged.AddListener(UpdateAvatarInstanceNickName);
         }

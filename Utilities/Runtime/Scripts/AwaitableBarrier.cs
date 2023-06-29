@@ -1,52 +1,50 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
-using System.Threading.Tasks;
 
 namespace SPACS.SDK.Utilities
 {
-	public class AwaitableBarrier
-	{
-		bool set;
-		Action whenSet;
+    public class AwaitableBarrier
+    {
+        bool set;
+        Action whenSet;
 
-		public AwaitableBarrier()
-		{}
+        public AwaitableBarrier()
+        { }
 
-		public Awaiter GetAwaiter()
-		{
-			return new Awaiter(this);
-		}
+        public Awaiter GetAwaiter()
+        {
+            return new Awaiter(this);
+        }
 
-		public void Set()
-		{
-			Debug.Assert(set == false);
-			set = true;
-			whenSet?.Invoke();
-			whenSet = null;
-		}
+        public void Set()
+        {
+            Debug.Assert(set == false);
+            set = true;
+            whenSet?.Invoke();
+            whenSet = null;
+        }
 
-		public bool IsSet => set;
+        public bool IsSet => set;
 
-		public class Awaiter : System.Runtime.CompilerServices.INotifyCompletion
-		{
-			readonly AwaitableBarrier owner;
+        public class Awaiter : System.Runtime.CompilerServices.INotifyCompletion
+        {
+            readonly AwaitableBarrier owner;
 
-			public Awaiter(AwaitableBarrier owner)
-			{
-				this.owner = owner;
-			}
+            public Awaiter(AwaitableBarrier owner)
+            {
+                this.owner = owner;
+            }
 
-			public bool IsCompleted => owner.set;
+            public bool IsCompleted => owner.set;
 
-			public void OnCompleted(Action continuation)
-			{
-				owner.whenSet = continuation;
-			}
+            public void OnCompleted(Action continuation)
+            {
+                owner.whenSet = continuation;
+            }
 
-			public void GetResult()
-			{}
-		}
-	}
+            public void GetResult()
+            { }
+        }
+    }
 }

@@ -1,35 +1,40 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 namespace SPACS.SDK.Interaction
 {
 
-    public class BaseInteractableGO : MonoBehaviour, IInteractable {
+    public class BaseInteractableGO : MonoBehaviour, IInteractable
+    {
 
-		[SerializeField] protected ActionScriptable InteractAction;
+        [SerializeField] protected ActionScriptable InteractAction;
         [SerializeField] protected ActionScriptable StopInteractAction;
 
-        public GameObject InteractionTarget {
-			get { return _interactionTarget; }
-			set { _interactionTarget = value; }
-		}
-		[SerializeField] private GameObject _interactionTarget;
+        public GameObject InteractionTarget
+        {
+            get { return _interactionTarget; }
+            set { _interactionTarget = value; }
+        }
+        [SerializeField] private GameObject _interactionTarget;
 
-		public virtual void Interact(Action completedCallback = null) {
-            if (!InteractAction) { 
+        public virtual void Interact(Action completedCallback = null)
+        {
+            if (!InteractAction)
+            {
                 completedCallback?.Invoke();
                 return;
             }
 
-			InteractAction.InteractableObjectReference = this;
+            InteractAction.InteractableObjectReference = this;
             InteractAction.Action(completedCallback);
             InteractAction.InteractableObjectReference = null;
         }
 
-		public virtual void StopInteract(Action completedCallback = null) {
-            if (!StopInteractAction) {
+        public virtual void StopInteract(Action completedCallback = null)
+        {
+            if (!StopInteractAction)
+            {
                 completedCallback?.Invoke();
                 return;
             }
@@ -38,5 +43,5 @@ namespace SPACS.SDK.Interaction
             StopInteractAction.Action(completedCallback);
             StopInteractAction.InteractableObjectReference = null;
         }
-	}
+    }
 }

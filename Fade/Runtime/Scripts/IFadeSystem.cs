@@ -1,8 +1,6 @@
-using DG.Tweening.Core.Easing;
-
 using System;
-using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
 
 namespace SPACS.SDK.Fade
@@ -11,7 +9,7 @@ namespace SPACS.SDK.Fade
     /// The Fade System manages fade in and fade out of what camera sees.
     /// Optionally, is possible to filter out some objects from fade.
     /// </summary>
-    public interface IFadeSystem 
+    public interface IFadeSystem
     {
         /// <summary>
         /// Fades to black

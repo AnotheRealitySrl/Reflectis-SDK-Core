@@ -29,7 +29,7 @@ namespace SPACS.SDK.Transitions
                 animator.SetBool(animatorParameter, true);
             }
 
-            while (animator.IsInTransition(0) || animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1) 
+            while (animator.IsInTransition(0) || animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1)
             {
                 await Task.Yield();
             }
@@ -41,8 +41,8 @@ namespace SPACS.SDK.Transitions
             {
                 animator.SetBool(animatorParameter, false);
             }
-            
-            while (animator.IsInTransition(0) || animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1) 
+
+            while (animator.IsInTransition(0) || animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1)
             {
                 await Task.Yield();
             }

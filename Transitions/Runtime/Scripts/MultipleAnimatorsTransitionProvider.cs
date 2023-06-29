@@ -18,7 +18,7 @@ namespace SPACS.SDK.Transitions
 
         public override async Task EnterTransitionAsync()
         {
-            IEnumerable<Task> animatorsTaskList = animatorsList.Select(async animator => 
+            IEnumerable<Task> animatorsTaskList = animatorsList.Select(async animator =>
             {
                 if (animator.ContainsParam(animatorParameter))
                 {

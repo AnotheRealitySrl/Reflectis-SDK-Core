@@ -1,7 +1,5 @@
 using Sirenix.OdinInspector;
 
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 
 using UnityEngine;
@@ -13,10 +11,10 @@ namespace SPACS.SDK.CharacterController
     /// </summary>
     public class GenericHookComponent : MonoBehaviour
     {
-        [SerializeField, Tooltip("Unique id to identify the node in the character hierarchy")] 
+        [SerializeField, Tooltip("Unique id to identify the node in the character hierarchy")]
         private string id;
 
-        [SerializeField, Tooltip("Needs to be specified in case the GenericHookComponent refers to a transform other than the one to which it is applied")] 
+        [SerializeField, Tooltip("Needs to be specified in case the GenericHookComponent refers to a transform other than the one to which it is applied")]
         private Transform transformRef;
 
         /// <summary>

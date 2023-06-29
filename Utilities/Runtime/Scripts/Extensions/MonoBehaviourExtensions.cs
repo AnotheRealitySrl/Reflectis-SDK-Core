@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+
 using UnityEngine;
 
 namespace SPACS.SDK.Utilities.Extensions
@@ -7,7 +8,8 @@ namespace SPACS.SDK.Utilities.Extensions
     /// <summary>
     /// Extend base system Action.
     /// </summary>
-    public static class MonoBehaviourExtensions {
+    public static class MonoBehaviourExtensions
+    {
 
         /// <summary>
         /// Invoke action at next frame.
@@ -54,7 +56,8 @@ namespace SPACS.SDK.Utilities.Extensions
         /// </summary>
         /// <param name="_this"></param>
         /// <param name="original"></param>
-        public static void CopyValuesFromOtherComponent(this Component _this, Component original) {
+        public static void CopyValuesFromOtherComponent(this Component _this, Component original)
+        {
             var json = JsonUtility.ToJson(original);
             JsonUtility.FromJsonOverwrite(json, _this);
         }
@@ -65,7 +68,8 @@ namespace SPACS.SDK.Utilities.Extensions
         /// <typeparam name="T">Return component just created.</typeparam>
         /// <param name="_this">This gameobject.</param>
         /// <param name="original">Original component to clone to the new one.</param>
-        public static T AddComponent<T>(this GameObject _this, T original) where T : Component {
+        public static T AddComponent<T>(this GameObject _this, T original) where T : Component
+        {
             var json = JsonUtility.ToJson(original);
             T newComponent = _this.gameObject.AddComponent<T>();
             JsonUtility.FromJsonOverwrite(json, newComponent);
