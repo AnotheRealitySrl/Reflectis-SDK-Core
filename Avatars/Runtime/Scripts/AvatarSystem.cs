@@ -1,10 +1,7 @@
 using Sirenix.OdinInspector;
-
 using SPACS.Core;
 using SPACS.SDK.CharacterController;
-
 using System.Threading.Tasks;
-
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -55,7 +52,7 @@ namespace SPACS.SDK.Avatars
         #region Private variables
 
         // The config manager associated to the avatar instance
-        private IAvatarConfigManager avatarInstanceConfigManager;
+        private IAvatarConfigController avatarInstanceConfigManager;
 
         #endregion
 
@@ -114,7 +111,7 @@ namespace SPACS.SDK.Avatars
             // Attaches the new avatar instance to the character controller instance
             await AvatarInstance.Setup(ccs.CharacterControllerInstance);
 
-            avatarInstanceConfigManager = AvatarInstance.GetComponent<IAvatarConfigManager>();
+            avatarInstanceConfigManager = AvatarInstance.GetComponent<IAvatarConfigController>();
 
             if (setupAvatarInstanceAutomatically)
             {
