@@ -1,6 +1,6 @@
 {
-    "name": "SPACS.SDK.CommunicationSystem",
-    "rootNamespace": "SPACS.SDK.CommunicationSystem",
+    "name": "SPACS.SDK.VoiceChat",
+    "rootNamespace": "SPACS.SDK.VoiceChat",
     "references": [
         "SPACS.SDK.Core"
     ],

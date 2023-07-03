@@ -18,7 +18,7 @@ External dependencies:
 
 - [Avatars](../Avatars/Documentation~/index.md)
 - [CharacterController](../CharacterController/Documentation~/index.md)
-- [CommunicationSystem](../CommunicationSystem/Documentation~/index.md)
+- [VoiceChat](../VoiceChat/Documentation~/index.md)
 - [Fade](../Fade/Documentation~/index.md)
 - [Interaction](../Interaction/Documentation~/index.md)
 - [ObjectSpawner](../ObjectSpawner/Documentation~/index.md)
