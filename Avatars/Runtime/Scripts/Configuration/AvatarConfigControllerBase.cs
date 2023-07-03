@@ -17,10 +17,13 @@ namespace SPACS.SDK.Avatars
         #region Inspector variables
 
         [Header("Avatar elements")]
-        [SerializeField] protected GameObject currentAvatarPivotReference;
 
         [SerializeField, Tooltip("Sorted list of avatar loaders")]
         private AvatarLoadersController avatarLoadersController;
+
+        [SerializeField] protected GameObject fullBodyAvatarReference;
+
+        
 
         #endregion
 
@@ -32,7 +35,7 @@ namespace SPACS.SDK.Avatars
         protected readonly List<Renderer> handsMeshes = new();
         protected List<Renderer> bodyMeshes;
         protected TMP_Text avatarNameText;
-
+        protected AvatarLoaderBase avatarLoader;
         #endregion
 
         #region Properties
@@ -77,7 +80,7 @@ namespace SPACS.SDK.Avatars
         {
             onBeforeAction?.Invoke();
 
-            AvatarLoaderBase avatarLoader = AvatarLoadersController.GetAvatarLoader(config);
+            avatarLoader = AvatarLoadersController.GetAvatarLoader(config);
 
             avatarLoader.onLoadingAvatarComplete.AddListener(OnAvatarLoadCompletion);
 
@@ -131,7 +134,7 @@ namespace SPACS.SDK.Avatars
         {
             int layerHiddenToPlayer = LayerMask.NameToLayer(avatarSystem.LayerNameHiddenToPlayer);
 
-            foreach (var toHide in currentAvatarPivotReference.GetComponentsInChildren<Transform>())
+            foreach (var toHide in fullBodyAvatarReference.GetComponentsInChildren<Transform>())
             {
                 toHide.gameObject.layer = layerHiddenToPlayer;
             }
