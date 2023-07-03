@@ -1,10 +1,10 @@
 {
-    "name": "SPACS.SDK.CommunicationSystem",
-    "rootNamespace": "SPACS.SDK.CommunicationSystem",
-    "references": [
-        "SPACS.SDK.Core"
+    "name": "SPACS.SDK.Core.Editor",
+    "rootNamespace": "SPACS.SDK.Core.Editor",
+    "references": [],
+    "includePlatforms": [
+        "Editor"
     ],
-    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

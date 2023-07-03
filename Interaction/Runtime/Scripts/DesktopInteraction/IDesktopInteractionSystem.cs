@@ -1,4 +1,4 @@
-using SPACS.Core;
+using SPACS.SDK.Core;
 using SPACS.SDK.Interaction;
 
 namespace SPACS.SDK.DesktopInteraction

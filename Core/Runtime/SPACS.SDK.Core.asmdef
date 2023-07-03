@@ -1,9 +1,7 @@
 {
-    "name": "SPACS.SDK.CommunicationSystem",
-    "rootNamespace": "SPACS.SDK.CommunicationSystem",
-    "references": [
-        "SPACS.SDK.Core"
-    ],
+    "name": "SPACS.SDK.Core",
+    "rootNamespace": "SPACS.SDK.Core",
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

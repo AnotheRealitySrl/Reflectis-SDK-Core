@@ -2,7 +2,7 @@
 using Sirenix.OdinInspector;
 #endif
 
-using SPACS.Core;
+using SPACS.SDK.Core;
 
 using System;
 

@@ -1,6 +1,6 @@
 using Sirenix.OdinInspector;
 
-using SPACS.Core;
+using SPACS.SDK.Core;
 using SPACS.SDK.CharacterController;
 
 using System.Threading.Tasks;
