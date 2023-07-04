@@ -50,7 +50,13 @@ namespace SPACS.SDK.Avatars
         /// <summary>
         /// Start the loading avatar process
         /// </summary>
-        public abstract void LoadAvatar(IAvatarConfig avatarConfig);
+        public abstract Task LoadAvatar(IAvatarConfig avatarConfig);
+
+        /// <summary>
+        /// Get the material of the avatar skin.
+        /// Usually it is usued to set the hand material.
+        /// </summary>
+        public abstract Material GetSkinMaterial(IAvatarConfig avatarConfig);
         #endregion
     }
 }

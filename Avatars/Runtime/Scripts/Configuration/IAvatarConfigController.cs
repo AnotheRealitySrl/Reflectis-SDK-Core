@@ -13,7 +13,10 @@ namespace SPACS.SDK.Avatars
     public interface IAvatarConfigController
     {
         #region Properties
-
+        /// <summary>
+        /// The avatar loader being used
+        /// </summary>
+        public AvatarLoaderBase AvatarLoader { get; }
 
         /// <summary>
         /// Current avatar configuration
@@ -41,7 +44,7 @@ namespace SPACS.SDK.Avatars
         /// <param name="onBeforeAction">Called before che configuration update takes place</param>
         /// <param name="onAfterAction">Called after che configuration operation has completed</param>
         /// <returns></returns>
-        void UpdateAvatarCustomization(IAvatarConfig config, Action onBeforeAction = null, Action onAfterAction = null);
+        Task UpdateAvatarCustomization(IAvatarConfig config, Action onBeforeAction = null, Action onAfterAction = null);
 
         /// <summary>
         /// Shows/hides avatar meshes

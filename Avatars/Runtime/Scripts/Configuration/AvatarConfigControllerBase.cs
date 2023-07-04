@@ -33,21 +33,23 @@ namespace SPACS.SDK.Avatars
         protected ICharacter character;
 
         protected readonly List<Renderer> handsMeshes = new();
-        protected List<Renderer> bodyMeshes;
         protected TMP_Text avatarNameText;
-        protected AvatarLoaderBase avatarLoader;
+        private AvatarLoaderBase avatarLoader;
         #endregion
 
         #region Properties
         public IAvatarConfig AvatarConfig { get; private set; }
 
+        public AvatarLoaderBase AvatarLoader { get => avatarLoader; set => avatarLoader = value; }
         #endregion
 
         #region Unity events
 
         public UnityEvent OnBeforeInstantiation { get; } = new();
         public UnityEvent<GameObject> OnAvatarIstantiated { get; } = new();
+        
         protected AvatarLoadersController AvatarLoadersController { get => avatarLoadersController; set => avatarLoadersController = value; }
+        
 
         #endregion
 
@@ -61,11 +63,6 @@ namespace SPACS.SDK.Avatars
             AddToHandMeshes(character.LeftInteractorReference);
             AddToHandMeshes(character.RightInteractorReference);
 
-            if (character.HeadReference != null)
-            {
-                bodyMeshes = character.HeadReference.GetComponentsInChildren<Renderer>().ToList();
-            }
-
             if (character.LabelReference)
             {
                 avatarNameText = character.LabelReference.GetComponentInChildren<TMP_Text>();
@@ -76,17 +73,20 @@ namespace SPACS.SDK.Avatars
 
         #region Public methods
 
-        public virtual void UpdateAvatarCustomization(IAvatarConfig config, Action onBeforeAction = null, Action onAfterAction = null)
+        public async virtual Task UpdateAvatarCustomization(IAvatarConfig config, Action onBeforeAction = null, Action onAfterAction = null)
         {
             onBeforeAction?.Invoke();
 
-            avatarLoader = AvatarLoadersController.GetAvatarLoader(config);
+            AvatarLoader = AvatarLoadersController.GetAvatarLoader(config);
 
-            avatarLoader.onLoadingAvatarComplete.AddListener(OnAvatarLoadCompletion);
+            AvatarLoader.onLoadingAvatarComplete.AddListener(OnAvatarLoadCompletion);
 
-            avatarLoader.onLoadingAvatarComplete.AddListener((_) => { onAfterAction?.Invoke(); avatarLoader.onLoadingAvatarComplete.RemoveAllListeners();} );
+            AvatarLoader.onLoadingAvatarComplete.AddListener((_) => { onAfterAction?.Invoke(); AvatarLoader.onLoadingAvatarComplete.RemoveAllListeners();} );
 
-            avatarLoader.LoadAvatar(config);
+            await AvatarLoader.LoadAvatar(config);
+
+            onAfterAction?.Invoke();
+
         }
 
         public abstract void OnAvatarLoadCompletion(GameObject avatar);
@@ -152,6 +152,7 @@ namespace SPACS.SDK.Avatars
                 if(renderer != null)
                 {
                     handsMeshes.Add(renderer);
+                    Debug.Log(renderer.gameObject.name + " renderer ", renderer.gameObject);
                 }
                 
             }
