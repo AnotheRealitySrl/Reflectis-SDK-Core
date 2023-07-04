@@ -1,9 +1,10 @@
 # Release notes
 
-## Unreleased
+## v3.0.0
 
 ### Changed
 
+- Massive refactor SPACS -> Reflectis
 - Utilities: Merged Extensions module into Utilities one
 - Fade: Renamed "FadeSystem" (asmdef, namespaces, etc.) in "Fade"
 - CharacterController: change methods signatures in `ICharacterControllerSystem` API for better clarity
