@@ -1,4 +1,4 @@
-﻿using SPACS.SDK.Utilities.Extensions;
+﻿using Reflectis.SDK.Utilities.Extensions;
 
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using UnityEngine;
 
-namespace SPACS.SDK.Transitions
+namespace Reflectis.SDK.Transitions
 {
     /// <summary>
     /// Transition provider that operates on a multiple animators simultauneously

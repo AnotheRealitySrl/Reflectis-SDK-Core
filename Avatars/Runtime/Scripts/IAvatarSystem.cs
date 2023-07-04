@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 
 using UnityEngine.Events;
 
-namespace SPACS.SDK.Avatars
+namespace Reflectis.SDK.Avatars
 {
     /// <summary>
     /// The avatar system manages the lifecycle of the avatar instance, i.e. the avatar associated to the character controller

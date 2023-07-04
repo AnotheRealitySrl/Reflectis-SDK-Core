@@ -1,0 +1,16 @@
+{
+    "name": "Reflectis.SDK.VoiceChat",
+    "rootNamespace": "Reflectis.SDK.VoiceChat",
+    "references": [
+        "Reflectis.SDK.Core"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

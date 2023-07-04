@@ -1,12 +1,13 @@
-using SPACS.SDK.Utilities;
+using Reflectis.SDK.Utilities;
 
 using System.Collections;
+
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-namespace SPACS.SDK.Fade.Samples
+namespace Reflectis.SDK.Fade.Samples
 {
     public class VolumeManager : MonoBehaviour, IFadeManager
     {

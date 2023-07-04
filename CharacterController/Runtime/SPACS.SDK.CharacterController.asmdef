@@ -1,6 +1,6 @@
 {
-    "name": "SPACS.SDK.CharacterController",
-    "rootNamespace": "SPACS.SDK.CharacterController",
+    "name": "Reflectis.SDK.CharacterController",
+    "rootNamespace": "Reflectis.SDK.CharacterController",
     "references": [
         "GUID:ab59f74e483e1ee4595bfefea56493f2"
     ],

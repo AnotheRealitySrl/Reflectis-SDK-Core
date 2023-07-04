@@ -1,6 +1,6 @@
 using UnityEngine.Events;
 
-namespace SPACS.SDK.Fade
+namespace Reflectis.SDK.Fade
 {
     public interface IFadeManager
     {

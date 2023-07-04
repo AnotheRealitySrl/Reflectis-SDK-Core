@@ -11,7 +11,7 @@
 
 ### Added
 
-- New Interaction module, with interactable objects base logic and scriptable actions from SPACS-Core, and with new IDesktopInteractionSystem interface
+- New Interaction module, with interactable objects base logic and scriptable actions from Reflectis-Core, and with new IDesktopInteractionSystem interface
 - New Object Spawner system
 - Avatars: Spawn method in AvatarSystem's API
 - Avatars: onBeforeAction and onAfterAction callbacks on avatar customization change
@@ -30,7 +30,7 @@
 
 ### Changed
 
-- Migrate to SPACS system framework
+- Migrate to Reflectis system framework
 
 ### Added
 

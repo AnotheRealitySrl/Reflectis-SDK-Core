@@ -1,11 +1,11 @@
-using SPACS.SDK.CharacterController;
-using SPACS.SDK.Transitions;
+using Reflectis.SDK.CharacterController;
+using Reflectis.SDK.Transitions;
 
 using System.Threading.Tasks;
 
 using UnityEngine;
 
-namespace SPACS.SDK.Avatars
+namespace Reflectis.SDK.Avatars
 {
     /// <summary>
     /// Base implementation of an <see cref="IAvatarController">. 

@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-using SPACS.SDK.Utilities.Extensions;
+using Reflectis.SDK.Utilities.Extensions;
 
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Linq;
 
 using UnityEngine;
 
-namespace SPACS.SDK.Utilities
+namespace Reflectis.SDK.Utilities
 {
     public static class JsonConverters
     {

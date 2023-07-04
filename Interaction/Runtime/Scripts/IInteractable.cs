@@ -2,7 +2,7 @@
 
 using UnityEngine;
 
-namespace SPACS.SDK.Interaction
+namespace Reflectis.SDK.Interaction
 {
 
     /// <summary>

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 
-namespace SPACS.SDK.Utilities.Extensions
+namespace Reflectis.SDK.Utilities.Extensions
 {
     /// <summary>
     /// Extend base system Action.

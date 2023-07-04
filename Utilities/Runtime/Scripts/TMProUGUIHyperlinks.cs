@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace SPACS.SDK.Utilities
+namespace Reflectis.SDK.Utilities
 {
     /// <summary>
     /// This class handles basic link color behavior, supports also underline

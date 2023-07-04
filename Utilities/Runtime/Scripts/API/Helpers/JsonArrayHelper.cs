@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace SPACS.SDK.Utilities.API
+namespace Reflectis.SDK.Utilities.API
 {
     public static class JsonArrayHelper
     {

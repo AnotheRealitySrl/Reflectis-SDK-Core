@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
-namespace SPACS.SDK.Fade
+namespace Reflectis.SDK.Fade
 {
     public abstract class LayerManagerBase : ScriptableObject, ILayerManager
     {

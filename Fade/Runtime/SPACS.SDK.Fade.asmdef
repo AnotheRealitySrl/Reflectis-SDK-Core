@@ -1,6 +1,6 @@
 {
-    "name": "SPACS.SDK.Fade",
-    "rootNamespace": "SPACS.SDK.Fade",
+    "name": "Reflectis.SDK.Fade",
+    "rootNamespace": "Reflectis.SDK.Fade",
     "references": [
         "GUID:ab59f74e483e1ee4595bfefea56493f2",
         "GUID:6621723ab2f3cff4a8be0e8c1642af94"

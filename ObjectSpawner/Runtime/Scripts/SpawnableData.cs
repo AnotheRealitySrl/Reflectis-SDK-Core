@@ -1,8 +1,8 @@
 using UnityEngine;
 
-namespace SPACS.SDK.ObjectSpawner
+namespace Reflectis.SDK.ObjectSpawner
 {
-    [CreateAssetMenu(menuName = "SPACS/SDK-ObjectSpawner/SpawnableData", fileName = "SpawnableData")]
+    [CreateAssetMenu(menuName = "Reflectis/SDK-ObjectSpawner/SpawnableData", fileName = "SpawnableData")]
     public class SpawnableData : ScriptableObject
     {
         [SerializeField]

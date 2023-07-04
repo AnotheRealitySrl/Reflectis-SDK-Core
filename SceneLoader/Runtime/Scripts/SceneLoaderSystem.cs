@@ -1,4 +1,4 @@
-using SPACS.Core;
+using Reflectis.SDK.Core;
 
 using System;
 using System.Collections.Generic;
@@ -11,9 +11,9 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
 using UnityEngine.SceneManagement;
 
-namespace SPACS.SDK.SceneLoader
+namespace Reflectis.SDK.SceneLoader
 {
-    [CreateAssetMenu(menuName = "SPACS/SDK-SceneLoader/SceneLoaderSystemConfig", fileName = "SceneLoaderSystemConfig")]
+    [CreateAssetMenu(menuName = "Reflectis/SDK-SceneLoader/SceneLoaderSystemConfig", fileName = "SceneLoaderSystemConfig")]
     public class SceneLoaderSystem : BaseSystem, ISceneLoaderSystem
     {
         #region Private variables

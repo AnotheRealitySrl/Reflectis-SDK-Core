@@ -2,7 +2,7 @@ using System;
 
 using UnityEngine;
 
-namespace SPACS.SDK.Interaction
+namespace Reflectis.SDK.Interaction
 {
 
     public class BaseInteractableGO : MonoBehaviour, IInteractable

@@ -6,7 +6,7 @@ using System.Reflection;
 
 using UnityEngine;
 
-namespace SPACS.SDK.Utilities.Extensions
+namespace Reflectis.SDK.Utilities.Extensions
 {
     ///////////////////////////////////////////////////////////////////////////
     /// <summary>

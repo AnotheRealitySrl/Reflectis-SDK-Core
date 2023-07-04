@@ -1,10 +1,10 @@
-﻿using SPACS.SDK.Utilities.Extensions;
+﻿using Reflectis.SDK.Utilities.Extensions;
 
 using System.Threading.Tasks;
 
 using UnityEngine;
 
-namespace SPACS.SDK.Transitions
+namespace Reflectis.SDK.Transitions
 {
     /// <summary>
     /// Transition provider that operates on a bool parameter of an animator controller

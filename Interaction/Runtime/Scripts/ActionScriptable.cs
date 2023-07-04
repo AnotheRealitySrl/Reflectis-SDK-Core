@@ -2,7 +2,7 @@ using System;
 
 using UnityEngine;
 
-namespace SPACS.SDK.Interaction
+namespace Reflectis.SDK.Interaction
 {
 
     //[CreateAssetMenu(menuName = "AnotheReality/Utilities/Action", fileName = "ScriptableAction")]

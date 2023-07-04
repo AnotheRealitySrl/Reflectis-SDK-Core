@@ -1,15 +1,15 @@
-using SPACS.Core;
+using Reflectis.SDK.Core;
 
 using System;
 
 using UnityEngine;
 
-namespace SPACS.SDK.CommunicationSystem
+namespace Reflectis.SDK.VoiceChat
 {
     /// <summary>
-    /// Abstract class based on of <see cref="ICommunicationSystem"/>
+    /// Abstract class based on of <see cref="IVoiceChatSystem"/>
     /// </summary>
-    public abstract class CommunicationSystemBase : BaseSystem, ICommunicationSystem
+    public abstract class VoiceChatSystemBase : BaseSystem, IVoiceChatSystem
     {
         [Header("Id of Agora subscription")]
         [SerializeField] protected string appId;
