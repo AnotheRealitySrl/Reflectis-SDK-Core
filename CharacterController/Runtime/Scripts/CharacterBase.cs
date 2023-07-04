@@ -21,6 +21,7 @@ namespace Reflectis.SDK.CharacterController
         public Transform LeftInteractorReference => leftHandReference;
         public Transform RightInteractorReference => rightHandReference;
         public Transform LabelReference => labelReference;
+        public float playerHeight;
 
         public virtual Task Setup() => Task.CompletedTask;
         public virtual Task Unsetup() => Task.CompletedTask;

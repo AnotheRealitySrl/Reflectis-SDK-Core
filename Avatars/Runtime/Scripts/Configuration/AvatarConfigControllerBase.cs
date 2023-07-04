@@ -23,8 +23,6 @@ namespace Reflectis.SDK.Avatars
 
         [SerializeField] protected GameObject fullBodyAvatarReference;
 
-        
-
         #endregion
 
         #region Protected variables

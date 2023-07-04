@@ -35,12 +35,31 @@ namespace Reflectis.SDK.Avatars
         [SerializeField, Tooltip("Objects in this layer are hidden to the player (useful for VR avatars)")]
         private string layerNameHiddenToPlayer = "HiddenToPlayer";
 
+        [SerializeField, Tooltip("Default masculine animation avatar")] 
+        private Avatar masculineAvatar;
+
+        [SerializeField, Tooltip("Default feminine animation avatar")] 
+        private Avatar feminineAvatar;
+
+        [SerializeField, Tooltip("Default height for feminine players")] 
+        private float defaultFeminineHeight = 1.65f;
+
+        [SerializeField, Tooltip("Default height for anonymous players")]
+        private float defaultHeight = 1.70f;
+
+        [SerializeField, Tooltip("Default height for masculine players")] 
+        private float defaultMasculineHeight = 1.75f;
         #endregion
 
         #region Properties
 
         public AvatarControllerBase AvatarInstance { get; private set; }
         public string LayerNameHiddenToPlayer => layerNameHiddenToPlayer;
+        public Avatar MasculineAvatar { get => masculineAvatar; }
+        public Avatar FeminineAvatar { get => feminineAvatar; }
+        public float DefaultFeminineHeight { get => defaultFeminineHeight; }
+        public float DefaultHeight { get => defaultHeight; }
+        public float DefaultMasculineHeight { get => defaultMasculineHeight; }
 
         #endregion
 

@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-
+using UnityEngine;
 using UnityEngine.Events;
 
 namespace Reflectis.SDK.Avatars
@@ -12,6 +12,11 @@ namespace Reflectis.SDK.Avatars
         #region Properties
 
         AvatarControllerBase AvatarInstance { get; }
+        public Avatar MasculineAvatar { get; }
+        public Avatar FeminineAvatar { get; }
+        public float DefaultFeminineHeight { get; }
+        public float DefaultHeight { get; }
+        public float DefaultMasculineHeight { get; }
 
         #endregion
 
