@@ -1,6 +1,6 @@
 using UnityEngine.InputSystem;
 
-namespace SPACS.SDK.Utilities.Extensions
+namespace Reflectis.SDK.Utilities.Extensions
 {
     public static class InputActionExtensions
     {

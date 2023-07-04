@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 using UnityEngine;
 
-namespace SPACS.SDK.Transitions
+namespace Reflectis.SDK.Transitions
 {
     /// <summary>
     /// Transition provider that operates on the alpha value of a canvas group

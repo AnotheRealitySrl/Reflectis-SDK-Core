@@ -1,12 +1,12 @@
-using SPACS.SDK.Core;
-using SPACS.SDK.CharacterController;
+using Reflectis.SDK.Core;
+using Reflectis.SDK.CharacterController;
 
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-namespace SPACS.SDK.ObjectSpawner
+namespace Reflectis.SDK.ObjectSpawner
 {
-    [CreateAssetMenu(menuName = "SPACS/SDk-ObjectSpawner/ObjectSpawnerSystemConfig", fileName = "ObjectSpawnerSystemConfig")]
+    [CreateAssetMenu(menuName = "Reflectis/SDk-ObjectSpawner/ObjectSpawnerSystemConfig", fileName = "ObjectSpawnerSystemConfig")]
 
     public class ObjectSpawnerSystem : BaseSystem
     {

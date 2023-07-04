@@ -1,13 +1,13 @@
-using SPACS.SDK.Core;
+using Reflectis.SDK.Core;
 
 using System;
 using System.Collections.Generic;
 
 using UnityEngine;
 
-namespace SPACS.SDK.Fade
+namespace Reflectis.SDK.Fade
 {
-    [CreateAssetMenu(menuName = "SPACS/SDK-Fade/FadeSystemConfig", fileName = "FadeSystemConfig")]
+    [CreateAssetMenu(menuName = "Reflectis/SDK-Fade/FadeSystemConfig", fileName = "FadeSystemConfig")]
     public class FadeSystem : BaseSystem, IFadeSystem
     {
         #region Inspector variables

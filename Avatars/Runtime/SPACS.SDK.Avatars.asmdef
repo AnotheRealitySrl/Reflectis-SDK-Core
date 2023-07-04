@@ -1,6 +1,6 @@
 {
-    "name": "SPACS.SDK.Avatars",
-    "rootNamespace": "SPACS.SDK.Avatars",
+    "name": "Reflectis.SDK.Avatars",
+    "rootNamespace": "Reflectis.SDK.Avatars",
     "references": [
         "GUID:ab59f74e483e1ee4595bfefea56493f2",
         "GUID:e12f610351776714fbea1c97ca084b85",

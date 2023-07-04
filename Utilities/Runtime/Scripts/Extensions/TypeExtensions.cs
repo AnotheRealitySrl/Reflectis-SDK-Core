@@ -1,6 +1,6 @@
 using System;
 
-namespace SPACS.SDK.Utilities.Extensions
+namespace Reflectis.SDK.Utilities.Extensions
 {
     public static class TypeExtensions
     {

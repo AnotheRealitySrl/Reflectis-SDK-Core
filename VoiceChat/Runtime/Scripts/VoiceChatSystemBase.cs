@@ -1,10 +1,10 @@
-using SPACS.SDK.Core;
+using Reflectis.SDK.Core;
 
 using System;
 
 using UnityEngine;
 
-namespace SPACS.SDK.VoiceChat
+namespace Reflectis.SDK.VoiceChat
 {
     /// <summary>
     /// Abstract class based on of <see cref="IVoiceChatSystem"/>

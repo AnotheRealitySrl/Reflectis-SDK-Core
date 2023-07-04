@@ -3,9 +3,9 @@ using System.Linq;
 
 using UnityEngine;
 
-namespace SPACS.SDK.Fade
+namespace Reflectis.SDK.Fade
 {
-    [CreateAssetMenu(menuName = "SPACS/SDK-Fade/LayerManagerConfig", fileName = "LayerManagerByNameConfig")]
+    [CreateAssetMenu(menuName = "Reflectis/SDK-Fade/LayerManagerConfig", fileName = "LayerManagerByNameConfig")]
     public class LayerManagerByName : LayerManagerBase
     {
         [SerializeField] protected string unaffectedByFadeLayerName = "UnaffectedByFade";

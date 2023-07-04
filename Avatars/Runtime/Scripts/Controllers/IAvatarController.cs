@@ -1,8 +1,8 @@
-using SPACS.SDK.CharacterController;
+using Reflectis.SDK.CharacterController;
 
 using System.Threading.Tasks;
 
-namespace SPACS.SDK.Avatars
+namespace Reflectis.SDK.Avatars
 {
     /// <summary>
     /// An avatar controller handles the hook between a <see cref="CharacterBase"/> (e.g. an avatar), 

@@ -1,10 +1,10 @@
-using SPACS.SDK.Core;
+using Reflectis.SDK.Core;
 
 using System;
 
 using UnityEngine;
 
-namespace SPACS.SDK.VoiceChat
+namespace Reflectis.SDK.VoiceChat
 {
     /// <summary>
     /// Manages the voice (and potentially video, but not yet implemented) communication among players

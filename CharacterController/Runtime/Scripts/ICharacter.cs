@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 
 using UnityEngine;
 
-namespace SPACS.SDK.CharacterController
+namespace Reflectis.SDK.CharacterController
 {
     /// <summary>
     /// Represents the structure of a character. A character rig has some transform that are useful for its manipulation

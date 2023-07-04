@@ -1,6 +1,6 @@
 {
-    "name": "SPACS.SDK.Core.Editor",
-    "rootNamespace": "SPACS.SDK.Core.Editor",
+    "name": "Reflectis.SDK.Core.Editor",
+    "rootNamespace": "Reflectis.SDK.Core.Editor",
     "references": [],
     "includePlatforms": [
         "Editor"

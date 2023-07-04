@@ -1,8 +1,8 @@
 {
-    "name": "SPACS.SDK.VoiceChat",
-    "rootNamespace": "SPACS.SDK.VoiceChat",
+    "name": "Reflectis.SDK.VoiceChat",
+    "rootNamespace": "Reflectis.SDK.VoiceChat",
     "references": [
-        "SPACS.SDK.Core"
+        "Reflectis.SDK.Core"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

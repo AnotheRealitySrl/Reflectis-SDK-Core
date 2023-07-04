@@ -6,19 +6,19 @@ using UnityEditor;
 
 using UnityEngine;
 
-public static class SPACSDocumentationImporter
+public static class ReflectisDocumentationImporter
 {
-    private static readonly string spacsPrefix = "SPACS";
+    private static readonly string ReflectisPrefix = "Reflectis";
     private static readonly string packagesPath = "Packages";
     private static readonly string documentationPath = "Documentation~";
 
-    [MenuItem("SPACS/Import SPACS documentation")]
+    [MenuItem("Reflectis/Import Reflectis documentation")]
     public async static void CreateProjectItem()
     {
         EditorApplication.ExecuteMenuItem("Assets/Open C# Project");
 
         var csprojs = Directory.GetFiles(Directory.GetCurrentDirectory())
-                      .Where(path => path.Contains($"\\{spacsPrefix}.") && path.EndsWith(".csproj") && !path.Contains("Player") && !path.Contains("Editor"))
+                      .Where(path => path.Contains($"\\{ReflectisPrefix}.") && path.EndsWith(".csproj") && !path.Contains("Player") && !path.Contains("Editor"))
                       .ToList();
 
         foreach (var csproj in csprojs)

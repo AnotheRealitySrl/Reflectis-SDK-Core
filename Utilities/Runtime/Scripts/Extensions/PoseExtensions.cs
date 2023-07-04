@@ -3,7 +3,7 @@ using System.Linq;
 
 using UnityEngine;
 
-namespace SPACS.SDK.Utilities.Extensions
+namespace Reflectis.SDK.Utilities.Extensions
 {
     public static class PoseExtensions
     {

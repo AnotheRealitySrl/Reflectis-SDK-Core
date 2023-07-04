@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
-namespace SPACS.SDK.Fade
+namespace Reflectis.SDK.Fade
 {
     /// <summary>
     /// The Fade System manages fade in and fade out of what camera sees.

@@ -2,16 +2,16 @@
 using Sirenix.OdinInspector;
 #endif
 
-using SPACS.SDK.Core;
+using Reflectis.SDK.Core;
 
 using System;
 
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace SPACS.SDK.CharacterController
+namespace Reflectis.SDK.CharacterController
 {
-    [CreateAssetMenu(menuName = "SPACS/SDK-CharacterController/CharacterControllerBaseSystemConfig", fileName = "CharacterControllerBaseSystemConfig")]
+    [CreateAssetMenu(menuName = "Reflectis/SDK-CharacterController/CharacterControllerBaseSystemConfig", fileName = "CharacterControllerBaseSystemConfig")]
     public class CharacterControllerSystem : BaseSystem, ICharacterControllerSystem
     {
         #region Inspector variables

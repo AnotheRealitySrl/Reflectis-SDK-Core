@@ -1,7 +1,7 @@
-using SPACS.SDK.Core;
-using SPACS.SDK.Interaction;
+using Reflectis.SDK.Core;
+using Reflectis.SDK.Interaction;
 
-namespace SPACS.SDK.DesktopInteraction
+namespace Reflectis.SDK.DesktopInteraction
 {
     public interface IDesktopInteractionSystem : ISystem
     {

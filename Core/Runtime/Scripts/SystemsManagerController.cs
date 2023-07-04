@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
-namespace SPACS.SDK.Core
+namespace Reflectis.SDK.Core
 {
     /// <summary>
     /// <see cref="SystemsManagerController"/>'s purpose is to reference the systems that need to be created and initialized by the <see cref="SM" (Systems Manager)/>. 

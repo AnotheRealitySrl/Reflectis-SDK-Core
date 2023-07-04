@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SPACS.SDK.Core
+namespace Reflectis.SDK.Core
 {
     public interface ISystem
     {

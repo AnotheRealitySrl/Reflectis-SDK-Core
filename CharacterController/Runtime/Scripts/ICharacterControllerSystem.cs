@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace SPACS.SDK.CharacterController
+namespace Reflectis.SDK.CharacterController
 {
     public interface ICharacterControllerSystem
     {

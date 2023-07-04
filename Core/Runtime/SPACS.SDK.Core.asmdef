@@ -1,6 +1,6 @@
 {
-    "name": "SPACS.SDK.Core",
-    "rootNamespace": "SPACS.SDK.Core",
+    "name": "Reflectis.SDK.Core",
+    "rootNamespace": "Reflectis.SDK.Core",
     "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],

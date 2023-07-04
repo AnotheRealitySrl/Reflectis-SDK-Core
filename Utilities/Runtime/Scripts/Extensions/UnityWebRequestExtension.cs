@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 
 using UnityEngine.Networking;
 
-namespace SPACS.SDK.Utilities.Extensions
+namespace Reflectis.SDK.Utilities.Extensions
 {
     public static class UnityWebRequestExtension
     {

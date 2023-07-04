@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
-namespace SPACS.SDK.Core
+namespace Reflectis.SDK.Core
 {
 
     /// <summary>

@@ -1,6 +1,6 @@
 {
-    "name": "SPACS.SDK.Interaction",
-    "rootNamespace": "SPACS.SDK.Interaction",
+    "name": "Reflectis.SDK.Interaction",
+    "rootNamespace": "Reflectis.SDK.Interaction",
     "references": [
         "GUID:ab59f74e483e1ee4595bfefea56493f2"
     ],

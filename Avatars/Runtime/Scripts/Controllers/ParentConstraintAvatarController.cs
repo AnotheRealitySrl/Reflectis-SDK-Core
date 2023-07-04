@@ -1,10 +1,10 @@
-using SPACS.SDK.CharacterController;
+using Reflectis.SDK.CharacterController;
 
 using System.Threading.Tasks;
 
 using UnityEngine.Animations;
 
-namespace SPACS.SDK.Avatars
+namespace Reflectis.SDK.Avatars
 {
     /// <summary>
     /// This avatar controller attaches a <see cref="ParentConstraint"> to each node specified in the <see cref="AvatarControllerBase.CharacterReference", 

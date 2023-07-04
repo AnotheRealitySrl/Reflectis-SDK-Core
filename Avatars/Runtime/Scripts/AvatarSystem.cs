@@ -1,16 +1,16 @@
 using Sirenix.OdinInspector;
 
-using SPACS.SDK.Core;
-using SPACS.SDK.CharacterController;
+using Reflectis.SDK.Core;
+using Reflectis.SDK.CharacterController;
 
 using System.Threading.Tasks;
 
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace SPACS.SDK.Avatars
+namespace Reflectis.SDK.Avatars
 {
-    [CreateAssetMenu(menuName = "SPACS/SDK-Avatars/AvatarSystem", fileName = "AvatarSystemConfig")]
+    [CreateAssetMenu(menuName = "Reflectis/SDK-Avatars/AvatarSystem", fileName = "AvatarSystemConfig")]
     public class AvatarSystem : BaseSystem, IAvatarSystem
     {
         #region Inspector variables
