@@ -21,7 +21,7 @@ namespace Reflectis.SDK.Avatars
     {
 
         #region Properties
-        public abstract IAvatarConfig AvatarConfig { get; protected set; }
+        public abstract IAvatarConfig AvatarConfig { get; }
 
         public abstract AvatarBodyType AvatarBody { get; protected set; }
         #endregion
