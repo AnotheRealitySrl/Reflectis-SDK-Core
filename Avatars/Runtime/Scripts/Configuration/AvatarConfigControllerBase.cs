@@ -1,5 +1,5 @@
-using SPACS.Core;
-using SPACS.SDK.CharacterController;
+using Reflectis.SDK.Core;
+using Reflectis.SDK.CharacterController;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
-namespace SPACS.SDK.Avatars
+namespace Reflectis.SDK.Avatars
 {
     public abstract class AvatarConfigControllerBase : MonoBehaviour, IAvatarConfigController
     {

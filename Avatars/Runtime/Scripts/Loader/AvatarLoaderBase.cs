@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace SPACS.SDK.Avatars
+namespace Reflectis.SDK.Avatars
 {
     public enum AvatarBodyType
     {

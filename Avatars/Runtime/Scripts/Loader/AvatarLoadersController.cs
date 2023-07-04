@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SPACS.SDK.Avatars
+namespace Reflectis.SDK.Avatars
 {
     /// <summary>
     /// Class that handles all the possible ways of loading the avatars.

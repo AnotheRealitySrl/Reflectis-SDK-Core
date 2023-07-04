@@ -1,12 +1,12 @@
-using SPACS.Core;
-using SPACS.SDK.CharacterController;
+using Reflectis.SDK.CharacterController;
+using Reflectis.SDK.Core;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace SPACS.SDK.Avatars
+namespace Reflectis.SDK.Avatars
 {
     public class VRAvatarController : ParentConstraintAvatarController
     {

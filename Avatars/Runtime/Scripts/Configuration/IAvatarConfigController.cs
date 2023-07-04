@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
-namespace SPACS.SDK.Avatars
+namespace Reflectis.SDK.Avatars
 {
     /// <summary>
     /// Manages the configuration of an avatar (body, skin, hair, ecc...) 
