@@ -8,12 +8,6 @@ using UnityEngine.Events;
 
 namespace Reflectis.SDK.Avatars
 {
-    public enum AvatarBodyType
-    {
-        HalfBody = 0,
-        FullBody = 1,
-    }
-
     /// <summary>
     /// Abstract class that represents an avatar loader
     /// </summary>
@@ -22,14 +16,12 @@ namespace Reflectis.SDK.Avatars
 
         #region Properties
         public abstract IAvatarConfig AvatarConfig { get; }
-
-        public abstract AvatarBodyType AvatarBody { get; protected set; }
         #endregion
 
         #region Unity Callbacks
         /// <summary>
         /// Called when the avatar loading has been completed.
-        /// The gameobject will be an avatar with attached an Animatar with the avatar rig in the avatar variable
+        /// The gameobject will be an avatar with attached an AvatarData monobehaviour that describes the spawned avatar
         /// </summary>
         public UnityEvent<GameObject> onLoadingAvatarComplete;
         #endregion

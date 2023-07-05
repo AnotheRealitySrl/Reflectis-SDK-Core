@@ -12,13 +12,6 @@ namespace Reflectis.SDK.Avatars
         #region Properties
 
         AvatarControllerBase AvatarInstance { get; }
-        public Avatar DefaultMasculineAvatar { get; }
-        public Avatar DefaultFeminineAvatar { get; }
-        public float DefaultFeminineHeight { get; }
-        public float DefaultHeight { get; }
-        public float DefaultMasculineHeight { get; }
-        public RuntimeAnimatorController FeminineAnimatorController { get; }
-        public RuntimeAnimatorController MasculineAnimatorController { get; }
 
         #endregion
 
