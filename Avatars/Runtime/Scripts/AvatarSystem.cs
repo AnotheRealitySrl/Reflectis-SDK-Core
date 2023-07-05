@@ -35,31 +35,41 @@ namespace Reflectis.SDK.Avatars
         [SerializeField, Tooltip("Objects in this layer are hidden to the player (useful for VR avatars)")]
         private string layerNameHiddenToPlayer = "HiddenToPlayer";
 
-        [SerializeField, Tooltip("Default masculine animation avatar")] 
-        private Avatar masculineAvatar;
+        [SerializeField, Tooltip("Default masculine animation avatar")]
+        private Avatar defaultMasculineAvatar;
 
         [SerializeField, Tooltip("Default feminine animation avatar")] 
-        private Avatar feminineAvatar;
+        private Avatar defaultFeminineAvatar;
 
         [SerializeField, Tooltip("Default height for feminine players")] 
-        private float defaultFeminineHeight = 1.65f;
+        private float defaultFeminineHeight = 1.60f;
 
         [SerializeField, Tooltip("Default height for anonymous players")]
-        private float defaultHeight = 1.70f;
+        private float defaultHeight = 1.65f;
 
         [SerializeField, Tooltip("Default height for masculine players")] 
-        private float defaultMasculineHeight = 1.75f;
+        private float defaultMasculineHeight = 1.70f;
+
+        [SerializeField, Tooltip("Default animator for masculine avatars")]
+        private RuntimeAnimatorController masculineAnimatorController;
+
+        [SerializeField, Tooltip("Default animator for feminine avatars")]
+        private RuntimeAnimatorController feminineAnimatorController;
+
+        
         #endregion
 
         #region Properties
 
         public AvatarControllerBase AvatarInstance { get; private set; }
         public string LayerNameHiddenToPlayer => layerNameHiddenToPlayer;
-        public Avatar MasculineAvatar { get => masculineAvatar; }
-        public Avatar FeminineAvatar { get => feminineAvatar; }
+        public Avatar DefaultMasculineAvatar { get => defaultMasculineAvatar; }
+        public Avatar DefaultFeminineAvatar { get => defaultFeminineAvatar; }
         public float DefaultFeminineHeight { get => defaultFeminineHeight; }
         public float DefaultHeight { get => defaultHeight; }
         public float DefaultMasculineHeight { get => defaultMasculineHeight; }
+        public RuntimeAnimatorController FeminineAnimatorController { get => feminineAnimatorController; }
+        public RuntimeAnimatorController MasculineAnimatorController { get => masculineAnimatorController; }
 
         #endregion
 
@@ -67,6 +77,7 @@ namespace Reflectis.SDK.Avatars
 
         public UnityEvent<IAvatarConfig> AvatarConfigChanged { get; } = new();
         public UnityEvent<string> PlayerNickNameChanged { get; } = new();
+
 
         #endregion
 
