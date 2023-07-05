@@ -1,6 +1,6 @@
 {
-    "name": "SPACS.SDK.SceneLoader",
-    "rootNamespace": "SPACS.SDK.SceneLoader",
+    "name": "Reflectis.SDK.SceneLoader",
+    "rootNamespace": "Reflectis.SDK.SceneLoader",
     "references": [
         "GUID:ab59f74e483e1ee4595bfefea56493f2",
         "GUID:9e24947de15b9834991c9d8411ea37cf",

@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Reflectis.SDK.Core.BaseSystem" BaseTypeListCollapsed="true">
+    <Position X="6.25" Y="3.25" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAFACCAAAEAAAAAAAAAAAAAIAABAAAABAACAAAAIAg=</HashCode>
+      <FileName>Packages\Reflectis-Core\Runtime\Scripts\BaseSystem.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Reflectis.SDK.Core.SM">
+    <Position X="0.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAEAAAAAACAAAAACQAAA=</HashCode>
+      <FileName>Packages\Reflectis-Core\Runtime\Scripts\SM.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Reflectis.SDK.Core.SystemsManagerController">
+    <Position X="2.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAEA=</HashCode>
+      <FileName>Packages\Reflectis-Core\Runtime\Scripts\SystemsManagerController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="Reflectis.SDK.Core.ISystem">
+    <Position X="6.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAEAAAAAAAAAAAAAAAABAAAABAACAAAAAAg=</HashCode>
+      <FileName>Packages\Reflectis-Core\Runtime\Scripts\ISystem.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

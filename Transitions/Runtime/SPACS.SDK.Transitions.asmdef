@@ -1,9 +1,9 @@
 {
-    "name": "SPACS.SDK.Transitions",
-    "rootNamespace": "SPACS.SDK.Transitions",
+    "name": "Reflectis.SDK.Transitions",
+    "rootNamespace": "Reflectis.SDK.Transitions",
     "references": [
-        "SPACS.SDK.Extensions",
-        "DOTween.Modules"
+        "DOTween.Modules",
+        "Reflectis.SDK.Utilities"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

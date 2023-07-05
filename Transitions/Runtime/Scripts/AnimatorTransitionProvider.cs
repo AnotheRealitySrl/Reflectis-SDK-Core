@@ -1,22 +1,35 @@
-﻿using SPACS.SDK.Extensions;
+﻿using Reflectis.SDK.Utilities.Extensions;
 
 using System.Threading.Tasks;
+
 using UnityEngine;
 
-namespace SPACS.SDK.Transitions
+namespace Reflectis.SDK.Transitions
 {
+    /// <summary>
+    /// Transition provider that operates on a bool parameter of an animator controller
+    /// </summary>
     public class AnimatorTransitionProvider : AbstractTransitionProvider
     {
         [SerializeField] private Animator animator;
+        [SerializeField] private string animatorParameter = "Visible";
+
+        private void Awake()
+        {
+            if (!animator)
+            {
+                animator = GetComponent<Animator>();
+            }
+        }
 
         public override async Task EnterTransitionAsync()
         {
-            if (animator.ContainsParam("Visible"))
+            if (animator.ContainsParam(animatorParameter))
             {
-                animator.SetBool("Visible", true);
+                animator.SetBool(animatorParameter, true);
             }
 
-            while (animator.IsInTransition(0) || animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1) 
+            while (animator.IsInTransition(0) || animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1)
             {
                 await Task.Yield();
             }
@@ -24,12 +37,12 @@ namespace SPACS.SDK.Transitions
 
         public override async Task ExitTransitionAsync()
         {
-            if (animator.ContainsParam("Visible"))
+            if (animator.ContainsParam(animatorParameter))
             {
-                animator.SetBool("Visible", false);
+                animator.SetBool(animatorParameter, false);
             }
-            
-            while (animator.IsInTransition(0) || animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1) 
+
+            while (animator.IsInTransition(0) || animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1)
             {
                 await Task.Yield();
             }

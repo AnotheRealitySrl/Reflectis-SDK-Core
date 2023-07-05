@@ -1,7 +1,8 @@
 using UnityEditor;
+
 using UnityEngine;
 
-namespace SPACS.SDK.Utilities.Editor
+namespace Reflectis.SDK.Utilities.Editor
 {
     /// <summary>
     /// Custom editor for an <see cref="WaypointPositioner"/>.

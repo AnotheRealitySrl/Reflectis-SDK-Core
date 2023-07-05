@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Reflectis.SDK.FadeSystem.FadeManagerSystem">
+    <Position X="4.25" Y="1.75" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAUAAAAAAABAAAAAwAAAAEAAEAAQAIAAGAgCAAAA=</HashCode>
+      <FileName>Packages\Reflectis-SDK\FadeSystem\Runtime\FadeManagerSystem.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="fadeManager" />
+      <Field Name="layerManager" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Reflectis.SDK.FadeSystem.LayerManagerBase">
+    <Position X="9.5" Y="2" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAhAAAAAgAAAAAAAACAAAAAAAAIAAAAA=</HashCode>
+      <FileName>Packages\Reflectis-SDK\FadeSystem\Runtime\Scripts\LayerManagement\LayerManagerBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Reflectis.SDK.FadeSystem.LayerManagerByName">
+    <Position X="9.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAgBAAAAAAAAAAAAAAAAIAAAAA=</HashCode>
+      <FileName>Packages\Reflectis-SDK\FadeSystem\Runtime\Scripts\LayerManagement\LayerManagerByName.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="Reflectis.SDK.FadeSystem.IFadeManager">
+    <Position X="1.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAUAAAAAAAAAAAAAQAAAACAAAABQAAAgCAiAAAAA=</HashCode>
+      <FileName>Packages\Reflectis-SDK\FadeSystem\Runtime\Scripts\IFadeManager.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Reflectis.SDK.FadeSystem.ILayerManager">
+    <Position X="11.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAhAAAAAgAAAAAAAACAAAAAAAAIAAAAA=</HashCode>
+      <FileName>Packages\Reflectis-SDK\FadeSystem\Runtime\Scripts\LayerManagement\ILayerManager.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

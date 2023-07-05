@@ -1,17 +1,23 @@
-using SPACS.SDK.CharacterController;
-using SPACS.SDK.Transitions;
+using Reflectis.SDK.CharacterController;
+using Reflectis.SDK.Transitions;
 
 using System.Threading.Tasks;
 
 using UnityEngine;
 
-namespace SPACS.SDK.Avatars
+namespace Reflectis.SDK.Avatars
 {
+    /// <summary>
+    /// Base implementation of an <see cref="IAvatarController">. 
+    /// Provides <see cref="Setup"> and <see cref="Unsetup"> virtual methods, 
+    /// specific hooking into another <see cref="CharacterControllerBase"/> must be implemented.
+    /// </summary>
     public class AvatarControllerBase : MonoBehaviour, IAvatarController
     {
         #region Inspector variables
 
-        [SerializeField] protected CharacterBase sourceCharacter;
+        [SerializeField, Tooltip("\"This\" character, i.e. the character (avatar) that is associated to this avatar controller")]
+        protected CharacterBase characterReference;
 
         #endregion
 
@@ -23,8 +29,8 @@ namespace SPACS.SDK.Avatars
 
         #region Properties
 
-        public CharacterControllerBase SourceController { get; private set; }
-        public CharacterBase SourceCharacter { get => sourceCharacter; private set => sourceCharacter = value; }
+        public CharacterBase CharacterReference { get => characterReference; private set => characterReference = value; }
+        public CharacterControllerBase SourceCharacterController { get; private set; }
 
         #endregion
 
@@ -32,9 +38,9 @@ namespace SPACS.SDK.Avatars
 
         private void Awake()
         {
-            if (!sourceCharacter)
+            if (!characterReference)
             {
-                sourceCharacter = GetComponent<CharacterBase>();
+                characterReference = GetComponent<CharacterBase>();
             }
 
             transitionProvider = GetComponent<AbstractTransitionProvider>();
@@ -44,19 +50,19 @@ namespace SPACS.SDK.Avatars
 
         #region Public API
 
-        public virtual async Task Setup(CharacterControllerBase source)
+        public virtual async Task Setup(CharacterControllerBase sourceController)
         {
-            SourceController = string.IsNullOrEmpty(source.gameObject.scene.name)
-                ? Instantiate(source.gameObject).GetComponent<AvatarControllerBase>().SourceController
-                : source;
+            SourceCharacterController = sourceController;
+
             await DoTransition(true);
         }
 
-        public async Task Unsetup()
+        public virtual async Task Unsetup()
         {
             await DoTransition(false);
+
             Destroy(gameObject);
-            SourceController = null;
+            SourceCharacterController = null;
         }
 
         #endregion

@@ -1,16 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
 using UnityEngine;
 
-namespace SPACS.SDK.CharacterController
+namespace Reflectis.SDK.CharacterController
 {
+    /// <summary>
+    /// Represents a character controller, i.e. a character that is controlled by some other entity (spoiler: the player, most of the times)
+    /// </summary>
     public interface ICharacterController : ICharacter
     {
         #region Enums
 
-        public enum InteractionType
+        public enum EInteractionType
         {
             Controllers,
             Hands
@@ -20,10 +19,16 @@ namespace SPACS.SDK.CharacterController
 
         #region Interface properties
 
+        /// <summary>
+        /// Reference to the main camera
+        /// </summary>
         Camera Camera { get; }
-        InteractionType InteractorsType { get; }
+
+        /// <summary>
+        /// Controllers/Hands
+        /// </summary>
+        EInteractionType InteractorsType { get; }
 
         #endregion
-
     }
 }

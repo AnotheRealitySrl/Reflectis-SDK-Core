@@ -1,13 +1,14 @@
 using DG.Tweening;
 
-using System.Collections;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using UnityEngine;
 
-namespace SPACS.SDK.Transitions
+namespace Reflectis.SDK.Transitions
 {
+    /// <summary>
+    /// Transition provider that operates on the alpha value of a canvas group
+    /// </summary>
     public class CanvasTransitionProvider : AbstractTransitionProvider
     {
         [SerializeField] private CanvasGroup canvasGroup;

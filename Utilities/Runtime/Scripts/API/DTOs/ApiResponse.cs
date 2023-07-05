@@ -1,8 +1,10 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+
+using System;
+
 using UnityEngine;
 
-namespace SPACS.SDK.Utilities.API
+namespace Reflectis.SDK.Utilities.API
 {
     [Serializable, JsonObject(MemberSerialization.Fields)]
     public class ApiResponse

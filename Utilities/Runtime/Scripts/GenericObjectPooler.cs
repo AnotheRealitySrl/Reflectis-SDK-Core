@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
+
 using UnityEngine;
 
-namespace SPACS.SDK.Utilities
+namespace Reflectis.SDK.Utilities
 {
     /// <summary>
     /// Static class that helps in managing Object Pooling.

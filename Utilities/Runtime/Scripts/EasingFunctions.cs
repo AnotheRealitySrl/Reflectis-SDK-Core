@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace SPACS.SDK.Utilities
+namespace Reflectis.SDK.Utilities
 {
     ///////////////////////////////////////////////////////////////////////////
     /// <summary>
@@ -25,16 +25,16 @@ namespace SPACS.SDK.Utilities
         public enum Ease
         {
             Linear = 0,
-            EaseInQuad,     EaseOutQuad,     EaseInOutQuad,
-            EaseInCubic,    EaseOutCubic,    EaseInOutCubic,
-            EaseInQuart,    EaseOutQuart,    EaseInOutQuart,
-            EaseInQuint,    EaseOutQuint,    EaseInOutQuint,
-            EaseInSine,     EaseOutSine,     EaseInOutSine,
-            EaseInExpo,     EaseOutExpo,     EaseInOutExpo,
-            EaseInCirc,     EaseOutCirc,     EaseInOutCirc,
-            EaseInBounce,   EaseOutBounce,   EaseInOutBounce,
-            EaseInBack,     EaseOutBack,     EaseInOutBack,
-            EaseInElastic,  EaseOutElastic,  EaseInOutElastic,
+            EaseInQuad, EaseOutQuad, EaseInOutQuad,
+            EaseInCubic, EaseOutCubic, EaseInOutCubic,
+            EaseInQuart, EaseOutQuart, EaseInOutQuart,
+            EaseInQuint, EaseOutQuint, EaseInOutQuint,
+            EaseInSine, EaseOutSine, EaseInOutSine,
+            EaseInExpo, EaseOutExpo, EaseInOutExpo,
+            EaseInCirc, EaseOutCirc, EaseInOutCirc,
+            EaseInBounce, EaseOutBounce, EaseInOutBounce,
+            EaseInBack, EaseOutBack, EaseInOutBack,
+            EaseInElastic, EaseOutElastic, EaseInOutElastic,
             Spring,
         }
 
