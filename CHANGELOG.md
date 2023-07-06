@@ -1,17 +1,20 @@
 # Release notes
 
-## Unreleased
+## v3.0.0
 
 ### Changed
 
-- Utilities: Merged Extensions module into Utilities one
-- Fade: Renamed "FadeSystem" (asmdef, namespaces, etc.) in "Fade"
+- Massive refactor SPACS -> Reflectis
+- Utilities: merged Extensions module into Utilities one
+- Fade: renamed "FadeSystem" occurrences (asmdef, namespaces, etc.) in "Fade"
+- VoiceChat: renamed "Communication" occurrences (asmdef, namespaces, etc.) in "VoiceChat"
 - CharacterController: change methods signatures in `ICharacterControllerSystem` API for better clarity
 - Avatar: change methods signatures in `IAvatarSystem` API for better clarity
 
 ### Added
 
-- New Interaction module, with interactable objects base logic and scriptable actions from Reflectis-Core, and with new IDesktopInteractionSystem interface
+- Core module (moved from SPACS.Core)
+- New Interaction module, with interactable objects base logic and scriptable actions from Core module, and with new `IDesktopInteractionSystem` interface
 - New Object Spawner system
 - Avatars: Spawn method in AvatarSystem's API
 - Avatars: onBeforeAction and onAfterAction callbacks on avatar customization change
