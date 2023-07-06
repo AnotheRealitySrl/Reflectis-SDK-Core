@@ -21,9 +21,9 @@ namespace Reflectis.SDK.Avatars
         #region Unity Callbacks
         /// <summary>
         /// Called when the avatar loading has been completed.
-        /// The gameobject will be an avatar with attached an AvatarData monobehaviour that describes the spawned avatar
+        /// The gameobject will be an avatar and AvatarData will be the avatar data necessary for the configuration
         /// </summary>
-        public UnityEvent<GameObject> onLoadingAvatarComplete;
+        public UnityEvent<GameObject,AvatarData> onLoadingAvatarComplete;
         #endregion
 
         #region Public methods

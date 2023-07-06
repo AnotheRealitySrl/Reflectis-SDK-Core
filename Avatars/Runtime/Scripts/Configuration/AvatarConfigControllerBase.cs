@@ -79,7 +79,7 @@ namespace Reflectis.SDK.Avatars
 
             AvatarLoader.onLoadingAvatarComplete.AddListener(OnAvatarLoadCompletion);
 
-            AvatarLoader.onLoadingAvatarComplete.AddListener((_) => { onAfterAction?.Invoke(); AvatarLoader.onLoadingAvatarComplete.RemoveAllListeners();} );
+            AvatarLoader.onLoadingAvatarComplete.AddListener((_,_) => { onAfterAction?.Invoke(); AvatarLoader.onLoadingAvatarComplete.RemoveAllListeners();} );
 
             await AvatarLoader.LoadAvatar(config);
 
@@ -87,7 +87,7 @@ namespace Reflectis.SDK.Avatars
 
         }
 
-        public abstract void OnAvatarLoadCompletion(GameObject avatar);
+        public abstract void OnAvatarLoadCompletion(GameObject avatar, AvatarData avatarData);
 
         public virtual void EnableAvatarMeshes(bool enable)
         {

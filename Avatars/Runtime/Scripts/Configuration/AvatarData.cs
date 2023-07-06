@@ -17,7 +17,7 @@ namespace Reflectis.SDK.Avatars
         FullBody = 1,
     }
 
-    public class AvatarData : MonoBehaviour
+    public struct AvatarData
     {
         public AvatarGender gender;
 
