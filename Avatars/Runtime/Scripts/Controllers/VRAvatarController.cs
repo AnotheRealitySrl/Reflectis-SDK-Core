@@ -41,9 +41,16 @@ namespace Reflectis.SDK.Avatars
         {
             await base.Setup(sourceController);
 
-            HideAvatarHeadToPlayer(gameObject);
+            AvatarSystem avatarSystem = SM.GetSystem<AvatarSystem>();
 
-            GetComponent<AvatarConfigControllerBase>().OnAvatarIstantiated.AddListener(HideAvatarHeadToPlayer);
+            if(avatarSystem.AvatarInstance == this)
+            {
+                HideAvatarHeadToPlayer(gameObject);
+
+                GetComponent<AvatarConfigControllerBase>().OnAvatarIstantiated.AddListener(HideAvatarHeadToPlayer);
+            }
+
+            
         }
 
         #region Private Methods
