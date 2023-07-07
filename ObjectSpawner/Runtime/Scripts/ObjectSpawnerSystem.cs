@@ -6,7 +6,7 @@ using UnityEngine.AddressableAssets;
 
 namespace Reflectis.SDK.ObjectSpawner
 {
-    [CreateAssetMenu(menuName = "Reflectis/SDk-ObjectSpawner/ObjectSpawnerSystemConfig", fileName = "ObjectSpawnerSystemConfig")]
+    [CreateAssetMenu(menuName = "Reflectis/SDK-ObjectSpawner/ObjectSpawnerSystemConfig", fileName = "ObjectSpawnerSystemConfig")]
 
     public class ObjectSpawnerSystem : BaseSystem
     {

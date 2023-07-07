@@ -5,6 +5,8 @@
 ### Fixed
 
 - Add missing dependencies in package.json
+- Updated Assembly files names
+- Text Chat: added system folder and assembly
 
 ## v3.0.0
 
