@@ -1,5 +1,11 @@
 # Release notes
 
+## Unreleased
+
+### Fixed
+
+- Add missing dependencies in package.json
+
 ## v3.0.0
 
 ### Changed
