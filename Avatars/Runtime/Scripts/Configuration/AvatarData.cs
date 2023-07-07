@@ -24,5 +24,7 @@ namespace Reflectis.SDK.Avatars
         public AvatarBodyType bodyType;
 
         public Avatar animatorAvatar;
+
+        public Material skinMaterial;
     }
 }

@@ -44,11 +44,6 @@ namespace Reflectis.SDK.Avatars
         /// </summary>
         public abstract Task LoadAvatar(IAvatarConfig avatarConfig);
 
-        /// <summary>
-        /// Get the material of the avatar skin.
-        /// Usually it is usued to set the hand material.
-        /// </summary>
-        public abstract Material GetSkinMaterial(IAvatarConfig avatarConfig);
         #endregion
     }
 }

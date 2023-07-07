@@ -65,7 +65,7 @@ namespace Reflectis.SDK.Avatars
                     halfBodyAvatarReference.transform.localPosition = Vector3.zero;
                     halfBodyAvatarReference.transform.localRotation = Quaternion.identity;
 
-                    Material skinMaterial = AvatarLoader.GetSkinMaterial(AvatarConfig);
+                    Material skinMaterial = avatarData.skinMaterial;
 
                     foreach (Renderer hand in handsMeshes)
                     {
