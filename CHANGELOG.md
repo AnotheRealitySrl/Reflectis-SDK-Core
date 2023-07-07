@@ -5,6 +5,7 @@
 ### Fixed
 
 - Add missing dependencies in package.json
+- Updated Assembly files names
 
 ## v3.0.0
 
