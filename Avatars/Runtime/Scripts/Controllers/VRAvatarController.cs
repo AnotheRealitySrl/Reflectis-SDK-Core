@@ -12,6 +12,8 @@ namespace Reflectis.SDK.Avatars
     {
         //[Tooltip("List of names of all the objects that have to be hidden from the player camera")]
         //[Serializefield]
+
+        #region Constants
         private static readonly IList<string> hideToPlayer = new ReadOnlyCollection<string>
                 (new List<string> {
                     //fullbodyRPM
@@ -36,7 +38,18 @@ namespace Reflectis.SDK.Avatars
                     "Wolf3D_Glasses"
                 }
                 );
+        #endregion
 
+        #region Inspector fields
+        [SerializeField] private bool onlyHandsOnFullAvatar;
+        #endregion
+
+        #region Private variables
+        private AvatarConfigControllerVR avatarConfigControllerVR;
+
+        #endregion
+
+        #region Public Methods
         public override async Task Setup(CharacterControllerBase sourceController)
         {
             await base.Setup(sourceController);
@@ -45,21 +58,40 @@ namespace Reflectis.SDK.Avatars
 
             if(avatarSystem.AvatarInstance == this)
             {
-                HideAvatarHeadToPlayer(gameObject);
+                SetupAvatar(gameObject);
 
-                GetComponent<AvatarConfigControllerBase>().OnAvatarIstantiated.AddListener(HideAvatarHeadToPlayer);
+                avatarConfigControllerVR.OnAvatarIstantiated.AddListener(SetupAvatar);
             }
-
-            
         }
+        #endregion 
 
         #region Private Methods
-        private void HideAvatarHeadToPlayer(GameObject avatarInstance)
+        private void SetupAvatar(GameObject avatarInstance)
         {
+            avatarConfigControllerVR = GetComponent<AvatarConfigControllerVR>();
 
+            HideHeadToPlayer();
+
+            if (onlyHandsOnFullAvatar)
+            {
+                avatarConfigControllerVR.EnableFullBodyAvatar(false);
+                avatarConfigControllerVR.EnableHandMeshes(true);
+            }
+        }
+
+        private void HideHeadToPlayer()
+        {
             string layerHiddenToPlayer = SM.GetSystem<AvatarSystem>().LayerNameHiddenToPlayer;
 
-            foreach (Transform transform in avatarInstance.GetComponentsInChildren<Transform>())
+            foreach (Transform transform in avatarConfigControllerVR.FullBodyAvatarReference.GetComponentsInChildren<Transform>())
+            {
+                if (hideToPlayer.Contains(transform.gameObject.name))
+                {
+                    transform.gameObject.layer = LayerMask.NameToLayer(layerHiddenToPlayer);
+                }
+            }
+
+            foreach (Transform transform in avatarConfigControllerVR.HalfBodyAvatarReference.GetComponentsInChildren<Transform>())
             {
                 if (hideToPlayer.Contains(transform.gameObject.name))
                 {

@@ -20,22 +20,22 @@ namespace Reflectis.SDK.Avatars
         {
             Transform currentPivotParent = null;
             GameObject prevRef = null;
-            if (fullBodyAvatarReference != null)
+            if (FullBodyAvatarReference != null)
             {
-                currentPivotParent = fullBodyAvatarReference.transform.parent;
-                prevRef = fullBodyAvatarReference;
+                currentPivotParent = FullBodyAvatarReference.transform.parent;
+                prevRef = FullBodyAvatarReference;
             }
-            fullBodyAvatarReference = avatar;
-            fullBodyAvatarReference.transform.SetParent(currentPivotParent, false);
-            fullBodyAvatarReference.transform.SetAsFirstSibling();
-            fullBodyAvatarReference.name = "Avatar";
-            fullBodyAvatarReference.layer = LayerMask.NameToLayer("AvatarWelcomeRoom");
+            FullBodyAvatarReference = avatar;
+            FullBodyAvatarReference.transform.SetParent(currentPivotParent, false);
+            FullBodyAvatarReference.transform.SetAsFirstSibling();
+            FullBodyAvatarReference.name = "Avatar";
+            FullBodyAvatarReference.layer = LayerMask.NameToLayer("AvatarWelcomeRoom");
 
 
-            Animator parentAnimator = fullBodyAvatarReference.transform.parent.GetComponent<Animator>();
+            Animator parentAnimator = FullBodyAvatarReference.transform.parent.GetComponent<Animator>();
             if (!parentAnimator)
             {
-                parentAnimator = fullBodyAvatarReference.transform.parent.gameObject.AddComponent<Animator>();
+                parentAnimator = FullBodyAvatarReference.transform.parent.gameObject.AddComponent<Animator>();
             }
 
             RuntimeAnimatorController animatorControllerReference;
@@ -73,7 +73,7 @@ namespace Reflectis.SDK.Avatars
 
         public override void EnableAvatarMeshes(bool enable)
         {
-            foreach (Renderer rend in fullBodyAvatarReference.GetComponentsInChildren<Renderer>())
+            foreach (Renderer rend in FullBodyAvatarReference.GetComponentsInChildren<Renderer>())
             {
                 rend.enabled = enable;
             }

@@ -16,12 +16,15 @@ namespace Reflectis.SDK.CharacterController
         [SerializeField] protected Transform rightHandReference;
         [SerializeField] protected Transform labelReference;
 
+        [SerializeField] private float playerHeight = 1.65f;
+
         public Transform PivotReference => pivotReference;
         public Transform HeadReference => headReference;
         public Transform LeftInteractorReference => leftHandReference;
         public Transform RightInteractorReference => rightHandReference;
         public Transform LabelReference => labelReference;
-        public float playerHeight;
+
+        public float PlayerHeight { get => playerHeight; set => playerHeight = value; }
 
         public virtual Task Setup() => Task.CompletedTask;
         public virtual Task Unsetup() => Task.CompletedTask;

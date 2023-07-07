@@ -21,7 +21,7 @@ namespace Reflectis.SDK.Avatars
         [SerializeField, Tooltip("Sorted list of avatar loaders")]
         private AvatarLoadersController avatarLoadersController;
 
-        [SerializeField] protected GameObject fullBodyAvatarReference;
+        [SerializeField] private GameObject fullBodyAvatarReference;
 
         #endregion
 
@@ -39,6 +39,8 @@ namespace Reflectis.SDK.Avatars
         public IAvatarConfig AvatarConfig { get; private set; }
 
         public AvatarLoaderBase AvatarLoader { get => avatarLoader; set => avatarLoader = value; }
+
+        public GameObject FullBodyAvatarReference { get => fullBodyAvatarReference; protected set => fullBodyAvatarReference = value; }
         #endregion
 
         #region Unity events
@@ -48,7 +50,6 @@ namespace Reflectis.SDK.Avatars
         
         protected AvatarLoadersController AvatarLoadersController { get => avatarLoadersController; set => avatarLoadersController = value; }
         
-
         #endregion
 
         #region Unity callbacks
@@ -132,7 +133,7 @@ namespace Reflectis.SDK.Avatars
         {
             int layerHiddenToPlayer = LayerMask.NameToLayer(avatarSystem.LayerNameHiddenToPlayer);
 
-            foreach (var toHide in fullBodyAvatarReference.GetComponentsInChildren<Transform>())
+            foreach (var toHide in FullBodyAvatarReference.GetComponentsInChildren<Transform>())
             {
                 toHide.gameObject.layer = layerHiddenToPlayer;
             }

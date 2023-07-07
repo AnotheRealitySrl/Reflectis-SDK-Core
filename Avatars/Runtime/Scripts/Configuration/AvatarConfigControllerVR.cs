@@ -8,7 +8,10 @@ namespace Reflectis.SDK.Avatars
 {
     public class AvatarConfigControllerVR : AvatarConfigControllerBase
     {
-        #region Inspector variablexs
+        
+
+        #region Inspector variables
+
         [SerializeField] private GameObject halfBodyAvatarReference;
 
         [SerializeField, Tooltip("Default height for feminine players")]
@@ -19,6 +22,13 @@ namespace Reflectis.SDK.Avatars
 
         [SerializeField, Tooltip("Default height for masculine players")]
         private float defaultMasculineHeight = 1.70f;
+
+        #endregion
+
+        #region Properties
+
+        public GameObject HalfBodyAvatarReference { get => halfBodyAvatarReference; }
+
         #endregion
 
 
@@ -30,52 +40,54 @@ namespace Reflectis.SDK.Avatars
             switch (avatarData.bodyType)
             {
                 case AvatarBodyType.FullBody:
-                    if (fullBodyAvatarReference != null)
+                    if (FullBodyAvatarReference != null)
                     {
-                        currentPivotParent = fullBodyAvatarReference.transform.parent;
-                        prevRef = fullBodyAvatarReference;
+                        currentPivotParent = FullBodyAvatarReference.transform.parent;
+                        prevRef = FullBodyAvatarReference;
                     }
-                    fullBodyAvatarReference = avatar;
+                    FullBodyAvatarReference = avatar;
 
-                    fullBodyAvatarReference.transform.SetParent(currentPivotParent);
-                    fullBodyAvatarReference.transform.SetAsFirstSibling();
-                    fullBodyAvatarReference.name = "Avatar";
-                    halfBodyAvatarReference.SetActive(false);
+                    FullBodyAvatarReference.transform.SetParent(currentPivotParent);
+                    FullBodyAvatarReference.transform.SetAsFirstSibling();
+                    FullBodyAvatarReference.name = "Avatar";
+                    HalfBodyAvatarReference.SetActive(false);
                     foreach (Renderer hand in handsMeshes)
                     {
                         hand.enabled = false;
                     }
 
                     if (AvatarConfig != null && AvatarConfig.PlayerHeight != null)
-                        character.playerHeight = AvatarConfig.PlayerHeight ?? defaultHeight;
+                        character.PlayerHeight = AvatarConfig.PlayerHeight ?? defaultHeight;
                     else
-                        character.playerHeight = (avatarData.gender == AvatarGender.Masculine ? defaultMasculineHeight :
+                        character.PlayerHeight = (avatarData.gender == AvatarGender.Masculine ? defaultMasculineHeight :
                         avatarData.gender == AvatarGender.Feminine ? defaultFeminineHeight :
                             defaultHeight);
                     break;
                 case AvatarBodyType.HalfBody:
-                    if (halfBodyAvatarReference != null)
+                    if (HalfBodyAvatarReference != null)
                     {
-                        currentPivotParent = halfBodyAvatarReference.transform.parent;
-                        prevRef = halfBodyAvatarReference;
+                        currentPivotParent = HalfBodyAvatarReference.transform.parent;
+                        prevRef = HalfBodyAvatarReference;
                     }
                     halfBodyAvatarReference = avatar;
-                    halfBodyAvatarReference.transform.SetParent(currentPivotParent);
-                    halfBodyAvatarReference.transform.SetAsFirstSibling();
-                    halfBodyAvatarReference.transform.localPosition = Vector3.zero;
-                    halfBodyAvatarReference.transform.localRotation = Quaternion.identity;
-
-                    Material skinMaterial = avatarData.skinMaterial;
+                    HalfBodyAvatarReference.transform.SetParent(currentPivotParent);
+                    HalfBodyAvatarReference.transform.SetAsFirstSibling();
+                    HalfBodyAvatarReference.transform.localPosition = Vector3.zero;
+                    HalfBodyAvatarReference.transform.localRotation = Quaternion.identity;
 
                     foreach (Renderer hand in handsMeshes)
                     {
                         hand.enabled = true;
-                        hand.material = skinMaterial;
                     }
-                    fullBodyAvatarReference.SetActive(false);
+                    FullBodyAvatarReference.SetActive(false);
                     break;
             }
+            Material skinMaterial = avatarData.skinMaterial;
 
+            foreach (Renderer hand in handsMeshes)
+            {
+                hand.material = skinMaterial;
+            }
 
             if (GetComponent<AvatarControllerBase>() == avatarSystem.AvatarInstance)
             {
@@ -98,9 +110,23 @@ namespace Reflectis.SDK.Avatars
 
         }
 
+        public void EnableFullBodyAvatar(bool enable)
+        {
+            string layerHidden = SM.GetSystem<AvatarSystem>().LayerNameHiddenToPlayer;
+
+            foreach(Renderer renderer in FullBodyAvatarReference.GetComponentsInChildren<Renderer>())
+            {
+                if (enable)
+                    renderer.gameObject.layer = LayerMask.NameToLayer("Default");
+                else
+                    renderer.gameObject.layer = LayerMask.NameToLayer(layerHidden);
+            }
+        }
+
+
         public override void EnableAvatarMeshes(bool enable)
         {
-            foreach (Renderer rend in handsMeshes.Concat(halfBodyAvatarReference.GetComponentsInChildren<Renderer>()))
+            foreach (Renderer rend in handsMeshes.Concat(HalfBodyAvatarReference.GetComponentsInChildren<Renderer>()))
             {
                 rend.enabled = enable;
             }
