@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Added
+
+- ClientModels module, providing the data model used by the business logic and an API definition for data access
+
 ### Fixed
 
 - Add missing dependencies in package.json
