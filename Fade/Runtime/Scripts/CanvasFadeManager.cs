@@ -14,7 +14,8 @@ namespace Reflectis.SDK.Fade
 
         [Header("Configuration")]
         [SerializeField] private GameObject canvas;
-        [SerializeField] private Image fadeVolume;
+        [SerializeField] private Image fadeImage;
+        [SerializeField] private Image desaturatedImage;
 
         #endregion
 
@@ -22,6 +23,8 @@ namespace Reflectis.SDK.Fade
 
         private Coroutine blackCoroutine = null;
         private Coroutine desaturatedCoroutine = null;
+
+        private float maxDesaturatedAlpha;
 
         #endregion
 
@@ -37,6 +40,10 @@ namespace Reflectis.SDK.Fade
 
         public void Init()
         {
+            maxDesaturatedAlpha = desaturatedImage.color.a;
+            desaturatedImage.color = new Color(desaturatedImage.color.r, desaturatedImage.color.g, desaturatedImage.color.b, 0);
+            desaturatedImage.gameObject.SetActive(false);
+
             if (FadeOnStart)
             {
                 FadeFromBlack();
@@ -45,29 +52,31 @@ namespace Reflectis.SDK.Fade
 
         public void FadeToBlack(System.Action onEnd = null)
         {
-            if (fadeVolume != null)
+            if (fadeImage != null)
             {
                 if (blackCoroutine != null)
                     StopCoroutine(blackCoroutine);
 
                 canvas.SetActive(true);
+                fadeImage.gameObject.SetActive(true);
                 LayerManager.MoveObjectsToLayer();
-                blackCoroutine = StartCoroutine(FadeVolumeWeight(fadeVolume, fadeVolume.color.a, 1, FadeTime * (1f - fadeVolume.color.a), onEnd));
+                blackCoroutine = StartCoroutine(FadeVolumeWeight(fadeImage, fadeImage.color.a, 1, FadeTime * (1f - fadeImage.color.a), onEnd));
             }
         }
 
         public void FadeFromBlack(System.Action onEnd = null)
         {
-            if (fadeVolume != null)
+            if (fadeImage != null)
             {
                 if (blackCoroutine != null)
                     StopCoroutine(blackCoroutine);
 
-                blackCoroutine = StartCoroutine(FadeVolumeWeight(fadeVolume, fadeVolume.color.a, 0, FadeTime * fadeVolume.color.a, () =>
+                blackCoroutine = StartCoroutine(FadeVolumeWeight(fadeImage, fadeImage.color.a, 0, FadeTime * fadeImage.color.a, () =>
                 {
                     onEnd?.Invoke();
                     LayerManager.ResetObjectsLayer();
                     canvas.SetActive(false);
+                    fadeImage.gameObject.SetActive(false);
                 }));
             }
         }
@@ -75,12 +84,33 @@ namespace Reflectis.SDK.Fade
 
         public void FadeToDesaturated(Action onEnd = null)
         {
-            throw new NotImplementedException();
+            if (desaturatedImage != null)
+            {
+                if (blackCoroutine != null)
+                    StopCoroutine(blackCoroutine);
+
+                canvas.SetActive(true);
+                desaturatedImage.gameObject.SetActive(true);
+                LayerManager.MoveObjectsToLayer();
+                blackCoroutine = StartCoroutine(FadeVolumeWeight(desaturatedImage, desaturatedImage.color.a, maxDesaturatedAlpha, FadeTime * (1f - desaturatedImage.color.a), onEnd));
+            }
         }
 
         public void FadeFromDesaturated(Action onEnd = null)
         {
-            throw new NotImplementedException();
+            if (desaturatedImage != null)
+            {
+                if (blackCoroutine != null)
+                    StopCoroutine(blackCoroutine);
+
+                blackCoroutine = StartCoroutine(FadeVolumeWeight(desaturatedImage, desaturatedImage.color.a, 0, FadeTime * desaturatedImage.color.a, () =>
+                {
+                    onEnd?.Invoke();
+                    LayerManager.ResetObjectsLayer();
+                    canvas.SetActive(false);
+                    desaturatedImage.gameObject.SetActive(false);
+                }));
+            }
         }
 
 
