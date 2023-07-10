@@ -22,6 +22,7 @@
 - Transitions: `AnimatorTransitionProvider` now has a configurable string parameter
 - Communication system: system base class
 - Documentation
+- Fade System with canvas
 
 ### Fixed
 
