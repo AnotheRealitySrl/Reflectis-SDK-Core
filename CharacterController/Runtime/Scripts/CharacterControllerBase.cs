@@ -14,6 +14,7 @@ namespace Reflectis.SDK.CharacterController
         [SerializeField] protected Camera cam;
         [SerializeField] protected ICharacterController.EInteractionType interactorsType;
         [SerializeField] private bool isInRangeToInteract = false;
+        [SerializeField] private Canvas canvasInteraction;
 
         #endregion
 
@@ -22,6 +23,7 @@ namespace Reflectis.SDK.CharacterController
         public Camera Camera { get => cam; set => cam = value; }
         public ICharacterController.EInteractionType InteractorsType => interactorsType;
         public bool IsInRangeToInteract { get => isInRangeToInteract; set => isInRangeToInteract = value; }
+        public Canvas CanvasInteraction => canvasInteraction;
 
         #endregion
     }
