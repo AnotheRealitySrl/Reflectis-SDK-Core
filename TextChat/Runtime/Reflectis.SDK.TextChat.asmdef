@@ -1,0 +1,16 @@
+{
+    "name": "Reflectis.SDK.TextChat",
+    "rootNamespace": "Reflectis.SDK.TextChat",
+    "references": [
+        "Reflectis.SDK.Core"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

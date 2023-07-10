@@ -1,5 +1,17 @@
 # Release notes
 
+## Unreleased
+
+### Added
+
+- ClientModels module, providing the data model used by the business logic and an API definition for data access
+
+### Fixed
+
+- Add missing dependencies in package.json
+- Updated Assembly files names
+- Text Chat: added system folder and assembly
+
 ## v3.0.0
 
 ### Changed
