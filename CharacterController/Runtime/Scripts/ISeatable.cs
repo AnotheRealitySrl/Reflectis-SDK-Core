@@ -8,8 +8,8 @@ namespace Reflectis.SDK.CharacterController
     {
         bool isInteractable { get; set;}
 
-        public void SitAction(CharacterControllerBase characterController);
+        public void SitAction(CharacterControllerBase characterController,ref bool isToggled);
 
-        public void StepUpAction(CharacterControllerBase characterController);
+        public void StepUpAction(ref bool isToggled);
     }
 }
