@@ -19,6 +19,14 @@ namespace Reflectis.SDK.ObjectSpawner
             action.canceled += ButtonActionCallback;
         }
 
+        protected void DeregisterActionCallback(InputAction action)
+        {
+            action.started -= ButtonActionCallback;
+            action.performed -= ButtonActionCallback;
+            action.canceled -= ButtonActionCallback;
+            action.Disable();
+        }
+
         protected void ButtonActionCallback(CallbackContext context)
         {
             if (context.action.enabled)
