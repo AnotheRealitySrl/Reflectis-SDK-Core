@@ -15,6 +15,6 @@ MonoBehaviour:
   _subSystems: []
   fadeManagerPrefab: {fileID: 7813659849158214338, guid: c2a15683e35e629498b4c53c9b2b3aa0,
     type: 3}
-  fadeTime: 0.5
+  fadeTime: 1
   fadeOnStart: 0
   layerManager: {fileID: 11400000, guid: 4ca313f8886b29947b951a0ce13628e1, type: 2}
