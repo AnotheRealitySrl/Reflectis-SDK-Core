@@ -81,13 +81,13 @@ namespace Reflectis.SDK.Avatars
 
         private void HideHeadToPlayer()
         {
-            string layerHiddenToPlayer = SM.GetSystem<AvatarSystem>().LayerNameHiddenToPlayer;
+            int layerHiddenToPlayer = LayerMask.NameToLayer(SM.GetSystem<AvatarSystem>().LayerNameHiddenToPlayer);
 
             foreach (Transform transform in avatarConfigControllerVR.FullBodyAvatarReference.GetComponentsInChildren<Transform>())
             {
                 if (hideToPlayer.Contains(transform.gameObject.name))
                 {
-                    transform.gameObject.layer = LayerMask.NameToLayer(layerHiddenToPlayer);
+                    transform.gameObject.layer = layerHiddenToPlayer;
                 }
             }
 
@@ -95,8 +95,13 @@ namespace Reflectis.SDK.Avatars
             {
                 if (hideToPlayer.Contains(transform.gameObject.name))
                 {
-                    transform.gameObject.layer = LayerMask.NameToLayer(layerHiddenToPlayer);
+                    transform.gameObject.layer = layerHiddenToPlayer;
                 }
+            }
+
+            if (CharacterReference.LabelReference)
+            {
+                CharacterReference.LabelReference.gameObject.layer = layerHiddenToPlayer;
             }
         }
 

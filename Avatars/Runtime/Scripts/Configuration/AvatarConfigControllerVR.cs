@@ -110,6 +110,7 @@ namespace Reflectis.SDK.Avatars
 
         }
 
+
         public void EnableFullBodyAvatar(bool enable)
         {
             string layerHidden = SM.GetSystem<AvatarSystem>().LayerNameHiddenToPlayer;

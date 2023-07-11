@@ -129,20 +129,7 @@ namespace Reflectis.SDK.Avatars
         #endregion
 
         #region Protected Methods
-        protected virtual void HideMeshesToPlayer()
-        {
-            int layerHiddenToPlayer = LayerMask.NameToLayer(avatarSystem.LayerNameHiddenToPlayer);
-
-            foreach (var toHide in FullBodyAvatarReference.GetComponentsInChildren<Transform>())
-            {
-                toHide.gameObject.layer = layerHiddenToPlayer;
-            }
-            if (character.LabelReference)
-            {
-                character.LabelReference.gameObject.layer = layerHiddenToPlayer;
-            }
-        }
-
+        
         protected void AddToHandMeshes(Transform transform)
         {
             if (transform != null)
