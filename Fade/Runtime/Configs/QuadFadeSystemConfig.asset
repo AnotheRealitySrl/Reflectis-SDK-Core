@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2917e354fe0bae44a9807db07093ff77, type: 3}
-  m_Name: CanvasFadeSystemConfig
+  m_Name: QuadFadeSystemConfig
   m_EditorClassIdentifier: 
   _subSystems: []
-  fadeManagerPrefab: {fileID: 7813659849158214338, guid: c2a15683e35e629498b4c53c9b2b3aa0,
+  fadeManagerPrefab: {fileID: 6529167604753988962, guid: 6637a5a1f7f91764eb29bfe1b7f8175c,
     type: 3}
   fadeTime: 1
   fadeOnStart: 0
