@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.ResourceManagement.AsyncOperations;
+using Reflectis.SDK.Utilities.Extensions;
 
 namespace Reflectis.SDK.Avatars
 {
@@ -75,12 +75,14 @@ namespace Reflectis.SDK.Avatars
         public async virtual Task UpdateAvatarCustomization(IAvatarConfig config, Action onBeforeAction = null, Action onAfterAction = null)
         {
             onBeforeAction?.Invoke();
+
+            OnBeforeInstantiation?.Invoke();
             
             AvatarLoader = Instantiate(AvatarLoadersController.GetAvatarLoader(config));
 
-            AvatarLoader.onLoadingAvatarComplete.AddListener(OnAvatarLoadCompletion);
+            AvatarLoader.onLoadingAvatarComplete.AddListenerOnce(OnAvatarLoadCompletion);
 
-            AvatarLoader.onLoadingAvatarComplete.AddListener((_,_) => { onAfterAction?.Invoke(); AvatarLoader.onLoadingAvatarComplete.RemoveAllListeners();} );
+            AvatarLoader.onLoadingAvatarComplete.AddListenerOnce((_,_) => { onAfterAction?.Invoke(); } );
 
             await AvatarLoader.LoadAvatar(config);
 

@@ -50,7 +50,10 @@ namespace Reflectis.SDK.Avatars
                     FullBodyAvatarReference.transform.SetParent(currentPivotParent);
                     FullBodyAvatarReference.transform.SetAsFirstSibling();
                     FullBodyAvatarReference.name = "Avatar";
-                    HalfBodyAvatarReference.SetActive(false);
+                    if(HalfBodyAvatarReference != null)
+                    {
+                        HalfBodyAvatarReference.SetActive(false);
+                    }
                     foreach (Renderer hand in handsMeshes)
                     {
                         hand.enabled = false;
@@ -79,7 +82,10 @@ namespace Reflectis.SDK.Avatars
                     {
                         hand.enabled = true;
                     }
-                    FullBodyAvatarReference.SetActive(false);
+                    if(FullBodyAvatarReference != null)
+                    {
+                        FullBodyAvatarReference.SetActive(false);
+                    }
                     break;
             }
             Material skinMaterial = avatarData.skinMaterial;
