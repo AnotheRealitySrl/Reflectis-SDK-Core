@@ -2,8 +2,7 @@
     "name": "Reflectis.SDK.TextChat",
     "rootNamespace": "Reflectis.SDK.TextChat",
     "references": [
-        "Reflectis.SDK.Core",
-        "AgoraTextChat"
+        "Reflectis.SDK.Core"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

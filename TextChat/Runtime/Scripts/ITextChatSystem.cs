@@ -1,13 +1,11 @@
 using Reflectis.SDK.Core;
 
-using AgoraChat;
-
 namespace Reflectis.SDK.TextChat
 {
     /// <summary>
     /// Manages the text communication among players.
     /// </summary>
-    public interface ITextChatSystem : ISystem, IChatManagerDelegate
+    public interface ITextChatSystem : ISystem
     {
         /// <summary>
         /// Key of the chat project in Agora console.
