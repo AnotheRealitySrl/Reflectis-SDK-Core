@@ -17,13 +17,11 @@ namespace Reflectis.SDK.ClientModels
         /// <summary>
         /// Returns the list of all events visible by user filtered by category
         /// </summary>
-        /// <param name="categoryId">category id</param>
         Task<List<Event>> GetAllEventsByCategoryID(int categoryId);
 
         /// <summary>
         /// Returns the list of users registered for this event.
         /// </summary>
-        /// <param name="eventId">The event registered</param>
         Task<List<User>> GetEventPartecipants(int eventId);
 
         Task<int> CreateUpdateEvent(Event e);
@@ -33,9 +31,14 @@ namespace Reflectis.SDK.ClientModels
         #region Users
 
         /// <summary>
-        /// Return all users and all user lists that match search criteria
+        /// Return all users that match search criteria
         /// </summary>
-        Task<(UserList, List<User>)> GetUserList(string searchQuery);
+        Task<List<User>> GetUsers(string searchQuery);
+
+        /// <summary>
+        /// Return all user lists that match search criteria
+        /// </summary>
+        Task<UserList> GetUsersLists(string searchQuery);
 
         /// <summary>
         /// Return user list ID created (or updated)

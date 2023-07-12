@@ -47,16 +47,22 @@ namespace Reflectis.SDK.ClientModels
 
         #region Users
 
-        [SerializeField, Multiline(10)] private int mockGetUserListResponse;
-        public async Task<(UserList, List<User>)> GetUserList(string searchQuery)
+        [SerializeField, Multiline(10)] private string mockGetUsersResponse;
+        public async Task<List<User>> GetUsers(string searchQuery)
         {
-            throw new System.NotImplementedException();
+            return await Task.FromResult(JsonConvert.DeserializeObject<List<User>>(mockGetUsersResponse));
         }
 
-        [SerializeField] private string mockCreateUpdateUserListResponse;
+        [SerializeField, Multiline(10)] private string mockGetUsersListsResponse;
+        public async Task<UserList> GetUsersLists(string searchQuery)
+        {
+            return await Task.FromResult(JsonConvert.DeserializeObject<UserList>(mockGetUsersListsResponse));
+        }
+
+        [SerializeField] private int mockCreateUpdateUserListResponse;
         public async Task<int> CreateUpdateUserList(List<EventPermissionSet> permissions)
         {
-            return await Task.FromResult(mockCreateUpdateEventPermissionPresetResponse);
+            return await Task.FromResult(mockCreateUpdateUserListResponse);
         }
 
         #endregion
