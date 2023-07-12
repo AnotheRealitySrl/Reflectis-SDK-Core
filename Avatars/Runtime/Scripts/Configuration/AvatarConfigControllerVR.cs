@@ -50,7 +50,9 @@ namespace Reflectis.SDK.Avatars
                     FullBodyAvatarReference.transform.SetParent(currentPivotParent);
                     FullBodyAvatarReference.transform.SetAsFirstSibling();
                     FullBodyAvatarReference.name = "Avatar";
-                    if(HalfBodyAvatarReference != null)
+                    FullBodyAvatarReference.transform.localPosition = Vector3.zero;
+                    FullBodyAvatarReference.transform.localRotation = Quaternion.identity;
+                    if (HalfBodyAvatarReference != null)
                     {
                         HalfBodyAvatarReference.SetActive(false);
                     }
