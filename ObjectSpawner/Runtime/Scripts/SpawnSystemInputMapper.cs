@@ -11,11 +11,20 @@ namespace Reflectis.SDK.ObjectSpawner
     {
         protected SpawnableData spawnableData;
 
-        protected void RegisterSecondaryActionCallback(InputAction action)
+        protected void RegisterActionCallback(InputAction action)
         {
+            action.Enable();
             action.started += ButtonActionCallback;
             action.performed += ButtonActionCallback;
             action.canceled += ButtonActionCallback;
+        }
+
+        protected void DeregisterActionCallback(InputAction action)
+        {
+            action.started -= ButtonActionCallback;
+            action.performed -= ButtonActionCallback;
+            action.canceled -= ButtonActionCallback;
+            action.Disable();
         }
 
         protected void ButtonActionCallback(CallbackContext context)
