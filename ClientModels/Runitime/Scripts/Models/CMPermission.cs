@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Reflectis.SDK.ClientModels
 {
     [Serializable]
-    public class Permission
+    public class CMPermission
     {
         [SerializeField] private int id;
         [SerializeField] private string name;

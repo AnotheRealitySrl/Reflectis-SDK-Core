@@ -6,14 +6,14 @@ using UnityEngine;
 namespace Reflectis.SDK.ClientModels
 {
     [Serializable]
-    public class PermissionBlock
+    public class CMEventPermissionSet
     {
         [SerializeField] private int id;
         [SerializeField] private string name;
-        [SerializeField] private List<Permission> permissions;
+        [SerializeField] private List<CMPermissionBlock> permissionBlocks;
 
         public int ID { get => id; set => id = value; }
         public string Name { get => name; set => name = value; }
-        public List<Permission> Permissions { get => permissions; set => permissions = value; }
+        public List<CMPermissionBlock> PermissionBlocks { get => permissionBlocks; set => permissionBlocks = value; }
     }
 }
