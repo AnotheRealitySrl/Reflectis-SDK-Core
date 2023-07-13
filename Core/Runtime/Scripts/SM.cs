@@ -16,6 +16,8 @@ namespace Reflectis.SDK.Core
 
         public static Action OnAllSystemsSetupsDone;
 
+        public static bool IsReady { get; private set; } = false;
+
         public static List<ISystem> CurrentSystems { get; set; }
 
         /// <summary>
@@ -24,6 +26,8 @@ namespace Reflectis.SDK.Core
         /// <param name="systems"></param>
         public static void LoadAndSetup(List<BaseSystem> systems)
         {
+            IsReady = false;
+
             CurrentSystems = new List<ISystem>();
             for (int i = 0; i < systems.Count; i++)
             {
@@ -40,6 +44,9 @@ namespace Reflectis.SDK.Core
                     Debug.LogWarning($"[SystemManager] System not valid in SystemManagerController, index [{i}].");
                 }
             }
+            
+            IsReady = true;
+
             OnAllSystemsSetupsDone?.Invoke();
         }
 
