@@ -1,21 +1,21 @@
 using Reflectis.SDK.Utilities;
+
 using System;
 using System.Collections;
+
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
 
 
 namespace Reflectis.SDK.Fade
 {
-    public class CanvasFadeManager : MonoBehaviour, IFadeManager
+    public class QuadFadeManager : MonoBehaviour, IFadeManager
     {
         #region Inspector variables
 
         [Header("Configuration")]
-        [SerializeField] private GameObject canvas;
-        [SerializeField] private Image fadeImage;
-        [SerializeField] private Image desaturatedImage;
+        [SerializeField] private Color fadeColor;
+        [SerializeField] private Color desaturatedColor;
 
         #endregion
 
@@ -24,7 +24,7 @@ namespace Reflectis.SDK.Fade
         private Coroutine blackCoroutine = null;
         private Coroutine desaturatedCoroutine = null;
 
-        private float maxDesaturatedAlpha;
+        private Material quadMaterial;
 
         #endregion
 
@@ -40,9 +40,10 @@ namespace Reflectis.SDK.Fade
 
         public void Init()
         {
-            maxDesaturatedAlpha = desaturatedImage.color.a;
-            desaturatedImage.color = new Color(desaturatedImage.color.r, desaturatedImage.color.g, desaturatedImage.color.b, 0);
-            desaturatedImage.gameObject.SetActive(false);
+            gameObject.transform.localPosition = new Vector3(0, 0, 0.03f);
+
+            quadMaterial = GetComponent<MeshRenderer>().materials[0];
+            quadMaterial.color = fadeColor;
 
             if (FadeOnStart)
             {
@@ -52,31 +53,29 @@ namespace Reflectis.SDK.Fade
 
         public void FadeToBlack(System.Action onEnd = null)
         {
-            if (fadeImage != null)
+            if (quadMaterial != null)
             {
                 if (blackCoroutine != null)
                     StopCoroutine(blackCoroutine);
 
-                canvas.SetActive(true);
-                fadeImage.gameObject.SetActive(true);
+                gameObject.SetActive(true);
                 LayerManager.MoveObjectsToLayer();
-                blackCoroutine = StartCoroutine(FadeVolumeWeight(fadeImage, fadeImage.color.a, 1, FadeTime * (1f - fadeImage.color.a), onEnd));
+                blackCoroutine = StartCoroutine(FadeVolumeWeight(quadMaterial, quadMaterial.color.a, 1, FadeTime * (1f - quadMaterial.color.a), onEnd));
             }
         }
 
         public void FadeFromBlack(System.Action onEnd = null)
         {
-            if (fadeImage != null)
+            if (quadMaterial != null)
             {
                 if (blackCoroutine != null)
                     StopCoroutine(blackCoroutine);
 
-                blackCoroutine = StartCoroutine(FadeVolumeWeight(fadeImage, fadeImage.color.a, 0, FadeTime * fadeImage.color.a, () =>
+                blackCoroutine = StartCoroutine(FadeVolumeWeight(quadMaterial, quadMaterial.color.a, 0, FadeTime * quadMaterial.color.a, () =>
                 {
                     onEnd?.Invoke();
                     LayerManager.ResetObjectsLayer();
-                    canvas.SetActive(false);
-                    fadeImage.gameObject.SetActive(false);
+                    gameObject.SetActive(false);
                 }));
             }
         }
@@ -84,31 +83,29 @@ namespace Reflectis.SDK.Fade
 
         public void FadeToDesaturated(Action onEnd = null)
         {
-            if (desaturatedImage != null)
+            if (quadMaterial != null)
             {
                 if (blackCoroutine != null)
                     StopCoroutine(blackCoroutine);
 
-                canvas.SetActive(true);
-                desaturatedImage.gameObject.SetActive(true);
+                gameObject.SetActive(true);
                 LayerManager.MoveObjectsToLayer();
-                blackCoroutine = StartCoroutine(FadeVolumeWeight(desaturatedImage, desaturatedImage.color.a, maxDesaturatedAlpha, FadeTime * (1f - desaturatedImage.color.a), onEnd));
+                blackCoroutine = StartCoroutine(FadeVolumeWeight(quadMaterial, quadMaterial.color.a, 0.5f, FadeTime * (1f - quadMaterial.color.a), onEnd));
             }
         }
 
         public void FadeFromDesaturated(Action onEnd = null)
         {
-            if (desaturatedImage != null)
+            if (quadMaterial != null)
             {
                 if (blackCoroutine != null)
                     StopCoroutine(blackCoroutine);
 
-                blackCoroutine = StartCoroutine(FadeVolumeWeight(desaturatedImage, desaturatedImage.color.a, 0, FadeTime * desaturatedImage.color.a, () =>
+                blackCoroutine = StartCoroutine(FadeVolumeWeight(quadMaterial, quadMaterial.color.a, 0, FadeTime * quadMaterial.color.a, () =>
                 {
                     onEnd?.Invoke();
                     LayerManager.ResetObjectsLayer();
-                    canvas.SetActive(false);
-                    desaturatedImage.gameObject.SetActive(false);
+                    gameObject.SetActive(false);
                 }));
             }
         }
@@ -129,9 +126,9 @@ namespace Reflectis.SDK.Fade
         #region Private methods
 
         // I would do this with a tween, but unfortunately, Volume.weight can't be modified with a FloatTweener
-        IEnumerator FadeVolumeWeight(Image volume, float startWeight, float endWeight, float fadeTime, System.Action onEnd)
+        IEnumerator FadeVolumeWeight(Material material, float startWeight, float endWeight, float fadeTime, System.Action onEnd)
         {
-            Color newColor = volume.color;
+            Color newColor = quadMaterial.color;
 
             yield return null;
             if (fadeTime > 0f)
@@ -139,13 +136,13 @@ namespace Reflectis.SDK.Fade
                 for (float t = 0; t < 1; t += Time.deltaTime / fadeTime)
                 {
                     newColor.a = EasingFunctions.Linear(startWeight, endWeight, t);
-                    volume.color = newColor;
+                    quadMaterial.color = newColor;
                     yield return null;
                 }
             }
 
             newColor.a = endWeight;
-            volume.color = newColor;
+            quadMaterial.color = newColor;
             yield return null;
             onEnd?.Invoke();
             yield return null;
