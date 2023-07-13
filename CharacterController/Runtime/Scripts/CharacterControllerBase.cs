@@ -20,7 +20,6 @@ namespace Reflectis.SDK.CharacterController
 
         #region Interface implementation
         
-        public bool CanSit { get; set; }
         public Camera Camera { get => cam; set => cam = value; }
         public ICharacterController.EInteractionType InteractorsType => interactorsType;
         public bool IsInRangeToInteract { get => isInRangeToInteract; set => isInRangeToInteract = value; }
