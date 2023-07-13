@@ -5,6 +5,8 @@ namespace Reflectis.SDK.Avatars
     /// </summary>
     public interface IAvatarConfig
     {
-
+        #region Properties
+        public float? PlayerHeight { get; }
+        #endregion
     }
 }

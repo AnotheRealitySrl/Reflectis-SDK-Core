@@ -5,12 +5,14 @@
 ### Added
 
 - ClientModels module, providing the data model used by the business logic and an API definition for data access
+- Avatar loading logic, `AvatarLoaderBase` is the base class for the implementation of any Avatar Loader and `AvatarLoadersController` handles the choice of the avatar loader.
 
 ### Fixed
 
 - Add missing dependencies in package.json
 - Updated Assembly files names
 - Text Chat: added system folder and assembly
+- Refactor `AvatarConfigManager` to `AvatarConfigController` and separation on avatar loading logic
 
 ## v3.0.0
 
