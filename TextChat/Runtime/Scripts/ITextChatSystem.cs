@@ -1,4 +1,6 @@
 using Reflectis.SDK.Core;
+using System;
+using System.Collections.Generic;
 
 namespace Reflectis.SDK.TextChat
 {
@@ -7,11 +9,60 @@ namespace Reflectis.SDK.TextChat
     /// </summary>
     public interface ITextChatSystem : ISystem
     {
+        #region Properties
+
         /// <summary>
         /// Key of the chat project in Agora console.
         /// Looks like: 12345678#1234567
         /// </summary>
         string AppKey { get; }
+
+        #endregion
+
+        #region Events
+
+        /// <summary>
+        /// Event invoked when a message is sended. It will pass the name of the person/channel who
+        /// send it, the content of the message and the local time when it was sended
+        /// </summary>
+        event Action<string, string, long> OnTxtMsgSended;
+
+        /// <summary>
+        /// Event invoked when a message is received. 
+        /// It will pass the name of the person/channel who
+        /// send it, the content of the message and the local time when it was sended
+        /// </summary>
+        event Action<string, string, long> OnTxtMsgReceived;
+
+        /// <summary>
+        /// Event invoked when all the public channels are fetched from the server.
+        /// It will pass a list containing all the chat rooms
+        /// </summary>
+        event Action<List<ChatRoom>> OnAllChannelsFetched;
+
+        /// <summary>
+        /// Event invoked when a user joins a channel
+        /// </summary>
+        event Action OnJoinedChannel;
+
+        /// <summary>
+        /// Event invoked when a public channel is fetched from the server.
+        /// It will pass the channel
+        /// </summary>
+        event Action<ChatRoom> OnChannelFetched;
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Logs in to the chat server with the user ID and an Agora token.
+        /// </summary>
+        /// <param name="username">The user ID</param>
+        /// <param name="token">The agora token of the user</param>
+        /// <param name="onLoginSuccess">The login result callback in case of success</param>
+        /// <param name="onLoginError">The login result callback in case of fails</param>
+        void LoginWithToken(string username, string token, Action onLoginSuccess, Action<int, string> onLoginError);
 
         /// <summary>
         /// Adds a chat manager listener
@@ -40,18 +91,26 @@ namespace Reflectis.SDK.TextChat
         /// <summary>
         /// Get all the public channels from the Agora server
         /// </summary>
-        void FetchChannelsFromServer();
+        void FetchAllChannels();
 
         /// <summary>
-        /// Join a channel
+        /// Joins a text channel
         /// </summary>
         /// <param name="channelId">Id of the channel</param>
         void JoinTextChannel(string channelId);
 
         /// <summary>
-        /// Leave a channel
+        /// Get info from a specific channel
+        /// </summary>
+        /// <param name="channelId"></param>
+        void FetchChannelInfo(string channelId);
+
+        /// <summary>
+        /// Leave a text channel
         /// </summary>
         /// <param name="channelId">Id of the channel</param>
         void LeaveTextChannel(string channelId);
+
+        #endregion
     }
 }
