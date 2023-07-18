@@ -1,5 +1,6 @@
+#if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
-
+#endif
 using System.Linq;
 
 using UnityEngine;
@@ -27,7 +28,9 @@ namespace Reflectis.SDK.CharacterController
         /// </summary>
         public Transform TransformRef => transformRef != null ? transformRef : transform;
 
+#if ODIN_INSPECTOR
         [Button]
+#endif
         public string GenerateRandomId()
         {
             System.Random rnd = new();
