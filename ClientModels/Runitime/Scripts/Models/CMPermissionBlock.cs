@@ -1,18 +1,19 @@
 using System;
+using System.Collections.Generic;
 
 using UnityEngine;
 
 namespace Reflectis.SDK.ClientModels
 {
     [Serializable]
-    public class Environment
+    public class CMPermissionBlock
     {
         [SerializeField] private int id;
         [SerializeField] private string name;
-        [SerializeField] private string imageUrl;
+        [SerializeField] private List<CMPermission> permissions;
 
         public int ID { get => id; set => id = value; }
         public string Name { get => name; set => name = value; }
-        public string ImageUrl { get => imageUrl; set => imageUrl = value; }
+        public List<CMPermission> Permissions { get => permissions; set => permissions = value; }
     }
 }

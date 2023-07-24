@@ -20,25 +20,25 @@ namespace Reflectis.SDK.ClientModels
         #region Events
 
         [SerializeField, Multiline(10)] private string mockGetAllEventsResponse;
-        public async Task<List<Event>> GetAllEvents()
+        public async Task<List<CMEvent>> GetAllEvents()
         {
-            return await Task.FromResult(JsonConvert.DeserializeObject<List<Event>>(mockGetAllEventsResponse));
+            return await Task.FromResult(JsonConvert.DeserializeObject<List<CMEvent>>(mockGetAllEventsResponse));
         }
 
         [SerializeField, Multiline(10)] private string mockGetAllEventsByCategoryIDResponse;
-        public async Task<List<Event>> GetAllEventsByCategoryID(int categoryId)
+        public async Task<List<CMEvent>> GetAllEventsByCategoryID(int categoryId)
         {
-            return await Task.FromResult(JsonConvert.DeserializeObject<List<Event>>(mockGetAllEventsByCategoryIDResponse));
+            return await Task.FromResult(JsonConvert.DeserializeObject<List<CMEvent>>(mockGetAllEventsByCategoryIDResponse));
         }
 
         [SerializeField, Multiline(10)] private string mockGetEventPartecipantsResponse;
-        public async Task<List<User>> GetEventPartecipants(int eventId)
+        public async Task<List<CMUser>> GetEventPartecipants(int eventId)
         {
-            return await Task.FromResult(JsonConvert.DeserializeObject<List<User>>(mockGetEventPartecipantsResponse));
+            return await Task.FromResult(JsonConvert.DeserializeObject<List<CMUser>>(mockGetEventPartecipantsResponse));
         }
 
         [SerializeField] private int mockCreateUpdateEventResponse;
-        public async Task<int> CreateUpdateEvent(Event e)
+        public async Task<int> CreateUpdateEvent(CMEvent e)
         {
             return await Task.FromResult(mockCreateUpdateEventResponse);
         }
@@ -48,19 +48,19 @@ namespace Reflectis.SDK.ClientModels
         #region Users
 
         [SerializeField, Multiline(10)] private string mockGetUsersResponse;
-        public async Task<List<User>> GetUsers(string searchQuery)
+        public async Task<List<CMUser>> GetUsers(string searchQuery)
         {
-            return await Task.FromResult(JsonConvert.DeserializeObject<List<User>>(mockGetUsersResponse));
+            return await Task.FromResult(JsonConvert.DeserializeObject<List<CMUser>>(mockGetUsersResponse));
         }
 
         [SerializeField, Multiline(10)] private string mockGetUsersListsResponse;
-        public async Task<UserList> GetUsersLists(string searchQuery)
+        public async Task<List<CMUserList>> GetUsersLists(string searchQuery)
         {
-            return await Task.FromResult(JsonConvert.DeserializeObject<UserList>(mockGetUsersListsResponse));
+            return await Task.FromResult(JsonConvert.DeserializeObject<List<CMUserList>>(mockGetUsersListsResponse));
         }
 
         [SerializeField] private int mockCreateUpdateUserListResponse;
-        public async Task<int> CreateUpdateUserList(List<EventPermissionSet> permissions)
+        public async Task<int> CreateUpdateUserList(List<CMEventPermissionSet> permissions)
         {
             return await Task.FromResult(mockCreateUpdateUserListResponse);
         }
@@ -70,9 +70,9 @@ namespace Reflectis.SDK.ClientModels
         #region Permissions 
 
         [SerializeField, Multiline(10)] private string mockGetEventPermissionPresetResponse;
-        public async Task<List<EventPermissionSet>> GetEventPermissionPreset()
+        public async Task<List<CMEventPermissionSet>> GetEventPermissionPreset()
         {
-            return await Task.FromResult(JsonConvert.DeserializeObject<List<EventPermissionSet>>(mockGetEventPermissionPresetResponse));
+            return await Task.FromResult(JsonConvert.DeserializeObject<List<CMEventPermissionSet>>(mockGetEventPermissionPresetResponse));
         }
 
         [SerializeField] private int mockCreateUpdateEventPermissionPresetResponse;
@@ -86,18 +86,18 @@ namespace Reflectis.SDK.ClientModels
         #region Assets
 
         [SerializeField, Multiline(10)] private string mockGetMyAssetsResponse;
-        public async Task<List<Resource>> GetMyAssets(string searchQuery)
+        public async Task<List<CMResource>> GetMyAssets(string searchQuery)
         {
-            return await Task.FromResult(JsonConvert.DeserializeObject<List<Resource>>(mockGetMyAssetsResponse));
+            return await Task.FromResult(JsonConvert.DeserializeObject<List<CMResource>>(mockGetMyAssetsResponse));
         }
 
         [SerializeField, Multiline(10)] private string mockGetEventAssetsResponse;
-        public async Task<List<Resource>> GetEventAssets(int eventId)
+        public async Task<List<CMResource>> GetEventAssets(int eventId)
         {
-            return await Task.FromResult(JsonConvert.DeserializeObject<List<Resource>>(mockGetEventAssetsResponse));
+            return await Task.FromResult(JsonConvert.DeserializeObject<List<CMResource>>(mockGetEventAssetsResponse));
         }
 
-        public Task CreateEventAssetsAssociation(int eventId, List<Resource> resources)
+        public Task CreateEventAssetsAssociation(int eventId, List<CMResource> resources)
         {
             throw new System.NotImplementedException();
         }

@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Reflectis.SDK.ClientModels
 {
     [Serializable]
-    public class Resource
+    public class CMResource
     {
         [SerializeField] private int id;
         [SerializeField] private string name;

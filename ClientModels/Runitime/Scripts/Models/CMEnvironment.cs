@@ -1,19 +1,18 @@
 using System;
-using System.Collections.Generic;
 
 using UnityEngine;
 
 namespace Reflectis.SDK.ClientModels
 {
     [Serializable]
-    public class UserList
+    public class CMEnvironment
     {
         [SerializeField] private int id;
         [SerializeField] private string name;
-        [SerializeField] private List<User> users;
+        [SerializeField] private string imageUrl;
 
         public int ID { get => id; set => id = value; }
         public string Name { get => name; set => name = value; }
-        public List<User> Users { get => users; set => users = value; }
+        public string ImageUrl { get => imageUrl; set => imageUrl = value; }
     }
 }
