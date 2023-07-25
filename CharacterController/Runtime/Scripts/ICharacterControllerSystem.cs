@@ -46,6 +46,13 @@ namespace Reflectis.SDK.CharacterController
         /// <param name="newPose">The destination pose of the character</param>
         void MoveCharacter(Pose newPose);
 
+        /// <summary>
+        /// Sets the character controller to "reaction" state and activates one of the 
+        /// reaction animations
+        /// </summary>
+        /// <param name="reactionName">Name of the reaction animation to activate</param>
+        void ActivateReactionAnimation(string reactionName);
+
         #endregion
     }
 }
