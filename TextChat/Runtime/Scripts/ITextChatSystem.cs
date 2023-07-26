@@ -22,6 +22,33 @@ namespace Reflectis.SDK.TextChat
         #region Events
 
         /// <summary>
+        /// Event invoked when the user logs in without any problems
+        /// </summary>
+        event Action OnLoginSuccessful;
+
+        /// <summary>
+        /// Event invoked when the user could not log in.
+        /// It will pass the code of the error and its description
+        /// </summary>
+        event Action<int, string> OnLoginFailed;
+
+        /// <summary>
+        /// Event invoked when the user logs out without any problems
+        /// </summary>
+        event Action OnLogoutSuccessful;
+
+        /// <summary>
+        /// TODO
+        /// </summary>
+        event Action<int, string> OnLogoutFailed;
+        
+        /// <summary>
+        /// Event invoked when the user could not log out.
+        /// It will pass the code of the error and its description
+        /// </summary>
+        event Action OnLogout;
+
+        /// <summary>
         /// Event invoked when a message is sended. It will pass the name of the person/channel who
         /// send it, the content of the message and the local time when it was sended
         /// </summary>
@@ -60,9 +87,12 @@ namespace Reflectis.SDK.TextChat
         /// </summary>
         /// <param name="username">The user ID</param>
         /// <param name="token">The agora token of the user</param>
-        /// <param name="onLoginSuccess">The login result callback in case of success</param>
-        /// <param name="onLoginError">The login result callback in case of fails</param>
-        void LoginWithToken(string username, string token, Action onLoginSuccess, Action<int, string> onLoginError);
+        void LoginWithToken(string username, string token);
+
+        /// <summary>
+        /// Logs out the current user of the chat server
+        /// </summary>
+        void Logout();
 
         /// <summary>
         /// Adds a chat manager listener

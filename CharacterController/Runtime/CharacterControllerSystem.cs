@@ -114,6 +114,8 @@ namespace Reflectis.SDK.CharacterController
             CharacterControllerInstance.transform.SetPositionAndRotation(newPose.position, newPose.rotation);
         }
 
+        public virtual void ActivateReactionAnimation(string reactionName) { }
+
         #endregion
     }
 
