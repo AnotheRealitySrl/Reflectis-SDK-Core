@@ -28,7 +28,7 @@ namespace Reflectis.SDK.Transitions
             {
                 animator.SetBool(animatorParameter, true);
             }
-
+            onEnterTransition?.Invoke();
             while (animator.IsInTransition(0) || animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1)
             {
                 await Task.Yield();
@@ -46,6 +46,7 @@ namespace Reflectis.SDK.Transitions
             {
                 await Task.Yield();
             }
+            onExitTransition?.Invoke();
         }
     }
 }

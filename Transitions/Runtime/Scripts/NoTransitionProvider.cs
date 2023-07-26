@@ -22,6 +22,7 @@ namespace Reflectis.SDK.Transitions
 
         public override async Task EnterTransitionAsync()
         {
+            onEnterTransition?.Invoke();
             await Task.Yield();
             content.SetActive(true);
             await Task.Yield();
@@ -32,6 +33,7 @@ namespace Reflectis.SDK.Transitions
             await Task.Yield();
             content.SetActive(false);
             await Task.Yield();
+            onExitTransition?.Invoke();
         }
     }
 }

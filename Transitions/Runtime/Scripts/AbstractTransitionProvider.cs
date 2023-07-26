@@ -12,12 +12,10 @@ namespace Reflectis.SDK.Transitions
     {
         [SerializeField, Tooltip("If true, methods DoTranition and DoTransitionAsync revert their boolean parameter value")]
         private bool reverseTransitions;
-
-        [SerializeField]
-        private UnityEvent onEnterTransition;
-
-        [SerializeField]
-        private UnityEvent onExitTransition;
+        [Tooltip("Events called before an enter transition is started")]
+        public UnityEvent onEnterTransition;
+        [Tooltip("Events called after an exit transition is started")]
+        public UnityEvent onExitTransition;
 
         /// <summary>
         /// Performs an enter transition. It can be awaited
@@ -37,7 +35,6 @@ namespace Reflectis.SDK.Transitions
         /// </summary>
         public virtual async void EnterTransition()
         {
-            onEnterTransition?.Invoke();
             await EnterTransitionAsync();
         }
 
@@ -47,7 +44,6 @@ namespace Reflectis.SDK.Transitions
         /// </summary>
         public virtual async void ExitTransition()
         {
-            onExitTransition?.Invoke();
             await ExitTransitionAsync();
         }
 

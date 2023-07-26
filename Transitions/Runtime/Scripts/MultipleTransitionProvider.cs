@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -21,6 +22,7 @@ namespace Reflectis.SDK.Transitions
         private SyncronizationMethod syncronizationMethod = SyncronizationMethod.Syncronous;
         public override async Task EnterTransitionAsync()
         {
+            onEnterTransition?.Invoke();
             switch(syncronizationMethod)
             {
                 case SyncronizationMethod.Syncronous:
@@ -42,15 +44,17 @@ namespace Reflectis.SDK.Transitions
 
         private async Task EnterAllTransitionsSyncronously()
         {
-            for(int i = 0; i < providers.Count - 1; i++)
+            IEnumerable<Task> providerEnterTask = providers.Select(async provider =>
             {
-                providers[i].EnterTransition();
-            }
-            await providers[providers.Count - 1].EnterTransitionAsync();
+                await provider.EnterTransitionAsync();
+            });
+
+            await Task.WhenAll(providerEnterTask);
         }
 
         public override async Task ExitTransitionAsync()
         {
+
             switch (syncronizationMethod)
             {
                 case SyncronizationMethod.Syncronous:
@@ -60,6 +64,8 @@ namespace Reflectis.SDK.Transitions
                     await ExitAllTransitionsAsyncronously();
                     break;
             }
+            Debug.Log("Exiting all transitions");
+            onExitTransition?.Invoke();
         }
 
 
@@ -73,11 +79,12 @@ namespace Reflectis.SDK.Transitions
 
         private async Task ExitAllTransitionsSyncronously()
         {
-            for (int i = 0; i < providers.Count - 1; i++)
+            IEnumerable<Task> providerExitTask = providers.Select(async provider =>
             {
-                providers[i].ExitTransition();
-            }
-            await providers[providers.Count - 1].ExitTransitionAsync();
+                await provider.ExitTransitionAsync();
+            });
+
+            await Task.WhenAll(providerExitTask);
         }
     }
 }
