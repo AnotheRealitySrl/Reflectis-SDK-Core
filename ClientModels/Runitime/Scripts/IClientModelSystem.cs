@@ -12,19 +12,41 @@ namespace Reflectis.SDK.ClientModels
         /// <summary>
         /// Returns the list of all events visible by user
         /// </summary>
-        Task<List<Event>> GetAllEvents();
+        Task<List<CMEvent>> GetAllEvents();
 
         /// <summary>
         /// Returns the list of all events visible by user filtered by category
         /// </summary>
-        Task<List<Event>> GetAllEventsByCategoryID(int categoryId);
+        Task<List<CMEvent>> GetAllEventsByCategoryID(int categoryId);
 
         /// <summary>
         /// Returns the list of users registered for this event.
         /// </summary>
-        Task<List<User>> GetEventPartecipants(int eventId);
+        Task<List<CMUser>> GetEventPartecipants(int eventId);
 
-        Task<int> CreateUpdateEvent(Event e);
+        Task<int> CreateUpdateEvent(CMEvent e);
+
+        #endregion
+
+        #region Categories
+
+        /// <summary>
+        /// Return list of all categories
+        /// </summary>
+        /// <returns></returns>
+        Task<List<CMCategory>> GetAllEventCategories();
+
+        /// <summary>
+        /// Return list of all subcategories
+        /// </summary>
+        /// <returns></returns>
+        Task<List<CMCategory>> GetAllEventSubCategories();
+
+        /// <summary>
+        /// return list of all subcategories of a category
+        /// </summary>
+        /// <returns></returns>
+        Task<List<CMCategory>> GetEventSubCategoriesOfCategory(CMCategory parentCategory);
 
         #endregion
 
@@ -33,23 +55,23 @@ namespace Reflectis.SDK.ClientModels
         /// <summary>
         /// Return all users that match search criteria
         /// </summary>
-        Task<List<User>> GetUsers(string searchQuery);
+        Task<List<CMUser>> GetUsers(string searchQuery);
 
         /// <summary>
         /// Return all user lists that match search criteria
         /// </summary>
-        Task<UserList> GetUsersLists(string searchQuery);
+        Task<List<CMUserList>> GetUsersLists(string searchQuery);
 
         /// <summary>
         /// Return user list ID created (or updated)
         /// </summary>
-        Task<int> CreateUpdateUserList(List<EventPermissionSet> permissions);
+        Task<int> CreateUpdateUserList(List<CMEventPermissionSet> permissions);
 
         #endregion
 
         #region Permissions
 
-        Task<List<EventPermissionSet>> GetEventPermissionPreset();
+        Task<List<CMEventPermissionSet>> GetEventPermissionPreset();
 
         Task<int> CreateUpdateEventPermissionPreset();
 
@@ -57,11 +79,11 @@ namespace Reflectis.SDK.ClientModels
 
         #region Assets
 
-        Task<List<Resource>> GetMyAssets(string searchQuery);
+        Task<List<CMResource>> GetMyAssets(string searchQuery);
 
-        Task<List<Resource>> GetEventAssets(int eventId);
+        Task<List<CMResource>> GetEventAssets(int eventId);
 
-        Task CreateEventAssetsAssociation(int eventId, List<Resource> resources);
+        Task CreateEventAssetsAssociation(int eventId, List<CMResource> resources);
 
         #endregion
 
