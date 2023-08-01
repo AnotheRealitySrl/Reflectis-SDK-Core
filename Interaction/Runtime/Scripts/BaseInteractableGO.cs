@@ -43,5 +43,10 @@ namespace Reflectis.SDK.Interaction
             StopInteractAction.Action(completedCallback);
             StopInteractAction.InteractableObjectReference = null;
         }
+
+        public virtual void OnDestroy()
+        {
+            StopInteract();
+        }
     }
 }

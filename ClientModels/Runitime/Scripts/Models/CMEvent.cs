@@ -29,8 +29,10 @@ namespace Reflectis.SDK.ClientModels
         [SerializeField] private bool isDraft;
         [SerializeField] private List<CMResource> resources;
         [SerializeField] private string shortLink;
+        [SerializeField] private bool multiplayer;
+        [SerializeField] private List<CMTemplateObj> template;
 
-        public int ID { get => id; set => id = value; }
+        public int Id { get => id; set => id = value; }
         public string Title { get => title; set => title = value; }
         public string LongTitle { get => longTitle; set => longTitle = value; }
         public string Description { get => description; set => description = value; }
@@ -51,6 +53,8 @@ namespace Reflectis.SDK.ClientModels
         public bool IsDraft { get => isDraft; set => isDraft = value; }
         public List<CMResource> Resources { get => resources; set => resources = value; }
         public string ShortLink { get => shortLink; set => shortLink = value; }
+        public bool Multiplayer { get => multiplayer; set => multiplayer = value; }
+        public List<CMTemplateObj> Template { get => template; set => template = value; }
     }
 
 }

@@ -45,6 +45,40 @@ namespace Reflectis.SDK.ClientModels
 
         #endregion
 
+        #region Categories
+
+        [SerializeField, Multiline(10)] private string mockGetAllEventCategories;
+        /// <summary>
+        /// Return list of all categories
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<CMCategory>> GetAllEventCategories() {
+            return await Task.FromResult(JsonConvert.DeserializeObject<List<CMCategory>>(mockGetAllEventCategories));
+        }
+
+
+        [SerializeField, Multiline(10)] private string mockGetAllEventSubCategories;
+        /// <summary>
+        /// Return list of all subcategories
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<CMCategory>> GetAllEventSubCategories() {
+            return await Task.FromResult(JsonConvert.DeserializeObject<List<CMCategory>>(mockGetAllEventSubCategories));
+        }
+
+
+        [SerializeField, Multiline(10)] private string mockGetEventSubCategoriesOfCategory;
+        /// <summary>
+        /// return list of all subcategories of a category
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<CMCategory>> GetEventSubCategoriesOfCategory(CMCategory parentCategory) 
+        {
+            return await Task.FromResult(JsonConvert.DeserializeObject<List<CMCategory>>(mockGetEventSubCategoriesOfCategory));
+        }
+
+        #endregion
+
         #region Users
 
         [SerializeField, Multiline(10)] private string mockGetUsersResponse;

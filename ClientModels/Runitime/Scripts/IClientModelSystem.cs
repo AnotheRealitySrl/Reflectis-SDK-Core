@@ -28,6 +28,28 @@ namespace Reflectis.SDK.ClientModels
 
         #endregion
 
+        #region Categories
+
+        /// <summary>
+        /// Return list of all categories
+        /// </summary>
+        /// <returns></returns>
+        Task<List<CMCategory>> GetAllEventCategories();
+
+        /// <summary>
+        /// Return list of all subcategories
+        /// </summary>
+        /// <returns></returns>
+        Task<List<CMCategory>> GetAllEventSubCategories();
+
+        /// <summary>
+        /// return list of all subcategories of a category
+        /// </summary>
+        /// <returns></returns>
+        Task<List<CMCategory>> GetEventSubCategoriesOfCategory(CMCategory parentCategory);
+
+        #endregion
+
         #region Users
 
         /// <summary>
