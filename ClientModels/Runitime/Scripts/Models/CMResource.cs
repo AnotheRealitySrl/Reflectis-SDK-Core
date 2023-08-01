@@ -9,13 +9,47 @@ namespace Reflectis.SDK.ClientModels
     {
         [SerializeField] private int id;
         [SerializeField] private string name;
+        [SerializeField] private int sizeBytes;
         [SerializeField] private string path;
+        [SerializeField] private string thumbnailPath;
         [SerializeField] private int type;
         [SerializeField] private DateTime creationDate;
 
         public int ID { get => id; set => id = value; }
         public string Name { get => name; set => name = value; }
+        public int SizeBytes => sizeBytes;
+
+        public string SizeBytesString
+        {
+            get
+            {
+                const int gigabyte = 1024 * 1024 * 1024;
+                const int megabyte = 1024 * 1024;
+                const int kilobyte = 1024;
+
+                if (SizeBytes >= gigabyte)
+                {
+                    int value = SizeBytes / gigabyte;
+                    return $"{value:F2} GB";
+                }
+                else if (sizeBytes >= megabyte)
+                {
+                    double value = SizeBytes / megabyte;
+                    return $"{value:F2} MB";
+                }
+                else if (SizeBytes >= kilobyte)
+                {
+                    double value = SizeBytes / kilobyte;
+                    return $"{value:F2} KB";
+                }
+                else
+                {
+                    return $"{SizeBytes} bytes";
+                }
+            }
+        }
         public string Path { get => path; set => path = value; }
+        public string ThumbnailPath => thumbnailPath?.Replace(" ", "%20");
         public int Type { get => type; set => type = value; }
         public DateTime CreationDate { get => creationDate; set => creationDate = value; }
     }
