@@ -25,6 +25,11 @@ namespace Reflectis.SDK.ClientModels
             return await Task.FromResult(JsonConvert.DeserializeObject<List<CMEvent>>(mockGetAllEventsResponse));
         }
 
+        [SerializeField, Multiline(10)] private string mockGetEventByIDResponse;
+        public async Task<CMEvent> GetEventById(int eventID) {
+            return await Task.FromResult(JsonConvert.DeserializeObject<CMEvent>(mockGetEventByIDResponse));
+        }
+
         [SerializeField, Multiline(10)] private string mockGetAllEventsByCategoryIDResponse;
         public async Task<List<CMEvent>> GetAllEventsByCategoryID(int categoryId)
         {

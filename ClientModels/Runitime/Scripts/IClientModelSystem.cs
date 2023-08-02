@@ -3,16 +3,21 @@ using Reflectis.SDK.Core;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Reflectis.SDK.ClientModels
-{
-    public interface IClientModelSystem : ISystem
-    {
+namespace Reflectis.SDK.ClientModels {
+    public interface IClientModelSystem : ISystem {
         #region Events
 
         /// <summary>
         /// Returns the list of all events visible by user
         /// </summary>
         Task<List<CMEvent>> GetAllEvents();
+
+        /// <summary>
+        /// returns the event with the given id.
+        /// </summary>
+        /// <param name="eventID"></param>
+        /// <returns></returns>
+        Task<CMEvent> GetEventById(int eventID);
 
         /// <summary>
         /// Returns the list of all events visible by user filtered by category
@@ -26,27 +31,11 @@ namespace Reflectis.SDK.ClientModels
 
         Task<int> CreateUpdateEvent(CMEvent e);
 
-        #endregion
-
-        #region Categories
-
         /// <summary>
-        /// Return list of all categories
+        /// Returns all categories
         /// </summary>
         /// <returns></returns>
-        Task<List<CMCategory>> GetAllEventCategories();
-
-        /// <summary>
-        /// Return list of all subcategories
-        /// </summary>
-        /// <returns></returns>
-        Task<List<CMCategory>> GetAllEventSubCategories();
-
-        /// <summary>
-        /// return list of all subcategories of a category
-        /// </summary>
-        /// <returns></returns>
-        Task<List<CMCategory>> GetEventSubCategoriesOfCategory(CMCategory parentCategory);
+        Task<List<CMCategory>> GetEventCategories();
 
         #endregion
 
