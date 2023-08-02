@@ -1,6 +1,9 @@
-using System;
 
+using Reflectis.SDK.Utilities.Extensions;
+using System;
+using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace Reflectis.SDK.ClientModels
 {
@@ -52,5 +55,34 @@ namespace Reflectis.SDK.ClientModels
         public string ThumbnailPath => thumbnailPath?.Replace(" ", "%20");
         public int Type { get => type; set => type = value; }
         public DateTime CreationDate { get => creationDate; set => creationDate = value; }
+
+        public async Task<Sprite> GetThumbnail()
+        {
+            string thumbnailUri = ThumbnailPath;
+            if (!string.IsNullOrEmpty(thumbnailUri))
+            {
+                using var dh = new DownloadHandlerTexture();
+                using var www = new UnityWebRequest(thumbnailUri, UnityWebRequest.kHttpVerbGET, dh, null);
+                //www.certificateHandler = new AcceptAllCertificates();
+                await www.SendWebRequest();
+
+                if (www.result == UnityWebRequest.Result.Success)
+                {
+                    var rect = new Rect(0, 0, dh.texture.width, dh.texture.height);
+                    return Sprite.Create(dh.texture, rect, new Vector2(0.5f, 0.5f));
+                }
+            }
+            return null;
+        }
+        public CMResource(int id, string name, int sizeBytes, string path, string thumbnailPath, DateTime creationDate)
+        {
+            ID = id;
+            Name = name;
+            this.sizeBytes = sizeBytes;
+            Path = path;
+            this.thumbnailPath = thumbnailPath;
+            Type = UnityEngine.Random.Range(1, 2); // Random value between 1 and 2
+            CreationDate = creationDate;
+        }
     }
 }
