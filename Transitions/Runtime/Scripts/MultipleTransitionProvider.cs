@@ -64,7 +64,6 @@ namespace Reflectis.SDK.Transitions
                     await ExitAllTransitionsAsyncronously();
                     break;
             }
-            Debug.Log("Exiting all transitions");
             onExitTransition?.Invoke();
         }
 

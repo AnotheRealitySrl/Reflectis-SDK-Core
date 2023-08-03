@@ -74,15 +74,16 @@ namespace Reflectis.SDK.ClientModels
             }
             return null;
         }
-        public CMResource(int id, string name, int sizeBytes, string path, string thumbnailPath, DateTime creationDate)
+        public CMResource(int id, string name, int sizeBytes, string path, string thumbnailPath, int type, DateTime creationDate)
         {
             ID = id;
             Name = name;
             this.sizeBytes = sizeBytes;
             Path = path;
             this.thumbnailPath = thumbnailPath;
-            Type = UnityEngine.Random.Range(1, 2); // Random value between 1 and 2
+            Type = type;
             CreationDate = creationDate;
         }
+
     }
 }
