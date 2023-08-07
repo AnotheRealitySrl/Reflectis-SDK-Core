@@ -19,6 +19,12 @@ namespace Reflectis.SDK.ClientModels
 
         #region Events
 
+        [SerializeField, Multiline(10)] private string mockGetEventByIdResponse;
+        public async Task<CMEvent> GetEventById(int id)
+        {
+            return await Task.FromResult(JsonConvert.DeserializeObject<CMEvent>(mockGetEventByIdResponse));
+        }
+
         [SerializeField, Multiline(10)] private string mockGetAllEventsResponse;
         public async Task<List<CMEvent>> GetAllEvents()
         {
@@ -52,7 +58,8 @@ namespace Reflectis.SDK.ClientModels
         /// Return list of all categories
         /// </summary>
         /// <returns></returns>
-        public async Task<List<CMCategory>> GetAllEventCategories() {
+        public async Task<List<CMCategory>> GetAllEventCategories()
+        {
             return await Task.FromResult(JsonConvert.DeserializeObject<List<CMCategory>>(mockGetAllEventCategories));
         }
 
@@ -62,7 +69,8 @@ namespace Reflectis.SDK.ClientModels
         /// Return list of all subcategories
         /// </summary>
         /// <returns></returns>
-        public async Task<List<CMCategory>> GetAllEventSubCategories() {
+        public async Task<List<CMCategory>> GetAllEventSubCategories()
+        {
             return await Task.FromResult(JsonConvert.DeserializeObject<List<CMCategory>>(mockGetAllEventSubCategories));
         }
 
@@ -72,7 +80,7 @@ namespace Reflectis.SDK.ClientModels
         /// return list of all subcategories of a category
         /// </summary>
         /// <returns></returns>
-        public async Task<List<CMCategory>> GetEventSubCategoriesOfCategory(CMCategory parentCategory) 
+        public async Task<List<CMCategory>> GetEventSubCategoriesOfCategory(CMCategory parentCategory)
         {
             return await Task.FromResult(JsonConvert.DeserializeObject<List<CMCategory>>(mockGetEventSubCategoriesOfCategory));
         }
@@ -118,6 +126,12 @@ namespace Reflectis.SDK.ClientModels
         #endregion
 
         #region Assets
+
+        [SerializeField, Multiline(10)] private string mockGetAssetByIdResponse;
+        public async Task<CMResource> GetEventAssetById(int eventId, int assetId)
+        {
+            return await Task.FromResult(JsonConvert.DeserializeObject<CMResource>(mockGetAssetByIdResponse));
+        }
 
         [SerializeField, Multiline(10)] private string mockGetMyAssetsResponse;
         public async Task<List<CMResource>> GetMyAssets(string searchQuery)

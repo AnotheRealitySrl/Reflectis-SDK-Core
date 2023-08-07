@@ -10,6 +10,11 @@ namespace Reflectis.SDK.ClientModels
         #region Events
 
         /// <summary>
+        /// Returns an event given its id
+        /// </summary>
+        Task<CMEvent> GetEventById(int id);
+
+        /// <summary>
         /// Returns the list of all events visible by user
         /// </summary>
         Task<List<CMEvent>> GetAllEvents();
@@ -78,6 +83,8 @@ namespace Reflectis.SDK.ClientModels
         #endregion
 
         #region Assets
+
+        Task<CMResource> GetEventAssetById(int eventId, int assetId);
 
         Task<List<CMResource>> GetMyAssets(string searchQuery);
 
