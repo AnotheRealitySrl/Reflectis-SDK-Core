@@ -82,6 +82,16 @@ namespace Reflectis.SDK.Core
             ISystem returnSystem = CurrentSystems.Find(s => s.GetType() == typeof(T) || typeof(T).IsAssignableFrom(s.GetType()));
             return (T)returnSystem;
         }
+        /// <summary>
+        /// Get an instantiated system of type T/>
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static ISystem GetSystem(ISystem system)
+        {
+            ISystem returnSystem = CurrentSystems.Find(s => s.GetType() == system.GetType() || system.GetType().IsAssignableFrom(s.GetType()));
+            return returnSystem;
+        }
 
         #endregion
     }

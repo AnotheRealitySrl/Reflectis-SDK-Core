@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Reflectis.SDK.Transitions
 {
@@ -11,7 +12,10 @@ namespace Reflectis.SDK.Transitions
     {
         [SerializeField, Tooltip("If true, methods DoTranition and DoTransitionAsync revert their boolean parameter value")]
         private bool reverseTransitions;
-
+        [Tooltip("Events called before an enter transition is started")]
+        public UnityEvent onEnterTransition;
+        [Tooltip("Events called after an exit transition is started")]
+        public UnityEvent onExitTransition;
 
         /// <summary>
         /// Performs an enter transition. It can be awaited
@@ -29,12 +33,20 @@ namespace Reflectis.SDK.Transitions
         /// <summary>
         /// Non-awaitable version of <see cref="EnterTransitionAsync"/>
         /// </summary>
-        public virtual async void EnterTransition() => await EnterTransitionAsync();
+        public virtual async void EnterTransition()
+        {
+            await EnterTransitionAsync();
+        }
+
 
         /// <summary>
         /// Non-awaitable version of <see cref="ExitTransitionAsync"/>
         /// </summary>
-        public virtual async void ExitTransition() => await ExitTransitionAsync();
+        public virtual async void ExitTransition()
+        {
+            await ExitTransitionAsync();
+        }
+
 
 
         /// <summary>
