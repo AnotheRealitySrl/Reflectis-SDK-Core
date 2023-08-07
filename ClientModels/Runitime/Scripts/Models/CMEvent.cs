@@ -19,6 +19,7 @@ namespace Reflectis.SDK.ClientModels
         [SerializeField] private List<CMUser> participants;
         [SerializeField] private int maxParticipants;
         [SerializeField] private CMEnvironment environment;
+        [SerializeField] private bool isFavorite;
         [SerializeField] private bool isFeatured;
         [SerializeField] private string featuredThumb;
         [SerializeField] private bool isPublic;
@@ -43,6 +44,7 @@ namespace Reflectis.SDK.ClientModels
         public List<CMUser> Participants { get => participants; set => participants = value; }
         public int MaxParticipants { get => maxParticipants; set => maxParticipants = value; }
         public CMEnvironment Environment { get => environment; set => environment = value; }
+        public bool IsFavorite { get => isFavorite; set => isFavorite = value; }
         public bool IsFeatured { get => isFeatured; set => isFeatured = value; }
         public string FeaturedThumb { get => featuredThumb; set => featuredThumb = value; }
         public bool IsPublic { get => isPublic; set => isPublic = value; }
