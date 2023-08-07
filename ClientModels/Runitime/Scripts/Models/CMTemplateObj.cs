@@ -32,7 +32,7 @@ namespace Reflectis.SDK.ClientModels
             public bool attached;
 
             // SceneObj: InstantiatedMediaPlayer
-            //public MediaType mediaType;
+            public int mediaType;
             public float pauseTime;
             public int slideIndex;
         }
