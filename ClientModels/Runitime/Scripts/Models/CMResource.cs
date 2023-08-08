@@ -1,3 +1,4 @@
+using Reflectis.SDK.DataAccess;
 using System;
 
 using UnityEngine;
@@ -18,5 +19,14 @@ namespace Reflectis.SDK.ClientModels
         public string Path { get => path; set => path = value; }
         public int Type { get => type; set => type = value; }
         public DateTime CreationDate { get => creationDate; set => creationDate = value; }
+
+        public CMResource(AssetDTO asset)
+        {
+            this.ID = asset.Id;
+            this.Name = asset.Label;
+            this.Path = asset.Folder;
+            //this.Type = asset.Extension;
+            this.CreationDate = asset.CreationDate;
+        }
     }
 }

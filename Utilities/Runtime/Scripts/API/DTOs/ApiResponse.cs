@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-
+using Sirenix.Utilities;
 using System;
 
 using UnityEngine;
@@ -41,8 +41,19 @@ namespace Reflectis.SDK.Utilities.API
         public ApiResponse(long statusCode, string reasonPhrase, string content)
         {
             StatusCode = statusCode;
+            if (!((statusCode >= 200) && (statusCode <= 299)) && !content.IsNullOrWhitespace())
+            {
+                JsonConvert.DeserializeObject<ApiResponseError>(content).DisplayError();
+            }
             ReasonPhrase = reasonPhrase;
-            Content = IsSuccess ? JsonConvert.DeserializeObject<T>(content) : null;
+            if (typeof(T) == typeof(string))
+            {
+                Content = IsSuccess ? (T)(object)content : null;
+            }
+            else
+            {
+                Content = IsSuccess ? JsonConvert.DeserializeObject<T>(content) : null;
+            }
         }
     }
 
@@ -61,8 +72,32 @@ namespace Reflectis.SDK.Utilities.API
         public ApiResponseArray(long statusCode, string reasonPhrase, string content)
         {
             StatusCode = statusCode;
+            if (!((statusCode >= 200) && (statusCode <= 299)) && !content.IsNullOrWhitespace())
+            {
+                JsonConvert.DeserializeObject<ApiResponseError>(content).DisplayError();
+            }
             ReasonPhrase = reasonPhrase;
             Content = IsSuccess ? JsonArrayHelper.FromJson<T>(content) : null;
+        }
+    }
+
+    [Serializable]
+    [Newtonsoft.Json.JsonObject(Newtonsoft.Json.MemberSerialization.Fields)]
+    public class ApiResponseError
+    {
+        private string type;
+        private string title;
+        private int status;
+        private string traceId;
+
+        public string Type { get => type; set => type = value; }
+        public string Title { get => title; set => title = value; }
+        public int Status { get => status; set => status = value; }
+        public string TraceId { get => traceId; set => traceId = value; }
+
+        public void DisplayError()
+        {
+            Debug.LogError(Title);
         }
     }
 }
