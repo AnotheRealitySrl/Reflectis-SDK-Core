@@ -26,7 +26,8 @@ namespace Reflectis.SDK.ClientModels
         }
 
         [SerializeField, Multiline(10)] private string mockGetEventByIDResponse;
-        public async Task<CMEvent> GetEventById(int eventID) {
+        public async Task<CMEvent> GetEventById(int eventID)
+        {
             return await Task.FromResult(JsonConvert.DeserializeObject<CMEvent>(mockGetEventByIDResponse));
         }
 
@@ -57,7 +58,8 @@ namespace Reflectis.SDK.ClientModels
         /// Return list of all categories
         /// </summary>
         /// <returns></returns>
-        public async Task<List<CMCategory>> GetAllEventCategories() {
+        public async Task<List<CMCategory>> GetAllEventCategories()
+        {
             return await Task.FromResult(JsonConvert.DeserializeObject<List<CMCategory>>(mockGetAllEventCategories));
         }
 
@@ -67,7 +69,8 @@ namespace Reflectis.SDK.ClientModels
         /// Return list of all subcategories
         /// </summary>
         /// <returns></returns>
-        public async Task<List<CMCategory>> GetAllEventSubCategories() {
+        public async Task<List<CMCategory>> GetAllEventSubCategories()
+        {
             return await Task.FromResult(JsonConvert.DeserializeObject<List<CMCategory>>(mockGetAllEventSubCategories));
         }
 
@@ -77,7 +80,7 @@ namespace Reflectis.SDK.ClientModels
         /// return list of all subcategories of a category
         /// </summary>
         /// <returns></returns>
-        public async Task<List<CMCategory>> GetEventSubCategoriesOfCategory(CMCategory parentCategory) 
+        public async Task<List<CMCategory>> GetEventSubCategoriesOfCategory(CMCategory parentCategory)
         {
             return await Task.FromResult(JsonConvert.DeserializeObject<List<CMCategory>>(mockGetEventSubCategoriesOfCategory));
         }
@@ -149,6 +152,11 @@ namespace Reflectis.SDK.ClientModels
         public async Task<int> JoinEventRequest(int eventId)
         {
             return await Task.FromResult(mockJoinEventRequestResponse);
+        }
+
+        public Task<List<CMCategory>> GetEventCategories()
+        {
+            throw new System.NotImplementedException();
         }
 
         #endregion

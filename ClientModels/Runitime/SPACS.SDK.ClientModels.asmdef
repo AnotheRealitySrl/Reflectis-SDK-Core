@@ -3,7 +3,6 @@
     "rootNamespace": "Reflectis.SDK.ClientModels",
     "references": [
         "GUID:ab59f74e483e1ee4595bfefea56493f2",
-        "GUID:458c7cad95bb57248968c897d3145b25",
         "GUID:6621723ab2f3cff4a8be0e8c1642af94"
     ],
     "includePlatforms": [],
