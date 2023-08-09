@@ -160,6 +160,11 @@ namespace Reflectis.SDK.ClientModels
             return await Task.FromResult(mockJoinEventRequestResponse);
         }
 
+        public Task<List<CMCategory>> GetEventCategories()
+        {
+            throw new System.NotImplementedException();
+        }
+
         #endregion
     }
 }

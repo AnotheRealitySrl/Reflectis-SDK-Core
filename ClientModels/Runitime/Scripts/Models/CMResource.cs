@@ -1,7 +1,9 @@
 
 using Reflectis.SDK.Utilities.Extensions;
+
 using System;
 using System.Threading.Tasks;
+
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -18,7 +20,7 @@ namespace Reflectis.SDK.ClientModels
         [SerializeField] private int type;
         [SerializeField] private DateTime creationDate;
 
-        public int ID { get => id; set => id = value; }
+        public int Id { get => id; set => id = value; }
         public string Name { get => name; set => name = value; }
         public int SizeBytes => sizeBytes;
 
@@ -74,9 +76,12 @@ namespace Reflectis.SDK.ClientModels
             }
             return null;
         }
+
+        public CMResource() { }
+
         public CMResource(int id, string name, int sizeBytes, string path, string thumbnailPath, int type, DateTime creationDate)
         {
-            ID = id;
+            Id = id;
             Name = name;
             this.sizeBytes = sizeBytes;
             Path = path;
