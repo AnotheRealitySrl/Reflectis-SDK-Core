@@ -165,6 +165,16 @@ namespace Reflectis.SDK.ClientModels
             throw new System.NotImplementedException();
         }
 
+        public Task<List<CMResource>> GetMyAssets(string searchQuery, int userId)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<CMUser> GetUserData()
+        {
+            throw new System.NotImplementedException();
+        }
+
         #endregion
     }
 }

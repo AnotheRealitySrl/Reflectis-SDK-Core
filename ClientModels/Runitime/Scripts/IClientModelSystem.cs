@@ -72,6 +72,8 @@ namespace Reflectis.SDK.ClientModels
         /// </summary>
         Task<int> CreateUpdateUserList(List<CMEventPermissionSet> permissions);
 
+        Task<CMUser> GetUserData();
+
         #endregion
 
         #region Permissions
@@ -86,13 +88,13 @@ namespace Reflectis.SDK.ClientModels
 
         Task<CMResource> GetEventAssetById(int eventId, int assetId);
 
-        Task<List<CMResource>> GetMyAssets(string searchQuery);
+        Task<List<CMResource>> GetMyAssets(string searchQuery, int userId);
 
         Task<List<CMResource>> GetEventAssets(int eventId);
 
         Task CreateEventAssetsAssociation(int eventId, List<CMResource> resources);
 
-        #endregion
+        #endregion 
 
         #region Join events
 
