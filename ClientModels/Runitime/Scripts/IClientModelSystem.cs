@@ -60,6 +60,12 @@ namespace Reflectis.SDK.ClientModels
 
         #endregion
 
+        #region Environment
+
+        Task<List<CMEnvironment>> GetAllEnvironment();
+
+        #endregion
+
         #region Users
 
         /// <summary>
