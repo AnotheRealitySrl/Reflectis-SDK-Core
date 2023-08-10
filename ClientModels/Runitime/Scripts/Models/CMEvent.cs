@@ -3,11 +3,9 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
-namespace Reflectis.SDK.ClientModels
-{
+namespace Reflectis.SDK.ClientModels {
     [Serializable]
-    public class CMEvent
-    {
+    public class CMEvent {
         [SerializeField] private int id;
         [SerializeField] private string title;
         [SerializeField] private string? description;
@@ -29,6 +27,8 @@ namespace Reflectis.SDK.ClientModels
         [SerializeField] private string shortLink;
         [SerializeField] private bool multiplayer;
         [SerializeField] private List<CMTemplateObj> template;
+        [SerializeField] private bool isFavorite;
+        [SerializeField] private bool canJoin;
 
         public int Id { get => id; set => id = value; }
         public string Title { get => title; set => title = value; }
@@ -51,6 +51,8 @@ namespace Reflectis.SDK.ClientModels
         public string ShortLink { get => shortLink; set => shortLink = value; }
         public bool Multiplayer { get => multiplayer; set => multiplayer = value; }
         public List<CMTemplateObj> Template { get => template; set => template = value; }
+        public bool IsFavorite { get => isFavorite; set => isFavorite = value; }
+        public bool CanJoin { get => canJoin; set => canJoin = value; }
     }
 
 }
