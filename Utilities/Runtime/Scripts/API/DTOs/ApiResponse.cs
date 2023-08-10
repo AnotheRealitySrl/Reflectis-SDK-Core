@@ -80,6 +80,48 @@ namespace Reflectis.SDK.Utilities.API
             Content = IsSuccess ? JsonArrayHelper.FromJson<T>(content) : null;
         }
     }
+    [Serializable]
+    public class ApiResponseSearch<T> where T : class
+    {
+        [SerializeField] private int statusCode;
+        [SerializeField] private string reasonPhrase;
+        [SerializeField] private ContentSearch<T> content;
+
+        public bool IsSuccess { get => (statusCode >= 200) && (statusCode <= 299); }
+        public long StatusCode { get => statusCode; private set => statusCode = (int)value; }
+        public string ReasonPhrase { get => reasonPhrase; private set => reasonPhrase = value; }
+        public ContentSearch<T> Content { get => content; set => content = value; }
+
+        public ApiResponseSearch(long statusCode, string reasonPhrase, string content)
+        {
+            StatusCode = statusCode;
+            if (!((statusCode >= 200) && (statusCode <= 299)) && !content.IsNullOrWhitespace())
+            {
+                JsonConvert.DeserializeObject<ApiResponseError>(content).DisplayError();
+            }
+            ReasonPhrase = reasonPhrase;
+            Content = IsSuccess ? JsonUtility.FromJson<ContentSearch<T>>(content) : null;
+        }
+
+        public class ContentSearch<T> where T : class
+        {
+            [SerializeField] private T[] data; 
+            [SerializeField] private int totalCount;
+            [SerializeField] private int pageSize;
+            [SerializeField] private int currentPage;
+            [SerializeField] private string order;
+            [SerializeField] private string dbOrder;
+            [SerializeField] private string validationError;
+
+            public T[] Data { get => data; set => data = value; }
+            public int TotalCount { get => totalCount; set => totalCount = value; }
+            public int PageSize { get => pageSize; set => pageSize = value; }
+            public int CurrentPage { get => currentPage; set => currentPage = value; }
+            public string Order { get => order; set => order = value; }
+            public string DbOrder { get => dbOrder; set => dbOrder = value; }
+            public string ValidationError { get => validationError; set => validationError = value; }
+        }
+    }
 
     [Serializable]
     [Newtonsoft.Json.JsonObject(Newtonsoft.Json.MemberSerialization.Fields)]

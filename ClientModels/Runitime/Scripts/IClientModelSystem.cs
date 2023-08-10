@@ -32,7 +32,7 @@ namespace Reflectis.SDK.ClientModels
         /// <summary>
         /// Returns the list of users registered for this event.
         /// </summary>
-        Task<List<CMUser>> GetEventPartecipants(int eventId);
+        Task<List<CMUser>> GetEventParticipants(int eventId);
 
         Task<int> CreateUpdateEvent(CMEvent e);
 
