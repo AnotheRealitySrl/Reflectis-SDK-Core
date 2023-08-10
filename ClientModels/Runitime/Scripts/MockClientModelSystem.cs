@@ -19,6 +19,11 @@ namespace Reflectis.SDK.ClientModels
 
         #region Events
 
+        public Task<CMEvent> GetDefaultWorldEvent(int worldId)
+        {
+            throw new System.NotImplementedException();
+        }
+
         [SerializeField, Multiline(10)] private string mockGetEventByIdResponse;
         public async Task<CMEvent> GetEventById(int id)
         {
@@ -174,6 +179,7 @@ namespace Reflectis.SDK.ClientModels
         {
             throw new System.NotImplementedException();
         }
+
 
         #endregion
     }

@@ -10,6 +10,11 @@ namespace Reflectis.SDK.ClientModels
         #region Events
 
         /// <summary>
+        /// Returns the default event of a world
+        /// </summary>
+        Task<CMEvent> GetDefaultWorldEvent(int worldId);
+
+        /// <summary>
         /// Returns an event given its id
         /// </summary>
         Task<CMEvent> GetEventById(int id);
@@ -88,7 +93,7 @@ namespace Reflectis.SDK.ClientModels
 
         Task<CMResource> GetEventAssetById(int eventId, int assetId);
 
-        Task<List<CMResource>> GetMyAssets(string searchQuery, int userId);
+        Task<List<CMResource>> GetMyAssets(string searchQuery);
 
         Task<List<CMResource>> GetEventAssets(int eventId);
 
