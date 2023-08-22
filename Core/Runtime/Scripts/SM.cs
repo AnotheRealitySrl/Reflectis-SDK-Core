@@ -62,12 +62,12 @@ namespace Reflectis.SDK.Core
             systemToInitialize.InitInternal(parentSystem);
             foreach (ISystem subSystem in systemToInitialize.SubSystems)
             {
-                if (subSystem.AutoInitAtStartup)
-                {
+                //if (subSystem.AutoInitAtStartup)
+                //{
                     BaseSystem systemInstance = subSystem.RequiresNewInstance ? ScriptableObject.Instantiate(subSystem as BaseSystem) : subSystem as BaseSystem;
                     CurrentSystems.Add(systemInstance);
                     _ = InitSystem(systemInstance, systemToInitialize);
-                }
+                //}
             }
             return systemToInitialize;
         }
