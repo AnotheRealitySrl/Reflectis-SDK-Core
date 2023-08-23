@@ -5,6 +5,14 @@ using System.Threading.Tasks;
 
 namespace Reflectis.SDK.ClientModels
 {
+    public enum FileTypeExt
+    {
+        None = -1,
+        Video = 1,
+        Documents = 2,
+        Images = 3,
+        Asset3D = 4,
+    }
     public interface IClientModelSystem : ISystem
     {
         #region Events

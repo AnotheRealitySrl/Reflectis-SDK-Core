@@ -50,7 +50,7 @@ namespace Reflectis.SDK.ClientModels
         }
         public string Path { get => path; set => path = value; }
         public string ThumbnailPath => thumbnailPath?.Replace(" ", "%20");
-        public int Type { get => type; set => type = value; }
+        public FileTypeExt Type { get => (FileTypeExt) type; set => type = (int) value; }
         public DateTime CreationDate { get => creationDate; set => creationDate = value; }
 
         public CMResource() { }
@@ -62,9 +62,19 @@ namespace Reflectis.SDK.ClientModels
             this.sizeBytes = sizeBytes;
             Path = path;
             this.thumbnailPath = thumbnailPath;
-            Type = type;
+            this.type = type;
             CreationDate = creationDate;
         }
 
+        public override string ToString()
+        {
+            return $"ID: {id}\n" +
+               $"Name: {name}\n" +
+               $"Size (Bytes): {sizeBytes}\n" +
+               $"Path: {path}\n" +
+               $"Thumbnail Path: {thumbnailPath}\n" +
+               $"Type: {type}\n" +
+               $"Creation Date: {creationDate}";
+        }
     }
 }
