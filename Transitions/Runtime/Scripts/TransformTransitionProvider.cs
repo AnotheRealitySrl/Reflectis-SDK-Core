@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using DG.Tweening;
-using UnityEditor.ShaderKeywordFilter;
 
 namespace Reflectis.SDK.Transitions
 {
