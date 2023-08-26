@@ -1,6 +1,7 @@
-using Reflectis.SDK.Core;
 using System;
 using System.Collections.Generic;
+
+using Reflectis.SDK.Core;
 
 namespace Reflectis.SDK.TextChat
 {
@@ -10,7 +11,6 @@ namespace Reflectis.SDK.TextChat
     public interface ITextChatSystem : ISystem
     {
         #region Properties
-
         /// <summary>
         /// Key of the chat project in Agora console.
         /// Looks like: 12345678#1234567
@@ -21,6 +21,7 @@ namespace Reflectis.SDK.TextChat
 
         #region Events
 
+        #region Account events
         /// <summary>
         /// Event invoked when the user logs in without any problems
         /// </summary>
@@ -47,19 +48,30 @@ namespace Reflectis.SDK.TextChat
         /// It will pass the code of the error and its description
         /// </summary>
         event Action OnLogout;
+        #endregion
 
+        #region Message events
         /// <summary>
-        /// Event invoked when a message is sended. It will pass the name of the person/channel who
-        /// send it, the content of the message and the local time when it was sended
+        /// Event invoked when a message is sent. It will pass the name of the person/channel who
+        /// send it, the content of the message and the local time when it was sent
         /// </summary>
-        event Action<string, string, long> OnTxtMsgSended;
+        event Action<string, string, long> OnTxtMsgSent;
 
         /// <summary>
         /// Event invoked when a message is received. 
         /// It will pass the name of the person/channel who
-        /// send it, the content of the message and the local time when it was sended
+        /// send it, the content of the message and the local time when it was sent
         /// </summary>
         event Action<string, string, long> OnTxtMsgReceived;
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        event Action<List<ChatMessage>> OnTxtMsgFetched;
+        #endregion
+
+        #region Channel events
 
         /// <summary>
         /// Event invoked when all the public channels are fetched from the server.
@@ -77,6 +89,8 @@ namespace Reflectis.SDK.TextChat
         /// It will pass the channel
         /// </summary>
         event Action<ChatRoom> OnChannelFetched;
+
+        #endregion
 
         #endregion
 
@@ -119,6 +133,11 @@ namespace Reflectis.SDK.TextChat
         void SendMessageToChannel(string channelId, string msgContent);
 
         /// <summary>
+        /// 
+        /// </summary>
+        void FetchHistoryMessages(string conversationId);
+        
+        /// <summary>
         /// Get all the public channels from the Agora server
         /// </summary>
         void FetchAllChannels();
@@ -143,4 +162,5 @@ namespace Reflectis.SDK.TextChat
 
         #endregion
     }
+
 }
