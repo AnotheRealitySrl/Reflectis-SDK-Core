@@ -39,6 +39,7 @@ namespace Reflectis.SDK.Transitions
             {
                 canvasGroup.gameObject.SetActive(true);
             }
+            onEnterTransition?.Invoke();
             await canvasGroup.DOFade(1f, fadeTime).SetEase(easingFunction).AsyncWaitForCompletion();
         }
 
@@ -49,6 +50,7 @@ namespace Reflectis.SDK.Transitions
             {
                 canvasGroup.gameObject.SetActive(false);
             }
+            onExitTransition?.Invoke();
         }
     }
 }
