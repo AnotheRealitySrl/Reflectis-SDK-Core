@@ -1,0 +1,21 @@
+{
+    "name": "Reflectis.SDK.RadialMenu",
+    "rootNamespace": "Reflectis.SDK.RadialMenu",
+    "references": [
+        "GUID:ab59f74e483e1ee4595bfefea56493f2",
+        "GUID:9e24947de15b9834991c9d8411ea37cf",
+        "GUID:84651a3751eca9349aac36a66bba901b",
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:1fba273f2a1637a4eb98d8266de33545",
+        "GUID:7fae0548e4a70a647b73c7b4ba9edb83"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
