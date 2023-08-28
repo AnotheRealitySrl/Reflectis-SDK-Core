@@ -4,6 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 using Autohand;
 using UnityEngine.InputSystem;
+using Sirenix.OdinInspector;
 
 namespace Reflectis.SDK.RadialMenu
 {
@@ -50,11 +51,18 @@ namespace Reflectis.SDK.RadialMenu
             }
         }
 
-        private void Start()
+        private IEnumerator Start()
         {
-            //Find the hand object so you can instantiate the item on them
-            Hand[] hands = FindObjectsOfType(typeof(Hand)) as Hand[];
-            hand = hands[0];
+            while (!hand)
+            {
+                //Find the hand object so you can instantiate the item on them
+                Hand[] hands = FindObjectsOfType(typeof(Hand)) as Hand[];
+                if (hands.Length!= 0)
+                    hand = hands[0];
+                //choose which hand 
+
+                yield return null;
+            }
 
             //Handle button pressed input
             action.Enable();
