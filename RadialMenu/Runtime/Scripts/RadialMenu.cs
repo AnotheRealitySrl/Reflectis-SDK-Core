@@ -28,6 +28,8 @@ namespace Reflectis.SDK.RadialMenu
 
         [SerializeField]
         private float radius = 100f; //the radius of the radial menu
+        [SerializeField]
+        private Vector3 positionOffset = Vector3.zero; //the offset of the menu from the player position, good values: 0.3f, 0.5f, 1.5f
 
         private bool isOpen;
 
@@ -36,7 +38,8 @@ namespace Reflectis.SDK.RadialMenu
 
         private Hand hand;
 
-        private GameObject player;
+        private Camera mainCamera; //used to put the radial menu in front of the player
+
         #endregion
 
         #region Unity Methods
@@ -65,7 +68,11 @@ namespace Reflectis.SDK.RadialMenu
                 }
                 yield return null;
             }
-            
+
+            //Set menu position
+            mainCamera = Camera.main;
+            SetPositionWithOffset(mainCamera.transform.position);
+
             //Handle button pressed input
             action.Enable();
             action.started += ButtonActionCallback;
@@ -181,6 +188,7 @@ namespace Reflectis.SDK.RadialMenu
                 instantiatedItem.GetComponent<Item>().DeActivateItemModel();
             }
             instantiatedItem = null;
+            ResetItemArrangement();
         }
         #endregion
 
@@ -216,5 +224,24 @@ namespace Reflectis.SDK.RadialMenu
             }
         }
         #endregion
+
+        #region SetterAndGetter
+
+            //Set the position of the menu with respect to the player. It also uses the offset variable to put the menu in front of the player
+            private void SetPositionWithOffset(Vector3 positionStart){
+
+                Transform menuCanvas = transform.parent;
+
+                menuCanvas.parent = mainCamera.transform;
+                
+                float posX = positionStart.x + positionOffset.x;
+                float posY = positionStart.y + positionOffset.y;
+                float posZ = positionStart.z + positionOffset.z;
+
+                menuCanvas.position = new Vector3(posX, posY, posZ); 
+            }
+
+        #endregion
+    
     }
 }
