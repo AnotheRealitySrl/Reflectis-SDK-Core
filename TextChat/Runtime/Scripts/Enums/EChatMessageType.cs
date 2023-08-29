@@ -6,6 +6,8 @@ namespace Reflectis.SDK.TextChat.Enums
         * The one-to-one chat.
         */
         Chat = 0,
+
+        Group,
         
         /**
         * The chat room.

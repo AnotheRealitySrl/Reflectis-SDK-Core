@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 
 using Reflectis.SDK.Core;
+using Reflectis.SDK.TextChat.Enums;
 
 namespace Reflectis.SDK.TextChat
 {
@@ -135,7 +136,7 @@ namespace Reflectis.SDK.TextChat
         /// <summary>
         /// 
         /// </summary>
-        void FetchHistoryMessages(string conversationId);
+        void FetchHistoryMessages(string conversationId, EChatMessageType type);
         
         /// <summary>
         /// Get all the public channels from the Agora server
