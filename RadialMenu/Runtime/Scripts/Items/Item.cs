@@ -30,15 +30,15 @@ namespace Reflectis.SDK.RadialMenu
         public void ActivateItemModel()
         {
             transform.rotation = startRotation;
-            itemModel.SetActive(true);
             rb.isKinematic = false;
+            itemModel.SetActive(true);
         }
 
         public void DeActivateItemModel()
         {
             itemModel.transform.localPosition = startPosition;
-            itemModel.SetActive(false);
             rb.isKinematic = true;
+            itemModel.SetActive(false);
         }
 
         public void SetPosition(Vector3 pos)

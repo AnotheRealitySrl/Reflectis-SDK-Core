@@ -5,6 +5,8 @@ using DG.Tweening;
 using Autohand;
 using UnityEngine.InputSystem;
 using Sirenix.OdinInspector;
+using Reflectis.SDK.Avatars;
+using Reflectis.SDK.Core;
 
 namespace Reflectis.SDK.RadialMenu
 {
@@ -22,8 +24,6 @@ namespace Reflectis.SDK.RadialMenu
 
         private List<RadialMenuItem> itemList; //the list of the items contained in the radial menu
 
-        private List<GameObject> itemsGO;
-
         private GameObject instantiatedItem; //the item that has been instantiated.
 
         [SerializeField]
@@ -35,6 +35,8 @@ namespace Reflectis.SDK.RadialMenu
         private InputAction action;
 
         private Hand hand;
+
+        private GameObject player;
         #endregion
 
         #region Unity Methods
@@ -44,7 +46,6 @@ namespace Reflectis.SDK.RadialMenu
             isOpen = false;
 
             itemList = new List<RadialMenuItem>();
-            itemsGO = new List<GameObject>();
             for (int i = 0; i < itemListData.Count; i++)
             {
                 AddItem(itemListData[i]);
@@ -53,17 +54,18 @@ namespace Reflectis.SDK.RadialMenu
 
         private IEnumerator Start()
         {
+            instantiatedItem = null;
+            //while (!hand)
             while (!hand)
             {
-                //Find the hand object so you can instantiate the item on them
-                Hand[] hands = FindObjectsOfType(typeof(Hand)) as Hand[];
-                if (hands.Length!= 0)
-                    hand = hands[0];
-                //choose which hand 
-
+                if (SM.GetSystem<AvatarSystem>().AvatarInstance)
+                {
+                    //choose which hand
+                    hand = SM.GetSystem<AvatarSystem>().AvatarInstance.CharacterReference.RightInteractorReference.GetComponentInChildren<Hand>();
+                }
                 yield return null;
             }
-
+            
             //Handle button pressed input
             action.Enable();
             action.started += ButtonActionCallback;
@@ -95,9 +97,10 @@ namespace Reflectis.SDK.RadialMenu
             item.SetRadialMenu(this);
 
             //Instantiate all gameobjects and save them in variables
-            GameObject itemGO = Instantiate(itemData.itemPrefab, Vector3.zero, Quaternion.identity);
-            item.SetItemSpawned(itemGO);
-            itemsGO.Add(itemGO);
+            if(itemData.itemPrefab){
+                GameObject itemGO = Instantiate(itemData.itemPrefab, Vector3.zero, Quaternion.identity);
+                item.SetItemSpawned(itemGO);
+            }
 
             //finally add the item to the list
             itemList.Add(item);
@@ -139,12 +142,10 @@ namespace Reflectis.SDK.RadialMenu
 
         public void InstantiateItem(GameObject item)
         {
-            Debug.Log("Instantiating Item from radial menu");
-
+            
             //Check if there's already an instantiated object
             if (instantiatedItem)
             {
-
                 //Release current item
                 hand.Release();
                 hand.ForceReleaseGrab();
@@ -160,15 +161,15 @@ namespace Reflectis.SDK.RadialMenu
             }
 
             //instantiate the item on the hand
+            item.GetComponent<Item>().ActivateItemModel();
             instantiatedItem = item;
 
-            item.GetComponent<Item>().ActivateItemModel();
-
-            hand.Grab();
             hand.TryGrab(instantiatedItem.GetComponent<Grabbable>());
+            //hand.Grab();
 
             //close the menu --- Here if we want we can add animations too
             ResetItemArrangement();
+            return;
         }
 
         public void RemoveItem()
