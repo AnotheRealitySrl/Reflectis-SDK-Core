@@ -63,7 +63,7 @@ namespace Reflectis.SDK.TextChat
         /// It will pass the name of the person/channel who
         /// send it, the content of the message and the local time when it was sent
         /// </summary>
-        event Action<string, string, long> OnTxtMsgReceived;
+        event Action<string, string, string> OnTxtMsgReceived;
 
 
         /// <summary>
