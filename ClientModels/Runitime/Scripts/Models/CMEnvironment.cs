@@ -1,5 +1,6 @@
 using System;
-
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Reflectis.SDK.ClientModels
@@ -18,5 +19,20 @@ namespace Reflectis.SDK.ClientModels
         public string Description { get => description; set => description = value; }
         public string ImageUrl { get => imageUrl; set => imageUrl = value; }
         public string AddressableKey { get => addressableKey; set => addressableKey = value; }
+
+        
+    }
+
+    public class CMEnvironmentNameComparerer : IEqualityComparer<CMEnvironment>
+    {
+        public bool Equals(CMEnvironment x, CMEnvironment y)
+        {
+            return x.Name == y.Name;
+        }
+
+        public int GetHashCode(CMEnvironment obj)
+        {
+            return obj.Name.GetHashCode();
+        }
     }
 }

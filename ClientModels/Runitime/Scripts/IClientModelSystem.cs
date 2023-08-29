@@ -72,7 +72,7 @@ namespace Reflectis.SDK.ClientModels
 
         #region Environment
 
-        Task<List<CMEnvironment>> GetAllEnvironment();
+        Task<List<CMEnvironment>> GetAllEnvironments();
 
         #endregion
 
