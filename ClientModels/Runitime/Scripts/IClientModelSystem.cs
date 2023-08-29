@@ -48,6 +48,8 @@ namespace Reflectis.SDK.ClientModels
 
         #region Categories
 
+        Task<List<CMCategoryInfo>> GetAllEventInfo();
+
         /// <summary>
         /// Return list of all categories
         /// </summary>
