@@ -10,6 +10,7 @@ namespace Reflectis.SDK.ClientModels
         [SerializeField] private int id;
         [SerializeField] private string name;
         [SerializeField] private int sizeBytes;
+        [SerializeField] private string url;
         [SerializeField] private string path;
         [SerializeField] private string thumbnailPath;
         [SerializeField] private int type;
@@ -48,9 +49,10 @@ namespace Reflectis.SDK.ClientModels
                 }
             }
         }
+        public string Url { get => url; set => url = value; }
         public string Path { get => path; set => path = value; }
         public string ThumbnailPath => thumbnailPath?.Replace(" ", "%20");
-        public FileTypeExt Type { get => (FileTypeExt) type; set => type = (int) value; }
+        public FileTypeExt Type { get => (FileTypeExt)type; set => type = (int)value; }
         public DateTime CreationDate { get => creationDate; set => creationDate = value; }
 
         public CMResource() { }
