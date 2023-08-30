@@ -3,6 +3,7 @@ using System.Linq;
 
 using UnityEngine;
 using UnityEngine.Events;
+using Autohand;
 
 namespace Reflectis.SDK.RadialMenu
 {
@@ -30,6 +31,9 @@ namespace Reflectis.SDK.RadialMenu
         [SerializeField, Tooltip("")]
         private UnityEvent onTriggerExit = default;
 
+        [SerializeField] 
+        private bool isHand = false; //check whether or not the item should be the hand
+
 
         private TriggerProxy triggerProxy;
 
@@ -56,9 +60,25 @@ namespace Reflectis.SDK.RadialMenu
             ///////////////////////////////////////////////////////////////////////////
             private void OnTriggerEnter(Collider other)
             {   
-                Item item = other.attachedRigidbody.gameObject.GetComponent<Item>();
-                if(item!=null){
-                    if(item.GetName()==detector.itemName){ //item.GetName().Equals(itemName)
+                if(!detector.isHand){
+                    Item item = other.attachedRigidbody.gameObject.GetComponent<Item>();
+                    if(item!=null){
+                        if(item.GetName()==detector.itemName){ //item.GetName().Equals(itemName)
+                            if (holdingCoroutine != null)
+                                StopCoroutine(holdingCoroutine);
+
+                            IEnumerator coroutine()
+                            {
+                                yield return new WaitForSeconds(detector.holdTime);
+                                detector.onTriggerEnter.Invoke(other);
+                            }
+                            holdingCoroutine = StartCoroutine(coroutine());
+                        }
+                    }
+                }else{
+                    Hand hand = other.attachedRigidbody.gameObject.GetComponent<Hand>();
+                    if(hand!=null){
+                        Debug.LogError("OK HAND FOUND");
                         if (holdingCoroutine != null)
                             StopCoroutine(holdingCoroutine);
 
@@ -68,21 +88,31 @@ namespace Reflectis.SDK.RadialMenu
                             detector.onTriggerEnter.Invoke(other);
                         }
                         holdingCoroutine = StartCoroutine(coroutine());
-                        }
+                    }
                 }
             }
 
             ///////////////////////////////////////////////////////////////////////////
             private void OnTriggerExit(Collider other)
             {
-                Item item = other.attachedRigidbody.gameObject.GetComponent<Item>();
-                if(item!=null){
-                    if(item.GetName()==detector.itemName){ 
+                if(!detector.isHand){
+                    Item item = other.attachedRigidbody.gameObject.GetComponent<Item>();
+                    if(item!=null){
+                        if(item.GetName()==detector.itemName){ 
+                            detector.onTriggerExit.Invoke();
+                        }
+                    }
+                    if(holdingCoroutine != null){
+                        StopCoroutine(holdingCoroutine);
+                    }
+                }else{
+                    Hand hand = other.attachedRigidbody.gameObject.GetComponent<Hand>();
+                    if(hand!=null){
                         detector.onTriggerExit.Invoke();
                     }
-                }
-                if(holdingCoroutine != null){
-                    StopCoroutine(holdingCoroutine);
+                    if(holdingCoroutine != null){
+                        StopCoroutine(holdingCoroutine);
+                    }
                 }
 
             }
