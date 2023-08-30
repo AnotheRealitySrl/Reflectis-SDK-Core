@@ -1,5 +1,9 @@
 ﻿using Newtonsoft.Json;
+
+#if ODIN_INSPECTOR
 using Sirenix.Utilities;
+#endif
+
 using System;
 
 using UnityEngine;
@@ -105,7 +109,7 @@ namespace Reflectis.SDK.Utilities.API
 
         public class ContentSearch<T> where T : class
         {
-            [SerializeField] private T[] data; 
+            [SerializeField] private T[] data;
             [SerializeField] private int totalCount;
             [SerializeField] private int pageSize;
             [SerializeField] private int currentPage;
