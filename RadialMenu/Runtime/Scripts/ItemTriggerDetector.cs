@@ -11,7 +11,7 @@ namespace Reflectis.SDK.RadialMenu
     /// Simple component that fires events when a rigidbody enters or exits a
     /// trigger
     /// </summary>
-    public class TriggerDetector : MonoBehaviour
+    public class ItemTriggerDetector : MonoBehaviour
     {
         [SerializeField, Tooltip("the name of the item that can trigger the event.")]
         private string itemName;
@@ -50,7 +50,7 @@ namespace Reflectis.SDK.RadialMenu
         ///////////////////////////////////////////////////////////////////////////
         private class TriggerProxy : MonoBehaviour
         {
-            public TriggerDetector detector;
+            public ItemTriggerDetector detector;
             private Coroutine holdingCoroutine;
 
             ///////////////////////////////////////////////////////////////////////////
