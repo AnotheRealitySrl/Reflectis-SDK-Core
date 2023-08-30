@@ -55,8 +55,8 @@ namespace Reflectis.SDK.RadialMenu
 
             ///////////////////////////////////////////////////////////////////////////
             private void OnTriggerEnter(Collider other)
-            {
-                Item item = other.GetComponent<Item>();
+            {   
+                Item item = other.attachedRigidbody.gameObject.GetComponent<Item>();
                 if(item!=null){
                     if(item.GetName()==detector.itemName){ //item.GetName().Equals(itemName)
                         if (holdingCoroutine != null)
@@ -75,7 +75,7 @@ namespace Reflectis.SDK.RadialMenu
             ///////////////////////////////////////////////////////////////////////////
             private void OnTriggerExit(Collider other)
             {
-                Item item = other.GetComponent<Item>();
+                Item item = other.attachedRigidbody.gameObject.GetComponent<Item>();
                 if(item!=null){
                     if(item.GetName()==detector.itemName){ 
                         detector.onTriggerExit.Invoke();
