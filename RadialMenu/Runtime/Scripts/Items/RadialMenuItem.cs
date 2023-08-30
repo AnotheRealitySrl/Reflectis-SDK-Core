@@ -18,6 +18,8 @@ namespace Reflectis.SDK.RadialMenu
         [SerializeField]
         private Image background;
 
+        private string itemName;
+
         private bool emptyObject = false;
         private GameObject itemSpawned;
 
@@ -41,9 +43,17 @@ namespace Reflectis.SDK.RadialMenu
             icon.sprite = i;
         }
 
-        public void SetData(RadialMenuItemData data)
+        public void SetItemName(string name){
+            itemName = name;
+        }
+
+        public string GetName(){
+            return itemName;
+        }
+
+        public void SetEmptyObject(bool empty)
         {
-            emptyObject = data.emptyObject;
+            emptyObject =empty;
         }
 
         public void SetRadialMenu(RadialMenu parent)

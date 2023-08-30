@@ -12,6 +12,8 @@ namespace Reflectis.SDK.RadialMenu
 
         private Rigidbody rb;
 
+        private string itemName;
+
         private Quaternion startRotation;
 
         private void Awake()
@@ -44,6 +46,14 @@ namespace Reflectis.SDK.RadialMenu
         public void SetPosition(Vector3 pos)
         {
             transform.position = pos;
+        }
+
+        public void SetItemName(string name){
+            itemName = name;
+        }
+
+        public string GetName(){
+            return itemName;
         }
     }
 }

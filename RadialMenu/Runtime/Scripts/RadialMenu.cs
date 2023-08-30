@@ -98,15 +98,17 @@ namespace Reflectis.SDK.RadialMenu
 
             //set all the item datas
             RadialMenuItem item = itemPre.GetComponent<RadialMenuItem>();
-            item.SetData(itemData);
+            item.SetEmptyObject(itemData.emptyObject);
             item.SetIcon(itemData.icon);
             item.SetBackground(itemData.background);
+            item.SetItemName(itemData.itemName);
             item.SetRadialMenu(this);
 
             //Instantiate all gameobjects and save them in variables
             if(itemData.itemPrefab){
                 GameObject itemGO = Instantiate(itemData.itemPrefab, Vector3.zero, Quaternion.identity);
                 item.SetItemSpawned(itemGO);
+                itemGO.GetComponent<Item>().SetItemName(itemData.itemName);
             }
 
             //finally add the item to the list
