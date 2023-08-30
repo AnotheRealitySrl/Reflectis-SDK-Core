@@ -71,7 +71,7 @@ namespace Reflectis.SDK.RadialMenu
 
             //Set menu position
             mainCamera = Camera.main;
-            SetPositionWithOffset(mainCamera.transform.position);
+            SetPositionWithOffset();
 
             //Handle button pressed input
             action.Enable();
@@ -228,17 +228,17 @@ namespace Reflectis.SDK.RadialMenu
         #region SetterAndGetter
 
             //Set the position of the menu with respect to the player. It also uses the offset variable to put the menu in front of the player
-            private void SetPositionWithOffset(Vector3 positionStart){
+            private void SetPositionWithOffset(){
 
                 Transform menuCanvas = transform.parent;
 
                 menuCanvas.parent = mainCamera.transform;
                 
-                float posX = positionStart.x + positionOffset.x;
-                float posY = positionStart.y + positionOffset.y;
-                float posZ = positionStart.z + positionOffset.z;
+                float posX = positionOffset.x;
+                float posY = positionOffset.y;
+                float posZ = positionOffset.z;
 
-                menuCanvas.position = new Vector3(posX, posY, posZ); 
+                menuCanvas.localPosition = new Vector3(posX, posY, posZ); 
             }
 
         #endregion
