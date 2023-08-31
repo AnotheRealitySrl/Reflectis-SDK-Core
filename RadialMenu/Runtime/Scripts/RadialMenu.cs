@@ -240,6 +240,8 @@ namespace Reflectis.SDK.RadialMenu
                 float posY = positionOffset.y;
                 float posZ = positionOffset.z;
 
+                menuCanvas.localRotation = Quaternion.identity;
+
                 menuCanvas.localPosition = new Vector3(posX, posY, posZ); 
             }
 
