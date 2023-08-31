@@ -53,6 +53,11 @@ namespace Reflectis.SDK.CharacterController
         /// <param name="reactionName">Name of the reaction animation to activate</param>
         void ActivateReactionAnimation(string reactionName);
 
+        /// <summary>
+        /// Enable or disable based on value the movement of the character
+        /// </summary>
+        /// <param name="enable"></param>
+        void EnableCharacterMovement(bool value);
         #endregion
     }
 }
