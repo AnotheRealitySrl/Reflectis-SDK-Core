@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
+using DG.Tweening;
 using System.Threading.Tasks;
 using UnityEngine;
-using DG.Tweening;
-using UnityEditor.ShaderKeywordFilter;
 
 namespace Reflectis.SDK.Transitions
 {
