@@ -1,9 +1,5 @@
 ﻿using Newtonsoft.Json;
 
-#if ODIN_INSPECTOR
-using Sirenix.Utilities;
-#endif
-
 using System;
 
 using UnityEngine;
@@ -45,7 +41,7 @@ namespace Reflectis.SDK.Utilities.API
         public ApiResponse(long statusCode, string reasonPhrase, string content)
         {
             StatusCode = statusCode;
-            if (!((statusCode >= 200) && (statusCode <= 299)) && !content.IsNullOrWhitespace())
+            if (!((statusCode >= 200) && (statusCode <= 299)) && !string.IsNullOrWhiteSpace(content))
             {
                 JsonConvert.DeserializeObject<ApiResponseError>(content).DisplayError();
             }
@@ -76,7 +72,7 @@ namespace Reflectis.SDK.Utilities.API
         public ApiResponseArray(long statusCode, string reasonPhrase, string content)
         {
             StatusCode = statusCode;
-            if (!((statusCode >= 200) && (statusCode <= 299)) && !content.IsNullOrWhitespace())
+            if (!((statusCode >= 200) && (statusCode <= 299)) && !string.IsNullOrWhiteSpace(content))
             {
                 JsonConvert.DeserializeObject<ApiResponseError>(content).DisplayError();
             }
@@ -99,7 +95,7 @@ namespace Reflectis.SDK.Utilities.API
         public ApiResponseSearch(long statusCode, string reasonPhrase, string content)
         {
             StatusCode = statusCode;
-            if (!((statusCode >= 200) && (statusCode <= 299)) && !content.IsNullOrWhitespace())
+            if (!((statusCode >= 200) && (statusCode <= 299)) && !string.IsNullOrWhiteSpace(content))
             {
                 JsonConvert.DeserializeObject<ApiResponseError>(content).DisplayError();
             }
