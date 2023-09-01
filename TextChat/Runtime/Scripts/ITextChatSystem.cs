@@ -43,7 +43,7 @@ namespace Reflectis.SDK.TextChat
         /// TODO
         /// </summary>
         event Action<int, string> OnLogoutFailed;
-        
+
         /// <summary>
         /// Event invoked when the user could not log out.
         /// It will pass the code of the error and its description
@@ -137,7 +137,7 @@ namespace Reflectis.SDK.TextChat
         /// 
         /// </summary>
         void FetchHistoryMessages(string conversationId, EChatMessageType type);
-        
+
         /// <summary>
         /// Get all the public channels from the Agora server
         /// </summary>
@@ -160,6 +160,8 @@ namespace Reflectis.SDK.TextChat
         /// </summary>
         /// <param name="channelId">Id of the channel</param>
         void LeaveTextChannel(string channelId);
+
+        void DeleteConversationFromServer(string conversationId, EChatMessageType type);
 
         #endregion
     }
