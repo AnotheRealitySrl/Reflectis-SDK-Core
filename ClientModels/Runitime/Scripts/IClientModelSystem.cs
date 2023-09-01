@@ -95,6 +95,8 @@ namespace Reflectis.SDK.ClientModels
 
         Task<CMUser> GetUserData();
 
+        Task<CMUserPreference> GetUserPreference(int userId);
+
         #endregion
 
         #region Permissions
