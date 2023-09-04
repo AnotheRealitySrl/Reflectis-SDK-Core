@@ -170,11 +170,22 @@ namespace Reflectis.SDK.RadialMenu
             }
 
             //instantiate the item on the hand
-            item.GetComponent<Item>().ActivateItemModel();
-            instantiatedItem = item;
 
-            hand.TryGrab(instantiatedItem.GetComponent<Grabbable>());
-            //hand.Grab();
+            //Set the hand as parent and put the item right on it
+            instantiatedItem = item;
+            instantiatedItem.transform.parent = hand.gameObject.transform.parent;
+            instantiatedItem.transform.localPosition = Vector3.zero;
+
+            //Get the Item component
+            Item instantiatedItemComponent = instantiatedItem.GetComponent<Item>();
+
+            //Now the item is in the correct place to be grabbed, but we have to make sure that it is rotated in the same direction as the hands.
+            instantiatedItemComponent.FaceSameDirection();
+
+            //Now we should be able to grab the item in the perfect position. Activate the item and perform the grab
+            instantiatedItemComponent.ActivateItemModel();
+            //hand.TryGrab(instantiatedItem.GetComponent<Grabbable>());            
+            hand.Grab();
 
             //close the menu --- Here if we want we can add animations too
             ResetItemArrangement();
