@@ -1,10 +1,6 @@
-using ExitGames.Client.Photon;
-using Reflectis.SDK.Utilities.API;
-using Reflectis.SDK.Utilities.Extensions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -16,14 +12,14 @@ namespace Reflectis.SDK.Utilities
 
         private static Worker worker;
 
-        public static void DownloadImage( string mediaUrl, Action<Texture2D> onCompletionCallback, Action onFailedCallback = null)
+        public static void DownloadImage(string mediaUrl, Action<Texture2D> onCompletionCallback, Action onFailedCallback = null)
         {
-            if(worker == null)
+            if (worker == null)
             {
                 GameObject go = new GameObject("ImageDownloaderWorker");
                 worker = go.AddComponent<Worker>();
             }
-            
+
             if (userIconCached.TryGetValue(mediaUrl, out Texture2D texture))
             {
                 if (texture == null)
@@ -62,8 +58,8 @@ namespace Reflectis.SDK.Utilities
         public static IEnumerator WaitForTextureDownload(string mediaUrl, Action<Texture2D> onCompletionCallback, Action onFailedCallback = null)
         {
             Texture2D texture = null;
-            yield return new WaitUntil(()=> !userIconCached.ContainsKey(mediaUrl) || (userIconCached.TryGetValue(mediaUrl, out texture) && texture != null));
-            if(!userIconCached.ContainsKey(mediaUrl)) 
+            yield return new WaitUntil(() => !userIconCached.ContainsKey(mediaUrl) || (userIconCached.TryGetValue(mediaUrl, out texture) && texture != null));
+            if (!userIconCached.ContainsKey(mediaUrl))
             {
                 onFailedCallback();
             }
