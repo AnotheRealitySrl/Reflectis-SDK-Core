@@ -27,8 +27,6 @@ namespace Reflectis.SDK.RadialMenu
         private GameObject instantiatedItem; //the item that has been instantiated.
 
         [SerializeField]
-        private float radius = 100f; //the radius of the radial menu
-        [SerializeField]
         private Vector3 positionOffset = Vector3.zero; //the offset of the menu from the player position, good values: 0.3f, 0.5f, 1.5f
 
         private bool isOpen;
@@ -39,6 +37,17 @@ namespace Reflectis.SDK.RadialMenu
         private Hand hand;
 
         private Camera mainCamera; //used to put the radial menu in front of the player
+
+        [SerializeField]
+        private float radius = 100f; //the radius of the radial menu
+
+        [SerializeField]
+        private float openSpeed = 0.3f; //the speed with which the menu opens
+        [SerializeField]
+        private float closeSpeed = 0.3f; //the speed with which the menu closes
+
+        [SerializeField]
+        private Vector3 itemsStartScale; //used to scale the items when opening the menu, right now it is the same as the prefab.
 
         #endregion
 
@@ -53,6 +62,8 @@ namespace Reflectis.SDK.RadialMenu
             {
                 AddItem(itemListData[i]);
             }
+            itemsStartScale = itemList[0].gameObject.transform.localScale;
+
         }
 
         private IEnumerator Start()
@@ -126,27 +137,35 @@ namespace Reflectis.SDK.RadialMenu
                 float y = Mathf.Cos(angle * i) * radius;
 
                 RectTransform itemRect = itemList[i].GetComponent<RectTransform>();
-                Vector3 baseScale = itemList[i].gameObject.transform.localScale;
 
                 itemRect.gameObject.transform.localScale = Vector3.zero;
-                itemRect.DOScale(baseScale, .3f).SetEase(Ease.OutQuad);
-                itemRect.DOAnchorPos(new Vector3(x, y, 0), .3f).SetEase(Ease.OutQuad);
+                itemRect.DOScale(itemsStartScale, openSpeed).SetEase(Ease.OutQuad);
+                itemRect.DOAnchorPos(new Vector3(x, y, 0), openSpeed).SetEase(Ease.OutQuad);
             }
         }
 
         public void ResetItemArrangement()
         {
+            var sequence = DOTween.Sequence();
+            
             for (int i = 0; i < itemList.Count; i++)
             {
                 RectTransform itemRect = itemList[i].GetComponent<RectTransform>();
-                Vector3 baseScale = itemRect.localScale;
 
-                itemRect.DOScale(baseScale, .3f).SetEase(Ease.OutQuad);
-                itemRect.DOAnchorPos(new Vector3(0, 0, 0), .3f).SetEase(Ease.OutQuad);
+                var tween1 = itemRect.DOScale(Vector3.zero, closeSpeed).SetEase(Ease.OutQuad);
+                var tween2 = itemRect.DOAnchorPos(new Vector3(0, 0, 0), closeSpeed).SetEase(Ease.OutQuad);
                 itemList[i].UnHoverItem();
+
+                sequence.Join(tween1);
+                sequence.Join(tween2);
+
+
             }
-            menuObj.SetActive(false);
-            isOpen = false;
+
+            sequence.OnComplete(()=>{
+                menuObj.SetActive(false);
+                isOpen = false;
+            });   
         }
 
         public void InstantiateItem(GameObject item)
@@ -218,9 +237,6 @@ namespace Reflectis.SDK.RadialMenu
             else
             {
                 ResetItemArrangement();
-                menuObj.SetActive(false);
-                isOpen = false;
-
             }
         }
 
