@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1581745262910936437}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: RadialMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -227,8 +227,7 @@ MonoBehaviour:
   menuObj: {fileID: 7682960020222118250}
   itemPrefab: {fileID: 2444689223162082986, guid: dea2f62f20902af4faa27ead29393f46, type: 3}
   itemListData: []
-  playerHandsPos: {fileID: 0}
-  radius: 0.5
+  positionOffset: {x: 0, y: 0, z: 0}
   action:
     m_Name: Action
     m_Type: 0
@@ -246,3 +245,7 @@ MonoBehaviour:
       m_Action: Action
       m_Flags: 0
     m_Flags: 0
+  radius: 0.5
+  openSpeed: 0.3
+  closeSpeed: 0.3
+  itemsStartScale: {x: 0, y: 0, z: 0}
