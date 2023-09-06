@@ -78,16 +78,21 @@ namespace Reflectis.SDK.RadialMenu
                 }else{
                     Hand hand = other.attachedRigidbody.gameObject.GetComponent<Hand>();
                     if(hand!=null){
-                        Debug.LogError("OK HAND FOUND");
-                        if (holdingCoroutine != null)
-                            StopCoroutine(holdingCoroutine);
+                        //Check if there's an item on the hand, if there is then exit, otherwise continue
+                        if(hand.GetHeld()){
+                            //Do Nothing because hand has an item on it
+                        }else{
+                            //Hand without Item, then start the trigger
+                            if (holdingCoroutine != null)
+                                StopCoroutine(holdingCoroutine);
 
-                        IEnumerator coroutine()
-                        {
-                            yield return new WaitForSeconds(detector.holdTime);
-                            detector.onTriggerEnter.Invoke(other);
+                            IEnumerator coroutine()
+                            {
+                                yield return new WaitForSeconds(detector.holdTime);
+                                detector.onTriggerEnter.Invoke(other);
+                            }
+                            holdingCoroutine = StartCoroutine(coroutine());
                         }
-                        holdingCoroutine = StartCoroutine(coroutine());
                     }
                 }
             }

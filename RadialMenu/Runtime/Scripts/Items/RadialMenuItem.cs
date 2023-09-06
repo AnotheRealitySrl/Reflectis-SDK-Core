@@ -63,13 +63,11 @@ namespace Reflectis.SDK.RadialMenu
 
         public void HoverItem()
         {
-            iconRect.DOComplete();
             iconRect.DOScale(Vector3.one * 1.5f, .3f).SetEase(Ease.OutQuad);
         }
 
         public void UnHoverItem()
         {
-            iconRect.DOComplete();
             iconRect.DOScale(Vector3.one, .3f).SetEase(Ease.OutQuad);
         }
 
