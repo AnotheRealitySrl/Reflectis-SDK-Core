@@ -15,6 +15,12 @@ namespace Reflectis.SDK.ClientModels
     }
     public interface IClientModelSystem : ISystem
     {
+        #region Worlds
+
+        Task<List<CMWorld>> GetAllWorlds();
+
+        #endregion
+
         #region Events
 
         /// <summary>
