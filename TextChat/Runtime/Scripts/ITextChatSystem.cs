@@ -11,6 +11,7 @@ namespace Reflectis.SDK.TextChat
     /// </summary>
     public interface ITextChatSystem : ISystem
     {
+        
         #region Properties
         /// <summary>
         /// Key of the chat project in Agora console.
@@ -22,6 +23,20 @@ namespace Reflectis.SDK.TextChat
 
         #region Events
 
+        #region New events [WIP]
+
+        /// <summary>
+        /// Event invoked when the user connects to the chat
+        /// </summary>
+        event Action OnUserConnected;
+
+        /// <summary>
+        /// Event invoked when the user disconnects to the chat
+        /// </summary>
+        event Action OnUserDisconnected;
+        #endregion
+        
+        
         #region Account events
         /// <summary>
         /// Event invoked when the user logs in without any problems
@@ -122,9 +137,9 @@ namespace Reflectis.SDK.TextChat
         /// <summary>
         /// Sends a new message to a specific user
         /// </summary>
-        /// <param name="username">Name of the user who will receive the message</param>
+        /// <param name="userId">Id of the user who will receive the message</param>
         /// <param name="msgContent">Content of the message</param>
-        void SendMessageToUser(string username, string msgContent);
+        void SendMessageToUser(string userId, string msgContent);
 
         /// <summary>
         /// Sends a message to a specific channel
@@ -163,6 +178,19 @@ namespace Reflectis.SDK.TextChat
 
         void DeleteConversationFromServer(string conversationId, EChatMessageType type);
 
+        #endregion
+
+        #region New Methods [WIP]
+
+        void Connect(string userId);
+
+        /// <summary>
+        /// To keep the connection alive and to get incoming messages continuously
+        /// </summary>
+        void KeepConnectionAlive();
+
+        void DisconnectCurrentUser();
+        void LeaveTextChannel(string[] channelsId);
         #endregion
     }
 

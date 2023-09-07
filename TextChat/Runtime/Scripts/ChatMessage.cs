@@ -40,7 +40,7 @@ namespace Reflectis.SDK.TextChat
         /// - 'SEND': This message is sent from the local client.
         /// - `RECEIVE`: The message is received by the local client.
         /// </summary>
-        public EChatMessageDirection ChatMessageDirection { get; internal set; }
+        public EChatMessageDirection ChatMessageDirection { get; set; }
         
         /// <summary>
         /// The local Unix timestamp for creating the message. The unit is millisecond.
