@@ -49,6 +49,9 @@ namespace Reflectis.SDK.RadialMenu
         [SerializeField]
         private Vector3 itemsStartScale; //used to scale the items when opening the menu, right now it is the same as the prefab.
 
+        private Transform originalParent; //useful to remove the menu from the player face. The original parent of the whole prefab
+        private Transform menuCanvas; //the canvas holding the menu, it is set as the child of the main camera when menu is opened
+
         #endregion
 
         #region Unity Methods
@@ -79,6 +82,10 @@ namespace Reflectis.SDK.RadialMenu
                 }
                 yield return null;
             }
+
+            //Set the original parent
+            menuCanvas = transform.parent;
+            originalParent = menuCanvas.parent;
 
             //Set menu position
             mainCamera = Camera.main;
@@ -126,6 +133,7 @@ namespace Reflectis.SDK.RadialMenu
             itemList.Add(item);
         }
 
+        //Set the ui item elements in the correct places
         public void ArrangeItem()
         {
             //Get the x and y position of the item
@@ -144,6 +152,7 @@ namespace Reflectis.SDK.RadialMenu
             }
         }
 
+        //Reset the ui item to the center
         public void ResetItemArrangement()
         {
             var sequence = DOTween.Sequence();
@@ -168,6 +177,7 @@ namespace Reflectis.SDK.RadialMenu
             });   
         }
 
+        //Instantiate Item on the hand or remove it, happens when clicking on a ui item
         public void InstantiateItem(GameObject item)
         {
             
@@ -229,10 +239,13 @@ namespace Reflectis.SDK.RadialMenu
         {
             if (!isOpen)
             {
-
+                SetPositionWithOffset();
                 menuObj.SetActive(true);
                 isOpen = true;
                 ArrangeItem();
+
+                //Deparent menu from the player
+                menuCanvas.parent = originalParent;
             }
             else
             {
@@ -244,12 +257,12 @@ namespace Reflectis.SDK.RadialMenu
         {
             if (context.started)
             {
-                OpenMenu();
+                OpenMenu();               
             }
 
             if (context.canceled)
             {
-                //Do Nothing for now
+                //Do Nothing
             }
         }
         #endregion
@@ -258,8 +271,6 @@ namespace Reflectis.SDK.RadialMenu
 
             //Set the position of the menu with respect to the player. It also uses the offset variable to put the menu in front of the player
             private void SetPositionWithOffset(){
-
-                Transform menuCanvas = transform.parent;
 
                 menuCanvas.parent = mainCamera.transform;
                 
