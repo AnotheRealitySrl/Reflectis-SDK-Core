@@ -48,7 +48,7 @@ namespace Reflectis.SDK.ClientModels
         /// </summary>
         Task<List<CMUser>> GetEventParticipants(int eventId);
 
-        Task<int> CreateUpdateEvent(CMEvent e);
+        Task<int> CreateEvent(CMEvent e);
 
         #endregion
 
