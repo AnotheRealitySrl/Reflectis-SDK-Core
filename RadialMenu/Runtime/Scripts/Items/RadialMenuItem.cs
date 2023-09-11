@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using TMPro;
 
 namespace Reflectis.SDK.RadialMenu
 {
@@ -18,6 +19,8 @@ namespace Reflectis.SDK.RadialMenu
         [SerializeField]
         private Image background;
 
+        [SerializeField]
+        private TextMeshProUGUI itemText;
         private string itemName;
 
         private bool emptyObject = false;
@@ -45,6 +48,7 @@ namespace Reflectis.SDK.RadialMenu
 
         public void SetItemName(string name){
             itemName = name;
+            itemText.text = itemName;
         }
 
         public string GetName(){
