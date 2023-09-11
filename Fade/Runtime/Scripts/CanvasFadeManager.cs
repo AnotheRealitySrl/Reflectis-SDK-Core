@@ -16,6 +16,7 @@ namespace Reflectis.SDK.Fade
         [SerializeField] private GameObject canvas;
         [SerializeField] private Image fadeImage;
         [SerializeField] private Image desaturatedImage;
+        [SerializeField] private Image backgroundImage;
 
         #endregion
 
@@ -23,6 +24,7 @@ namespace Reflectis.SDK.Fade
 
         private Coroutine blackCoroutine = null;
         private Coroutine desaturatedCoroutine = null;
+        private Coroutine backgroundCoroutine = null;
 
         private float maxDesaturatedAlpha;
 
@@ -47,6 +49,37 @@ namespace Reflectis.SDK.Fade
             if (FadeOnStart)
             {
                 FadeFromBlack();
+            }
+        }
+
+        public void FadeToBackground(Action onEnd = null)
+        {
+            if (backgroundImage != null)
+            {
+                if (backgroundCoroutine != null)
+                    StopCoroutine(backgroundCoroutine);
+
+                canvas.SetActive(true);
+                backgroundImage.gameObject.SetActive(true);
+                LayerManager.MoveObjectsToLayer();
+                backgroundCoroutine = StartCoroutine(FadeVolumeWeight(backgroundImage, backgroundImage.color.a, 1, FadeTime * (1f - backgroundImage.color.a), onEnd));
+            }
+        }
+
+        public void FadeFromBackground(Action onEnd = null)
+        {
+            if (backgroundImage != null)
+            {
+                if (backgroundCoroutine != null)
+                    StopCoroutine(backgroundCoroutine);
+
+                backgroundCoroutine = StartCoroutine(FadeVolumeWeight(backgroundImage, backgroundImage.color.a, 0, FadeTime * backgroundImage.color.a, () =>
+                {
+                    onEnd?.Invoke();
+                    LayerManager.ResetObjectsLayer();
+                    canvas.SetActive(false);
+                    backgroundImage.gameObject.SetActive(false);
+                }));
             }
         }
 
@@ -121,6 +154,9 @@ namespace Reflectis.SDK.Fade
 
             if (desaturatedCoroutine != null)
                 StopCoroutine(desaturatedCoroutine);
+
+            if (backgroundCoroutine != null)
+                StopCoroutine(backgroundCoroutine);
 
             StopAllCoroutines();
         }

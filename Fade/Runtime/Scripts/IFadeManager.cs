@@ -17,6 +17,8 @@ namespace Reflectis.SDK.Fade
 
         // Public API
         void Init();
+        void FadeToBackground(System.Action onEnd = null);
+        void FadeFromBackground(System.Action onEnd = null);
         void FadeToBlack(System.Action onEnd = null);
         void FadeFromBlack(System.Action onEnd = null);
         void FadeToDesaturated(System.Action onEnd = null);

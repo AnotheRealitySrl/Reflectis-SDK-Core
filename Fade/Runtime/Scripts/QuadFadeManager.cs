@@ -16,6 +16,7 @@ namespace Reflectis.SDK.Fade
         [Header("Configuration")]
         [SerializeField] private Color fadeColor;
         [SerializeField] private Color desaturatedColor;
+        [SerializeField] private Color backgroundColor;
 
         #endregion
 
@@ -23,6 +24,7 @@ namespace Reflectis.SDK.Fade
 
         private Coroutine blackCoroutine = null;
         private Coroutine desaturatedCoroutine = null;
+        private Coroutine backgroundCoroutine = null;
 
         private Material quadMaterial;
 
@@ -48,6 +50,35 @@ namespace Reflectis.SDK.Fade
             if (FadeOnStart)
             {
                 FadeFromBlack();
+            }
+        }
+
+        public void FadeToBackground(Action onEnd = null)
+        {
+            if (quadMaterial != null)
+            {
+                if (backgroundCoroutine != null)
+                    StopCoroutine(backgroundCoroutine);
+
+                gameObject.SetActive(true);
+                LayerManager.MoveObjectsToLayer();
+                backgroundCoroutine = StartCoroutine(FadeVolumeWeight(quadMaterial, quadMaterial.color.a, 1, FadeTime * (1f - quadMaterial.color.a), onEnd));
+            }
+        }
+
+        public void FadeFromBackground(Action onEnd = null)
+        {
+            if (quadMaterial != null)
+            {
+                if (backgroundCoroutine != null)
+                    StopCoroutine(backgroundCoroutine);
+
+                backgroundCoroutine = StartCoroutine(FadeVolumeWeight(quadMaterial, quadMaterial.color.a, 0, FadeTime * quadMaterial.color.a, () =>
+                {
+                    onEnd?.Invoke();
+                    LayerManager.ResetObjectsLayer();
+                    gameObject.SetActive(false);
+                }));
             }
         }
 
@@ -118,6 +149,9 @@ namespace Reflectis.SDK.Fade
 
             if (desaturatedCoroutine != null)
                 StopCoroutine(desaturatedCoroutine);
+
+            if (backgroundCoroutine != null)
+                StopCoroutine(backgroundCoroutine);
 
             StopAllCoroutines();
         }
