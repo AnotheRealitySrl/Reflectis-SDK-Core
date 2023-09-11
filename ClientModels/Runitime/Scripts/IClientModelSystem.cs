@@ -49,6 +49,12 @@ namespace Reflectis.SDK.ClientModels
         Task<List<CMUser>> GetEventParticipants(int eventId);
 
         Task<int> CreateEvent(CMEvent e);
+        /// <summary>
+        /// Ask to API to replace all the users in the specified event with the users listed in cMEvent.Partecipants
+        /// </summary>
+        /// <param name="cMEvent"></param>
+        /// <returns></returns>
+        Task<int> InviteUsersToEvent(CMEvent cMEvent);
 
         #endregion
 
@@ -123,7 +129,16 @@ namespace Reflectis.SDK.ClientModels
 
         Task CreateEventAssetsAssociation(int eventId, List<CMResource> resources);
 
-        #endregion 
+        #endregion
+
+        #region Tags
+        /// <summary>
+        /// Get all tags avaible to users
+        /// </summary>
+        /// <returns></returns>
+        Task<List<CMTag>> GetUsersTags();
+
+        #endregion
 
         #region Join events
 
