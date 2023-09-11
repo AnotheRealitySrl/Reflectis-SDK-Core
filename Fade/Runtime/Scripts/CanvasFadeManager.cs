@@ -46,10 +46,9 @@ namespace Reflectis.SDK.Fade
             desaturatedImage.color = new Color(desaturatedImage.color.r, desaturatedImage.color.g, desaturatedImage.color.b, 0);
             desaturatedImage.gameObject.SetActive(false);
 
-            FadeToBackground();
-
             if (FadeOnStart)
             {
+                FadeFromBackground();
             }
         }
 
@@ -62,6 +61,7 @@ namespace Reflectis.SDK.Fade
 
                 canvas.SetActive(true);
                 backgroundImage.gameObject.SetActive(true);
+                fadeImage.gameObject.SetActive(false);
                 LayerManager.MoveObjectsToLayer();
                 backgroundCoroutine = StartCoroutine(FadeVolumeWeight(backgroundImage, backgroundImage.color.a, 1, FadeTime * (1f - backgroundImage.color.a), onEnd));
             }
@@ -73,6 +73,8 @@ namespace Reflectis.SDK.Fade
             {
                 if (backgroundCoroutine != null)
                     StopCoroutine(backgroundCoroutine);
+
+                fadeImage.gameObject.SetActive(false);
 
                 backgroundCoroutine = StartCoroutine(FadeVolumeWeight(backgroundImage, backgroundImage.color.a, 0, FadeTime * backgroundImage.color.a, () =>
                 {
@@ -93,6 +95,7 @@ namespace Reflectis.SDK.Fade
 
                 canvas.SetActive(true);
                 fadeImage.gameObject.SetActive(true);
+                backgroundImage.gameObject.SetActive(false);
                 LayerManager.MoveObjectsToLayer();
                 blackCoroutine = StartCoroutine(FadeVolumeWeight(fadeImage, fadeImage.color.a, 1, FadeTime * (1f - fadeImage.color.a), onEnd));
             }
@@ -104,6 +107,8 @@ namespace Reflectis.SDK.Fade
             {
                 if (blackCoroutine != null)
                     StopCoroutine(blackCoroutine);
+
+                backgroundImage.gameObject.SetActive(false);
 
                 blackCoroutine = StartCoroutine(FadeVolumeWeight(fadeImage, fadeImage.color.a, 0, FadeTime * fadeImage.color.a, () =>
                 {
