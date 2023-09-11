@@ -46,9 +46,10 @@ namespace Reflectis.SDK.Fade
             desaturatedImage.color = new Color(desaturatedImage.color.r, desaturatedImage.color.g, desaturatedImage.color.b, 0);
             desaturatedImage.gameObject.SetActive(false);
 
+            FadeToBackground();
+
             if (FadeOnStart)
             {
-                FadeFromBlack();
             }
         }
 
