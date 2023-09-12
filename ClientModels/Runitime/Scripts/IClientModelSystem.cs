@@ -47,8 +47,13 @@ namespace Reflectis.SDK.ClientModels
         /// Returns the list of users registered for this event.
         /// </summary>
         Task<List<CMUser>> GetEventParticipants(int eventId);
-
-        Task<int> CreateEvent(CMEvent e);
+        /// <summary>
+        /// Create an event with given e data.
+        /// If successfull return the event, null otherwise
+        /// </summary>
+        /// <param name="e"></param>
+        /// <returns></returns>
+        Task<CMEvent> CreateEvent(CMEvent e);
         /// <summary>
         /// Ask to API to replace all the users in the specified event with the users listed in cMEvent.Partecipants
         /// </summary>
@@ -66,7 +71,7 @@ namespace Reflectis.SDK.ClientModels
         /// Return list of all categories
         /// </summary>
         /// <returns></returns>
-        Task<List<CMCategory>> GetAllEventCategories();
+        Task<List<CMCategory>> GetAllCategories();
 
         /// <summary>
         /// Return list of all subcategories
