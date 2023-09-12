@@ -7,11 +7,11 @@ namespace Reflectis.SDK.TextChat.Enums
         */
         Chat = 0,
 
-        Group,
+        Group = 1,
         
         /**
         * The chat room.
         */
-        Room
+        Room = 2
     }
 }

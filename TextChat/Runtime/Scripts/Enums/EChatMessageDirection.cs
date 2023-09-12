@@ -5,11 +5,11 @@ namespace Reflectis.SDK.TextChat.Enums
         /**
         * This message is sent from the current user.
         */
-        SEND,
+        SEND = 0,
 
         /**
         * The message is received by the current user.
         */
-        RECEIVE
+        RECEIVE = 1
     }
 }
