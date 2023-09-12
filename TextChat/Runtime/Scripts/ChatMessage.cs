@@ -1,10 +1,13 @@
-using UnityEngine;
+using System;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 using Reflectis.SDK.TextChat.Enums;
 
 namespace Reflectis.SDK.TextChat
 {
-    public class ChatMessage : MonoBehaviour
+    [Serializable]
+    public class ChatMessage
     {
         /// <summary>
         /// The message ID
@@ -48,16 +51,11 @@ namespace Reflectis.SDK.TextChat
         public long LocalTime { get; internal set; }
         
         /// <summary>
-        /// The Unix timestamp when the message is received by the server. The unit is millisecond.
-        /// </summary>
-        public long ServerTime { get; internal set; }
-        
-        /// <summary>
         /// The text message content.
         /// </summary>
         public string Text { get; internal set; }
         
-        public ChatMessage(string msgId, string conversationId, string from, string to, EChatMessageType chatMessageType, EChatMessageDirection chatMessageDirection, long localTime, long serverTime, string text)
+        public ChatMessage(string msgId, string conversationId, string from, string to, EChatMessageType chatMessageType, EChatMessageDirection chatMessageDirection, long localTime, string text)
         {
             MsgId = msgId;
             ConversationId = conversationId;
@@ -66,8 +64,22 @@ namespace Reflectis.SDK.TextChat
             ChatMessageType = chatMessageType;
             ChatMessageDirection = chatMessageDirection;
             LocalTime = localTime;
-            ServerTime = serverTime;
             Text = text;
+        }
+        
+        public static object Deserialize(byte[] data)
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            using MemoryStream ms = new MemoryStream(data);
+            return bf.Deserialize(ms) as ChatMessage;
+        }
+        
+        public static byte[] Serialize(object chatMessage)
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            using MemoryStream ms = new MemoryStream();
+            bf.Serialize(ms, chatMessage);
+            return ms.ToArray();
         }
     }
 }
