@@ -35,7 +35,7 @@ namespace Reflectis.SDK.TextChat
         /// - 'Chat': The one-to-one chat message.
         /// - 'Room': The chat room message.
         /// </summary>
-        public EChatMessageType ChatMessageType { get; internal set; }
+        public EChatMessageType ChatMessageType { get; set; }
         
         /// <summary>
         /// The message direction, that is, whether the message is received or sent.
