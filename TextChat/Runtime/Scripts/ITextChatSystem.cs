@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using Reflectis.SDK.Core;
 using Reflectis.SDK.TextChat.Enums;
+using UnityEngine;
 
 namespace Reflectis.SDK.TextChat
 {
@@ -11,6 +12,10 @@ namespace Reflectis.SDK.TextChat
     /// </summary>
     public interface ITextChatSystem : ISystem
     {
+        string[] Channels { get; }
+        
+        bool IsConnected { get; set; }
+        
         #region Events
         
         #region Account events
@@ -118,11 +123,17 @@ namespace Reflectis.SDK.TextChat
         void FetchAllChannels();
 
         /// <summary>
+        /// Joins the default channels
+        /// </summary>
+        void JoinTextChannel();
+        
+        /// <summary>
         /// Joins a text channel
         /// </summary>
         /// <param name="channelId">Id of the channel</param>
         void JoinTextChannel(string channelId);
 
+        
         /// <summary>
         /// Get info from a specific channel
         /// </summary>
