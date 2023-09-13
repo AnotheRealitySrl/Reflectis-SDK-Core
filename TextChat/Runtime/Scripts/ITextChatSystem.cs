@@ -66,7 +66,7 @@ namespace Reflectis.SDK.TextChat
         /// <summary>
         /// Event invoked when a user joins a channel
         /// </summary>
-        event Action OnJoinedChannel;
+        event Action<string> OnJoinedChannel;
 
         /// <summary>
         /// Event invoked when a public channel is fetched from the server.
