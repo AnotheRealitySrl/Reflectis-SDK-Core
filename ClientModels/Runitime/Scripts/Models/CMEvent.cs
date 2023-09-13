@@ -3,9 +3,11 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
-namespace Reflectis.SDK.ClientModels {
+namespace Reflectis.SDK.ClientModels
+{
     [Serializable]
-    public class CMEvent {
+    public class CMEvent
+    {
         [SerializeField] private int id;
         [SerializeField] private string title;
         [SerializeField] private string? description;
@@ -29,6 +31,7 @@ namespace Reflectis.SDK.ClientModels {
         [SerializeField] private List<CMTemplateObj> template;
         [SerializeField] private bool isFavorite;
         [SerializeField] private bool canJoin;
+        [SerializeField] private bool startingPoint;
 
         public int Id { get => id; set => id = value; }
         public string Title { get => title; set => title = value; }
@@ -53,6 +56,7 @@ namespace Reflectis.SDK.ClientModels {
         public List<CMTemplateObj> Template { get => template; set => template = value; }
         public bool IsFavorite { get => isFavorite; set => isFavorite = value; }
         public bool CanJoin { get => canJoin; set => canJoin = value; }
+        public bool StartingPoint { get => startingPoint; set => startingPoint = value; }
     }
 
 }
