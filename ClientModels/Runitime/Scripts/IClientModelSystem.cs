@@ -44,9 +44,20 @@ namespace Reflectis.SDK.ClientModels
         Task<List<CMEvent>> GetAllEventsByCategoryID(int categoryId);
 
         /// <summary>
+        /// Returns the list of all events visible by user filtered by environment
+        /// </summary>
+        Task<List<CMEvent>> GetAllEventsByEnvironmentID(int environmentId);
+
+        /// <summary>
+        /// Returns the list of all events visible by user filtered by environment
+        /// </summary>
+        Task<List<CMEvent>> GetAllEventsByTagID(int tagId);
+
+        /// <summary>
         /// Returns the list of users registered for this event.
         /// </summary>
         Task<List<CMUser>> GetEventParticipants(int eventId);
+
         /// <summary>
         /// Create an event with given e data.
         /// If successfull return the event, null otherwise
