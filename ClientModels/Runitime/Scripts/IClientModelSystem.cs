@@ -13,6 +13,7 @@ namespace Reflectis.SDK.ClientModels
         Images = 3,
         Asset3D = 4,
     }
+
     public interface IClientModelSystem : ISystem
     {
         #region Worlds
@@ -44,9 +45,20 @@ namespace Reflectis.SDK.ClientModels
         Task<List<CMEvent>> GetAllEventsByCategoryID(int categoryId);
 
         /// <summary>
+        /// Returns the list of all events visible by user filtered by environment
+        /// </summary>
+        Task<List<CMEvent>> GetAllEventsByEnvironmentID(int environmentId);
+
+        /// <summary>
+        /// Returns the list of all events visible by user filtered by environment
+        /// </summary>
+        Task<List<CMEvent>> GetAllEventsByTagID(int tagId);
+
+        /// <summary>
         /// Returns the list of users registered for this event.
         /// </summary>
         Task<List<CMUser>> GetEventParticipants(int eventId);
+
         /// <summary>
         /// Create an event with given e data.
         /// If successfull return the event, null otherwise
@@ -54,12 +66,23 @@ namespace Reflectis.SDK.ClientModels
         /// <param name="e"></param>
         /// <returns></returns>
         Task<CMEvent> CreateEvent(CMEvent e);
+
         /// <summary>
-        /// Ask to API to replace all the users in the specified event with the users listed in cMEvent.Partecipants
+        /// Ask to API to replace all the users in the specified event with the users listed in <see cref="CMEvent.Participants">
         /// </summary>
         /// <param name="cMEvent"></param>
         /// <returns></returns>
         Task<int> InviteUsersToEvent(CMEvent cMEvent);
+
+        /// <summary>
+        /// Request to join a specific ID. Return  the Event ID if request success otherwise return -1
+        /// </summary>
+        Task<int> JoinEventRequest(int eventId);
+
+        /// <summary>
+        /// Retrieves the current shards of an event.
+        /// </summary>
+        Task<List<CMShard>> GetEventShards(int eventId);
 
         #endregion
 
@@ -146,11 +169,6 @@ namespace Reflectis.SDK.ClientModels
         #endregion
 
         #region Join events
-
-        /// <summary>
-        /// Requesto to join a specific ID. Return  the Event ID if request success otherwise return -1
-        /// </summary>
-        Task<int> JoinEventRequest(int eventId);
 
         #endregion
     }
