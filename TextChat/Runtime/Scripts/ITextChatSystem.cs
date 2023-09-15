@@ -90,6 +90,8 @@ namespace Reflectis.SDK.TextChat
         /// Keep the connection alive so a user can get incoming messages continuously
         /// </summary>
         void KeepConnectionAlive();
+        bool CanChat();
+        bool CanChatInChannel(string channelId);
 
         /// <summary>
         /// Disconnect the current user to the text chat
