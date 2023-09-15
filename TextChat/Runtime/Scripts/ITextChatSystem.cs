@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 using Reflectis.SDK.Core;
 using Reflectis.SDK.TextChat.Enums;
-using UnityEngine;
 
 namespace Reflectis.SDK.TextChat
 {
@@ -13,13 +12,14 @@ namespace Reflectis.SDK.TextChat
     public interface ITextChatSystem : ISystem
     {
         string[] Channels { get; }
-        
+
         bool IsConnected { get; set; }
-        
+        bool IgnoreNotifications { get; set; }
+
         #region Events
-        
+
         #region Account events
-        
+
         /// <summary>
         /// Event invoked when the user connects to the chat
         /// </summary>
@@ -29,7 +29,7 @@ namespace Reflectis.SDK.TextChat
         /// Event invoked when the user disconnects to the chat
         /// </summary>
         event Action OnUserDisconnected;
-        
+
         #endregion
 
         #region Message events
@@ -97,7 +97,7 @@ namespace Reflectis.SDK.TextChat
         /// Disconnect the current user to the text chat
         /// </summary>
         void DisconnectCurrentUser();
-        
+
         /// <summary>
         /// Sends a new message to a specific user
         /// </summary>
@@ -128,14 +128,14 @@ namespace Reflectis.SDK.TextChat
         /// Joins the default channels
         /// </summary>
         void JoinTextChannel();
-        
+
         /// <summary>
         /// Joins a text channel
         /// </summary>
         /// <param name="channelId">Id of the channel</param>
         void JoinTextChannel(string channelId);
 
-        
+
         /// <summary>
         /// Get info from a specific channel
         /// </summary>
