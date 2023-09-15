@@ -14,7 +14,7 @@ namespace Reflectis.SDK.ClientModels
 
         public int ShardNumber => shardNumber;
         public int EventId => eventId;
-        public int CurrentUsers => currentParticipants;
+        public int CurrentParticipants { get => currentParticipants; set => currentParticipants = value; }
         public int MaxParticipants => maxParticipants;
 
         public CMShard(int shardNumber, int eventId, int currentParticipants, int maxParticipants)

@@ -8,11 +8,11 @@ namespace Reflectis.SDK.ClientModels
     public class CMPermission
     {
         [SerializeField] private int id;
-        [SerializeField] private string name;
+        [SerializeField] private int facetId;
         [SerializeField] private bool isEnabled;
 
         public int ID { get => id; set => id = value; }
-        public string Name { get => name; set => name = value; }
+        public int FacetId { get => facetId; set => facetId = value; }
         public bool IsEnabled { get => isEnabled; set => isEnabled = value; }
     }
 }
