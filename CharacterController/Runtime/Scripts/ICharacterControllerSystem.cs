@@ -58,6 +58,12 @@ namespace Reflectis.SDK.CharacterController
         /// </summary>
         /// <param name="enable"></param>
         void EnableCharacterMovement(bool value);
+
+        /// <summary>
+        /// Enable or disable based on value the jump of the character
+        /// </summary>
+        /// <param name="value"></param>
+        void EnableCharacterJump(bool value);
         #endregion
     }
 }

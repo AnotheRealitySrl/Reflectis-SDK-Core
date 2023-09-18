@@ -120,6 +120,8 @@ namespace Reflectis.SDK.CharacterController
         {
             
         }
+        
+        public virtual void EnableCharacterJump(bool value) { }
 
         #endregion
     }
