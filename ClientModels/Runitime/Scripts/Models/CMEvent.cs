@@ -22,7 +22,7 @@ namespace Reflectis.SDK.ClientModels
         [SerializeField] private string featuredThumb;
         [SerializeField] private bool isPublic;
         [SerializeField] private bool isVisible;
-        [SerializeField] private List<CMEventPermissionSet> permissions;
+        [SerializeField] private List<CMPermission> permissions;
         [SerializeField] private bool isOwner;
         [SerializeField] private bool isDraft;
         [SerializeField] private List<CMResource> resources;
@@ -47,7 +47,6 @@ namespace Reflectis.SDK.ClientModels
         public string FeaturedThumb { get => featuredThumb; set => featuredThumb = value; }
         public bool IsPublic { get => isPublic; set => isPublic = value; }
         public bool IsVisible { get => isVisible; set => isVisible = value; }
-        public List<CMEventPermissionSet> Permissions { get => permissions; set => permissions = value; }
         public bool IsOwner { get => isOwner; set => isOwner = value; }
         public bool IsDraft { get => isDraft; set => isDraft = value; }
         public List<CMResource> Resources { get => resources; set => resources = value; }
@@ -57,6 +56,7 @@ namespace Reflectis.SDK.ClientModels
         public bool IsFavorite { get => isFavorite; set => isFavorite = value; }
         public bool CanJoin { get => canJoin; set => canJoin = value; }
         public bool StartingPoint { get => startingPoint; set => startingPoint = value; }
+        public List<CMPermission> Permissions { get => permissions; set => permissions = value; }
     }
 
 }

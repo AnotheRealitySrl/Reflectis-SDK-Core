@@ -102,7 +102,7 @@ namespace Reflectis.SDK.Utilities.API
             ReasonPhrase = reasonPhrase;
             Content = IsSuccess ? JsonUtility.FromJson<ContentSearch<T>>(content) : null;
         }
-
+        [Serializable]
         public class ContentSearch<T> where T : class
         {
             [SerializeField] private T[] data;
