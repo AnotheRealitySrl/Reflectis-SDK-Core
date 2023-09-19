@@ -74,6 +74,14 @@ namespace Reflectis.SDK.ClientModels
         /// <returns></returns>
         Task<int> InviteUsersToEvent(CMEvent cMEvent);
 
+
+        /// <summary>
+        /// Create all event permission for the given event
+        /// </summary>
+        /// <param name="_event"></param>
+        /// <returns></returns>
+        Task<int> CreateEventPermissions(CMEvent _event);
+
         /// <summary>
         /// Request to join a specific ID. Return  the Event ID if request success otherwise return -1
         /// </summary>
@@ -128,11 +136,6 @@ namespace Reflectis.SDK.ClientModels
         /// </summary>
         Task<List<CMUserList>> GetUsersLists(string searchQuery);
 
-        /// <summary>
-        /// Return user list ID created (or updated)
-        /// </summary>
-        Task<int> CreateUpdateUserList(List<CMEventPermissionSet> permissions);
-
         Task<CMUser> GetUserData();
 
         Task<CMUserPreference> GetUserPreference(int userId);
@@ -140,10 +143,25 @@ namespace Reflectis.SDK.ClientModels
         #endregion
 
         #region Permissions
+        /// <summary>
+        /// Get all facets of the current world
+        /// </summary>
+        /// <param name="worldId"></param>
+        /// <returns></returns>
+        Task<List<CMFacet>> GetWorldFacets(int worldId);
 
-        Task<List<CMEventPermissionSet>> GetEventPermissionPreset();
+        /// <summary>
+        /// Get the permission avaible to the player
+        /// </summary>
+        /// <returns></returns>
+        Task<List<CMPermission>> GetMyPermissions();
 
-        Task<int> CreateUpdateEventPermissionPreset();
+        /// <summary>
+        /// Get all permission for the current world
+        /// </summary>
+        /// <returns></returns>
+        Task<List<CMPermission>> GetWorldPermissions(int worldId);
+
 
         #endregion
 
@@ -165,6 +183,9 @@ namespace Reflectis.SDK.ClientModels
         /// </summary>
         /// <returns></returns>
         Task<List<CMTag>> GetUsersTags();
+
+        
+
 
         #endregion
 
