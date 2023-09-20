@@ -129,12 +129,7 @@ namespace Reflectis.SDK.ClientModels
         /// <summary>
         /// Return all users that match search criteria
         /// </summary>
-        Task<List<CMUser>> GetUsers(string searchQuery);
-
-        /// <summary>
-        /// Return all user lists that match search criteria
-        /// </summary>
-        Task<List<CMUserList>> GetUsersLists(string searchQuery);
+        Task<List<CMUser>> SearchUsersByNickname(string nicknameSubstring);
 
         Task<CMUser> GetUserData();
 
@@ -182,11 +177,21 @@ namespace Reflectis.SDK.ClientModels
         /// Get all tags avaible to users
         /// </summary>
         /// <returns></returns>
-        Task<List<CMTag>> GetUsersTags();
+        Task<List<CMTag>> GetAllUsersTags();
 
-        
+        /// <summary>
+        /// Search user tag
+        /// </summary>
+        /// <param name="labelSubstring"></param>
+        /// <returns></returns>
+        Task<List<CMTag>> SearchUserTags(string labelSubstring);
 
-
+        /// <summary>
+        /// Search env tag
+        /// </summary>
+        /// <param name="labelSubstring"></param>
+        /// <returns></returns>
+        Task<List<CMTag>> SearchEnvironmentTags(string labelSubstring);
         #endregion
 
         #region Join events

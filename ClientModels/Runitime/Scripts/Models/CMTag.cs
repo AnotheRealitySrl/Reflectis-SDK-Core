@@ -16,7 +16,7 @@ namespace Reflectis.SDK.ClientModels
         [SerializeField] private string note;
         [SerializeField] private bool isEnabled;
         [SerializeField] private Color color;
-        [SerializeField] private TagType type;
+        [SerializeField] private ETagType type;
 
         public int Id { get => id; set => id = value; }
         public DateTime CreationDate { get => creationDate; set => creationDate = value; }
@@ -25,10 +25,10 @@ namespace Reflectis.SDK.ClientModels
         public string Note { get => note; set => note = value; }
         public bool IsEnabled { get => isEnabled; set => isEnabled = value; }
         public Color Color { get => color; set => color = value; }
-        public TagType Type { get => type; set => type = value; }
+        public ETagType Type { get => type; set => type = value; }
     }
 
-    public enum TagType
+    public enum ETagType
     {
         Environment, User, Tag
     }
