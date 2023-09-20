@@ -149,7 +149,7 @@ namespace Reflectis.SDK.ClientModels
         /// Get the permission avaible to the player
         /// </summary>
         /// <returns></returns>
-        Task<List<CMPermission>> GetMyPermissions();
+        Task<List<CMPermission>> GetMyEventPermissions(int eventId);
 
         /// <summary>
         /// Get all permission for the current world

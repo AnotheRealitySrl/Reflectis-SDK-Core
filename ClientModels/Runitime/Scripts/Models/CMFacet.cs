@@ -6,6 +6,7 @@ namespace Reflectis.SDK.ClientModels
 {
     public enum EFacetIdentifier
     {
+        Unknown,
         MuteOthers,
         KickOthers,
         WriteTool,
