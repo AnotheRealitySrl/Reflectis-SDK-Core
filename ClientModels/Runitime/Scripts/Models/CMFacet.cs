@@ -6,17 +6,17 @@ namespace Reflectis.SDK.ClientModels
 {
     public enum EFacetIdentifier
     {
-        Unknown,
-        MuteOthers,
-        KickOthers,
-        WriteTool,
-        LaserPointerTool,
-        BoardTool,
-        WebViewTool,
-        Asset3DSpawn,
-        VideoSpawn,
-        ImageSpawn,
-        DocSpawn,
+        Unknown = 0,
+        MuteOthers = 1,
+        KickOthers = 2,
+        WriteTool = 3,
+        LaserPointerTool = 4,
+        BoardTool = 5,
+        WebViewTool = 6,
+        Asset3DSpawn = 7,
+        VideoSpawn = 8,
+        ImageSpawn = 9,
+        DocSpawn = 10,
     }
 
     [Serializable]
