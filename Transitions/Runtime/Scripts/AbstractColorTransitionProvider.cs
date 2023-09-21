@@ -12,8 +12,8 @@ namespace Reflectis.SDK.Transitions
         [Header("Transition parameters")]
         [SerializeField, Tooltip("The color to change it into")]
         private Color color;
-        [SerializeField]
-        private float duration;
+
+        public float duration;
         [SerializeField]
         private AnimationCurve ease;
 

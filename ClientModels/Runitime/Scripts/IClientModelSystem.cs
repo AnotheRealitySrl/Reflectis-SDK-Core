@@ -134,7 +134,12 @@ namespace Reflectis.SDK.ClientModels
         Task<CMUser> GetUserData();
 
         Task<CMUserPreference> GetUserPreference(int userId);
-
+        /// <summary>
+        /// Get all the users with given tag id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<List<CMUser>> GetUsersWithTag(int id);
         #endregion
 
         #region Permissions
@@ -192,6 +197,8 @@ namespace Reflectis.SDK.ClientModels
         /// <param name="labelSubstring"></param>
         /// <returns></returns>
         Task<List<CMTag>> SearchEnvironmentTags(string labelSubstring);
+
+
         #endregion
 
         #region Join events
