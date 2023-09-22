@@ -217,6 +217,14 @@ namespace Reflectis.SDK.ClientModels
 
         #endregion
 
+        #region Online presence
+
+        Task<List<CMOnlinePresence>> GetOnlineUsers();
+
+        Task PingMyOnlinePresence();
+
+        #endregion
+
         #region Shards
 
         CMShard CurrentShard { get; set; }
