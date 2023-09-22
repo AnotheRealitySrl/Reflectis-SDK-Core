@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -74,6 +73,12 @@ namespace Reflectis.SDK.Transitions
         /// </summary>
         /// <param name="value">If true, it performes <see cref="EnterTransitionAsync"/>, otherwise <see cref="ExitTransitionAsync"/></param>
         public virtual async void DoTransition(bool value) => await DoTransitionAsync(value);
+
+        public virtual async Task DoEnterExitTransitionAsync()
+        {
+            await DoTransitionAsync(true);
+            await DoTransitionAsync(false);
+        }
     }
 }
 
