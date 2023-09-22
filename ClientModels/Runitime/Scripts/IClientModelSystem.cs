@@ -18,11 +18,20 @@ namespace Reflectis.SDK.ClientModels
     {
         #region Worlds
 
+        CMWorld CurrentWorld { get; set; }
+
+        /// <summary>
+        /// Returns all the available worlds
+        /// </summary>
         Task<List<CMWorld>> GetAllWorlds();
 
         #endregion
 
         #region Events
+
+        CMEvent CurrentEvent { get; set; }
+        CMEvent DefaultEvent { get; }
+        List<CMEvent> PreconfiguredEvents { get; }
 
         /// <summary>
         /// Returns the default event of a world
@@ -74,7 +83,6 @@ namespace Reflectis.SDK.ClientModels
         /// <returns></returns>
         Task<int> InviteUsersToEvent(CMEvent cMEvent);
 
-
         /// <summary>
         /// Create all event permission for the given event
         /// </summary>
@@ -86,11 +94,6 @@ namespace Reflectis.SDK.ClientModels
         /// Request to join a specific ID. Return  the Event ID if request success otherwise return -1
         /// </summary>
         Task<int> JoinEventRequest(int eventId);
-
-        /// <summary>
-        /// Retrieves the current shards of an event.
-        /// </summary>
-        Task<List<CMShard>> GetEventShards(int eventId);
 
         #endregion
 
@@ -118,13 +121,15 @@ namespace Reflectis.SDK.ClientModels
 
         #endregion
 
-        #region Environment
+        #region Environments
 
         Task<List<CMEnvironment>> GetAllEnvironments();
 
         #endregion
 
         #region Users
+
+        CMUser UserData { get; set; }
 
         /// <summary>
         /// Return all users that match search criteria
@@ -142,13 +147,24 @@ namespace Reflectis.SDK.ClientModels
         Task<List<CMUser>> GetUsersWithTag(int id);
         #endregion
 
-        #region Permissions
+        #region Facets
+
+        public List<CMFacet> WorldFacets { get; set; }
+
         /// <summary>
         /// Get all facets of the current world
         /// </summary>
         /// <param name="worldId"></param>
         /// <returns></returns>
         Task<List<CMFacet>> GetWorldFacets(int worldId);
+
+
+        #endregion
+
+        #region Permissions
+
+        List<CMPermission> MyEventPermissions { get; set; }
+        List<CMPermission> WorldPermissions { get; set; }
 
         /// <summary>
         /// Get the permission avaible to the player
@@ -201,7 +217,14 @@ namespace Reflectis.SDK.ClientModels
 
         #endregion
 
-        #region Join events
+        #region Shards
+
+        CMShard CurrentShard { get; set; }
+
+        /// <summary>
+        /// Retrieves the current shards of an event.
+        /// </summary>
+        Task<List<CMShard>> GetEventShards(int eventId);
 
         #endregion
     }
