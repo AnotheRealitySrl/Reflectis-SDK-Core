@@ -49,6 +49,12 @@ namespace Reflectis.SDK.ClientModels
         Task<List<CMEvent>> GetAllEvents();
 
         /// <summary>
+        /// Return the list events in which the player is also the owner
+        /// </summary>
+        /// <returns></returns>
+        Task<List<CMEvent>> GetMyEvents();
+
+        /// <summary>
         /// Returns the list of all events visible by user filtered by category
         /// </summary>
         Task<List<CMEvent>> GetAllEventsByCategoryID(int categoryId);
@@ -213,6 +219,7 @@ namespace Reflectis.SDK.ClientModels
         /// <param name="labelSubstring"></param>
         /// <returns></returns>
         Task<List<CMTag>> SearchEnvironmentTags(string labelSubstring);
+
 
 
         #endregion
