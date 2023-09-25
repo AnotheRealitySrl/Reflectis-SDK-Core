@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 using Sirenix.OdinInspector;
 using Reflectis.SDK.Avatars;
 using Reflectis.SDK.Core;
+using Photon.Pun;
 
 namespace Reflectis.SDK.RadialMenu
 {
@@ -58,15 +59,6 @@ namespace Reflectis.SDK.RadialMenu
         private void Awake()
         {
 
-            isOpen = false;
-
-            itemList = new List<RadialMenuItem>();
-            for (int i = 0; i < itemListData.Count; i++)
-            {
-                AddItem(itemListData[i]);
-            }
-            itemsStartScale = itemList[0].gameObject.transform.localScale;
-
         }
 
         private IEnumerator Start()
@@ -82,6 +74,16 @@ namespace Reflectis.SDK.RadialMenu
                 }
                 yield return null;
             }
+
+            //Instantiate Items
+            isOpen = false;
+
+            itemList = new List<RadialMenuItem>();
+            for (int i = 0; i < itemListData.Count; i++)
+            {
+                AddItem(itemListData[i]);
+            }
+            itemsStartScale = itemList[0].gameObject.transform.localScale;
 
             //Set the original parent
             menuCanvas = transform.parent;
@@ -124,7 +126,15 @@ namespace Reflectis.SDK.RadialMenu
 
             //Instantiate all gameobjects and save them in variables
             if(itemData.itemPrefab){
-                GameObject itemGO = Instantiate(itemData.itemPrefab, Vector3.zero, Quaternion.identity);
+                GameObject itemGO;
+                if(itemData.itemPrefab.name == "AttrezzoSbloccaggio")
+                {   
+                    itemGO = PhotonNetwork.Instantiate(itemData.itemPrefab.name, Vector3.zero, Quaternion.identity);
+                }
+                else
+                {
+                    itemGO = Instantiate(itemData.itemPrefab, Vector3.zero, Quaternion.identity);
+                }
                 item.SetItemSpawned(itemGO);
                 itemGO.GetComponent<Item>().SetItemName(itemData.itemName);
             }
