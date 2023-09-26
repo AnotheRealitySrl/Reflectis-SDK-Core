@@ -228,7 +228,7 @@ namespace Reflectis.SDK.ClientModels
 
         #region Online presence
 
-        List<CMOnlinePresence> OnlineUsersList { get; }
+        List<CMOnlinePresence> OnlineUsersList { get; set; }
         UnityEvent OnlineUsersUpdated { get; }
 
         CMOnlinePresence FindUser(int userId);
