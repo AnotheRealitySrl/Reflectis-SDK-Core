@@ -3,6 +3,8 @@ using Reflectis.SDK.Core;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+using UnityEngine.Events;
+
 namespace Reflectis.SDK.ClientModels
 {
     public enum FileTypeExt
@@ -226,9 +228,16 @@ namespace Reflectis.SDK.ClientModels
 
         #region Online presence
 
-        Task<List<CMOnlinePresence>> GetOnlineUsers();
+        List<CMOnlinePresence> OnlineUsersList { get; }
+        UnityEvent OnlineUsersUpdated { get; }
 
-        Task PingMyOnlinePresence();
+        CMOnlinePresence FindUser(int userId);
+        string FindUserDisplayName(int userId);
+        string FindUserAvatarPng(int userId);
+        int FindUserShard(int userId);
+
+        Task<List<CMOnlinePresence>> GetOnlineUsers(bool includeMyself = true);
+        Task PingMyOnlinePresence(int? eventId, int? shardId);
 
         #endregion
 
