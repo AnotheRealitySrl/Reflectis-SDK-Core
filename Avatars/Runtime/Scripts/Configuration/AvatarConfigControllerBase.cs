@@ -140,7 +140,7 @@ namespace Reflectis.SDK.Avatars
                 if(renderer != null)
                 {
                     handsMeshes.Add(renderer);
-                    Debug.Log(renderer.gameObject.name + " renderer ", renderer.gameObject);
+                    //Debug.Log(renderer.gameObject.name + " renderer ", renderer.gameObject);
                 }
                 
             }
