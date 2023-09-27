@@ -10,15 +10,19 @@ namespace Reflectis.SDK.Audio
     public class AudioSystem : BaseSystem
     {
         [SerializeField] AudioMixer mixer;
+        [SerializeField] bool haveToSaveSettings = true;
 
         public AudioMixer Mixer => mixer;
 
+        public bool HaveToSaveSettings => haveToSaveSettings;
+
         public override void Init()
         {
-            //Call Player prefs for set at the init the old volume setting saved?
+            
         }
 
         #region Public Methods
+
         /// <summary>
         /// Function to set music and sound mixer volume.
         /// </summary>
@@ -27,8 +31,8 @@ namespace Reflectis.SDK.Audio
         {
             if(volume < 1f) volume = 0.001f;
 
-            //Use Player prefs for save the float of volume?
-            mixer.SetFloat("Music&Sound", Mathf.Log10(volume / 100) * 20);
+            var volumeVal = Mathf.Log10(volume / 100) * 20;
+            mixer.SetFloat("Music&Sound", volumeVal);
         }
 
         /// <summary>
@@ -39,8 +43,8 @@ namespace Reflectis.SDK.Audio
         {
             if (volume < 1f) volume = 0.001f;
 
-            //Use Player prefs for save the float of volume?
-            mixer.SetFloat("VoiceChat", Mathf.Log10(volume / 100) * 20);
+            var volumeVal = Mathf.Log10(volume / 100) * 20;
+            mixer.SetFloat("VoiceChat", volumeVal);
         }
 
         #endregion
