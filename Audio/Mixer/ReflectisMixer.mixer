@@ -81,7 +81,13 @@ AudioMixerController:
   m_SuspendThreshold: -80
   m_EnableSuspend: 1
   m_UpdateMode: 0
-  m_ExposedParameters: []
+  m_ExposedParameters:
+  - guid: ce4e777a91e7d4143aa178d627919e55
+    name: Master
+  - guid: 15a4cbf8a12dd9b4189e8cc0d82dcb90
+    name: Music&Sound
+  - guid: cb14276ca4cca4e469f7e8c974b8827e
+    name: VoiceChat
   m_AudioMixerGroupViews:
   - guids:
     - 83f3d00e252630e4b9ad1a2df4a47b2e
@@ -136,5 +142,5 @@ AudioMixerSnapshotController:
   m_SnapshotID: 8909db2145086cb4c93677246f2429e9
   m_FloatValues:
     15a4cbf8a12dd9b4189e8cc0d82dcb90: 0
-    ce4e777a91e7d4143aa178d627919e55: 0.04171297
+    ce4e777a91e7d4143aa178d627919e55: 0
   m_TransitionOverrides: {}
