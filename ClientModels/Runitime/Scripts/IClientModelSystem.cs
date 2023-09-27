@@ -1,6 +1,7 @@
 using Reflectis.SDK.Core;
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Reflectis.SDK.ClientModels
@@ -83,23 +84,55 @@ namespace Reflectis.SDK.ClientModels
         Task<CMEvent> CreateEvent(CMEvent e);
 
         /// <summary>
+        /// Delete an event with given id.
+        /// If successfull return the true, false otherwise
+        /// </summary>
+        /// <param name="e"></param>
+        /// <returns></returns>
+        Task<bool> DeleteEvent(int eventId);
+
+        /// <summary>
+        /// Update an event with given e data.
+        /// If successfull return true, false otherwise
+        /// </summary>
+        /// <param name="e"></param>
+        /// <returns></returns>
+        Task<bool> UpdateEvent(CMEvent e);
+
+        /// <summary>
         /// Ask to API to replace all the users in the specified event with the users listed in <see cref="CMEvent.Participants">
         /// </summary>
         /// <param name="cMEvent"></param>
         /// <returns></returns>
-        Task<int> InviteUsersToEvent(CMEvent cMEvent);
+        Task<bool> InviteUsersToEvent(CMEvent cMEvent);
 
         /// <summary>
         /// Create all event permission for the given event
         /// </summary>
         /// <param name="_event"></param>
         /// <returns></returns>
-        Task<int> CreateEventPermissions(CMEvent _event);
+        Task<bool> CreateEventPermissions(CMEvent _event);
 
         /// <summary>
         /// Request to join a specific ID. Return  the Event ID if request success otherwise return -1
         /// </summary>
-        Task<int> JoinEventRequest(int eventId);
+        Task<bool> JoinEventRequest(int eventId);
+
+        /// <summary>
+        /// Add all asset list to the ones usable in the given event
+        /// </summary>
+        /// <param name="eventId"></param>
+        /// <param name="assets"></param>
+        /// <returns></returns>
+        Task<bool> ShareAssetsInEvent(int eventId, List<CMResource> assets);
+
+        /// <summary>
+        /// replace the asset list in the given event
+        /// </summary>
+        /// <param name="eventId"></param>
+        /// <param name="assets"></param>
+        /// <returns></returns>
+        Task<bool> UpdateAssetsInEvent(int eventId, List<CMResource> assets);
 
         #endregion
 
@@ -173,10 +206,16 @@ namespace Reflectis.SDK.ClientModels
         List<CMPermission> WorldPermissions { get; set; }
 
         /// <summary>
-        /// Get the permission avaible to the player
+        /// Get the permission avaible to the player for the given event
         /// </summary>
         /// <returns></returns>
         Task<List<CMPermission>> GetMyEventPermissions(int eventId);
+
+        /// <summary>
+        /// Get the permission avaible in the current event
+        /// </summary>
+        /// <returns></returns>
+        Task<List<CMPermission>> GetEventPermissions(int eventId);
 
         /// <summary>
         /// Get all permission for the current world
@@ -189,7 +228,7 @@ namespace Reflectis.SDK.ClientModels
 
         #region Assets
 
-        Task<CMResource> GetEventAssetById(int eventId, int assetId);
+        Task<CMResource> GetEventAssetById(int assetId);
 
         Task<List<CMResource>> GetMyAssets(string searchQuery);
 
