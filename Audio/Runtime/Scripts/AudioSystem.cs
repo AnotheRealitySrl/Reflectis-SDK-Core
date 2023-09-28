@@ -10,11 +10,8 @@ namespace Reflectis.SDK.Audio
     public class AudioSystem : BaseSystem
     {
         [SerializeField] AudioMixer mixer;
-        [SerializeField] bool haveToSaveSettings = true;
 
         public AudioMixer Mixer => mixer;
-
-        public bool HaveToSaveSettings => haveToSaveSettings;
 
         public override void Init()
         {
