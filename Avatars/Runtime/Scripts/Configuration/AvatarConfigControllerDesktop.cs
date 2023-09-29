@@ -32,7 +32,7 @@ namespace Reflectis.SDK.Avatars
             FullBodyAvatarReference.layer = LayerMask.NameToLayer("AvatarWelcomeRoom");
 
 
-            Animator parentAnimator = FullBodyAvatarReference.transform.parent.GetComponent<Animator>();
+            Animator parentAnimator = FullBodyAvatarReference.transform.parent?.GetComponent<Animator>();
             if (!parentAnimator)
             {
                 parentAnimator = FullBodyAvatarReference.transform.parent.gameObject.AddComponent<Animator>();
