@@ -17,6 +17,10 @@ namespace Reflectis.SDK.ClientModels
         VideoSpawn = 8,
         ImageSpawn = 9,
         DocSpawn = 10,
+        MuteAll = 11,
+        SendGlobalMessage = 12,
+        SendAnnouncement = 13,
+        SendShardMessage = 14,
     }
 
     [Serializable]

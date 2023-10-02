@@ -17,6 +17,9 @@ namespace Reflectis.SDK.Transitions
         [SerializeField] private bool isActive;
         [SerializeField] private bool activateGameObject = true;
 
+
+        private Tweener transition;
+
         private void Awake()
         {
             if (!canvasGroup)
@@ -39,18 +42,32 @@ namespace Reflectis.SDK.Transitions
             {
                 canvasGroup.gameObject.SetActive(true);
             }
+            KillActiveTransition();
             onEnterTransition?.Invoke();
-            await canvasGroup.DOFade(1f, fadeTime).SetEase(easingFunction).AsyncWaitForCompletion();
+            transition = canvasGroup.DOFade(1f, fadeTime).SetEase(easingFunction);
+            await transition.AsyncWaitForCompletion();
         }
 
         public override async Task ExitTransitionAsync()
         {
-            await canvasGroup.DOFade(0f, fadeTime).SetEase(easingFunction).AsyncWaitForCompletion();
-            if (activateGameObject)
+            KillActiveTransition();
+            Tweener newTransition = canvasGroup.DOFade(0f, fadeTime).SetEase(easingFunction);
+            transition = newTransition;
+            await transition.AsyncWaitForCompletion();
+            if (activateGameObject && newTransition == transition)
             {
                 canvasGroup.gameObject.SetActive(false);
             }
+            transition = null;
             onExitTransition?.Invoke();
+        }
+
+        private void KillActiveTransition()
+        {
+            if (transition != null && (!transition.IsComplete() || !transition.IsActive()))
+            {
+                transition.Kill();
+            }
         }
     }
 }

@@ -22,7 +22,7 @@ namespace Reflectis.SDK.Utilities.API
         {
             StatusCode = statusCode;
             ReasonPhrase = reasonPhrase;
-            Content = IsSuccess ? int.Parse(content) : -1;
+            Content = IsSuccess ? int.TryParse(content, out int value) ? value : -1 : -1;
         }
     }
 
