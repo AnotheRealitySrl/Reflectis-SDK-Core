@@ -1,7 +1,6 @@
 using System;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
-
+using System.Xml.Serialization;
 using Reflectis.SDK.TextChat.Enums;
 
 namespace Reflectis.SDK.TextChat
@@ -12,23 +11,23 @@ namespace Reflectis.SDK.TextChat
         /// <summary>
         /// The message ID
         /// </summary>
-        public string MsgId { get; internal set; }
-        
+        public string MsgId { get; set; }
+
         /// <summary>
         /// The ID of the conversation to which the message belongs.
         /// </summary>
-        public string ConversationId { get; internal set; }
-        
+        public string ConversationId { get; set; }
+
         /// <summary>
         /// The use ID of the message sender.
         /// </summary>
-        public string From { get; internal set; }
-        
+        public string From { get; set; }
+
         /// <summary>
         /// The user ID of the message recipient.
         /// </summary>
-        public string To { get; internal set; }
-        
+        public string To { get; set; }
+
         /// <summary>
         /// The message type.
         ///
@@ -36,7 +35,7 @@ namespace Reflectis.SDK.TextChat
         /// - 'Room': The chat room message.
         /// </summary>
         public EChatMessageType ChatMessageType { get; set; }
-        
+
         /// <summary>
         /// The message direction, that is, whether the message is received or sent.
         ///
@@ -44,17 +43,21 @@ namespace Reflectis.SDK.TextChat
         /// - `RECEIVE`: The message is received by the local client.
         /// </summary>
         public EChatMessageDirection ChatMessageDirection { get; set; }
-        
+
         /// <summary>
         /// The local Unix timestamp for creating the message. The unit is millisecond.
         /// </summary>
-        public long LocalTime { get; internal set; }
-        
+        public long LocalTime { get; set; }
+
         /// <summary>
         /// The text message content.
         /// </summary>
-        public string Text { get; internal set; }
-        
+        public string Text { get; set; }
+
+        public ChatMessage()
+        {
+        }
+
         public ChatMessage(string msgId, string conversationId, string from, string to, EChatMessageType chatMessageType, EChatMessageDirection chatMessageDirection, long localTime, string text)
         {
             MsgId = msgId;
@@ -66,19 +69,21 @@ namespace Reflectis.SDK.TextChat
             LocalTime = localTime;
             Text = text;
         }
-        
+
         public static object Deserialize(byte[] data)
         {
-            BinaryFormatter bf = new BinaryFormatter();
             using MemoryStream ms = new MemoryStream(data);
-            return bf.Deserialize(ms) as ChatMessage;
+            XmlSerializer bf = new XmlSerializer(typeof(ChatMessage));
+
+            return bf.Deserialize(ms);
         }
-        
+
         public static byte[] Serialize(object chatMessage)
         {
-            BinaryFormatter bf = new BinaryFormatter();
             using MemoryStream ms = new MemoryStream();
+            XmlSerializer bf = new XmlSerializer(typeof(ChatMessage));
             bf.Serialize(ms, chatMessage);
+
             return ms.ToArray();
         }
     }
