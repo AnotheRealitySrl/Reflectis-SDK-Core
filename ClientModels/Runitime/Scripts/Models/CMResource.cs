@@ -1,5 +1,5 @@
 using System;
-
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Reflectis.SDK.ClientModels
@@ -77,6 +77,30 @@ namespace Reflectis.SDK.ClientModels
                $"Thumbnail Path: {thumbnailPath}\n" +
                $"Type: {type}\n" +
                $"Creation Date: {creationDate}";
+        }
+    }
+
+    public class CMResourceEqualityComparer : IEqualityComparer<CMResource>
+    {
+        public bool Equals(CMResource x, CMResource y)
+        {
+            if (x == null && y == null)
+            {
+                return true;
+            }
+            else if (x == null || y == null)
+            {
+                return false;
+            }
+            else
+            {
+                return x.Id == y.Id;
+            }
+        }
+
+        public int GetHashCode(CMResource obj)
+        {
+            return obj.Id.GetHashCode();
         }
     }
 }
