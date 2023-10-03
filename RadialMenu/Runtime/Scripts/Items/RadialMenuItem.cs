@@ -23,8 +23,11 @@ namespace Reflectis.SDK.RadialMenu
         private TextMeshProUGUI itemText;
         private string itemName;
 
+        private int itemPosition; //useful for networked items
+
         private bool emptyObject = false;
         private GameObject itemSpawned;
+        private GameObject itemModelSpawned;
 
         private void Start()
         {
@@ -51,8 +54,18 @@ namespace Reflectis.SDK.RadialMenu
             itemText.text = itemName;
         }
 
+        public void SetItemPosition(int pos)
+        {
+            itemPosition = pos;
+        }
+
         public string GetName(){
             return itemName;
+        }
+
+        public GameObject GetSpawned()
+        {
+            return itemSpawned;
         }
 
         public void SetEmptyObject(bool empty)
@@ -63,6 +76,11 @@ namespace Reflectis.SDK.RadialMenu
         public void SetRadialMenu(RadialMenu parent)
         {
             radialMenu = parent;
+        }
+
+        public void SetItemModel(GameObject itemModel)
+        {
+            itemModelSpawned = itemModel;
         }
 
         public void HoverItem()
@@ -84,7 +102,7 @@ namespace Reflectis.SDK.RadialMenu
             }
             else
             {
-                radialMenu.InstantiateItem(itemSpawned);
+                radialMenu.InstantiateItem(itemSpawned, itemPosition);
             }
         }
     }

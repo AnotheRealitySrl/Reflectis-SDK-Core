@@ -12,6 +12,5 @@ namespace Reflectis.SDK.RadialMenu
         public string itemName; //name of the item used also to instantiate the prefab
         public GameObject itemPrefab; //the prefab of the object to be spawned
         public bool emptyObject = false;  //if true, rappresent the empty object
-
     }
 }

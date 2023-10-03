@@ -6,14 +6,16 @@ namespace Reflectis.SDK.RadialMenu
 {
     public class Item : MonoBehaviour
     {
-        [SerializeField] private GameObject itemModel; //the model of the item
+        [SerializeField] private GameObject itemObj; //the obj containing the model and colliders, no logic
         [SerializeField] private Vector3 startPosition; //the start position of the item, usefull to place it with some offset on the hands
+        [SerializeField] private GameObject itemModel; //model of the item
 
         [SerializeField] private Quaternion startRotation = new Quaternion (0f,0f,0f,0f); //the start rotaton of the item, useful to place it in the correct position in the hands
 
         private Rigidbody rb; 
 
         private string itemName; //name of the item
+        private int itemNumber; //the number of the item, usefull to acess ordered networked lists
 
         private void Start()
         {
@@ -27,16 +29,16 @@ namespace Reflectis.SDK.RadialMenu
             transform.localRotation = startRotation;
             transform.localPosition = startPosition;
             rb.isKinematic = false;
-            itemModel.SetActive(true);
+            itemObj.SetActive(true);
         }
 
         //Deactivate the item and reset it
         public void DeActivateItemModel()
         {
-            itemModel.transform.localPosition = startPosition;
+            itemObj.transform.localPosition = startPosition;
             transform.localRotation = startRotation;
             rb.isKinematic = true;
-            itemModel.SetActive(false);
+            itemObj.SetActive(false);
         }
 
         #region Setter and Getter
@@ -50,8 +52,23 @@ namespace Reflectis.SDK.RadialMenu
             itemName = name;
         }
 
+        public void SetItemNumber(int number)
+        {
+            itemNumber = number;
+        }
+
         public string GetName(){
             return itemName;
+        }
+
+        public int GetItemNumber()
+        {
+            return itemNumber;
+        }
+
+        public GameObject GetModel()
+        {
+            return itemModel;
         }
 
         public void SetStandardRotation(){

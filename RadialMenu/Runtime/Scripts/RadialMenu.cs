@@ -7,7 +7,6 @@ using UnityEngine.InputSystem;
 using Sirenix.OdinInspector;
 using Reflectis.SDK.Avatars;
 using Reflectis.SDK.Core;
-using Photon.Pun;
 
 namespace Reflectis.SDK.RadialMenu
 {
@@ -15,49 +14,58 @@ namespace Reflectis.SDK.RadialMenu
     {
         #region References
         [SerializeField]
-        private GameObject menuObj; //the actual menu that can be opened and clsoed
+        protected GameObject menuObj; //the actual menu that can be opened and clsoed
 
         [SerializeField]
-        private GameObject itemPrefab; //reference to the prefab of the menu item element
+        protected GameObject itemPrefab; //reference to the prefab of the menu item element
 
         [SerializeField]
-        private List<RadialMenuItemData> itemListData; //list of the data of items. They are used to generate the actual items in the menu
+        protected List<RadialMenuItemData> itemListData; //list of the data of items. They are used to generate the actual items in the menu
 
-        private List<RadialMenuItem> itemList; //the list of the items contained in the radial menu
+        protected List<RadialMenuItem> itemList; //the list of the items contained in the radial menu
 
-        private GameObject instantiatedItem; //the item that has been instantiated.
-
-        [SerializeField]
-        private Vector3 positionOffset = Vector3.zero; //the offset of the menu from the player position, good values: 0.3f, 0.5f, 1.5f
-
-        private bool isOpen;
+        protected GameObject instantiatedItem; //the item that has been instantiated.
 
         [SerializeField]
-        private InputAction action;
+        protected Vector3 positionOffset = Vector3.zero; //the offset of the menu from the player position, good values: 0.3f, 0.5f, 1.5f
 
-        private Hand hand;
-
-        private Camera mainCamera; //used to put the radial menu in front of the player
+        protected bool isOpen;
 
         [SerializeField]
-        private float radius = 100f; //the radius of the radial menu
+        protected InputAction action;
+
+        protected Hand hand;
+
+        protected Camera mainCamera; //used to put the radial menu in front of the player
 
         [SerializeField]
-        private float openSpeed = 0.3f; //the speed with which the menu opens
-        [SerializeField]
-        private float closeSpeed = 0.3f; //the speed with which the menu closes
+        protected float radius = 100f; //the radius of the radial menu
 
         [SerializeField]
-        private Vector3 itemsStartScale; //used to scale the items when opening the menu, right now it is the same as the prefab.
+        protected float openSpeed = 0.3f; //the speed with which the menu opens
+        [SerializeField]
+        protected float closeSpeed = 0.3f; //the speed with which the menu closes
 
-        private Transform originalParent; //useful to remove the menu from the player face. The original parent of the whole prefab
-        private Transform menuCanvas; //the canvas holding the menu, it is set as the child of the main camera when menu is opened
+        [SerializeField]
+        protected Vector3 itemsStartScale; //used to scale the items when opening the menu, right now it is the same as the prefab.
+
+        protected Transform originalParent; //useful to remove the menu from the player face. The original parent of the whole prefab
+        protected Transform menuCanvas; //the canvas holding the menu, it is set as the child of the main camera when menu is opened
 
         #endregion
 
         #region Unity Methods
         private void Awake()
         {
+
+            isOpen = false;
+
+            itemList = new List<RadialMenuItem>();
+            for (int i = 0; i < itemListData.Count; i++)
+            {
+                AddItem(itemListData[i], i);
+            }
+            itemsStartScale = itemList[0].gameObject.transform.localScale;
 
         }
 
@@ -74,16 +82,6 @@ namespace Reflectis.SDK.RadialMenu
                 }
                 yield return null;
             }
-
-            //Instantiate Items
-            isOpen = false;
-
-            itemList = new List<RadialMenuItem>();
-            for (int i = 0; i < itemListData.Count; i++)
-            {
-                AddItem(itemListData[i]);
-            }
-            itemsStartScale = itemList[0].gameObject.transform.localScale;
 
             //Set the original parent
             menuCanvas = transform.parent;
@@ -111,8 +109,10 @@ namespace Reflectis.SDK.RadialMenu
 
         #region Item Managment
         //add Item to the menu
-        private void AddItem(RadialMenuItemData itemData)
+        private void AddItem(RadialMenuItemData itemData, int pos)
         {
+            // -1 because the items don't take openhand in consideration in the networked menu
+            int itemNetworkedPos = pos - 1;
             GameObject itemPre = Instantiate(itemPrefab, transform);
             itemPre.transform.SetParent(menuObj.transform);
 
@@ -122,19 +122,14 @@ namespace Reflectis.SDK.RadialMenu
             item.SetIcon(itemData.icon);
             item.SetBackground(itemData.background);
             item.SetItemName(itemData.itemName);
+            item.SetItemPosition(itemNetworkedPos);
+            //item.SetItemNumber(itemData.itemNumber);
             item.SetRadialMenu(this);
 
             //Instantiate all gameobjects and save them in variables
-            if(itemData.itemPrefab){
-                GameObject itemGO;
-                if(itemData.itemPrefab.name == "AttrezzoSbloccaggio")
-                {   
-                    itemGO = PhotonNetwork.Instantiate(itemData.itemPrefab.name, Vector3.zero, Quaternion.identity);
-                }
-                else
-                {
-                    itemGO = Instantiate(itemData.itemPrefab, Vector3.zero, Quaternion.identity);
-                }
+            if (itemData.itemPrefab)
+            {
+                GameObject itemGO = Instantiate(itemData.itemPrefab, Vector3.zero, Quaternion.identity);
                 item.SetItemSpawned(itemGO);
                 itemGO.GetComponent<Item>().SetItemName(itemData.itemName);
             }
@@ -166,7 +161,7 @@ namespace Reflectis.SDK.RadialMenu
         public void ResetItemArrangement()
         {
             var sequence = DOTween.Sequence();
-            
+
             for (int i = 0; i < itemList.Count; i++)
             {
                 RectTransform itemRect = itemList[i].GetComponent<RectTransform>();
@@ -181,16 +176,16 @@ namespace Reflectis.SDK.RadialMenu
 
             }
 
-            sequence.OnComplete(()=>{
+            sequence.OnComplete(() => {
                 menuObj.SetActive(false);
                 isOpen = false;
-            });   
+            });
         }
 
         //Instantiate Item on the hand or remove it, happens when clicking on a ui item
-        public void InstantiateItem(GameObject item)
+        public virtual void InstantiateItem(GameObject item, int pos)
         {
-            
+
             //Check if there's already an instantiated object
             if (instantiatedItem)
             {
@@ -231,7 +226,7 @@ namespace Reflectis.SDK.RadialMenu
             return;
         }
 
-        public void RemoveItem()
+        public virtual void RemoveItem()
         {
             hand.Release();
             hand.ForceReleaseGrab();
@@ -267,7 +262,7 @@ namespace Reflectis.SDK.RadialMenu
         {
             if (context.started)
             {
-                OpenMenu();               
+                OpenMenu();
             }
 
             if (context.canceled)
@@ -279,21 +274,22 @@ namespace Reflectis.SDK.RadialMenu
 
         #region SetterAndGetter
 
-            //Set the position of the menu with respect to the player. It also uses the offset variable to put the menu in front of the player
-            private void SetPositionWithOffset(){
+        //Set the position of the menu with respect to the player. It also uses the offset variable to put the menu in front of the player
+        private void SetPositionWithOffset()
+        {
 
-                menuCanvas.parent = mainCamera.transform;
-                
-                float posX = positionOffset.x;
-                float posY = positionOffset.y;
-                float posZ = positionOffset.z;
+            menuCanvas.parent = mainCamera.transform;
 
-                menuCanvas.localRotation = Quaternion.identity;
+            float posX = positionOffset.x;
+            float posY = positionOffset.y;
+            float posZ = positionOffset.z;
 
-                menuCanvas.localPosition = new Vector3(posX, posY, posZ); 
-            }
+            menuCanvas.localRotation = Quaternion.identity;
+
+            menuCanvas.localPosition = new Vector3(posX, posY, posZ);
+        }
 
         #endregion
-    
+
     }
 }
