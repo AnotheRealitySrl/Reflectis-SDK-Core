@@ -32,10 +32,10 @@ namespace Reflectis.SDK.Avatars
             FullBodyAvatarReference.layer = LayerMask.NameToLayer("AvatarWelcomeRoom");
 
 
-            Animator parentAnimator = FullBodyAvatarReference.transform.parent.GetComponent<Animator>();
+            Animator parentAnimator = FullBodyAvatarReference?.transform.parent?.GetComponent<Animator>();
             if (!parentAnimator)
             {
-                parentAnimator = FullBodyAvatarReference.transform.parent.gameObject.AddComponent<Animator>();
+                parentAnimator = FullBodyAvatarReference?.transform.parent?.gameObject.AddComponent<Animator>();
             }
 
             RuntimeAnimatorController animatorControllerReference;
@@ -48,10 +48,14 @@ namespace Reflectis.SDK.Avatars
             {
                 animatorControllerReference = masculineAnimatorController;
             }
+            
+            if(parentAnimator != null)
+            {
+                parentAnimator.runtimeAnimatorController = animatorControllerReference;
 
-            parentAnimator.runtimeAnimatorController = animatorControllerReference;
+                parentAnimator.avatar = avatarData.animatorAvatar;
+            }
 
-            parentAnimator.avatar = avatarData.animatorAvatar;
 
             OnAvatarIstantiated?.Invoke(avatar);
 

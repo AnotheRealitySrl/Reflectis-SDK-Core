@@ -12,28 +12,33 @@ namespace Reflectis.SDK.Transitions
         [SerializeField, Tooltip("The GameObject to activate")]
         private GameObject content;
 
-        private void Awake()
-        {
-            if (!content)
+        public GameObject Content { 
+            get 
             {
-                content = gameObject;
-            }
+                if(content == null)
+                {
+                    return gameObject;
+                }
+                return content;
+            } 
         }
 
         public override async Task EnterTransitionAsync()
         {
-            onEnterTransition?.Invoke();
+            onEnterTransitionStart?.Invoke();
             await Task.Yield();
-            content.SetActive(true);
+            Content.SetActive(true);
             await Task.Yield();
+            OnEnterTransitionFinish?.Invoke();
         }
 
         public override async Task ExitTransitionAsync()
         {
+            OnExitTransitionStart?.Invoke();
             await Task.Yield();
-            content.SetActive(false);
+            Content.SetActive(false);
             await Task.Yield();
-            onExitTransition?.Invoke();
+            onExitTransitionFinish?.Invoke();
         }
     }
 }

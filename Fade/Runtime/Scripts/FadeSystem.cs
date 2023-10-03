@@ -60,6 +60,8 @@ namespace Reflectis.SDK.Fade
 
         #region Public API
 
+        public void FadeToBackground(Action onEnd = null) => fadeManager.FadeToBackground(onEnd);
+        public void FadeFromBackground(Action onEnd = null) => fadeManager.FadeFromBackground(onEnd);
         public void FadeToBlack(Action onEnd = null) => fadeManager.FadeToBlack(onEnd);
         public void FadeFromBlack(Action onEnd = null) => fadeManager.FadeFromBlack(onEnd);
         public void FadeToDesaturated(Action onEnd = null) => fadeManager.FadeToDesaturated(onEnd);

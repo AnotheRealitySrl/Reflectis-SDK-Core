@@ -20,9 +20,11 @@ namespace Reflectis.SDK.Transitions
         private List<AbstractTransitionProvider> providers = new List<AbstractTransitionProvider>();
         [SerializeField]
         private SyncronizationMethod syncronizationMethod = SyncronizationMethod.Syncronous;
+
         public override async Task EnterTransitionAsync()
         {
-            onEnterTransition?.Invoke();
+            onEnterTransitionStart?.Invoke();
+
             switch(syncronizationMethod)
             {
                 case SyncronizationMethod.Syncronous:
@@ -32,13 +34,14 @@ namespace Reflectis.SDK.Transitions
                     await EnterAllTransitionsAsyncronously();
                     break;
             }
+            OnEnterTransitionFinish?.Invoke();
         }
 
         private async Task EnterAllTransitionsAsyncronously()
         {
             foreach(AbstractTransitionProvider provider in providers)
             {
-                await provider.EnterTransitionAsync();
+                await provider.DoTransitionAsync(true);
             }
         }
 
@@ -46,7 +49,7 @@ namespace Reflectis.SDK.Transitions
         {
             IEnumerable<Task> providerEnterTask = providers.Select(async provider =>
             {
-                await provider.EnterTransitionAsync();
+                await provider.DoTransitionAsync(true);
             });
 
             await Task.WhenAll(providerEnterTask);
@@ -54,6 +57,7 @@ namespace Reflectis.SDK.Transitions
 
         public override async Task ExitTransitionAsync()
         {
+            OnExitTransitionStart?.Invoke();
 
             switch (syncronizationMethod)
             {
@@ -64,7 +68,8 @@ namespace Reflectis.SDK.Transitions
                     await ExitAllTransitionsAsyncronously();
                     break;
             }
-            onExitTransition?.Invoke();
+
+            onExitTransitionFinish?.Invoke();
         }
 
 
@@ -72,7 +77,7 @@ namespace Reflectis.SDK.Transitions
         {
             for (int i = providers.Count - 1; i >= 0; i--)
             {
-                await providers[i].ExitTransitionAsync();
+                await providers[i].DoTransitionAsync(false);
             }
         }
 
@@ -80,10 +85,11 @@ namespace Reflectis.SDK.Transitions
         {
             IEnumerable<Task> providerExitTask = providers.Select(async provider =>
             {
-                await provider.ExitTransitionAsync();
+                await provider.DoTransitionAsync(false);
             });
 
             await Task.WhenAll(providerExitTask);
         }
+
     }
 }

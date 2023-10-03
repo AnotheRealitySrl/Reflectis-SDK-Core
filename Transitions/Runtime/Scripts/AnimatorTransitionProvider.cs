@@ -28,11 +28,12 @@ namespace Reflectis.SDK.Transitions
             {
                 animator.SetBool(animatorParameter, true);
             }
-            onEnterTransition?.Invoke();
+            onEnterTransitionStart?.Invoke();
             while (animator.IsInTransition(0) || animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1)
             {
                 await Task.Yield();
             }
+            OnEnterTransitionFinish?.Invoke();
         }
 
         public override async Task ExitTransitionAsync()
@@ -41,12 +42,12 @@ namespace Reflectis.SDK.Transitions
             {
                 animator.SetBool(animatorParameter, false);
             }
-
+            OnExitTransitionStart?.Invoke();
             while (animator.IsInTransition(0) || animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1)
             {
                 await Task.Yield();
             }
-            onExitTransition?.Invoke();
+            onExitTransitionFinish?.Invoke();
         }
     }
 }

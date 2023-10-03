@@ -11,12 +11,35 @@ namespace Reflectis.SDK.Core
     /// </summary>
     public class SM
     {
-
-        #region Systems
+        #region Readiness
 
         public static Action OnAllSystemsSetupsDone;
 
         public static bool IsReady { get; private set; } = false;
+
+        public static void DoOnceReady(Action callback)
+        {
+            if (callback == null)
+            {
+                Debug.LogWarning("[SM] Trying to execute null callback!");
+                return;
+            }
+
+            // In case of valid callback, manage its execution.
+            if (IsReady)
+            {
+                callback.Invoke();
+            }
+            else
+            {
+                OnAllSystemsSetupsDone += callback;
+            }
+        }
+
+        #endregion
+
+
+        #region Systems
 
         public static List<ISystem> CurrentSystems { get; set; }
 
@@ -62,12 +85,12 @@ namespace Reflectis.SDK.Core
             systemToInitialize.InitInternal(parentSystem);
             foreach (ISystem subSystem in systemToInitialize.SubSystems)
             {
-                if (subSystem.AutoInitAtStartup)
-                {
+                //if (subSystem.AutoInitAtStartup)
+                //{
                     BaseSystem systemInstance = subSystem.RequiresNewInstance ? ScriptableObject.Instantiate(subSystem as BaseSystem) : subSystem as BaseSystem;
                     CurrentSystems.Add(systemInstance);
                     _ = InitSystem(systemInstance, systemToInitialize);
-                }
+                //}
             }
             return systemToInitialize;
         }

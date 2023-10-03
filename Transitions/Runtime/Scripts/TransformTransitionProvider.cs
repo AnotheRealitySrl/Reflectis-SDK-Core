@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
+using DG.Tweening;
 using System.Threading.Tasks;
 using UnityEngine;
-using DG.Tweening;
 
 namespace Reflectis.SDK.Transitions
 {
@@ -28,16 +26,18 @@ namespace Reflectis.SDK.Transitions
         }
         public override async Task EnterTransitionAsync()
         {
-            onEnterTransition?.Invoke();
+            onEnterTransitionStart?.Invoke();
             sequence.PlayForward();
             await sequence.AsyncWaitForCompletion();
+            OnEnterTransitionFinish?.Invoke();
         }
 
         public override async Task ExitTransitionAsync()
         {
+            OnExitTransitionStart?.Invoke();
             sequence.PlayBackwards();
             await sequence.AsyncWaitForCompletion();
-            onExitTransition?.Invoke();
+            onExitTransitionFinish?.Invoke();
         }
 
         private void CreateSequence()

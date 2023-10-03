@@ -1,9 +1,12 @@
+#if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
+#endif
 
 using Reflectis.SDK.Core;
 using Reflectis.SDK.CharacterController;
 
 using System.Threading.Tasks;
+
 using UnityEngine;
 using UnityEngine.Events;
 

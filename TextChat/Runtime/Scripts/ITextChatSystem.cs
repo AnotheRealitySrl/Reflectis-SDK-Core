@@ -1,6 +1,8 @@
-using Reflectis.SDK.Core;
 using System;
 using System.Collections.Generic;
+
+using Reflectis.SDK.Core;
+using Reflectis.SDK.TextChat.Enums;
 
 namespace Reflectis.SDK.TextChat
 {
@@ -9,57 +11,51 @@ namespace Reflectis.SDK.TextChat
     /// </summary>
     public interface ITextChatSystem : ISystem
     {
-        #region Properties
+        string[] Channels { get; }
 
-        /// <summary>
-        /// Key of the chat project in Agora console.
-        /// Looks like: 12345678#1234567
-        /// </summary>
-        string AppKey { get; }
-
-        #endregion
+        bool IsConnected { get; set; }
+        bool IgnoreNotifications { get; set; }
 
         #region Events
 
-        /// <summary>
-        /// Event invoked when the user logs in without any problems
-        /// </summary>
-        event Action OnLoginSuccessful;
+        #region Account events
 
         /// <summary>
-        /// Event invoked when the user could not log in.
-        /// It will pass the code of the error and its description
+        /// Event invoked when the user connects to the chat
         /// </summary>
-        event Action<int, string> OnLoginFailed;
+        event Action OnUserConnected;
 
         /// <summary>
-        /// Event invoked when the user logs out without any problems
+        /// Event invoked when the user disconnects to the chat
         /// </summary>
-        event Action OnLogoutSuccessful;
+        event Action OnUserDisconnected;
 
-        /// <summary>
-        /// TODO
-        /// </summary>
-        event Action<int, string> OnLogoutFailed;
-        
-        /// <summary>
-        /// Event invoked when the user could not log out.
-        /// It will pass the code of the error and its description
-        /// </summary>
-        event Action OnLogout;
+        #endregion
 
+        #region Message events
         /// <summary>
-        /// Event invoked when a message is sended. It will pass the name of the person/channel who
-        /// send it, the content of the message and the local time when it was sended
+        /// Event invoked when a message is sent.
+        /// It will pass the name of the person/channel who
+        /// send it and the content of the message
         /// </summary>
-        event Action<string, string, long> OnTxtMsgSended;
+        event Action<string, string> OnTxtMsgSent;
 
         /// <summary>
         /// Event invoked when a message is received. 
         /// It will pass the name of the person/channel who
-        /// send it, the content of the message and the local time when it was sended
+        /// sent it, the content of the message and for who it is
         /// </summary>
-        event Action<string, string, long> OnTxtMsgReceived;
+        event Action<string, string, string> OnTxtMsgReceived;
+
+
+        /// <summary>
+        /// Event invoked when the history messages are fetched.
+        /// It will pass a list with all the ChatMessages sent.
+        /// </summary>
+        event Action<List<ChatMessage>> OnTxtMsgFetched;
+        #endregion
+
+        #region Channel events
 
         /// <summary>
         /// Event invoked when all the public channels are fetched from the server.
@@ -70,7 +66,7 @@ namespace Reflectis.SDK.TextChat
         /// <summary>
         /// Event invoked when a user joins a channel
         /// </summary>
-        event Action OnJoinedChannel;
+        event Action<string> OnJoinedChannel;
 
         /// <summary>
         /// Event invoked when a public channel is fetched from the server.
@@ -80,54 +76,70 @@ namespace Reflectis.SDK.TextChat
 
         #endregion
 
+        #endregion
+
         #region Methods
+        /// <summary>
+        /// Connect the current user to the text chat.
+        /// </summary>
+        /// <param name="userId">Id of the user to connect to the text chat</param>
+        /// <param name="token">A token use to authorize the connection if needed</param>
+        void ConnectUserToTextChat(string userId, string token = "");
 
         /// <summary>
-        /// Logs in to the chat server with the user ID and an Agora token.
+        /// Keep the connection alive so a user can get incoming messages continuously
         /// </summary>
-        /// <param name="username">The user ID</param>
-        /// <param name="token">The agora token of the user</param>
-        void LoginWithToken(string username, string token);
+        void KeepConnectionAlive();
+        bool CanChat();
+        bool CanChatInChannel(string channelId);
 
         /// <summary>
-        /// Logs out the current user of the chat server
+        /// Disconnect the current user to the text chat
         /// </summary>
-        void Logout();
-
-        /// <summary>
-        /// Adds a chat manager listener
-        /// </summary>
-        void AddChatDelegate();
-
-        /// <summary>
-        /// Removes a chat manager listener
-        /// </summary>
-        void RemoveChatDelegate();
+        void DisconnectCurrentUser();
 
         /// <summary>
         /// Sends a new message to a specific user
         /// </summary>
-        /// <param name="username">Name of the user who will receive the message</param>
-        /// <param name="msgContent">Content of the message</param>
-        void SendMessageToUser(string username, string msgContent);
+        /// <param name="userId">Id of the user who will receive the message</param>
+        /// <param name="msg">A message</param>
+        void SendMessageToUser(string userId, ChatMessage msg);
 
         /// <summary>
         /// Sends a message to a specific channel
         /// </summary>
         /// <param name="channelId">Id of the channel that will receive the message</param>
-        /// <param name="msgContent">Content of the message</param>
-        void SendMessageToChannel(string channelId, string msgContent);
+        /// <param name="msg">A message</param>
+        void SendMessageToChannel(string channelId, ChatMessage msg);
 
         /// <summary>
-        /// Get all the public channels from the Agora server
+        /// Get all the history messages sent through a specific channel
+        /// </summary>
+        /// <param name="channelId">Id of the channel to fetch all the messages</param>
+        /// <param name="type">The type of the channel</param>
+        void FetchHistoryMessages(string channelId, EChatMessageType type);
+
+        /// <summary>
+        /// Get all the public channels
         /// </summary>
         void FetchAllChannels();
+
+        /// <summary>
+        /// Get all the private channels ids
+        /// </summary>
+        List<string> GetPrivateChannelIds();
+
+        /// <summary>
+        /// Joins the default channels
+        /// </summary>
+        void JoinTextChannel();
 
         /// <summary>
         /// Joins a text channel
         /// </summary>
         /// <param name="channelId">Id of the channel</param>
         void JoinTextChannel(string channelId);
+
 
         /// <summary>
         /// Get info from a specific channel
@@ -140,6 +152,14 @@ namespace Reflectis.SDK.TextChat
         /// </summary>
         /// <param name="channelId">Id of the channel</param>
         void LeaveTextChannel(string channelId);
+
+        /// <summary>
+        /// Delete all messages from a specific conversation.
+        /// This method is not supported for PhotonTextChatSystem.
+        /// </summary>
+        /// <param name="conversationId"></param>
+        /// <param name="type"></param>
+        void DeleteConversationFromServer(string conversationId, EChatMessageType type);
 
         #endregion
     }

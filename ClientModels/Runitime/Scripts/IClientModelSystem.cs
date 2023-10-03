@@ -1,13 +1,50 @@
 using Reflectis.SDK.Core;
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+
+using UnityEngine.Events;
 
 namespace Reflectis.SDK.ClientModels
 {
+    public enum FileTypeExt
+    {
+        None = -1,
+        Video = 1,
+        Documents = 2,
+        Images = 3,
+        Asset3D = 4,
+    }
+
     public interface IClientModelSystem : ISystem
     {
+        #region Worlds
+
+        CMWorld CurrentWorld { get; set; }
+
+        /// <summary>
+        /// Returns all the available worlds
+        /// </summary>
+        Task<List<CMWorld>> GetAllWorlds();
+
+        #endregion
+
         #region Events
+
+        CMEvent CurrentEvent { get; set; }
+        CMEvent DefaultEvent { get; }
+        List<CMEvent> PreconfiguredEvents { get; }
+
+        /// <summary>
+        /// Returns the default event of a world
+        /// </summary>
+        Task<CMEvent> GetDefaultWorldEvent(int worldId);
+
+        /// <summary>
+        /// Returns an event given its id
+        /// </summary>
+        Task<CMEvent> GetEventById(int id);
 
         /// <summary>
         /// Returns the list of all events visible by user
@@ -15,26 +52,101 @@ namespace Reflectis.SDK.ClientModels
         Task<List<CMEvent>> GetAllEvents();
 
         /// <summary>
+        /// Return the list events in which the player is also the owner
+        /// </summary>
+        /// <returns></returns>
+        Task<List<CMEvent>> GetMyEvents();
+
+        /// <summary>
         /// Returns the list of all events visible by user filtered by category
         /// </summary>
         Task<List<CMEvent>> GetAllEventsByCategoryID(int categoryId);
 
         /// <summary>
+        /// Returns the list of all events visible by user filtered by environment
+        /// </summary>
+        Task<List<CMEvent>> GetAllEventsByEnvironmentID(int environmentId);
+
+        /// <summary>
+        /// Returns the list of all events visible by user filtered by environment
+        /// </summary>
+        Task<List<CMEvent>> GetAllEventsByTagID(int tagId);
+
+        /// <summary>
         /// Returns the list of users registered for this event.
         /// </summary>
-        Task<List<CMUser>> GetEventPartecipants(int eventId);
+        Task<List<CMUser>> GetEventParticipants(int eventId);
 
-        Task<int> CreateUpdateEvent(CMEvent e);
+        /// <summary>
+        /// Create an event with given e data.
+        /// If successfull return the event, null otherwise
+        /// </summary>
+        /// <param name="e"></param>
+        /// <returns></returns>
+        Task<CMEvent> CreateEvent(CMEvent e);
+
+        /// <summary>
+        /// Delete an event with given id.
+        /// If successfull return the true, false otherwise
+        /// </summary>
+        /// <param name="e"></param>
+        /// <returns></returns>
+        Task<bool> DeleteEvent(int eventId);
+
+        /// <summary>
+        /// Update an event with given e data.
+        /// If successfull return true, false otherwise
+        /// </summary>
+        /// <param name="e"></param>
+        /// <returns></returns>
+        Task<bool> UpdateEvent(CMEvent e);
+
+        /// <summary>
+        /// Ask to API to replace all the users in the specified event with the users listed in <see cref="CMEvent.Participants">
+        /// </summary>
+        /// <param name="cMEvent"></param>
+        /// <returns></returns>
+        Task<bool> InviteUsersToEvent(CMEvent cMEvent);
+
+        /// <summary>
+        /// Create all event permission for the given event
+        /// </summary>
+        /// <param name="_event"></param>
+        /// <returns></returns>
+        Task<bool> CreateEventPermissions(CMEvent _event);
+
+        /// <summary>
+        /// Request to join a specific ID. Return  the Event ID if request success otherwise return -1
+        /// </summary>
+        Task<bool> JoinEventRequest(int eventId);
+
+        /// <summary>
+        /// Add all asset list to the ones usable in the given event
+        /// </summary>
+        /// <param name="eventId"></param>
+        /// <param name="assets"></param>
+        /// <returns></returns>
+        Task<bool> ShareAssetsInEvent(int eventId, List<CMResource> assets);
+
+        /// <summary>
+        /// replace the asset list in the given event
+        /// </summary>
+        /// <param name="eventId"></param>
+        /// <param name="assets"></param>
+        /// <returns></returns>
+        Task<bool> UpdateAssetsInEvent(int eventId, List<CMResource> assets);
 
         #endregion
 
         #region Categories
 
+        Task<List<CMCategoryInfo>> GetAllEventInfo();
+
         /// <summary>
         /// Return list of all categories
         /// </summary>
         /// <returns></returns>
-        Task<List<CMCategory>> GetAllEventCategories();
+        Task<List<CMCategory>> GetAllCategories();
 
         /// <summary>
         /// Return list of all subcategories
@@ -50,49 +162,132 @@ namespace Reflectis.SDK.ClientModels
 
         #endregion
 
+        #region Environments
+
+        Task<List<CMEnvironment>> GetAllEnvironments();
+
+        #endregion
+
         #region Users
+
+        CMUser UserData { get; set; }
 
         /// <summary>
         /// Return all users that match search criteria
         /// </summary>
-        Task<List<CMUser>> GetUsers(string searchQuery);
+        Task<List<CMUser>> SearchUsersByNickname(string nicknameSubstring);
+
+        Task<CMUser> GetUserData();
+
+        Task<CMUserPreference> GetUserPreference(int userId);
+        /// <summary>
+        /// Get all the users with given tag id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<List<CMUser>> GetUsersWithTag(int id);
+        #endregion
+
+        #region Facets
+
+        public List<CMFacet> WorldFacets { get; set; }
 
         /// <summary>
-        /// Return all user lists that match search criteria
+        /// Get all facets of the current world
         /// </summary>
-        Task<List<CMUserList>> GetUsersLists(string searchQuery);
+        /// <param name="worldId"></param>
+        /// <returns></returns>
+        Task<List<CMFacet>> GetWorldFacets(int worldId);
 
-        /// <summary>
-        /// Return user list ID created (or updated)
-        /// </summary>
-        Task<int> CreateUpdateUserList(List<CMEventPermissionSet> permissions);
 
         #endregion
 
         #region Permissions
 
-        Task<List<CMEventPermissionSet>> GetEventPermissionPreset();
+        List<CMPermission> MyEventPermissions { get; set; }
+        List<CMPermission> WorldPermissions { get; set; }
 
-        Task<int> CreateUpdateEventPermissionPreset();
+        /// <summary>
+        /// Get the permission avaible to the player for the given event
+        /// </summary>
+        /// <returns></returns>
+        Task<List<CMPermission>> GetMyEventPermissions(int eventId);
+
+        /// <summary>
+        /// Get the permission avaible in the current event
+        /// </summary>
+        /// <returns></returns>
+        Task<List<CMPermission>> GetEventPermissions(int eventId);
+
+        /// <summary>
+        /// Get all permission for the current world
+        /// </summary>
+        /// <returns></returns>
+        Task<List<CMPermission>> GetWorldPermissions(int worldId);
+
 
         #endregion
 
         #region Assets
 
+        Task<CMResource> GetEventAssetById(int assetId);
+
         Task<List<CMResource>> GetMyAssets(string searchQuery);
 
-        Task<List<CMResource>> GetEventAssets(int eventId);
+        Task<List<CMResource>> GetCurrentEventAssets();
 
         Task CreateEventAssetsAssociation(int eventId, List<CMResource> resources);
 
         #endregion
 
-        #region Join events
+        #region Tags
+        /// <summary>
+        /// Get all tags avaible to users
+        /// </summary>
+        /// <returns></returns>
+        Task<List<CMTag>> GetAllUsersTags();
 
         /// <summary>
-        /// Requesto to join a specific ID. Return  the Event ID if request success otherwise return -1
+        /// Search user tag
         /// </summary>
-        Task<int> JoinEventRequest(int eventId);
+        /// <param name="labelSubstring"></param>
+        /// <returns></returns>
+        Task<List<CMTag>> SearchUserTags(string labelSubstring);
+
+        /// <summary>
+        /// Search env tag
+        /// </summary>
+        /// <param name="labelSubstring"></param>
+        /// <returns></returns>
+        Task<List<CMTag>> SearchEnvironmentTags(string labelSubstring);
+
+
+
+        #endregion
+
+        #region Online presence
+
+        List<CMOnlinePresence> OnlineUsersList { get; set; }
+        UnityEvent OnlineUsersUpdated { get; }
+
+        CMOnlinePresence FindUser(int userId);
+        string FindUserDisplayName(int userId);
+        string FindUserAvatarPng(int userId);
+        int FindUserShard(int userId);
+
+        Task<List<CMOnlinePresence>> GetOnlineUsers(bool includeMyself = true);
+        Task PingMyOnlinePresence(int? eventId, int? shardId);
+
+        #endregion
+
+        #region Shards
+
+        CMShard CurrentShard { get; set; }
+
+        /// <summary>
+        /// Retrieves the current shards of an event.
+        /// </summary>
+        Task<List<CMShard>> GetEventShards(int eventId);
 
         #endregion
     }

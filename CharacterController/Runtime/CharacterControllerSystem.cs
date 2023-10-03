@@ -116,6 +116,13 @@ namespace Reflectis.SDK.CharacterController
 
         public virtual void ActivateReactionAnimation(string reactionName) { }
 
+        public virtual void EnableCharacterMovement(bool value)
+        {
+            
+        }
+        
+        public virtual void EnableCharacterJump(bool value) { }
+
         #endregion
     }
 

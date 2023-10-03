@@ -12,7 +12,7 @@ namespace Reflectis.SDK.Utilities
     /// Does not support strike-through, but can be easily implemented in the same way as the underline
     /// </summary>
     [DisallowMultipleComponent()]
-    [RequireComponent(typeof(TextMeshProUGUI))]
+    [RequireComponent(typeof(TextMeshPro))]
     public class TMProUGUIHyperlinks : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         [SerializeField]
@@ -27,7 +27,7 @@ namespace Reflectis.SDK.Utilities
         private Color32 usedPressedColor = new Color32(0xCF, 0x00, 0xCF, 0xFF);
 
         private List<Color32[]> startColors = new List<Color32[]>();
-        private TextMeshProUGUI textMeshPro;
+        private TMP_Text textMeshPro;
         private Dictionary<int, bool> usedLinks = new Dictionary<int, bool>();
         private int hoveredLinkIndex = -1;
         private int pressedLinkIndex = -1;
@@ -35,7 +35,7 @@ namespace Reflectis.SDK.Utilities
 
         void Awake()
         {
-            textMeshPro = GetComponent<TextMeshProUGUI>();
+            textMeshPro = GetComponent<TMP_Text>();
 
             mainCamera = Camera.main;
             if (textMeshPro.canvas.renderMode == RenderMode.ScreenSpaceOverlay) mainCamera = null;

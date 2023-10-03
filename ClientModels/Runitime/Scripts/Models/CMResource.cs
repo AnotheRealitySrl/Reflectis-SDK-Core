@@ -1,9 +1,6 @@
-
-using Reflectis.SDK.Utilities.Extensions;
 using System;
-using System.Threading.Tasks;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
 
 namespace Reflectis.SDK.ClientModels
 {
@@ -13,12 +10,13 @@ namespace Reflectis.SDK.ClientModels
         [SerializeField] private int id;
         [SerializeField] private string name;
         [SerializeField] private int sizeBytes;
+        [SerializeField] private string url;
         [SerializeField] private string path;
         [SerializeField] private string thumbnailPath;
         [SerializeField] private int type;
         [SerializeField] private DateTime creationDate;
 
-        public int ID { get => id; set => id = value; }
+        public int Id { get => id; set => id = value; }
         public string Name { get => name; set => name = value; }
         public int SizeBytes => sizeBytes;
 
@@ -51,39 +49,58 @@ namespace Reflectis.SDK.ClientModels
                 }
             }
         }
+        public string Url { get => url; set => url = value; }
         public string Path { get => path; set => path = value; }
         public string ThumbnailPath => thumbnailPath?.Replace(" ", "%20");
-        public int Type { get => type; set => type = value; }
+        public FileTypeExt Type { get => (FileTypeExt)type; set => type = (int)value; }
         public DateTime CreationDate { get => creationDate; set => creationDate = value; }
 
-        public async Task<Sprite> GetThumbnail()
-        {
-            string thumbnailUri = ThumbnailPath;
-            if (!string.IsNullOrEmpty(thumbnailUri))
-            {
-                using var dh = new DownloadHandlerTexture();
-                using var www = new UnityWebRequest(thumbnailUri, UnityWebRequest.kHttpVerbGET, dh, null);
-                //www.certificateHandler = new AcceptAllCertificates();
-                await www.SendWebRequest();
+        public CMResource() { }
 
-                if (www.result == UnityWebRequest.Result.Success)
-                {
-                    var rect = new Rect(0, 0, dh.texture.width, dh.texture.height);
-                    return Sprite.Create(dh.texture, rect, new Vector2(0.5f, 0.5f));
-                }
-            }
-            return null;
-        }
         public CMResource(int id, string name, int sizeBytes, string path, string thumbnailPath, int type, DateTime creationDate)
         {
-            ID = id;
+            Id = id;
             Name = name;
             this.sizeBytes = sizeBytes;
             Path = path;
             this.thumbnailPath = thumbnailPath;
-            Type = type;
+            this.type = type;
             CreationDate = creationDate;
         }
 
+        public override string ToString()
+        {
+            return $"ID: {id}\n" +
+               $"Name: {name}\n" +
+               $"Size (Bytes): {sizeBytes}\n" +
+               $"Path: {path}\n" +
+               $"Thumbnail Path: {thumbnailPath}\n" +
+               $"Type: {type}\n" +
+               $"Creation Date: {creationDate}";
+        }
+    }
+
+    public class CMResourceEqualityComparer : IEqualityComparer<CMResource>
+    {
+        public bool Equals(CMResource x, CMResource y)
+        {
+            if (x == null && y == null)
+            {
+                return true;
+            }
+            else if (x == null || y == null)
+            {
+                return false;
+            }
+            else
+            {
+                return x.Id == y.Id;
+            }
+        }
+
+        public int GetHashCode(CMResource obj)
+        {
+            return obj.Id.GetHashCode();
+        }
     }
 }
