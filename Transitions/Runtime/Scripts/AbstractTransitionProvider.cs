@@ -12,9 +12,16 @@ namespace Reflectis.SDK.Transitions
         [SerializeField, Tooltip("If true, methods DoTranition and DoTransitionAsync revert their boolean parameter value")]
         private bool reverseTransitions;
         [Tooltip("Events called before an enter transition is started")]
-        public UnityEvent onEnterTransition;
-        [Tooltip("Events called after an exit transition is started")]
-        public UnityEvent onExitTransition;
+        public UnityEvent onEnterTransitionStart;
+        [Tooltip("Events called after an exit transition is finished")]
+        public UnityEvent onExitTransitionFinish;
+
+        private UnityEvent onEnterTransitionFinish = new UnityEvent();
+        private UnityEvent onExitTransitionStart = new UnityEvent();
+
+        public UnityEvent OnEnterTransitionFinish { get => onEnterTransitionFinish; set => onEnterTransitionFinish = value; }
+
+        public UnityEvent OnExitTransitionStart { get => onExitTransitionStart; set => onExitTransitionStart = value; }
 
         /// <summary>
         /// Performs an enter transition. It can be awaited

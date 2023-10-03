@@ -31,7 +31,7 @@ namespace Reflectis.SDK.Transitions
         }
         public override async Task EnterTransitionAsync()
         {
-            onEnterTransition?.Invoke();
+            onEnterTransitionStart?.Invoke();
             if (tween != null)
             {
                 tween.Kill();
@@ -41,6 +41,7 @@ namespace Reflectis.SDK.Transitions
             {
                 await Task.Yield();
             }
+            OnEnterTransitionFinish?.Invoke();
         }
 
         public override async Task ExitTransitionAsync()
@@ -49,12 +50,13 @@ namespace Reflectis.SDK.Transitions
             {
                 tween.Kill();
             }
+            OnExitTransitionStart?.Invoke();
             tween = DOTween.To(Getter, Setter, defaultColor, duration).SetEase(ease);
             while (tween.IsPlaying())
             {
                 await Task.Yield();
             }
-            onExitTransition?.Invoke();
+            onExitTransitionFinish?.Invoke();
         }
 
         protected abstract Color Getter();

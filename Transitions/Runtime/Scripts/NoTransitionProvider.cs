@@ -25,18 +25,20 @@ namespace Reflectis.SDK.Transitions
 
         public override async Task EnterTransitionAsync()
         {
-            onEnterTransition?.Invoke();
+            onEnterTransitionStart?.Invoke();
             await Task.Yield();
             Content.SetActive(true);
             await Task.Yield();
+            OnEnterTransitionFinish?.Invoke();
         }
 
         public override async Task ExitTransitionAsync()
         {
+            OnExitTransitionStart?.Invoke();
             await Task.Yield();
             Content.SetActive(false);
             await Task.Yield();
-            onExitTransition?.Invoke();
+            onExitTransitionFinish?.Invoke();
         }
     }
 }

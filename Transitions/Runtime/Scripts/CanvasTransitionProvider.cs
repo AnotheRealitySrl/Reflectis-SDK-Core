@@ -43,9 +43,10 @@ namespace Reflectis.SDK.Transitions
                 canvasGroup.gameObject.SetActive(true);
             }
             KillActiveTransition();
-            onEnterTransition?.Invoke();
+            onEnterTransitionStart?.Invoke();
             transition = canvasGroup.DOFade(1f, fadeTime).SetEase(easingFunction);
             await transition.AsyncWaitForCompletion();
+            OnEnterTransitionFinish?.Invoke();
         }
 
         public override async Task ExitTransitionAsync()
@@ -53,13 +54,14 @@ namespace Reflectis.SDK.Transitions
             KillActiveTransition();
             Tweener newTransition = canvasGroup.DOFade(0f, fadeTime).SetEase(easingFunction);
             transition = newTransition;
+            OnExitTransitionStart?.Invoke();
             await transition.AsyncWaitForCompletion();
             if (activateGameObject && newTransition == transition)
             {
                 canvasGroup.gameObject.SetActive(false);
             }
             transition = null;
-            onExitTransition?.Invoke();
+            onExitTransitionFinish?.Invoke();
         }
 
         private void KillActiveTransition()
