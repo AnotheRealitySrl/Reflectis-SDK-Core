@@ -4,15 +4,16 @@ namespace Reflectis.SDK.TextChat
 {
     public class ChatRoom
     {
-        public string Id { get; internal set; }
+        public string Id { get; set; }
 
-        public string Name { get; internal set; }
+        public string Name { get; set; }
 
-        public string Description { get; internal set; }
+        public string Description { get; set; }
 
-        public int MaxUsers { get; internal set; }
+        public int MaxUsers { get; set; }
 
-        public List<string> MemberList { get; internal set; }
+        public List<ChatMessage> Messages { get; set; }
+        public List<string> MemberList { get; set; }
 
         public ChatRoom(string id, string name, string description, int maxUsers, List<string> memberList)
         {

@@ -125,6 +125,11 @@ namespace Reflectis.SDK.TextChat
         void FetchAllChannels();
 
         /// <summary>
+        /// Get all the private channels ids
+        /// </summary>
+        List<string> GetPrivateChannelIds();
+
+        /// <summary>
         /// Joins the default channels
         /// </summary>
         void JoinTextChannel();
