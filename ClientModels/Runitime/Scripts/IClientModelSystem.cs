@@ -136,6 +136,13 @@ namespace Reflectis.SDK.ClientModels
         /// <returns></returns>
         Task<bool> UpdateAssetsInEvent(int eventId, List<CMResource> assets);
 
+        /// <summary>
+        /// load the asset list saved previously.
+        /// </summary>
+        /// <param name="eventId"></param>
+        /// <param name="assets"></param>
+        /// <returns></returns>
+        Task<bool> UpdateSavedAssets(int eventId, List<CMTemplateObj> assets);
         #endregion
 
         #region Categories
