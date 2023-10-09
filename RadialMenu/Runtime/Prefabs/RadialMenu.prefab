@@ -451,8 +451,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuObj: {fileID: 7682960020222118250}
-  itemPrefab: {fileID: 740490468437867352, guid: dea2f62f20902af4faa27ead29393f46,
-    type: 3}
+  itemPrefab: {fileID: 740490468437867352, guid: dea2f62f20902af4faa27ead29393f46, type: 3}
   itemListData: []
   positionOffset: {x: 0, y: 0, z: 0}
   action:
@@ -475,6 +474,6 @@ MonoBehaviour:
   radius: 0.5
   openSpeed: 0.3
   closeSpeed: 0.3
-  itemsStartScale: {x: 0, y: 0, z: 0}
+  itemsStartScale: {x: 0.3, y: -0.5, z: 1.65}
   itemName: {fileID: 2776479615498574863}
   itemNameField: {fileID: 8027958903191884873}
