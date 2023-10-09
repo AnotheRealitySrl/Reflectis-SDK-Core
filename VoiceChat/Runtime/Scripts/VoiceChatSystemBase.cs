@@ -35,6 +35,7 @@ namespace Reflectis.SDK.VoiceChat
         public virtual void DisposeEngine() => DisconnectFromChannel();
         public abstract string GetChannelName();
         public abstract float GetSystemVolume();
+        public abstract bool GetVoiceDetection();
         public abstract void InitEngine();
         public abstract GameObject MakeVideoView(string parentName, GameObject videoView, uint uid = 0, string channelId = "");
         public abstract void MuteAllRemoteStream(bool muteAudio, bool muteVideo);
