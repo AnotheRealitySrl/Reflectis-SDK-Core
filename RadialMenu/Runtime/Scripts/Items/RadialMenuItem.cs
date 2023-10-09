@@ -17,10 +17,18 @@ namespace Reflectis.SDK.RadialMenu
         private RectTransform iconRect;
 
         [SerializeField]
-        private Image background;
+        private Image outerBackground;
+        private RectTransform outerBackgroundTransform;
 
         [SerializeField]
-        private TextMeshProUGUI itemText;
+        private Image innerBackground;
+
+        [SerializeField]
+        private Color hoverOuterColor;
+
+        [SerializeField]
+        private Color unHoverOuterColor;
+
         private string itemName;
 
         private int itemPosition; //useful for networked items
@@ -29,9 +37,12 @@ namespace Reflectis.SDK.RadialMenu
         private GameObject itemSpawned;
         private GameObject itemModelSpawned;
 
+        private bool selected = false;
+
         private void Start()
         {
             iconRect = icon.GetComponent<RectTransform>();
+            outerBackgroundTransform = outerBackground.GetComponent<RectTransform>();
         }
 
         public void SetItemSpawned(GameObject itemGO)
@@ -41,7 +52,12 @@ namespace Reflectis.SDK.RadialMenu
 
         public void SetBackground(Sprite b)
         {
-            background.sprite = b;
+            outerBackground.sprite = b;
+        }
+
+        public void SetInnerBackground(Sprite b)
+        {
+            innerBackground.sprite = b;
         }
 
         public void SetIcon(Sprite i)
@@ -51,7 +67,6 @@ namespace Reflectis.SDK.RadialMenu
 
         public void SetItemName(string name){
             itemName = name;
-            itemText.text = itemName;
         }
 
         public void SetItemPosition(int pos)
@@ -85,12 +100,31 @@ namespace Reflectis.SDK.RadialMenu
 
         public void HoverItem()
         {
-            iconRect.DOScale(Vector3.one * 1.5f, .3f).SetEase(Ease.OutQuad);
+            if (!selected)
+            {
+                //change icon scale
+                //iconRect.DOScale(Vector3.one * 1.5f, .3f).SetEase(Ease.OutQuad);
+
+                //change color and outer background scale
+                outerBackground.color = hoverOuterColor;
+                outerBackgroundTransform.DOScale(Vector3.one * 0.85f, .3f).SetEase(Ease.OutQuad);
+
+                radialMenu.HoverItem(itemName);
+            }
         }
 
         public void UnHoverItem()
         {
-            iconRect.DOScale(Vector3.one, .3f).SetEase(Ease.OutQuad);
+            if (!selected)
+            {
+                //iconRect.DOScale(Vector3.one, .3f).SetEase(Ease.OutQuad);
+
+                //change color and outer background scale
+                outerBackground.color = unHoverOuterColor;
+                outerBackgroundTransform.DOScale(Vector3.one, .3f).SetEase(Ease.OutQuad);
+
+                //radialMenu.UnHoverItem();
+            }
         }
 
         public void ChooseItem()
@@ -98,10 +132,15 @@ namespace Reflectis.SDK.RadialMenu
             //instantiate the item from the radial menu so that I have the player position  
             if (emptyObject)
             {
+                selected = false;
                 radialMenu.RemoveItem();
             }
             else
             {
+                selected = true;
+                outerBackground.color = hoverOuterColor;
+                outerBackgroundTransform.DOScale(Vector3.one, .3f).SetEase(Ease.OutQuad);
+
                 radialMenu.InstantiateItem(itemSpawned, itemPosition);
             }
         }

@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 using Sirenix.OdinInspector;
 using Reflectis.SDK.Avatars;
 using Reflectis.SDK.Core;
+using TMPro;
 
 namespace Reflectis.SDK.RadialMenu
 {
@@ -43,14 +44,21 @@ namespace Reflectis.SDK.RadialMenu
 
         [SerializeField]
         protected float openSpeed = 0.3f; //the speed with which the menu opens
+
         [SerializeField]
         protected float closeSpeed = 0.3f; //the speed with which the menu closes
-
+        
         [SerializeField]
         protected Vector3 itemsStartScale; //used to scale the items when opening the menu, right now it is the same as the prefab.
 
         protected Transform originalParent; //useful to remove the menu from the player face. The original parent of the whole prefab
         protected Transform menuCanvas; //the canvas holding the menu, it is set as the child of the main camera when menu is opened
+
+        [SerializeField]
+        private TextMeshProUGUI itemName;
+
+        [SerializeField]
+        private GameObject itemNameField;
 
         #endregion
 
@@ -121,6 +129,7 @@ namespace Reflectis.SDK.RadialMenu
             item.SetEmptyObject(itemData.emptyObject);
             item.SetIcon(itemData.icon);
             item.SetBackground(itemData.background);
+            //item.SetInnerBackground(itemData.background);
             item.SetItemName(itemData.itemName);
             item.SetItemPosition(itemNetworkedPos);
             //item.SetItemNumber(itemData.itemNumber);
@@ -177,6 +186,8 @@ namespace Reflectis.SDK.RadialMenu
             }
 
             sequence.OnComplete(() => {
+                UnHoverItem();
+                itemNameField.SetActive(true);
                 menuObj.SetActive(false);
                 isOpen = false;
             });
@@ -237,6 +248,18 @@ namespace Reflectis.SDK.RadialMenu
             instantiatedItem = null;
             ResetItemArrangement();
         }
+
+        public void HoverItem(string itemN)
+        {
+            itemNameField.SetActive(true);
+            itemName.text = itemN;
+        }
+
+        public void UnHoverItem()
+        {
+            itemNameField.SetActive(false);
+        }
+
         #endregion
 
         #region Input
