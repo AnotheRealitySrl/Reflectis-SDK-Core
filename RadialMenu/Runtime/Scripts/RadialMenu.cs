@@ -60,6 +60,8 @@ namespace Reflectis.SDK.RadialMenu
         [SerializeField]
         private GameObject itemNameField;
 
+        protected int selectedPos=-50; //the position in the menu of the item selected. Set to -550 so no items are selected at beginning
+
         #endregion
 
         #region Unity Methods
@@ -167,12 +169,22 @@ namespace Reflectis.SDK.RadialMenu
         }
 
         //Reset the ui item to the center
-        public void ResetItemArrangement()
+        public void ResetItemArrangement(int selectedPos)
         {
             var sequence = DOTween.Sequence();
 
+            itemNameField.SetActive(true);
+
             for (int i = 0; i < itemList.Count; i++)
             {
+                if (i == selectedPos)
+                {
+                    itemList[i].SetSelected(true);
+                }
+                else
+                {
+                    itemList[i].SetSelected(false);
+                }
                 RectTransform itemRect = itemList[i].GetComponent<RectTransform>();
 
                 var tween1 = itemRect.DOScale(Vector3.zero, closeSpeed).SetEase(Ease.OutQuad);
@@ -187,7 +199,6 @@ namespace Reflectis.SDK.RadialMenu
 
             sequence.OnComplete(() => {
                 UnHoverItem();
-                itemNameField.SetActive(true);
                 menuObj.SetActive(false);
                 isOpen = false;
             });
@@ -196,7 +207,6 @@ namespace Reflectis.SDK.RadialMenu
         //Instantiate Item on the hand or remove it, happens when clicking on a ui item
         public virtual void InstantiateItem(GameObject item, int pos)
         {
-
             //Check if there's already an instantiated object
             if (instantiatedItem)
             {
@@ -207,7 +217,7 @@ namespace Reflectis.SDK.RadialMenu
 
                 if (instantiatedItem == item)
                 {
-                    ResetItemArrangement();
+                    ResetItemArrangement(-50);
                     instantiatedItem = null;
                     return;
                 }
@@ -232,8 +242,9 @@ namespace Reflectis.SDK.RadialMenu
             //hand.TryGrab(instantiatedItem.GetComponent<Grabbable>());            
             hand.Grab();
 
+            selectedPos = pos + 1;
             //close the menu --- Here if we want we can add animations too
-            ResetItemArrangement();
+            ResetItemArrangement(selectedPos);
             return;
         }
 
@@ -246,7 +257,7 @@ namespace Reflectis.SDK.RadialMenu
                 instantiatedItem.GetComponent<Item>().DeActivateItemModel();
             }
             instantiatedItem = null;
-            ResetItemArrangement();
+            ResetItemArrangement(-50);
         }
 
         public void HoverItem(string itemN)
@@ -277,7 +288,7 @@ namespace Reflectis.SDK.RadialMenu
             }
             else
             {
-                ResetItemArrangement();
+                ResetItemArrangement(selectedPos);
             }
         }
 

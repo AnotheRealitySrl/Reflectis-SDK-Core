@@ -52,7 +52,10 @@ namespace Reflectis.SDK.RadialMenu
 
         public void SetBackground(Sprite b)
         {
+            Debug.LogError("Setting new Background");
             outerBackground.sprite = b;
+            Debug.LogError("Setting new Background");
+            Debug.LogError(outerBackground.sprite);
         }
 
         public void SetInnerBackground(Sprite b)
@@ -72,6 +75,11 @@ namespace Reflectis.SDK.RadialMenu
         public void SetItemPosition(int pos)
         {
             itemPosition = pos;
+        }
+
+        public void SetSelected(bool select)
+        {
+            selected = select;
         }
 
         public string GetName(){
@@ -100,6 +108,8 @@ namespace Reflectis.SDK.RadialMenu
 
         public void HoverItem()
         {
+            radialMenu.HoverItem(itemName);
+
             if (!selected)
             {
                 //change icon scale
@@ -108,8 +118,6 @@ namespace Reflectis.SDK.RadialMenu
                 //change color and outer background scale
                 outerBackground.color = hoverOuterColor;
                 outerBackgroundTransform.DOScale(Vector3.one * 0.85f, .3f).SetEase(Ease.OutQuad);
-
-                radialMenu.HoverItem(itemName);
             }
         }
 
@@ -137,7 +145,6 @@ namespace Reflectis.SDK.RadialMenu
             }
             else
             {
-                selected = true;
                 outerBackground.color = hoverOuterColor;
                 outerBackgroundTransform.DOScale(Vector3.one, .3f).SetEase(Ease.OutQuad);
 

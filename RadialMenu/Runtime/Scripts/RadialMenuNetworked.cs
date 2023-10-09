@@ -20,7 +20,7 @@ namespace Reflectis.SDK.RadialMenu
 
                 if (instantiatedItem == item)
                 {
-                    ResetItemArrangement();
+                    ResetItemArrangement(-50);
                     instantiatedItem = null;
                     return;
                 }
@@ -48,8 +48,9 @@ namespace Reflectis.SDK.RadialMenu
             //RadialRPCItemManager.Instance.photonView.RPC(nameof(RadialRPCItemManager.Instance.RPC_SpawnRadialItem), Photon.Pun.RpcTarget.Others, 0);
             RadialRPCItemManager.Instance.ActivateItem(pos);
 
+            selectedPos = pos + 1;
             //close the menu --- Here if we want we can add animations too
-            ResetItemArrangement();
+            ResetItemArrangement(selectedPos);
             return;
         }
 
@@ -63,7 +64,7 @@ namespace Reflectis.SDK.RadialMenu
                 RadialRPCItemManager.Instance.DeActivateAll();
             }
             instantiatedItem = null;
-            ResetItemArrangement();
+            ResetItemArrangement(-50);
         }
     }
 }
