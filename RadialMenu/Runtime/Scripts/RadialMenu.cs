@@ -129,7 +129,7 @@ namespace Reflectis.SDK.RadialMenu
             item.SetEmptyObject(itemData.emptyObject);
             item.SetIcon(itemData.icon);
             item.SetBackground(itemData.background);
-            //item.SetInnerBackground(itemData.background);
+            item.SetInnerBackground(itemData.background);
             item.SetItemName(itemData.itemName);
             item.SetItemPosition(itemNetworkedPos);
             //item.SetItemNumber(itemData.itemNumber);
