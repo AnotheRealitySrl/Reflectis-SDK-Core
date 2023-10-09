@@ -18,10 +18,12 @@ namespace Reflectis.SDK.RadialMenu
 
         [SerializeField]
         private Image outerBackground;
-        private RectTransform outerBackgroundTransform;
+        //private RectTransform outerBackgroundTransform;
 
         [SerializeField]
         private Image innerBackground;
+        private Vector3 innerBackgroundSize;
+        private RectTransform innerBackgroundTransform;
 
         [SerializeField]
         private Color hoverOuterColor;
@@ -42,7 +44,7 @@ namespace Reflectis.SDK.RadialMenu
         private void Start()
         {
             iconRect = icon.GetComponent<RectTransform>();
-            outerBackgroundTransform = outerBackground.GetComponent<RectTransform>();
+            //outerBackgroundTransform = outerBackground.GetComponent<RectTransform>();
         }
 
         public void SetItemSpawned(GameObject itemGO)
@@ -52,15 +54,14 @@ namespace Reflectis.SDK.RadialMenu
 
         public void SetBackground(Sprite b)
         {
-            Debug.LogError("Setting new Background");
             outerBackground.sprite = b;
-            Debug.LogError("Setting new Background");
-            Debug.LogError(outerBackground.sprite);
         }
 
         public void SetInnerBackground(Sprite b)
         {
             innerBackground.sprite = b;
+            innerBackgroundTransform = innerBackground.GetComponent<RectTransform>();
+            innerBackgroundSize = innerBackgroundTransform.localScale;
         }
 
         public void SetIcon(Sprite i)
@@ -117,7 +118,8 @@ namespace Reflectis.SDK.RadialMenu
 
                 //change color and outer background scale
                 outerBackground.color = hoverOuterColor;
-                outerBackgroundTransform.DOScale(Vector3.one * 0.85f, .3f).SetEase(Ease.OutQuad);
+                //outerBackgroundTransform.DOScale(Vector3.one * 0.85f, .3f).SetEase(Ease.OutQuad);
+                innerBackgroundTransform.DOScale(innerBackgroundSize * 1.15f, .3f).SetEase(Ease.OutQuad);
             }
         }
 
@@ -129,7 +131,8 @@ namespace Reflectis.SDK.RadialMenu
 
                 //change color and outer background scale
                 outerBackground.color = unHoverOuterColor;
-                outerBackgroundTransform.DOScale(Vector3.one, .3f).SetEase(Ease.OutQuad);
+                innerBackgroundTransform.DOScale(innerBackgroundSize, .3f).SetEase(Ease.OutQuad);
+                //outerBackgroundTransform.DOScale(Vector3.one, .3f).SetEase(Ease.OutQuad);
 
                 //radialMenu.UnHoverItem();
             }
@@ -146,7 +149,8 @@ namespace Reflectis.SDK.RadialMenu
             else
             {
                 outerBackground.color = hoverOuterColor;
-                outerBackgroundTransform.DOScale(Vector3.one, .3f).SetEase(Ease.OutQuad);
+                //outerBackgroundTransform.DOScale(Vector3.one, .3f).SetEase(Ease.OutQuad);
+                innerBackgroundTransform.DOScale(innerBackgroundSize, .3f).SetEase(Ease.OutQuad);
 
                 radialMenu.InstantiateItem(itemSpawned, itemPosition);
             }
