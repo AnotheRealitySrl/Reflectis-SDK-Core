@@ -399,7 +399,7 @@ MonoBehaviour:
   icon: {fileID: 4432884985941302602}
   outerBackground: {fileID: 9011395344257878030}
   innerBackground: {fileID: 329933875449685832}
-  hoverOuterColor: {r: 0.10012458, g: 0.5087451, b: 0.8490566, a: 0}
+  hoverOuterColor: {r: 0.10012458, g: 0.5087451, b: 0.8490566, a: 1}
   unHoverOuterColor: {r: 0, g: 0, b: 0, a: 0.5882353}
 --- !u!114 &3231855967783166893
 MonoBehaviour:
