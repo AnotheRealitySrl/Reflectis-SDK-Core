@@ -37,6 +37,18 @@ namespace Reflectis.SDK.ClientModels
         List<CMEvent> PreconfiguredEvents { get; }
 
         /// <summary>
+        /// Ask for data refresh 
+        /// </summary>
+        /// <returns></returns>
+        Task RefreshEventDataIfNecessary();
+
+        /// <summary>
+        /// Force refresh on cached event data
+        /// </summary>
+        /// <returns></returns>
+        Task RefreshEventsData();
+
+        /// <summary>
         /// Returns the default event of a world
         /// </summary>
         Task<CMEvent> GetDefaultWorldEvent(int worldId);
@@ -70,11 +82,6 @@ namespace Reflectis.SDK.ClientModels
         /// <summary>
         /// Returns the list of all events visible by user filtered by environment
         /// </summary>
-        Task<List<CMEvent>> GetAllEventsByTagID(int tagId);
-
-        /// <summary>
-        /// Returns the list of all events visible by user filtered by environment
-        /// </summary>
         Task<List<CMEvent>> GetAllEventsByEnvironmentName(string environmentName);
 
         /// <summary>
@@ -84,11 +91,11 @@ namespace Reflectis.SDK.ClientModels
 
         /// <summary>
         /// Create an event with given e data.
-        /// If successfull return the event, null otherwise
+        /// If successfull return the eventId, -1 otherwise
         /// </summary>
         /// <param name="e"></param>
         /// <returns></returns>
-        Task<CMEvent> CreateEvent(CMEvent e);
+        Task<int> CreateEvent(CMEvent e);
 
         /// <summary>
         /// Delete an event with given id.
