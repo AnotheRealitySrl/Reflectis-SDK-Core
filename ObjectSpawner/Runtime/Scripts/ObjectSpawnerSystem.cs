@@ -23,7 +23,7 @@ namespace Reflectis.SDK.ObjectSpawner
             origin = SM.GetSystem<CharacterControllerSystem>().CharacterControllerInstance.PivotReference;
         }
 
-        public void CheckEntireFov(SpawnableData data) //(addressable oggetto)
+        public async void CheckEntireFovAndSpawn(SpawnableData data) //(addressable oggetto)
         {
             if (checkOngoing)
                 return;
@@ -49,6 +49,12 @@ namespace Reflectis.SDK.ObjectSpawner
                         Destroy(npc);
                     npc = Instantiate(data.ObjPrefab, freePos, Quaternion.identity);
                     npc.transform.LookAt(origin.position + data.OriginOffset);
+
+                    SceneComponentsMapper mapper = await Addressables.LoadAssetAsync<SceneComponentsMapper>("LearningSpaceComponentsMapper").Task;
+                    foreach (SceneComponentPlaceholderBase placeholder in npc.GetComponentsInChildren<SceneComponentPlaceholderBase>(true))
+                    {
+                        await placeholder.Init(mapper);
+                    }
 
                     checkOngoing = false;
                     return;

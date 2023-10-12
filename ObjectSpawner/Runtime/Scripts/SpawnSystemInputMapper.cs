@@ -38,7 +38,7 @@ namespace Reflectis.SDK.ObjectSpawner
 
         protected void CallObjectSpawnerSystem(SpawnableData data)
         {
-            SM.GetSystem<ObjectSpawnerSystem>().CheckEntireFov(data);
+            SM.GetSystem<ObjectSpawnerSystem>().CheckEntireFovAndSpawn(data);
         }
 
         protected static InputAction GetInputAction(InputActionReference actionReference)
