@@ -77,6 +77,10 @@ namespace Reflectis.SDK.Avatars
 
         public override void EnableAvatarMeshes(bool enable)
         {
+            // This call may be done after run closure. This line prevents the error.
+            if (!Application.isPlaying)
+                return;
+
             foreach (Renderer rend in FullBodyAvatarReference.GetComponentsInChildren<Renderer>())
             {
                 rend.enabled = enable;
