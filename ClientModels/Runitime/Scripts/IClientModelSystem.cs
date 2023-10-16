@@ -32,6 +32,7 @@ namespace Reflectis.SDK.ClientModels
 
         #region Events
 
+        CMEvent PreviousEvent { get; }
         CMEvent CurrentEvent { get; set; }
         CMEvent DefaultEvent { get; }
         List<CMEvent> PreconfiguredEvents { get; }
@@ -300,6 +301,8 @@ namespace Reflectis.SDK.ClientModels
         #endregion
 
         #region Shards
+
+        CMShard PreviousShard { get; }
 
         CMShard CurrentShard { get; set; }
 

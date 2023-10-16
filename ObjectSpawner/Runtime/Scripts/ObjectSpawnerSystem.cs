@@ -6,6 +6,7 @@ using UnityEngine.AddressableAssets;
 using System;
 using UnityEngine.InputSystem;
 using Reflectis.SDK.CreatorKit;
+using System.Threading.Tasks;
 
 namespace Reflectis.SDK.ObjectSpawner
 {
@@ -14,8 +15,6 @@ namespace Reflectis.SDK.ObjectSpawner
     public class ObjectSpawnerSystem : BaseSystem
     {
         private Transform origin;
-        private GameObject npc = null;
-        private bool checkOngoing = false;
 
         public override void Init()
         {
@@ -23,13 +22,8 @@ namespace Reflectis.SDK.ObjectSpawner
             origin = SM.GetSystem<CharacterControllerSystem>().CharacterControllerInstance.PivotReference;
         }
 
-        public async void CheckEntireFovAndSpawn(SpawnableData data) //(addressable oggetto)
+        public GameObject CheckEntireFovAndSpawn(SpawnableData data) //(addressable oggetto)
         {
-            if (checkOngoing)
-                return;
-
-            checkOngoing = true;
-
             //Calculate how many fov cones I can check with the given values
             int cycles = (360 / data.FovAngle);
             Debug.Log($"Cycles {cycles}");
@@ -45,26 +39,15 @@ namespace Reflectis.SDK.ObjectSpawner
                     Vector3 freePos = origin.position + data.OriginOffset + GetVectorFromAngle(angle - (data.FovAngle / 2)) * data.ViewDistance;
 
                     //Instantiate npc
-                    if (npc && data.OnlyOneNpc)
-                        Destroy(npc);
-                    npc = Instantiate(data.ObjPrefab, freePos, Quaternion.identity);
-                    npc.transform.LookAt(origin.position + data.OriginOffset);
-
-                    SceneComponentsMapper mapper = await Addressables.LoadAssetAsync<SceneComponentsMapper>("LearningSpaceComponentsMapper").Task;
-                    foreach (SceneComponentPlaceholderBase placeholder in npc.GetComponentsInChildren<SceneComponentPlaceholderBase>(true))
-                    {
-                        await placeholder.Init(mapper);
-                    }
-
-                    checkOngoing = false;
-                    return;
+                    GameObject obj = Instantiate(data.ObjPrefab, freePos, Quaternion.identity);
+                    obj.transform.LookAt(origin.position + data.OriginOffset);
+                    return obj;
                 }
                 //Decrease the starting angle by the value of the fov cone
                 angle -= data.FovAngle;
             }
-
-            Debug.Log("Nessun punto libero!");
-            checkOngoing = false;
+            Debug.LogError($"No Empty space! Unable to istantiate {data.ObjPrefab.name}");
+            return null;
         }
 
         private bool IsFovFree(SpawnableData data, float angle)
