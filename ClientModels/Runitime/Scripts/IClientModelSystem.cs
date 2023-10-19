@@ -32,7 +32,6 @@ namespace Reflectis.SDK.ClientModels
 
         #region Events
 
-        CMEvent PreviousEvent { get; }
         CMEvent CurrentEvent { get; set; }
         CMEvent DefaultEvent { get; }
         List<CMEvent> PreconfiguredEvents { get; }
@@ -302,14 +301,19 @@ namespace Reflectis.SDK.ClientModels
 
         #region Shards
 
-        CMShard PreviousShard { get; }
-
         CMShard CurrentShard { get; set; }
 
         /// <summary>
         /// Retrieves the current shards of an event.
         /// </summary>
         Task<List<CMShard>> GetEventShards(int eventId);
+
+        /// <summary>
+        /// Wheter or not the shard is full
+        /// </summary>
+        /// <param name="shard"></param>
+        /// <returns></returns>
+        Task<bool> IsShardFull(CMShard shard);
 
         #endregion
     }

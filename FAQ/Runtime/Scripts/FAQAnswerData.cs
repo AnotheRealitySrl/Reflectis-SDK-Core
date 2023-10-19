@@ -7,10 +7,10 @@ namespace Reflectis.SDK.FAQ
 {
     [Serializable]
     [Newtonsoft.Json.JsonObject(Newtonsoft.Json.MemberSerialization.Fields)]
-    public class FAQCategoryData
+    public class FAQAnswerData 
     {
-        public int CategoryOrder;
-        public string CategoryTitle;
-        public List<FAQSubcategoryData> Subcategories;
+        public int AnswerOrder;
+        public string AnswerDetail;
+        public string AnswerImage;
     }
 }

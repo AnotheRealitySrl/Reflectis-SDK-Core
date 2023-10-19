@@ -21,7 +21,7 @@ namespace Reflectis.SDK.FAQ
         {
             //Not async method we download the faq on init
             //If necessary it has to be reworked
-            var requestedFaq = faqs.FirstOrDefault(x => x.category == category);
+            var requestedFaq = faqs.FirstOrDefault(x => x.CategoryTitle == category);
             if (requestedFaq != null)
             {
                 return requestedFaq;
@@ -43,11 +43,7 @@ namespace Reflectis.SDK.FAQ
             faqs = await Task.FromResult(JsonArrayHelper.FromJson<FAQCategoryData>(mockFAQResponse));
             foreach (var faq in faqs)
             {
-                Debug.Log("Category"+faq.category);
-                foreach(var faqq in faq.faq)
-                {
-                    Debug.Log($"Question {faqq.question} Answer {faqq.answer}");
-                }
+                Debug.Log("Category" + faq.CategoryTitle);
             }
         }
     }

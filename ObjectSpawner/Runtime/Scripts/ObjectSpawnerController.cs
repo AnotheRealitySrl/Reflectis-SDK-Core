@@ -22,7 +22,11 @@ namespace Reflectis.SDK.ObjectSpawner
         public Task Init(SceneComponentPlaceholderBase placeholder)
         {
             var objSpawnerPlaceholder = (placeholder as ObjectSpawnerPlaceholder);
-            if(objSpawnerPlaceholder.Data != null)
+
+            if (objSpawnerPlaceholder == null)
+                return Task.CompletedTask;
+
+            if (objSpawnerPlaceholder.Data != null)
             {
                 spawnableData = objSpawnerPlaceholder.Data;
             }
@@ -87,7 +91,10 @@ namespace Reflectis.SDK.ObjectSpawner
 
         private void OnDestroy()
         {
-            DeregisterActionCallback(inputActionReference.action);
+            if(inputActionReference != null)
+            {
+                DeregisterActionCallback(inputActionReference.action);
+            }
         }
 
     }
