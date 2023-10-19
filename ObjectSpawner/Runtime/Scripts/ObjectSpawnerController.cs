@@ -13,17 +13,27 @@ using Sirenix.Utilities;
 
 namespace Reflectis.SDK.ObjectSpawner
 {
-    public abstract class ObjectSpawnerManager : MonoBehaviour, IRuntimeComponent
+    public abstract class ObjectSpawnerController : MonoBehaviour, IRuntimeComponent
     {
-        protected SpawnableData spawnableData;
+        public SpawnableData spawnableData;
 
-        private List<SpawnedObject> spawnedObjects = new List<SpawnedObject>();
+        protected InputActionReference inputActionReference;
 
         public Task Init(SceneComponentPlaceholderBase placeholder)
         {
-            spawnableData = (placeholder as SpawnableObjPlaceholder).Data;
+            var objSpawnerPlaceholder = (placeholder as ObjectSpawnerPlaceholder);
+            if(objSpawnerPlaceholder.Data != null)
+            {
+                spawnableData = objSpawnerPlaceholder.Data;
+            }
 
-            RegisterActionCallback(GetInputAction());
+            inputActionReference = GetInputActionReference(objSpawnerPlaceholder);
+
+            InputAction inputAction = inputActionReference != null ? inputActionReference.action : null;
+            if (inputAction != null )
+            {
+                RegisterActionCallback(inputAction);
+            }
 
             return Task.CompletedTask;
         }
@@ -46,34 +56,20 @@ namespace Reflectis.SDK.ObjectSpawner
 
         protected async void ButtonActionCallback(CallbackContext context)
         {
-            spawnedObjects = spawnedObjects.Where(x => x != null).ToList();
             if (context.action.enabled)
             {
-                //There is an active gameobject that has to be destroyed instead of spawning a new one
-                if(spawnableData.OnlyOneNpc && spawnedObjects.Any((x) => x.isAlive && !x.isGettingDestroyed))
-                {
-                    await spawnedObjects.FirstOrDefault((x) => x.isAlive && !x.isGettingDestroyed).Dispose();
-                }
-                else
-                {
-                    if(spawnableData.OnlyOneNpc && spawnedObjects.Any((x) => (x.isAlive && x.isGettingDestroyed) || x.isGettingSpawned))
-                    {
-                        return;
-                    }
-                    await SpawnObj(spawnableData);
-                }
+                await SpawnObj();
             }
         }
 
-        protected async Task SpawnObj(SpawnableData data)
+        public async Task<SpawnedObject> SpawnObj()
         {
-            GameObject spawned = SM.GetSystem<ObjectSpawnerSystem>().CheckEntireFovAndSpawn(data);
+            GameObject spawned = SM.GetSystem<ObjectSpawnerSystem>().CheckEntireFovAndSpawn(spawnableData);
             if (spawned == null)
             {
-                return;
+                return null;
             }
             var spawnedObject = spawned.AddComponent<SpawnedObject>();
-            spawnedObjects.Add(spawnedObject);
             SceneComponentsMapper mapper = await Addressables.LoadAssetAsync<SceneComponentsMapper>("LearningSpaceComponentsMapper").Task;
             
             spawnedObject.isAlive = true;
@@ -83,22 +79,15 @@ namespace Reflectis.SDK.ObjectSpawner
             {
                 await placeholder.Init(mapper);
             }
+            return spawnedObject;
         }
 
 
-        protected InputAction GetInputAction()
-        {
-            InputActionReference actionReference = GetInputActionReference();
-#pragma warning disable IDE0031 // Use null propagation -- Do not use for UnityEngine.Object types
-            return actionReference != null ? actionReference.action : null;
-#pragma warning restore IDE0031
-        }
-
-        protected abstract InputActionReference GetInputActionReference();
+        protected abstract InputActionReference GetInputActionReference(ObjectSpawnerPlaceholder placeholder);
 
         private void OnDestroy()
         {
-            DeregisterActionCallback(spawnableData.DesktopInput);
+            DeregisterActionCallback(inputActionReference.action);
         }
 
     }

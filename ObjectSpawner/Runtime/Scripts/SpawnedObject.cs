@@ -11,7 +11,7 @@ namespace Reflectis.SDK.ObjectSpawner
 {
     public class SpawnedObject : MonoBehaviour
     {
-        internal ObjectSpawnerManager objectSpawnerManager;
+        internal ObjectSpawnerController objectSpawnerManager;
 
         public bool isAlive;
 
