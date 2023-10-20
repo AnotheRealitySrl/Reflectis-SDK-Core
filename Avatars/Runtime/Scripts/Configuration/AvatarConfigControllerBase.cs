@@ -33,6 +33,8 @@ namespace Reflectis.SDK.Avatars
         protected readonly List<Renderer> handsMeshes = new();
         protected TMP_Text avatarNameText;
         private AvatarLoaderBase avatarLoader;
+
+        protected int avatarCounterEnable = 0;
         #endregion
 
         #region Properties
@@ -128,10 +130,41 @@ namespace Reflectis.SDK.Avatars
                 }
             }
         }
+
+        public virtual bool ManageCounterAvatarMeshEnable(bool activate)
+        {
+            if (activate)
+            {
+                if (avatarCounterEnable == 0)
+                {
+                    avatarCounterEnable++;
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                if (avatarCounterEnable == 1)
+                {
+                    avatarCounterEnable--;
+
+                    return true;
+                }
+                else
+                {
+
+                    return false;
+                }
+            }
+        }
         #endregion
 
         #region Protected Methods
-        
+
         protected void AddToHandMeshes(Transform transform)
         {
             if (transform != null)

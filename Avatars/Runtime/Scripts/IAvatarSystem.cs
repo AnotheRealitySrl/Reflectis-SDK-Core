@@ -78,6 +78,11 @@ namespace Reflectis.SDK.Avatars
         /// <param name="newName">The new name</param>
         public void EnableAvatarInstanceHandMesh(int id, bool enable);
 
+        /// <summary>
+        /// Function to manage a counter of avatar enable mesh calls.
+        /// </summary>
+        /// <param name="enable"></param>
+        public bool ManageCounterAvatarMeshEnable(bool enable);
         #endregion
     }
 }

@@ -38,6 +38,8 @@ namespace Reflectis.SDK.CharacterController
 
         #endregion
 
+        private int interactionCount = 0;
+
         #region Properties
 
         public CharacterControllerBase CharacterControllerInstance { get; protected set; }
@@ -123,6 +125,36 @@ namespace Reflectis.SDK.CharacterController
         
         public virtual void EnableCharacterJump(bool value) { }
 
+        public virtual bool ManageCounterCharacterInteraction(bool activate) 
+        {
+            if (activate)
+            {
+                if (interactionCount == 0)
+                {
+                    interactionCount++;
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                if (interactionCount == 1)
+                {
+                    interactionCount--;
+
+                    return true;
+                }
+                else
+                {
+
+                    return false;
+                }
+            }
+        }
         #endregion
     }
 

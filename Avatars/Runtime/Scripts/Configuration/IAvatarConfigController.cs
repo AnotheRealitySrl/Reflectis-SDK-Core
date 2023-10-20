@@ -71,6 +71,13 @@ namespace Reflectis.SDK.Avatars
         /// <param name="newName">The new name</param>
         void UpdateAvatarNickName(string newName);
 
+
+        /// <summary>
+        /// Function to manage a counter of avatar enable mesh calls.
+        /// </summary>
+        /// <param name="activate"></param>
+        /// <returns></returns>
+        bool ManageCounterAvatarMeshEnable(bool activate);
         #endregion
     }
 }

@@ -141,7 +141,7 @@ namespace Reflectis.SDK.Avatars
         public void EnableAvatarInstanceMeshes(bool enable) => avatarInstanceConfigManager?.EnableAvatarMeshes(enable);
         public void EnableAvatarInstanceHandMeshes(bool enable) => avatarInstanceConfigManager?.EnableHandMeshes(enable);
         public void EnableAvatarInstanceHandMesh(int id, bool enable) => avatarInstanceConfigManager?.EnableHandMesh(id, enable);
-
+        public bool ManageCounterAvatarMeshEnable(bool enable) { return (bool)avatarInstanceConfigManager?.ManageCounterAvatarMeshEnable(enable); }
         #endregion
     }
 }

@@ -64,6 +64,13 @@ namespace Reflectis.SDK.CharacterController
         /// </summary>
         /// <param name="value"></param>
         void EnableCharacterJump(bool value);
+
+
+        /// <summary>
+        /// Function to manage a counter of the character interaction
+        /// </summary>
+        /// <param name="activate"></param>
+        bool ManageCounterCharacterInteraction(bool activate);
         #endregion
     }
 }
