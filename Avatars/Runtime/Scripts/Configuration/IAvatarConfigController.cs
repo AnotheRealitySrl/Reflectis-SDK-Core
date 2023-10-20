@@ -77,7 +77,7 @@ namespace Reflectis.SDK.Avatars
         /// </summary>
         /// <param name="activate"></param>
         /// <returns></returns>
-        bool ManageCounterAvatarMeshEnable(bool activate);
+        int ManageCounterAvatarMeshEnable(bool activate);
         #endregion
     }
 }

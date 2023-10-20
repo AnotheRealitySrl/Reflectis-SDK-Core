@@ -131,35 +131,18 @@ namespace Reflectis.SDK.Avatars
             }
         }
 
-        public virtual bool ManageCounterAvatarMeshEnable(bool activate)
+        public virtual int ManageCounterAvatarMeshEnable(bool activate)
         {
-            if (activate)
+            if (!activate)
             {
-                if (avatarCounterEnable == 0)
-                {
-                    avatarCounterEnable++;
-
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                avatarCounterEnable++;
             }
             else
             {
-                if (avatarCounterEnable == 1)
-                {
-                    avatarCounterEnable--;
-
-                    return true;
-                }
-                else
-                {
-
-                    return false;
-                }
+                avatarCounterEnable--;
             }
+
+            return avatarCounterEnable;
         }
         #endregion
 

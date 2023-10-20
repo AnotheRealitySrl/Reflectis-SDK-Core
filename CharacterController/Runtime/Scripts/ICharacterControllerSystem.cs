@@ -70,7 +70,7 @@ namespace Reflectis.SDK.CharacterController
         /// Function to manage a counter of the character interaction
         /// </summary>
         /// <param name="activate"></param>
-        bool ManageCounterCharacterInteraction(bool activate);
+        int ManageCounterCharacterInteraction(bool activate);
         #endregion
     }
 }

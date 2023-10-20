@@ -125,35 +125,17 @@ namespace Reflectis.SDK.CharacterController
         
         public virtual void EnableCharacterJump(bool value) { }
 
-        public virtual bool ManageCounterCharacterInteraction(bool activate) 
+        public virtual int ManageCounterCharacterInteraction(bool activate) 
         {
             if (activate)
             {
-                if (interactionCount == 0)
-                {
-                    interactionCount++;
-
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                interactionCount++;
             }
             else
             {
-                if (interactionCount == 1)
-                {
-                    interactionCount--;
-
-                    return true;
-                }
-                else
-                {
-
-                    return false;
-                }
+                interactionCount--;
             }
+            return interactionCount;
         }
         #endregion
     }

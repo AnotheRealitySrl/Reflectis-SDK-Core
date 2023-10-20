@@ -82,7 +82,7 @@ namespace Reflectis.SDK.Avatars
         /// Function to manage a counter of avatar enable mesh calls.
         /// </summary>
         /// <param name="enable"></param>
-        public bool ManageCounterAvatarMeshEnable(bool enable);
+        public int ManageCounterAvatarMeshEnable(bool enable);
         #endregion
     }
 }
