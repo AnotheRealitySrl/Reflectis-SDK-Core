@@ -22,8 +22,12 @@ namespace Reflectis.SDK.ObjectSpawner
             origin = SM.GetSystem<CharacterControllerSystem>().CharacterControllerInstance.PivotReference;
         }
 
-        public GameObject CheckEntireFovAndSpawn(SpawnableData data) //(addressable oggetto)
+        public GameObject CheckEntireFovAndSpawn(SpawnableData data, Transform origin = null) 
         {
+            if(origin == null)
+            {
+                origin = this.origin;
+            }
             //Calculate how many fov cones I can check with the given values
             int cycles = (360 / data.FovAngle);
             Debug.Log($"Cycles {cycles}");
@@ -31,7 +35,7 @@ namespace Reflectis.SDK.ObjectSpawner
             float angle = data.StartingAngle - origin.eulerAngles.y;
             for (int i = 0; i < cycles; i++)
             {
-                if (IsFovFree(data, angle))
+                if (IsFovFree(data, angle, origin))
                 {
                     Debug.Log("Fov libera, spawna pawn");
 
@@ -50,7 +54,7 @@ namespace Reflectis.SDK.ObjectSpawner
             return null;
         }
 
-        private bool IsFovFree(SpawnableData data, float angle)
+        private bool IsFovFree(SpawnableData data, float angle, Transform origin)
         {
             Vector3 v3origin = origin.position + data.OriginOffset;
             float angleIncrease = data.FovAngle / data.RayCount;
