@@ -28,7 +28,7 @@ namespace Reflectis.SDK.ObjectSpawner
             await Task.WhenAll(destroyTasks);
             isGettingDestroyed = false;
             isAlive = false;
-            Destroy(this);
+            Destroy(this.gameObject);
         }
     }
 }

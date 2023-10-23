@@ -45,16 +45,12 @@ namespace Reflectis.SDK.ObjectSpawner
         protected virtual void RegisterActionCallback(InputAction action)
         {
             action.Enable();
-            action.started += ButtonActionCallback;
             action.performed += ButtonActionCallback;
-            action.canceled += ButtonActionCallback;
         }
 
         protected virtual void DeregisterActionCallback(InputAction action)
         {
-            action.started -= ButtonActionCallback;
             action.performed -= ButtonActionCallback;
-            action.canceled -= ButtonActionCallback;
             action.Disable();
         }
 
@@ -85,7 +81,6 @@ namespace Reflectis.SDK.ObjectSpawner
             }
             return spawnedObject;
         }
-
 
         protected abstract InputActionReference GetInputActionReference(ObjectSpawnerPlaceholder placeholder);
 

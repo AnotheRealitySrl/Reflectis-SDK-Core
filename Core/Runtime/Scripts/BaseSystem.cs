@@ -20,9 +20,12 @@ namespace Reflectis.SDK.Core
         [SerializeField]
         private List<BaseSystem> _subSystems = new();
 
+        [SerializeField]
+        private bool autoInitAtStartup = true;
+
         public bool RequiresNewInstance { get; set; } = true;
 
-        public bool AutoInitAtStartup { get; set; } = true;
+        public bool AutoInitAtStartup { get => autoInitAtStartup; }
 
         public ISystem ParentSystem { get; private set; }
 

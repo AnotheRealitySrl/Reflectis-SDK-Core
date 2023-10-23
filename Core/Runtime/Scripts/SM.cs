@@ -57,9 +57,13 @@ namespace Reflectis.SDK.Core
                 BaseSystem system = systems[i];
                 if (system != null)
                 {
+                    
                     BaseSystem systemInstance = system.RequiresNewInstance ? ScriptableObject.Instantiate(system) : system;
                     CurrentSystems.Add(systemInstance);
-                    _ = InitSystem(systemInstance, null);
+                    if (system.AutoInitAtStartup)
+                    {
+                        _ = InitSystem(systemInstance, null);
+                    }
                 }
                 else
                 {
