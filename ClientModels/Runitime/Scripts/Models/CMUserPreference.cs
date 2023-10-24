@@ -1,9 +1,15 @@
 ﻿using System;
-
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Reflectis.SDK.ClientModels
 {
+    public enum HandPreference
+    {
+        LeftHanded,
+        RightHanded
+    }
+
     [Serializable]
     public class CMUserPreference
     {
@@ -24,6 +30,16 @@ namespace Reflectis.SDK.ClientModels
         [SerializeField] private string social2;
         [SerializeField] private string social3;
         [SerializeField] private string bio;
+        [SerializeField] private string handPreference;
+        [SerializeField] private bool isHand;
+        [SerializeField] private Dictionary<string, string> mascotteNames;
+
+        public HandPreference HandPreference
+        {
+            get => Enum.TryParse(handPreference, out HandPreference _) ? (HandPreference)Enum.Parse(typeof(HandPreference), handPreference) : HandPreference.RightHanded;
+            set => handPreference = value.ToString();
+        }
+        public Dictionary<string, string> MascotteNames { get => mascotteNames; set => mascotteNames = value; }
 
         public string Language { get => language; set => language = value; }
         public string Nickname { get => nickname; set => nickname = value; }
