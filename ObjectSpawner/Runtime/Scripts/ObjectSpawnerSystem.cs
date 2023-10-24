@@ -19,7 +19,7 @@ namespace Reflectis.SDK.ObjectSpawner
         public override void Init()
         {
             //Get origin
-            origin = SM.GetSystem<CharacterControllerSystem>().CharacterControllerInstance.PivotReference;
+            origin = SM.GetSystem<CharacterControllerSystem>().CharacterControllerInstance.HeadReference;
         }
 
         public GameObject CheckEntireFovAndSpawn(SpawnableData data, Transform origin = null) 
