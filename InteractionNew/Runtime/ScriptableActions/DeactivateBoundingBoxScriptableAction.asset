@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f724783b595b0e54aa808817cd5ab7c9, type: 3}
-  m_Name: DoubleColorObjectScriptableAction 1
+  m_Script: {fileID: 11500000, guid: b1896f8f87999d2428f03cc1b5543d1e, type: 3}
+  m_Name: DeactivateBoundingBoxScriptableAction
   m_EditorClassIdentifier: 
-  targetColor1: {r: 0, g: 0, b: 1, a: 0}
-  targetColor2: {r: 1, g: 0, b: 0, a: 0}
+  boundingBoxHookId: BoundingBox
+  activate: 0

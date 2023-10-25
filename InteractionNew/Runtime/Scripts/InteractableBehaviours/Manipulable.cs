@@ -1,3 +1,5 @@
+using Reflectis.SDK.Core;
+
 using System;
 
 using UnityEditor;
@@ -57,14 +59,20 @@ namespace Reflectis.SDK.InteractionNew
             }
         }
 
-        public override void OnHoverStateEntered()
+        public async override void OnHoverStateEntered()
         {
-            //
+            foreach (var action in SM.GetSystem<IManipulationSystem>()?.OnHoverEnterActions)
+            {
+                await action.Action(InteractableRef);
+            }
         }
 
-        public override void OnHoverStateExited()
+        public async override void OnHoverStateExited()
         {
-            //
+            foreach (var action in SM.GetSystem<IManipulationSystem>()?.OnHoverExitActions)
+            {
+                await action.Action(InteractableRef);
+            }
         }
     }
 
