@@ -1,0 +1,20 @@
+{
+    "name": "Reflectis.SDK.InteractionNew",
+    "rootNamespace": "Reflectis.SDK.InteractionNew",
+    "references": [
+        "GUID:ab59f74e483e1ee4595bfefea56493f2",
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:2f0761e914296ab40b6b0eb0528cb9ec",
+        "GUID:6621723ab2f3cff4a8be0e8c1642af94",
+        "GUID:e12f610351776714fbea1c97ca084b85"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
