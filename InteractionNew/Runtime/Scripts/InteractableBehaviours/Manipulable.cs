@@ -5,6 +5,7 @@ using System;
 using UnityEditor;
 
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Reflectis.SDK.InteractionNew
 {
@@ -43,6 +44,8 @@ namespace Reflectis.SDK.InteractionNew
         public bool MouseLookAtCamera { get => mouseLookAtCamera; set => mouseLookAtCamera = value; }
         public bool NonProportionalScale { get => nonProportionalScale; set => nonProportionalScale = value; }
 
+        public UnityEvent<EManipulableState> OnCurrentStateChange { get; set; } = new();
+
         public override bool IsIdleState => CurrentInteractionState == EManipulableState.Idle;
 
         private EManipulableState currentInteractionState;
@@ -52,6 +55,8 @@ namespace Reflectis.SDK.InteractionNew
             set
             {
                 currentInteractionState = value;
+                OnCurrentStateChange.Invoke(value);
+
                 if (currentInteractionState == EManipulableState.Idle)
                 {
                     InteractableRef.InteractionState = IInteractable.EInteractionState.Hovered;
