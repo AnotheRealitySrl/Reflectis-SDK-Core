@@ -76,6 +76,8 @@ namespace Reflectis.SDK.Avatars
 
         public async virtual Task UpdateAvatarCustomization(IAvatarConfig config, Action onBeforeAction = null, Action onAfterAction = null)
         {
+            AvatarConfig = config;
+
             onBeforeAction?.Invoke();
 
             OnBeforeInstantiation?.Invoke();

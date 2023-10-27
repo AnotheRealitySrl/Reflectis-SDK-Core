@@ -44,7 +44,7 @@ namespace Reflectis.SDK.Avatars
 
         public AvatarControllerBase AvatarInstance { get; private set; }
         public string LayerNameHiddenToPlayer => layerNameHiddenToPlayer;
-
+        public IAvatarConfigController AvatarInstanceConfigManager { get => avatarInstanceConfigManager; }
         #endregion
 
         #region Unity events
@@ -119,6 +119,7 @@ namespace Reflectis.SDK.Avatars
 
             avatarInstanceConfigManager = AvatarInstance.GetComponent<IAvatarConfigController>();
 
+            //avatarInstanceConfigManager.OnAvatarIstantiated.AddListener((_)=>AvatarInstance.Setup(ccs.CharacterControllerInstance));
             if (setupAvatarInstanceAutomatically)
             {
                 await AvatarInstance.CharacterReference.Setup();
@@ -136,12 +137,12 @@ namespace Reflectis.SDK.Avatars
             avatarInstanceConfigManager = null;
         }
 
-        public void UpdateAvatarInstanceCustomization(IAvatarConfig config) => avatarInstanceConfigManager?.UpdateAvatarCustomization(config);
-        public void UpdateAvatarInstanceNickName(string newName) => avatarInstanceConfigManager?.UpdateAvatarNickName(newName);
-        public void EnableAvatarInstanceMeshes(bool enable) => avatarInstanceConfigManager?.EnableAvatarMeshes(enable);
-        public void EnableAvatarInstanceHandMeshes(bool enable) => avatarInstanceConfigManager?.EnableHandMeshes(enable);
-        public void EnableAvatarInstanceHandMesh(int id, bool enable) => avatarInstanceConfigManager?.EnableHandMesh(id, enable);
-        public int ManageCounterAvatarMeshEnable(bool enable) { return (int)avatarInstanceConfigManager?.ManageCounterAvatarMeshEnable(enable); }
+        public void UpdateAvatarInstanceCustomization(IAvatarConfig config) => AvatarInstanceConfigManager?.UpdateAvatarCustomization(config);
+        public void UpdateAvatarInstanceNickName(string newName) => AvatarInstanceConfigManager?.UpdateAvatarNickName(newName);
+        public void EnableAvatarInstanceMeshes(bool enable) => AvatarInstanceConfigManager?.EnableAvatarMeshes(enable);
+        public void EnableAvatarInstanceHandMeshes(bool enable) => AvatarInstanceConfigManager?.EnableHandMeshes(enable);
+        public void EnableAvatarInstanceHandMesh(int id, bool enable) => AvatarInstanceConfigManager?.EnableHandMesh(id, enable);
+        public int ManageCounterAvatarMeshEnable(bool enable) { return (int)AvatarInstanceConfigManager?.ManageCounterAvatarMeshEnable(enable); }
         #endregion
     }
 }
