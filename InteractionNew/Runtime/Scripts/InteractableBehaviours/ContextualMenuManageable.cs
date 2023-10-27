@@ -1,3 +1,5 @@
+using Reflectis.SDK.Core;
+
 using System.Threading.Tasks;
 
 using UnityEditor;
@@ -46,12 +48,12 @@ namespace Reflectis.SDK.InteractionNew
 
         public override void OnHoverStateEntered()
         {
-            //
+            SM.GetSystem<ContextualMenuSystem>()?.OnHoverEnterActions.ForEach(x => x.Action(InteractableRef));
         }
 
         public override void OnHoverStateExited()
         {
-            //
+            SM.GetSystem<ContextualMenuSystem>()?.OnHoverExitActions.ForEach(x => x.Action(InteractableRef));
         }
 
         public override async Task EnterInteractionState()
