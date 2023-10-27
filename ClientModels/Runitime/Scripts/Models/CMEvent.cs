@@ -32,6 +32,7 @@ namespace Reflectis.SDK.ClientModels
         [SerializeField] private bool isFavorite;
         [SerializeField] private bool canJoin;
         [SerializeField] private bool startingPoint;
+        [SerializeField] private bool staticEvent;
 
         public int Id { get => id; set => id = value; }
         public string Title { get => title; set => title = value; }
@@ -56,6 +57,7 @@ namespace Reflectis.SDK.ClientModels
         public bool IsFavorite { get => isFavorite; set => isFavorite = value; }
         public bool CanJoin { get => canJoin; set => canJoin = value; }
         public bool StartingPoint { get => startingPoint; set => startingPoint = value; }
+        public bool StaticEvent { get => staticEvent; set => staticEvent = value; }
         public List<CMPermission> Permissions { get => permissions; set => permissions = value; }
     }
 

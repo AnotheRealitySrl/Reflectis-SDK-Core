@@ -21,6 +21,8 @@ namespace Reflectis.SDK.Transitions
 
         private Tween tween;
 
+        public Color Color { get => color; set => color = value; }
+
         protected virtual void Awake()
         {
             if (ease.keys.Count() == 0)

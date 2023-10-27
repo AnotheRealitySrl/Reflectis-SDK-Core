@@ -1,7 +1,6 @@
 using Reflectis.SDK.Core;
 
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 using UnityEngine.Events;
@@ -34,7 +33,7 @@ namespace Reflectis.SDK.ClientModels
 
         CMEvent CurrentEvent { get; set; }
         CMEvent DefaultEvent { get; }
-        List<CMEvent> PreconfiguredEvents { get; }
+        List<CMEvent> StaticEvents { get; }
 
         /// <summary>
         /// Ask for data refresh 
@@ -52,6 +51,11 @@ namespace Reflectis.SDK.ClientModels
         /// Returns the default event of a world
         /// </summary>
         Task<CMEvent> GetDefaultWorldEvent(int worldId);
+
+        /// <summary>
+        /// Returns the static events
+        /// </summary>
+        Task<List<CMEvent>> GetStaticEvents();
 
         /// <summary>
         /// Returns an event given its id
