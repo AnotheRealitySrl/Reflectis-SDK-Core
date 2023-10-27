@@ -1,6 +1,8 @@
 using Reflectis.SDK.Core;
 using Reflectis.SDK.Transitions;
 
+using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -15,11 +17,18 @@ namespace Reflectis.SDK.InteractionNew
         [SerializeField] private bool dontDestroyOnLoad = false;
         [SerializeField] private InputActionReference contextualMenuInputActionRef;
 
+        [Header("Scriptable actions")]
+        [SerializeField] private List<AwaitableScriptableAction> onHoverEnterActions = new();
+        [SerializeField] private List<AwaitableScriptableAction> onHoverExitActions = new();
+
         protected GameObject contextualMenu;
         protected ContextualMenuManageable selectedInteractable;
 
         public float ShowToastTime { get => showTime; private set => showTime = value; }
         public float HideToastTime { get => hideTime; private set => hideTime = value; }
+
+        public List<AwaitableScriptableAction> OnHoverEnterActions => onHoverEnterActions;
+        public List<AwaitableScriptableAction> OnHoverExitActions => onHoverExitActions;
 
         public override void Init()
         {

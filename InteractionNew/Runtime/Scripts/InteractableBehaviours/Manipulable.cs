@@ -64,20 +64,14 @@ namespace Reflectis.SDK.InteractionNew
             }
         }
 
-        public async override void OnHoverStateEntered()
+        public override void OnHoverStateEntered()
         {
-            foreach (var action in SM.GetSystem<IManipulationSystem>()?.OnHoverEnterActions)
-            {
-                await action.Action(InteractableRef);
-            }
+            SM.GetSystem<IManipulationSystem>()?.OnHoverEnterActions.ForEach(x => x.Action(InteractableRef));
         }
 
-        public async override void OnHoverStateExited()
+        public override void OnHoverStateExited()
         {
-            foreach (var action in SM.GetSystem<IManipulationSystem>()?.OnHoverExitActions)
-            {
-                await action.Action(InteractableRef);
-            }
+            SM.GetSystem<IManipulationSystem>()?.OnHoverExitActions.ForEach(x => x.Action(InteractableRef));
         }
     }
 

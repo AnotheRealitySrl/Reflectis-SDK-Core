@@ -155,7 +155,7 @@ namespace Reflectis.SDK.InteractionNew
                 await action.Action(InteractableRef);
             }
 
-            if (!skipSelectState)
+            if (skipSelectState)
             {
                 await ExitInteractionState();
             }
