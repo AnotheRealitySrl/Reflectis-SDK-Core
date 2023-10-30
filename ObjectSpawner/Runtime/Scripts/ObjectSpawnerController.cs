@@ -1,15 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using static UnityEngine.InputSystem.InputAction;
-using UnityEngine.InputSystem;
 using Reflectis.SDK.Core;
 using Reflectis.SDK.CreatorKit;
 using System.Threading.Tasks;
-using System.Linq;
-using System;
+using UnityEngine;
 using UnityEngine.AddressableAssets;
-using Sirenix.Utilities;
+using UnityEngine.InputSystem;
+using static UnityEngine.InputSystem.InputAction;
 
 namespace Reflectis.SDK.ObjectSpawner
 {
@@ -34,7 +29,7 @@ namespace Reflectis.SDK.ObjectSpawner
             inputActionReference = GetInputActionReference(objSpawnerPlaceholder);
 
             InputAction inputAction = inputActionReference != null ? inputActionReference.action : null;
-            if (inputAction != null )
+            if (inputAction != null)
             {
                 RegisterActionCallback(inputAction);
             }
@@ -71,7 +66,7 @@ namespace Reflectis.SDK.ObjectSpawner
             }
             var spawnedObject = spawned.AddComponent<SpawnedObject>();
             SceneComponentsMapper mapper = await Addressables.LoadAssetAsync<SceneComponentsMapper>("LearningSpaceComponentsMapper").Task;
-            
+
             spawnedObject.isAlive = true;
 
             spawnedObject.objectSpawnerManager = this;
@@ -86,7 +81,7 @@ namespace Reflectis.SDK.ObjectSpawner
 
         private void OnDestroy()
         {
-            if(inputActionReference != null)
+            if (inputActionReference != null)
             {
                 DeregisterActionCallback(inputActionReference.action);
             }
