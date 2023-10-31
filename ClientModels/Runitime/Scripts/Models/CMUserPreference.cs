@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Reflectis.SDK.ClientModels
@@ -30,36 +31,53 @@ namespace Reflectis.SDK.ClientModels
 
         [SerializeField] private string language;
         [SerializeField] private string nickname;
-        [SerializeField] private AvatarConfigCTO avatarConfig;
+        [SerializeField] private string bio;
         [SerializeField] private string social1;
         [SerializeField] private string social2;
         [SerializeField] private string social3;
-        [SerializeField] private string bio;
+        [SerializeField] private AvatarConfigCTO avatarConfig;
+        [SerializeField] [CanBeNull]  private string dateOfBirth;
+        [SerializeField] [CanBeNull] private string city;
         [SerializeField] private string handPreference;
         [SerializeField] private bool isHand;
         [SerializeField] private Dictionary<string, string> mascotteNames;
+
+        [JsonProperty("language")]
+        public string Language { get => language; set => language = value; }
+        
+        [JsonProperty("nickname")]
+        public string Nickname { get => nickname; set => nickname = value; }
+        
+        [JsonProperty("bio")]
+        public string Bio { get => bio; set => bio = value; }
+        
+        [JsonProperty("social1")]
+        public string Social1 { get => social1; set => social1 = value; }
+        
+        [JsonProperty("social2")]
+        public string Social2 { get => social2; set => social2 = value; }
+        
+        [JsonProperty("social3")]
+        public string Social3 { get => social3; set => social3 = value; }
+        
+        [JsonProperty("avatarConfig")]
+        public AvatarConfigCTO AvatarConfig { get => avatarConfig; set => avatarConfig = value; }
+        
+        [JsonProperty("dateOfBirth")]
+        public string DateOfBirth { get => dateOfBirth; set => dateOfBirth = value; }
+        
+        [JsonProperty("City")]
+        [CanBeNull] public string City { get => city; set => city= value; }
+        
+        
         [JsonProperty("hand")]
         public HandPreference HandPreference
         {
             get => Enum.TryParse(handPreference, out HandPreference _) ? (HandPreference)Enum.Parse(typeof(HandPreference), handPreference) : HandPreference.right;
             set => handPreference = value.ToString();
         }
-
+        
         public Dictionary<string, string> MascotteNames { get => mascotteNames; set => mascotteNames = value; }
-        [JsonProperty("language")]
-        public string Language { get => language; set => language = value; }
-        [JsonProperty("nickname")]
-        public string Nickname { get => nickname; set => nickname = value; }
-        [JsonProperty("social1")]
-        public string Social1 { get => social1; set => social1 = value; }
-        [JsonProperty("social2")]
-        public string Social2 { get => social2; set => social2 = value; }
-        [JsonProperty("social3")]
-        public string Social3 { get => social3; set => social3 = value; }
-        [JsonProperty("bio")]
-        public string Bio { get => bio; set => bio = value; }
-        [JsonProperty("avatarConfig")]
-        public AvatarConfigCTO AvatarConfig { get => avatarConfig; set => avatarConfig = value; }
     }
 
 }
