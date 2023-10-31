@@ -83,7 +83,7 @@ namespace Reflectis.SDK.Avatars
             if (!Application.isPlaying)
                 return;
 
-            foreach (Renderer rend in FullBodyAvatarReference.GetComponentsInChildren<Renderer>())
+            foreach (Renderer rend in FullBodyAvatarReference?.GetComponentsInChildren<Renderer>())
             {
                 rend.enabled = enable;
             }
