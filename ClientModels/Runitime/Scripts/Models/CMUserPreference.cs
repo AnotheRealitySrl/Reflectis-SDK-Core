@@ -12,9 +12,11 @@ namespace Reflectis.SDK.ClientModels
     }
 
     [Serializable]
+    [Newtonsoft.Json.JsonObject(Newtonsoft.Json.MemberSerialization.Fields)]
     public class CMUserPreference
     {
         [Serializable]
+        [Newtonsoft.Json.JsonObject(Newtonsoft.Json.MemberSerialization.Fields)]
         public class AvatarConfigCTO
         {
             [JsonProperty("avatarId")]
@@ -42,6 +44,7 @@ namespace Reflectis.SDK.ClientModels
             get => Enum.TryParse(handPreference, out HandPreference _) ? (HandPreference)Enum.Parse(typeof(HandPreference), handPreference) : HandPreference.right;
             set => handPreference = value.ToString();
         }
+
         public Dictionary<string, string> MascotteNames { get => mascotteNames; set => mascotteNames = value; }
         [JsonProperty("language")]
         public string Language { get => language; set => language = value; }

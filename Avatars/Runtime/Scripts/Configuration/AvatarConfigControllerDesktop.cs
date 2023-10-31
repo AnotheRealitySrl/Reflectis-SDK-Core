@@ -38,6 +38,8 @@ namespace Reflectis.SDK.Avatars
                 parentAnimator = FullBodyAvatarReference?.transform.parent?.gameObject.AddComponent<Animator>();
             }
 
+            parentAnimator.Rebind();
+
             RuntimeAnimatorController animatorControllerReference;
 
             if (avatarData.gender == AvatarGender.Feminine)
