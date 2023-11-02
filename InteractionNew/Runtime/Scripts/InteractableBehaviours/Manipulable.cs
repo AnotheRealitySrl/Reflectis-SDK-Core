@@ -14,9 +14,8 @@ namespace Reflectis.SDK.InteractionNew
         public enum EManipulableState
         {
             Idle,
-            Translate,
-            Rotate,
-            Scale
+            BeforeManipulating,
+            Manipulating
         }
 
         [Flags]
@@ -63,6 +62,8 @@ namespace Reflectis.SDK.InteractionNew
                 }
             }
         }
+
+        public bool CanManipulate { get; set; }
 
         public override void OnHoverStateEntered()
         {

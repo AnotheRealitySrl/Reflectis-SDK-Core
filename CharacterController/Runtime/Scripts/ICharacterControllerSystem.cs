@@ -1,4 +1,7 @@
 using Reflectis.SDK.Core;
+
+using System.Threading.Tasks;
+
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -39,7 +42,7 @@ namespace Reflectis.SDK.CharacterController
 
         #endregion
 
-        #region Utilities
+        #region Public API
 
         /// <summary>
         /// Moves the character controller to a destination position and rotation
@@ -72,6 +75,18 @@ namespace Reflectis.SDK.CharacterController
         /// </summary>
         /// <param name="activate"></param>
         int ManageCounterCharacterInteraction(bool activate);
+
+        /// <summary>
+        /// Sends the character to intract state (Desktop only)
+        /// </summary>
+        /// <param name="interactingItem"></param>
+        public Task GoToInteractState(Transform targetTransform);
+
+        /// <summary>
+        /// Sends the character to movement state (Desktop only)
+        /// </summary>
+        public Task GoToSetMovementState();
+
         #endregion
     }
 }

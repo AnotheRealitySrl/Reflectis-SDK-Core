@@ -9,6 +9,8 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 
+using System.Threading.Tasks;
+
 namespace Reflectis.SDK.CharacterController
 {
     [CreateAssetMenu(menuName = "Reflectis/SDK-CharacterController/CharacterControllerBaseSystemConfig", fileName = "CharacterControllerBaseSystemConfig")]
@@ -120,12 +122,16 @@ namespace Reflectis.SDK.CharacterController
 
         public virtual void EnableCharacterMovement(bool value)
         {
-            
+
         }
-        
+
         public virtual void EnableCharacterJump(bool value) { }
 
-        public virtual int ManageCounterCharacterInteraction(bool activate) 
+        public virtual Task GoToInteractState(Transform targetTransform) => Task.CompletedTask;
+
+        public virtual Task GoToSetMovementState() => Task.CompletedTask;
+
+        public virtual int ManageCounterCharacterInteraction(bool activate)
         {
             if (activate)
             {
@@ -137,6 +143,7 @@ namespace Reflectis.SDK.CharacterController
             }
             return interactionCount;
         }
+
         #endregion
     }
 
