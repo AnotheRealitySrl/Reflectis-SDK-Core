@@ -297,6 +297,7 @@ namespace Reflectis.SDK.ClientModels
         string FindUserDisplayName(int userId);
         string FindUserAvatarPng(int userId);
         int FindUserShard(int userId);
+        int FindUserEvent(int userId);
 
         Task<List<CMOnlinePresence>> GetOnlineUsers(bool includeMyself = true);
         Task PingMyOnlinePresence(int? eventId, int? shardId);

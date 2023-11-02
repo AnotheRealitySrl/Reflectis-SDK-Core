@@ -1,9 +1,10 @@
+using Reflectis.SDK.Core;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace Reflectis.SDK.CharacterController
 {
-    public interface ICharacterControllerSystem
+    public interface ICharacterControllerSystem : ISystem
     {
         #region Properties
 
