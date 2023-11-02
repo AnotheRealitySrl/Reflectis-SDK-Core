@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,12 +11,14 @@ namespace Reflectis.SDK.ClientModels
         [SerializeField] private string name;
         [SerializeField] private string description;
         [SerializeField] private string imageUrl;
+        [SerializeField] private Texture imageTexture;
         [SerializeField] private string addressableKey;
 
         public int ID { get => id; set => id = value; }
         public string Name { get => name; set => name = value; }
         public string Description { get => description; set => description = value; }
         public string ImageUrl { get => imageUrl; set => imageUrl = value; }
+        public Texture ImageTexture { get => imageTexture; set => imageTexture = value; }
         public string AddressableKey { get => addressableKey; set => addressableKey = value; }
 
         

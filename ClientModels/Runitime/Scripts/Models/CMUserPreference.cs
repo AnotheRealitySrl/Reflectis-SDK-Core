@@ -66,7 +66,7 @@ namespace Reflectis.SDK.ClientModels
         [JsonProperty("dateOfBirth")]
         public string DateOfBirth { get => dateOfBirth; set => dateOfBirth = value; }
         
-        [JsonProperty("City")]
+        [JsonProperty("city")]
         [CanBeNull] public string City { get => city; set => city= value; }
         
         
