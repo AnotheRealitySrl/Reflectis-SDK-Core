@@ -26,6 +26,7 @@ namespace Reflectis.SDK.InteractionNew
 
 
         public GameObject ContextualMenuInstance => contextualMenu;
+        public ContextualMenuManageable SelectedInteractable => selectedInteractable;
 
         public float ShowToastTime { get => showTime; private set => showTime = value; }
         public float HideToastTime { get => hideTime; private set => hideTime = value; }
