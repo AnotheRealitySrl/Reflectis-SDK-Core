@@ -2,8 +2,7 @@
     "name": "Reflectis.SDK.CharacterController",
     "rootNamespace": "Reflectis.SDK.CharacterController",
     "references": [
-        "GUID:ab59f74e483e1ee4595bfefea56493f2",
-        "GUID:1861eefdce6f32947832824c6ca7fa07"
+        "GUID:ab59f74e483e1ee4595bfefea56493f2"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
