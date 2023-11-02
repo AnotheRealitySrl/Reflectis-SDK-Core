@@ -292,13 +292,12 @@ namespace Reflectis.SDK.ClientModels
 
         List<CMOnlinePresence> OnlineUsersList { get; set; }
         UnityEvent OnlineUsersUpdated { get; }
-
-        CMOnlinePresence FindUser(int userId);
-        string FindUserDisplayName(int userId);
-        string FindUserAvatarPng(int userId);
-        int FindUserShard(int userId);
-        int FindUserEvent(int userId);
-
+        CMOnlinePresence FindOnlineUser(int userId);
+        string FindOnlineUserDisplayName(int userId);
+        string FindOnlineUserAvatarPng(int userId);
+        int FindOnlineUserShard(int userId);
+        int FindOnlineUserEvent(int userId);
+        CMOnlinePresence.Platform FindOnlineUserPlatform(int userId);
         Task<List<CMOnlinePresence>> GetOnlineUsers(bool includeMyself = true);
         Task PingMyOnlinePresence(int? eventId, int? shardId);
 
