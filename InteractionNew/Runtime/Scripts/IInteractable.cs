@@ -20,7 +20,7 @@ namespace Reflectis.SDK.InteractionNew
         EInteractionState InteractionState { get; set; }
 
         GameObject GameObjectRef { get; }
-        Collider InteractionCollider { get; }
+        List<Collider> InteractionColliders { get; }
 
         void OnHoverEnter();
         void OnHoverExit();
