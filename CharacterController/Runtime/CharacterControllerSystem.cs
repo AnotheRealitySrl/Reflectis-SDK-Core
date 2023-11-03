@@ -120,12 +120,13 @@ namespace Reflectis.SDK.CharacterController
 
         public virtual void ActivateReactionAnimation(string reactionName) { }
 
-        public virtual void EnableCharacterMovement(bool value)
-        {
-
-        }
+        public virtual void EnableCharacterMovement(bool value) { }
 
         public virtual void EnableCharacterJump(bool value) { }
+
+        public virtual void EnableCameraRotation(bool value) { }
+
+        public virtual void EnableCameraZoom(bool value) { }
 
         public virtual Task GoToInteractState(Transform targetTransform) => Task.CompletedTask;
 
