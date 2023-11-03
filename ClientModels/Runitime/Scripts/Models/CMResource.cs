@@ -8,13 +8,16 @@ namespace Reflectis.SDK.ClientModels
     public class CMResource
     {
         [SerializeField] private int id;
-        [SerializeField] private string name;
-        [SerializeField] private int sizeBytes;
-        [SerializeField] private string url;
-        [SerializeField] private string path;
-        [SerializeField] private string thumbnailPath;
-        [SerializeField] private int type;
+        [SerializeField] private int ownerUserId;
+        [SerializeField] private bool isPublic;
+        [SerializeField] private string path; // folder
+        [SerializeField] private string name; // label
         [SerializeField] private DateTime creationDate;
+        [SerializeField] private DateTime lastUpdate;
+        [SerializeField] private string url; // contentUri
+        [SerializeField] private int type; // contentType
+        [SerializeField] private string thumbnailPath; // thumbnailUri
+        [SerializeField] private int sizeBytes;
 
         public int Id { get => id; set => id = value; }
         public string Name { get => name; set => name = value; }
@@ -33,27 +36,50 @@ namespace Reflectis.SDK.ClientModels
                     int value = SizeBytes / gigabyte;
                     return $"{value:F2} GB";
                 }
-                else if (sizeBytes >= megabyte)
+
+                if (sizeBytes >= megabyte)
                 {
                     double value = SizeBytes / megabyte;
                     return $"{value:F2} MB";
                 }
-                else if (SizeBytes >= kilobyte)
+
+                if (SizeBytes >= kilobyte)
                 {
                     double value = SizeBytes / kilobyte;
                     return $"{value:F2} KB";
                 }
-                else
-                {
-                    return $"{SizeBytes} bytes";
-                }
+
+                return $"{SizeBytes} bytes";
             }
         }
         public string Url { get => url; set => url = value; }
         public string Path { get => path; set => path = value; }
-        public string ThumbnailPath => thumbnailPath?.Replace(" ", "%20");
+        public string ThumbnailPath
+        {
+            get => thumbnailPath;
+            set => thumbnailPath = value?.Replace(" ", "%20");
+        }
+
         public FileTypeExt Type { get => (FileTypeExt)type; set => type = (int)value; }
         public DateTime CreationDate { get => creationDate; set => creationDate = value; }
+
+        public int OwnerUserId
+        {
+            get => ownerUserId;
+            set => ownerUserId = value;
+        }
+
+        public bool IsPublic
+        {
+            get => isPublic;
+            set => isPublic = value;
+        }
+
+        public DateTime LastUpdate
+        {
+            get => lastUpdate;
+            set => lastUpdate = value;
+        }
 
         public CMResource() { }
 

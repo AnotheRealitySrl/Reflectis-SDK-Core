@@ -13,6 +13,7 @@ namespace Reflectis.SDK.FAQ
     public class FAQSystem : BaseSystem, IFAQSystem
     {
         [SerializeField]
+        [TextArea(1,30)]
         private string mockFAQResponse;
 
         private FAQCategoryData[] faqs;
