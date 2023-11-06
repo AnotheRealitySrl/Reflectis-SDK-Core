@@ -29,8 +29,11 @@ namespace Reflectis.SDK.Avatars
             FullBodyAvatarReference.transform.SetParent(currentPivotParent, false);
             FullBodyAvatarReference.transform.SetAsFirstSibling();
             FullBodyAvatarReference.name = "Armature";
-            FullBodyAvatarReference.layer = LayerMask.NameToLayer("AvatarWelcomeRoom");
 
+            foreach (Transform child in FullBodyAvatarReference.transform)
+            {
+                child.gameObject.layer = LayerMask.NameToLayer("AvatarWelcomeRoom");
+            }
 
             Animator parentAnimator = FullBodyAvatarReference?.transform.parent?.GetComponent<Animator>();
             if (!parentAnimator)
