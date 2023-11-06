@@ -47,25 +47,39 @@ namespace Reflectis.SDK.InteractionNew
 
         private List<GameObject> scalingCorners;
         private List<GameObject> scalingFaces;
-        public List<GameObject> ScalingCorners 
+        private GameObject boundingBox;
+        public List<GameObject> ScalingCorners
         {
-            get {
+            get
+            {
                 if (scalingCorners == null)
                 {
                     scalingCorners = GetComponent<BaseInteractable>().GameObjectRef.GetComponentsInChildren<GenericHookComponent>().Where(x => x.Id == "ScalingCorner").Select(x => x.gameObject).ToList();
                 }
                 return scalingCorners;
-            } 
+            }
         }
         public List<GameObject> ScalingFaces
         {
-            get {
+            get
+            {
                 if (scalingFaces == null)
                 {
                     scalingFaces = GetComponent<BaseInteractable>().GameObjectRef.GetComponentsInChildren<GenericHookComponent>().Where(x => x.Id == "ScalingFace").Select(x => x.gameObject).ToList();
                 }
                 return scalingFaces;
-            } 
+            }
+        }
+        public GameObject BoundingBox
+        {
+            get
+            {
+                if (boundingBox == null)
+                {
+                    boundingBox = GetComponent<BaseInteractable>().GameObjectRef.GetComponentsInChildren<GenericHookComponent>().FirstOrDefault(x => x.Id == "BoundingBox").gameObject;
+                }
+                return boundingBox;
+            }
         }
 
         public UnityEvent<EManipulableState> OnCurrentStateChange { get; set; } = new();
