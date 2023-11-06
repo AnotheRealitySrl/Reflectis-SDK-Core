@@ -21,7 +21,7 @@ namespace Reflectis.SDK.Avatars
 
             #region Unity events
 
-        UnityEvent<IAvatarConfig> AvatarConfigChanged { get; }
+        UnityEvent<IAvatarConfig> OnPlayerAvatarConfigChanged { get; }
         UnityEvent<string> PlayerNickNameChanged { get; }
 
         #endregion
