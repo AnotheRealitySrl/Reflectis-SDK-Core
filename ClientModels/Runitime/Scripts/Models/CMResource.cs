@@ -21,7 +21,7 @@ namespace Reflectis.SDK.ClientModels
 
         public int Id { get => id; set => id = value; }
         public string Name { get => name; set => name = value; }
-        public int SizeBytes => sizeBytes;
+        public int SizeBytes { get => sizeBytes; set => sizeBytes = value; }
 
         public string SizeBytesString
         {
@@ -54,32 +54,16 @@ namespace Reflectis.SDK.ClientModels
         }
         public string Url { get => url; set => url = value; }
         public string Path { get => path; set => path = value; }
-        public string ThumbnailPath
-        {
-            get => thumbnailPath;
-            set => thumbnailPath = value?.Replace(" ", "%20");
-        }
+        public string ThumbnailPath { get => thumbnailPath; set => thumbnailPath = value?.Replace(" ", "%20"); }
 
         public FileTypeExt Type { get => (FileTypeExt)type; set => type = (int)value; }
         public DateTime CreationDate { get => creationDate; set => creationDate = value; }
 
-        public int OwnerUserId
-        {
-            get => ownerUserId;
-            set => ownerUserId = value;
-        }
+        public int OwnerUserId { get => ownerUserId; set => ownerUserId = value; }
 
-        public bool IsPublic
-        {
-            get => isPublic;
-            set => isPublic = value;
-        }
+        public bool IsPublic { get => isPublic; set => isPublic = value; }
 
-        public DateTime LastUpdate
-        {
-            get => lastUpdate;
-            set => lastUpdate = value;
-        }
+        public DateTime LastUpdate { get => lastUpdate; set => lastUpdate = value; }
 
         public CMResource() { }
 
