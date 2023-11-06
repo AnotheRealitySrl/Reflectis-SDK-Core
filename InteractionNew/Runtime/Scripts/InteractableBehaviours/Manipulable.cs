@@ -1,7 +1,9 @@
+using Reflectis.SDK.CharacterController;
 using Reflectis.SDK.Core;
 
 using System;
-
+using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 
 using UnityEngine;
@@ -42,6 +44,29 @@ namespace Reflectis.SDK.InteractionNew
         public EVRInteraction VRInteraction { get => vrInteraction; set => vrInteraction = value; }
         public bool MouseLookAtCamera { get => mouseLookAtCamera; set => mouseLookAtCamera = value; }
         public bool NonProportionalScale { get => nonProportionalScale; set => nonProportionalScale = value; }
+
+        private List<GameObject> scalingCorners;
+        private List<GameObject> scalingFaces;
+        public List<GameObject> ScalingCorners 
+        {
+            get {
+                if (scalingCorners == null)
+                {
+                    scalingCorners = GetComponent<BaseInteractable>().GameObjectRef.GetComponentsInChildren<GenericHookComponent>().Where(x => x.Id == "ScalingCorner").Select(x => x.gameObject).ToList();
+                }
+                return scalingCorners;
+            } 
+        }
+        public List<GameObject> ScalingFaces
+        {
+            get {
+                if (scalingFaces == null)
+                {
+                    scalingFaces = GetComponent<BaseInteractable>().GameObjectRef.GetComponentsInChildren<GenericHookComponent>().Where(x => x.Id == "ScalingFace").Select(x => x.gameObject).ToList();
+                }
+                return scalingFaces;
+            } 
+        }
 
         public UnityEvent<EManipulableState> OnCurrentStateChange { get; set; } = new();
 
