@@ -1,10 +1,6 @@
-#if ODIN_INSPECTOR
 using Reflectis.SDK.Transitions;
 
-using Sirenix.OdinInspector;
-using Sirenix.Utilities;
-#endif
-
+using System;
 using System.Collections.Generic;
 
 using UnityEngine;
@@ -15,19 +11,16 @@ namespace Reflectis.SDK.InteractionNew
 {
     public class ContextualMenuController : MonoBehaviour
     {
-        [CreateAssetMenu(menuName = "AnotheReality/Utils/ContextualMenuDictionary", fileName = "ContextualMenuDictionary")]
-        public class ContextualMenuDictionary
-#if ODIN_INSPECTOR
-            : SerializedScriptableObject
-#endif
+        [Serializable]
+        private class ContextualMenuItem
         {
-            [SerializeField] private Dictionary<EContextualMenuOption, GameObject> contextualMenuItems = new();
-            public Dictionary<EContextualMenuOption, GameObject> ContextualMenuItems => contextualMenuItems;
+            public EContextualMenuOption key;
+            public GameObject value;
         }
 
-        [SerializeField] private ContextualMenuDictionary menuDictionary;
+        [SerializeField] private List<ContextualMenuItem> contextualMenuItems = new();
 
-        AbstractTransitionProvider transitionProvider;
+        private AbstractTransitionProvider transitionProvider;
 
         private void Awake()
         {
@@ -38,14 +31,14 @@ namespace Reflectis.SDK.InteractionNew
 
         public async void Setup(EContextualMenuOption options)
         {
-            menuDictionary.ContextualMenuItems.ForEach(x => x.Value.SetActive(options.HasFlag(x.Key)));
+            contextualMenuItems.ForEach(x => x.value?.SetActive(options.HasFlag(x.key)));
             await transitionProvider.EnterTransitionAsync();
         }
 
         public async void Unsetup()
         {
             await transitionProvider.ExitTransitionAsync();
-            menuDictionary.ContextualMenuItems.Values.ForEach(e => e.SetActive(false));
+            contextualMenuItems.ForEach(e => e.value?.SetActive(false));
         }
     }
 }

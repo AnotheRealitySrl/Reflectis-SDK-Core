@@ -11,7 +11,7 @@ namespace Reflectis.SDK.InteractionNew
 {
     public abstract class ContextualMenuSystem : BaseSystem
     {
-        [SerializeField] private GameObject contextualMenuPrefab;
+        [SerializeField] private ContextualMenuController contextualMenuPrefab;
         [SerializeField] private float showTime = 1.5f;
         [SerializeField] private float hideTime = 1.5f;
         [SerializeField] private bool createMenuOnInit = true;
@@ -66,7 +66,7 @@ namespace Reflectis.SDK.InteractionNew
 
         public void CreateMenu()
         {
-            contextualMenu = Instantiate(contextualMenuPrefab).GetComponent<ContextualMenuController>();
+            contextualMenu = Instantiate(contextualMenuPrefab);
 
             if (dontDestroyOnLoad)
                 DontDestroyOnLoad(contextualMenu);
