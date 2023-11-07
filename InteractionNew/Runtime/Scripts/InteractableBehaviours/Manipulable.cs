@@ -113,6 +113,11 @@ namespace Reflectis.SDK.InteractionNew
         {
             SM.GetSystem<IManipulationSystem>()?.OnHoverExitActions.ForEach(x => x.Action(InteractableRef));
         }
+
+        public void ToggleBoundingBoxCollider(bool state)
+        {
+            BoundingBox.GetComponent<MeshRenderer>().enabled = state;
+        }
     }
 
 
