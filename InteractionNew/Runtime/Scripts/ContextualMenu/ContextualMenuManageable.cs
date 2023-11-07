@@ -1,5 +1,6 @@
 using Reflectis.SDK.Core;
 
+using System;
 using System.Threading.Tasks;
 
 using UnityEditor;
@@ -8,38 +9,45 @@ using UnityEngine;
 
 namespace Reflectis.SDK.InteractionNew
 {
+    [Serializable]
     public class ContextualMenuManageable : InteractableBehaviourBase
     {
-        public enum EContextualMenuState
+        public enum EContextualMenuInteractableState
         {
             Idle,
             Showing
         }
 
-        [SerializeField] private bool lockTransform = true;
-        [SerializeField] private bool resetTransform = true;
-        [SerializeField] private bool duplicate = true;
-        [SerializeField] private bool delete = true;
-        [SerializeField] private bool colorPicker;
-        [SerializeField] private bool explodable;
+        [Flags]
+        public enum EContextualMenuOption
+        {
+            LockTransform = 1,
+            ResetTransform = 2,
+            Duplicate = 4,
+            Delete = 8,
+            ColorPicker = 16,
+            Explodable = 32,
+        }
 
-        public bool LockTransform { get => lockTransform; set => lockTransform = value; }
-        public bool ResetTransform { get => resetTransform; set => resetTransform = value; }
-        public bool Duplicate { get => duplicate; set => duplicate = value; }
-        public bool Delete { get => delete; set => delete = value; }
-        public bool ColorPicker { get => colorPicker; set => colorPicker = value; }
-        public bool Explodable { get => explodable; set => explodable = value; }
+        [SerializeField]
+        private EContextualMenuOption contextualMenuOptions =
+            EContextualMenuOption.LockTransform |
+            EContextualMenuOption.ResetTransform |
+            EContextualMenuOption.Duplicate |
+            EContextualMenuOption.Delete;
 
-        public override bool IsIdleState => CurrentInteractionState == EContextualMenuState.Idle;
+        public EContextualMenuOption ContextualMenuOptions { get => contextualMenuOptions; set => contextualMenuOptions = value; }
 
-        private EContextualMenuState currentInteractionState;
-        private EContextualMenuState CurrentInteractionState
+        public override bool IsIdleState => CurrentInteractionState == EContextualMenuInteractableState.Idle;
+
+        private EContextualMenuInteractableState currentInteractionState;
+        private EContextualMenuInteractableState CurrentInteractionState
         {
             get => currentInteractionState;
             set
             {
                 currentInteractionState = value;
-                if (currentInteractionState == EContextualMenuState.Idle)
+                if (currentInteractionState == EContextualMenuInteractableState.Idle)
                 {
                     InteractableRef.InteractionState = IInteractable.EInteractionState.Hovered;
                 }
@@ -59,13 +67,13 @@ namespace Reflectis.SDK.InteractionNew
         public override async Task EnterInteractionState()
         {
             await base.EnterInteractionState();
-            currentInteractionState = EContextualMenuState.Showing;
+            currentInteractionState = EContextualMenuInteractableState.Showing;
         }
 
         public override async Task ExitInteractionState()
         {
             await base.ExitInteractionState();
-            currentInteractionState = EContextualMenuState.Idle;
+            currentInteractionState = EContextualMenuInteractableState.Idle;
         }
 
 #if UNITY_EDITOR

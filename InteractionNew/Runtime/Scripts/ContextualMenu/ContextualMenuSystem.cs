@@ -1,10 +1,11 @@
 using Reflectis.SDK.Core;
-using Reflectis.SDK.Transitions;
 
 using System.Collections.Generic;
 
 using UnityEngine;
 using UnityEngine.InputSystem;
+
+using static Reflectis.SDK.InteractionNew.ContextualMenuManageable;
 
 namespace Reflectis.SDK.InteractionNew
 {
@@ -21,11 +22,11 @@ namespace Reflectis.SDK.InteractionNew
         [SerializeField] private List<AwaitableScriptableAction> onHoverEnterActions = new();
         [SerializeField] private List<AwaitableScriptableAction> onHoverExitActions = new();
 
-        protected GameObject contextualMenu;
+        protected ContextualMenuController contextualMenu;
         protected ContextualMenuManageable selectedInteractable;
 
 
-        public GameObject ContextualMenuInstance => contextualMenu;
+        public ContextualMenuController ContextualMenuInstance => contextualMenu;
         public ContextualMenuManageable SelectedInteractable => selectedInteractable;
 
         public float ShowToastTime { get => showTime; private set => showTime = value; }
@@ -65,7 +66,7 @@ namespace Reflectis.SDK.InteractionNew
 
         public void CreateMenu()
         {
-            contextualMenu = Instantiate(contextualMenuPrefab);
+            contextualMenu = Instantiate(contextualMenuPrefab).GetComponent<ContextualMenuController>();
 
             if (dontDestroyOnLoad)
                 DontDestroyOnLoad(contextualMenu);
@@ -80,14 +81,14 @@ namespace Reflectis.SDK.InteractionNew
             }
         }
 
-        public void ShowContextualMenu()
+        public void ShowContextualMenu(EContextualMenuOption options)
         {
-            contextualMenu.GetComponent<AbstractTransitionProvider>().EnterTransition();
+            contextualMenu.Setup(options);
         }
 
         public void HideContextualMenu()
         {
-            contextualMenu.GetComponent<AbstractTransitionProvider>().ExitTransition();
+            contextualMenu.Unsetup();
         }
 
         #endregion
