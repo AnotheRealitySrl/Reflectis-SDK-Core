@@ -1,6 +1,9 @@
+using Reflectis.SDK.CharacterController;
 using Reflectis.SDK.Core;
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 using UnityEditor;
 
@@ -43,6 +46,43 @@ namespace Reflectis.SDK.InteractionNew
         public bool MouseLookAtCamera { get => mouseLookAtCamera; set => mouseLookAtCamera = value; }
         public bool NonProportionalScale { get => nonProportionalScale; set => nonProportionalScale = value; }
 
+        private List<GameObject> scalingCorners;
+        private List<GameObject> scalingFaces;
+        private GameObject boundingBox;
+        public List<GameObject> ScalingCorners
+        {
+            get
+            {
+                if (scalingCorners == null)
+                {
+                    scalingCorners = GetComponent<BaseInteractable>().GameObjectRef.GetComponentsInChildren<GenericHookComponent>().Where(x => x.Id == "ScalingCorner").Select(x => x.gameObject).ToList();
+                }
+                return scalingCorners;
+            }
+        }
+        public List<GameObject> ScalingFaces
+        {
+            get
+            {
+                if (scalingFaces == null)
+                {
+                    scalingFaces = GetComponent<BaseInteractable>().GameObjectRef.GetComponentsInChildren<GenericHookComponent>().Where(x => x.Id == "ScalingFace").Select(x => x.gameObject).ToList();
+                }
+                return scalingFaces;
+            }
+        }
+        public GameObject BoundingBox
+        {
+            get
+            {
+                if (boundingBox == null)
+                {
+                    boundingBox = GetComponent<BaseInteractable>().GameObjectRef.GetComponentsInChildren<GenericHookComponent>().FirstOrDefault(x => x.Id == "BoundingBox").gameObject;
+                }
+                return boundingBox;
+            }
+        }
+
         public UnityEvent<EManipulableState> OnCurrentStateChange { get; set; } = new();
 
         public override bool IsIdleState => CurrentInteractionState == EManipulableState.Idle;
@@ -73,6 +113,11 @@ namespace Reflectis.SDK.InteractionNew
         public override void OnHoverStateExited()
         {
             SM.GetSystem<IManipulationSystem>()?.OnHoverExitActions.ForEach(x => x.Action(InteractableRef));
+        }
+
+        public void ToggleBoundingBoxCollider(bool state)
+        {
+            BoundingBox.GetComponent<Collider>().enabled = state;
         }
     }
 
