@@ -116,7 +116,7 @@ namespace Reflectis.SDK.InteractionNew
 
         public void ToggleBoundingBoxCollider(bool state)
         {
-            BoundingBox.GetComponent<MeshRenderer>().enabled = state;
+            BoundingBox.GetComponent<Collider>().enabled = state;
         }
     }
 
