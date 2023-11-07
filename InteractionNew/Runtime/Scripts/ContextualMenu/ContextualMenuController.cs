@@ -1,3 +1,4 @@
+using Reflectis.SDK.Core;
 using Reflectis.SDK.Transitions;
 
 using System;
@@ -39,6 +40,11 @@ namespace Reflectis.SDK.InteractionNew
         {
             await transitionProvider.ExitTransitionAsync();
             contextualMenuItems.ForEach(e => e.value?.SetActive(false));
+        }
+
+        public void OnContextualMenuButtonClicked(int option)
+        {
+            SM.GetSystem<ContextualMenuSystem>().OnContextualMenuButtonClicked.Invoke((EContextualMenuOption)option);
         }
     }
 }

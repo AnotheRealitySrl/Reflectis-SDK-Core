@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Reflectis.SDK.InteractionNew
 {
@@ -21,6 +22,8 @@ namespace Reflectis.SDK.InteractionNew
 
         GameObject GameObjectRef { get; }
         List<Collider> InteractionColliders { get; }
+
+        UnityEvent OnInteractableSetupComplete { get; }
 
         void OnHoverEnter();
         void OnHoverExit();

@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEditor;
 
 using UnityEngine;
+using UnityEngine.Events;
 
 using static Reflectis.SDK.InteractionNew.IInteractable;
 
@@ -18,6 +19,8 @@ namespace Reflectis.SDK.InteractionNew
 
         public GameObject GameObjectRef => gameObject;
         public List<Collider> InteractionColliders { get => interactionColliders; set => interactionColliders = value; }
+
+        public UnityEvent OnInteractableSetupComplete { get; } = new();
 
         private void Awake()
         {

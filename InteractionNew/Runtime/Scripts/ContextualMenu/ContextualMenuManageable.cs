@@ -1,11 +1,13 @@
 using Reflectis.SDK.Core;
 
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using UnityEditor;
 
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Reflectis.SDK.InteractionNew
 {
@@ -54,6 +56,16 @@ namespace Reflectis.SDK.InteractionNew
             }
         }
 
+        public Dictionary<EContextualMenuOption, UnityEvent> OnContextualMenuButtonSelected { get; } = new()
+        {
+            { EContextualMenuOption.LockTransform, new UnityEvent() },
+            { EContextualMenuOption.ResetTransform, new UnityEvent() },
+            { EContextualMenuOption.Duplicate, new UnityEvent() },
+            { EContextualMenuOption.Delete, new UnityEvent() },
+            { EContextualMenuOption.ColorPicker, new UnityEvent() },
+            { EContextualMenuOption.Explodable, new UnityEvent() }
+        };
+
         public override void OnHoverStateEntered()
         {
             SM.GetSystem<ContextualMenuSystem>()?.OnHoverEnterActions.ForEach(x => x.Action(InteractableRef));
@@ -75,6 +87,12 @@ namespace Reflectis.SDK.InteractionNew
             await base.ExitInteractionState();
             currentInteractionState = EContextualMenuInteractableState.Idle;
         }
+
+        public void OnContextualMenuButtonClicked(EContextualMenuOption option)
+        {
+            OnContextualMenuButtonSelected[option].Invoke();
+        }
+
 
 #if UNITY_EDITOR
 
