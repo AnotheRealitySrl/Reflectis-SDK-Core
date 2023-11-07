@@ -49,7 +49,7 @@ namespace Reflectis.SDK.Avatars
 
         #region Unity events
 
-        public UnityEvent<IAvatarConfig> AvatarConfigChanged { get; } = new();
+        public UnityEvent<IAvatarConfig> OnPlayerAvatarConfigChanged { get; } = new();
         public UnityEvent<string> PlayerNickNameChanged { get; } = new();
 
 
@@ -92,7 +92,7 @@ namespace Reflectis.SDK.Avatars
                 }
             }
 
-            AvatarConfigChanged.AddListener(UpdateAvatarInstanceCustomization);
+            OnPlayerAvatarConfigChanged.AddListener(UpdateAvatarInstanceCustomization);
             PlayerNickNameChanged.AddListener(UpdateAvatarInstanceNickName);
         }
 
