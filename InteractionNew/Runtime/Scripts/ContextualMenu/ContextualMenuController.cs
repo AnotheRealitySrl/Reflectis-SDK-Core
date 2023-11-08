@@ -3,6 +3,7 @@ using Reflectis.SDK.Transitions;
 
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using UnityEngine;
 
@@ -30,16 +31,42 @@ namespace Reflectis.SDK.InteractionNew
             Unsetup();
         }
 
-        public async void Setup(EContextualMenuOption options)
+        public void Setup(EContextualMenuOption options)
         {
-            contextualMenuItems.ForEach(x => x.value?.SetActive(options.HasFlag(x.key)));
+            contextualMenuItems.ForEach(x =>
+            {
+                if (x.value)
+                    x.value.SetActive(options.HasFlag(x.key));
+            });
+        }
+
+        public void Unsetup()
+        {
+            contextualMenuItems.ForEach(x =>
+            {
+                if (x.value)
+                    x.value.SetActive(false);
+            });
+        }
+
+        public async Task Show()
+        {
             await transitionProvider.EnterTransitionAsync();
         }
 
-        public async void Unsetup()
+        public async Task Hide()
         {
             await transitionProvider.ExitTransitionAsync();
-            contextualMenuItems.ForEach(e => e.value?.SetActive(false));
+        }
+
+        public void ShowPreview()
+        {
+            GetComponentInChildren<CanvasGroup>().alpha = 0.5f;
+        }
+
+        public void HidePreview()
+        {
+            GetComponentInChildren<CanvasGroup>().alpha = 0f;
         }
 
         public void OnContextualMenuButtonClicked(int option)

@@ -77,7 +77,7 @@ namespace Reflectis.SDK.InteractionNew
             {
                 if (boundingBox == null)
                 {
-                    boundingBox = GetComponent<BaseInteractable>().GameObjectRef.GetComponentsInChildren<GenericHookComponent>().FirstOrDefault(x => x.Id == "BoundingBox").gameObject;
+                    boundingBox = GetComponent<BaseInteractable>().GameObjectRef.GetComponentsInChildren<GenericHookComponent>().FirstOrDefault(x => x.Id == "BoundingBox")?.gameObject;
                 }
                 return boundingBox;
             }

@@ -5,8 +5,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-using static Reflectis.SDK.InteractionNew.ContextualMenuManageable;
-
 namespace Reflectis.SDK.InteractionNew
 {
     public abstract class ContextualMenuSystem : BaseSystem
@@ -81,13 +79,27 @@ namespace Reflectis.SDK.InteractionNew
             }
         }
 
-        public void ShowContextualMenu(EContextualMenuOption options)
+        public async void ShowContextualMenu(ContextualMenuManageable manageable)
         {
-            contextualMenu.Setup(options);
+            contextualMenu.Setup(manageable.ContextualMenuOptions);
+            await contextualMenu.Show();
         }
 
-        public void HideContextualMenu()
+        public async void HideContextualMenu()
         {
+            await contextualMenu.Hide();
+            contextualMenu.Unsetup();
+        }
+
+        public void ShowPreviewContextualMenu(ContextualMenuManageable manageable)
+        {
+            contextualMenu.Setup(manageable.ContextualMenuOptions);
+            contextualMenu.ShowPreview();
+        }
+
+        public void HidePreviewContextualMenu()
+        {
+            contextualMenu.HidePreview();
             contextualMenu.Unsetup();
         }
 

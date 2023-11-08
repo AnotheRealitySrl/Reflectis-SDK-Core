@@ -1,5 +1,6 @@
 using Reflectis.SDK.Core;
 
+using System.Linq;
 using System.Threading.Tasks;
 
 using UnityEngine;
@@ -16,11 +17,11 @@ namespace Reflectis.SDK.InteractionNew
         {
             if (activate)
             {
-                SM.GetSystem<ContextualMenuSystem>().ContextualMenuInstance.GetComponentInChildren<CanvasGroup>().alpha = 0.5f;
+                SM.GetSystem<ContextualMenuSystem>().ShowPreviewContextualMenu((ContextualMenuManageable)interactable.InteractableBehaviours.FirstOrDefault(x => x is ContextualMenuManageable));
             }
             else
             {
-                SM.GetSystem<ContextualMenuSystem>().ContextualMenuInstance.GetComponentInChildren<CanvasGroup>().alpha = 0f;
+                SM.GetSystem<ContextualMenuSystem>().HidePreviewContextualMenu();
             }
 
             return Task.CompletedTask;
