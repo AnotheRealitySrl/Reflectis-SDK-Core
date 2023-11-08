@@ -62,9 +62,16 @@ namespace Reflectis.SDK.InteractionNew
 
         #region API
 
-        public void CreateMenu()
+        public void CreateMenu(Transform parent = null)
         {
-            contextualMenu = Instantiate(contextualMenuPrefab);
+            if (parent != null)
+            {
+                contextualMenu = Instantiate(contextualMenuPrefab, parent);
+            }
+            else
+            {
+                contextualMenu = Instantiate(contextualMenuPrefab);
+            }
 
             if (dontDestroyOnLoad)
                 DontDestroyOnLoad(contextualMenu);
