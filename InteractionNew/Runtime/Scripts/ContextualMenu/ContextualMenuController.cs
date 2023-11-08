@@ -27,8 +27,8 @@ namespace Reflectis.SDK.InteractionNew
         private void Awake()
         {
             transitionProvider = GetComponent<AbstractTransitionProvider>();
-
             Unsetup();
+            Hide();
         }
 
         public void Setup(EContextualMenuOption options)
@@ -51,12 +51,12 @@ namespace Reflectis.SDK.InteractionNew
 
         public async Task Show()
         {
-            await transitionProvider.EnterTransitionAsync();
+            await transitionProvider.DoTransitionAsync(true);
         }
 
         public async Task Hide()
         {
-            await transitionProvider.ExitTransitionAsync();
+            await transitionProvider.DoTransitionAsync(false);
         }
 
         public void ShowPreview()
