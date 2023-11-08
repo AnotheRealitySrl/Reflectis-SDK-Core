@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+
 using UnityEngine;
 
 namespace Reflectis.SDK.ClientModels
@@ -18,6 +19,7 @@ namespace Reflectis.SDK.ClientModels
         [SerializeField] private int type; // contentType
         [SerializeField] private string thumbnailPath; // thumbnailUri
         [SerializeField] private int sizeBytes;
+        [SerializeField] private object metadata;
 
         public int Id { get => id; set => id = value; }
         public string Name { get => name; set => name = value; }
@@ -64,6 +66,8 @@ namespace Reflectis.SDK.ClientModels
         public bool IsPublic { get => isPublic; set => isPublic = value; }
 
         public DateTime LastUpdate { get => lastUpdate; set => lastUpdate = value; }
+
+        public object Metadata { get => metadata; set => metadata = value; }
 
         public CMResource() { }
 

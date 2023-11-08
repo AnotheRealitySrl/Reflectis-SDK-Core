@@ -61,12 +61,12 @@ namespace Reflectis.SDK.InteractionNew
 
         public void ShowPreview()
         {
-            GetComponentInChildren<CanvasGroup>().alpha = 0.5f;
+            //GetComponentInChildren<CanvasGroup>().alpha = 0.5f;
         }
 
         public void HidePreview()
         {
-            GetComponentInChildren<CanvasGroup>().alpha = 0f;
+            //GetComponentInChildren<CanvasGroup>().alpha = 0f;
         }
 
         public void OnContextualMenuButtonClicked(int option)
