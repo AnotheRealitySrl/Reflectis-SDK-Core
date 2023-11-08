@@ -11,6 +11,7 @@ namespace Reflectis.SDK.Interaction
         [SerializeField] protected ActionScriptable InteractAction;
         [SerializeField] protected ActionScriptable StopInteractAction;
 
+        bool isInteracting;
         public GameObject InteractionTarget
         {
             get { return _interactionTarget; }
@@ -25,7 +26,7 @@ namespace Reflectis.SDK.Interaction
                 completedCallback?.Invoke();
                 return;
             }
-
+            isInteracting = true;
             InteractAction.InteractableObjectReference = this;
             InteractAction.Action(completedCallback);
             InteractAction.InteractableObjectReference = null;
@@ -38,7 +39,7 @@ namespace Reflectis.SDK.Interaction
                 completedCallback?.Invoke();
                 return;
             }
-
+            isInteracting = false;
             StopInteractAction.InteractableObjectReference = this;
             StopInteractAction.Action(completedCallback);
             StopInteractAction.InteractableObjectReference = null;
@@ -46,7 +47,10 @@ namespace Reflectis.SDK.Interaction
 
         public virtual void OnDestroy()
         {
-            StopInteract();
+            if(isInteracting)
+            {
+                StopInteract();
+            }
         }
     }
 }
