@@ -44,7 +44,7 @@ namespace Reflectis.SDK.InteractionNew
 
         public void OnContextualMenuButtonClicked(int option)
         {
-            SM.GetSystem<ContextualMenuSystem>().OnContextualMenuButtonClicked.Invoke((EContextualMenuOption)option);
+            SM.GetSystem<ContextualMenuSystem>().SelectedInteractable.OnContextualMenuButtonClicked((EContextualMenuOption)option);
         }
     }
 }

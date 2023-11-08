@@ -3,7 +3,6 @@ using Reflectis.SDK.Core;
 using System.Collections.Generic;
 
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 using static Reflectis.SDK.InteractionNew.ContextualMenuManageable;
@@ -35,8 +34,6 @@ namespace Reflectis.SDK.InteractionNew
 
         public List<AwaitableScriptableAction> OnHoverEnterActions => onHoverEnterActions;
         public List<AwaitableScriptableAction> OnHoverExitActions => onHoverExitActions;
-
-        public UnityEvent<EContextualMenuOption> OnContextualMenuButtonClicked { get; } = new();
 
         public override void Init()
         {
