@@ -55,7 +55,7 @@ namespace Reflectis.SDK.InteractionNew
             {
                 if (scalingCorners == null)
                 {
-                    scalingCorners = GetComponent<BaseInteractable>().GameObjectRef.GetComponentsInChildren<GenericHookComponent>().Where(x => x.Id == "ScalingCorner").Select(x => x.gameObject).ToList();
+                    scalingCorners = GetComponent<BaseInteractable>().GameObjectRef.GetComponentsInChildren<GenericHookComponent>().Where(x => x.Id == "ScalableCorner").Select(x => x.gameObject).ToList();
                 }
                 return scalingCorners;
             }
@@ -66,7 +66,7 @@ namespace Reflectis.SDK.InteractionNew
             {
                 if (scalingFaces == null)
                 {
-                    scalingFaces = GetComponent<BaseInteractable>().GameObjectRef.GetComponentsInChildren<GenericHookComponent>().Where(x => x.Id == "ScalingFace").Select(x => x.gameObject).ToList();
+                    scalingFaces = GetComponent<BaseInteractable>().GameObjectRef.GetComponentsInChildren<GenericHookComponent>().Where(x => x.Id == "ScalableFace").Select(x => x.gameObject).ToList();
                 }
                 return scalingFaces;
             }
@@ -120,7 +120,6 @@ namespace Reflectis.SDK.InteractionNew
             BoundingBox.GetComponent<Collider>().enabled = state;
         }
     }
-
 
 #if UNITY_EDITOR
 
