@@ -51,7 +51,7 @@ namespace Reflectis.SDK.InteractionNew
                 currentInteractionState = value;
                 if (currentInteractionState == EContextualMenuInteractableState.Idle)
                 {
-                    InteractableRef.InteractionState = IInteractable.EInteractionState.Hovered;
+                    InteractableRef.OnHoverExit();
                 }
             }
         }
@@ -79,13 +79,13 @@ namespace Reflectis.SDK.InteractionNew
         public override async Task EnterInteractionState()
         {
             await base.EnterInteractionState();
-            currentInteractionState = EContextualMenuInteractableState.Showing;
+            CurrentInteractionState = EContextualMenuInteractableState.Showing;
         }
 
         public override async Task ExitInteractionState()
         {
             await base.ExitInteractionState();
-            currentInteractionState = EContextualMenuInteractableState.Idle;
+            CurrentInteractionState = EContextualMenuInteractableState.Idle;
         }
 
         public void OnContextualMenuButtonClicked(EContextualMenuOption option)
