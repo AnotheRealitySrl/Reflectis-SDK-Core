@@ -22,9 +22,16 @@ namespace Reflectis.SDK.ClientModels
         [SerializeField] private object metadata;
 
         public int Id { get => id; set => id = value; }
+        public int OwnerUserId { get => ownerUserId; set => ownerUserId = value; }
+        public bool IsPublic { get => isPublic; set => isPublic = value; }
+        public string Path { get => path; set => path = value; }
         public string Name { get => name; set => name = value; }
+        public DateTime CreationDate { get => creationDate; set => creationDate = value; }
+        public DateTime LastUpdate { get => lastUpdate; set => lastUpdate = value; }
+        public string Url { get => url; set => url = value; }
+        public FileTypeExt Type { get => (FileTypeExt)type; set => type = (int)value; }
+        public string ThumbnailPath { get => thumbnailPath; set => thumbnailPath = value?.Replace(" ", "%20"); }
         public int SizeBytes { get => sizeBytes; set => sizeBytes = value; }
-
         public string SizeBytesString
         {
             get
