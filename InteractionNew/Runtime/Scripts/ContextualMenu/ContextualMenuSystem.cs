@@ -1,7 +1,7 @@
 using Reflectis.SDK.Core;
 
 using System.Collections.Generic;
-
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -86,13 +86,13 @@ namespace Reflectis.SDK.InteractionNew
             }
         }
 
-        public async void ShowContextualMenu(ContextualMenuManageable manageable)
+        public virtual async Task ShowContextualMenu(ContextualMenuManageable manageable)
         {
             contextualMenu.Setup(manageable.ContextualMenuOptions);
             await contextualMenu.Show();
         }
 
-        public async void HideContextualMenu()
+        public virtual async Task HideContextualMenu()
         {
             await contextualMenu.Hide();
             contextualMenu.Unsetup();
