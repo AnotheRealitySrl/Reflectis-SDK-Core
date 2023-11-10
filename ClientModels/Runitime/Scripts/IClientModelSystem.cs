@@ -103,11 +103,11 @@ namespace Reflectis.SDK.ClientModels
 
         /// <summary>
         /// Delete an event with given id.
-        /// If successfull return the true, false otherwise
+        /// If successfull return empty string, response reason phrase otherwise
         /// </summary>
         /// <param name="e"></param>
         /// <returns></returns>
-        Task<bool> DeleteEvent(int eventId);
+        Task<string> DeleteEvent(int eventId);
 
         /// <summary>
         /// Update an event with given e data.
