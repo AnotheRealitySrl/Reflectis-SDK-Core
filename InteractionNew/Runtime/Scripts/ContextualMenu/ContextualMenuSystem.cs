@@ -2,6 +2,7 @@ using Reflectis.SDK.Core;
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
+
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -14,7 +15,7 @@ namespace Reflectis.SDK.InteractionNew
         [SerializeField] private float hideTime = 1.5f;
         [SerializeField] private bool createMenuOnInit = true;
         [SerializeField] private bool dontDestroyOnLoad = false;
-        [SerializeField] private InputActionReference contextualMenuInputActionRef;
+        [SerializeField] protected InputActionReference contextualMenuInputActionRef;
 
         [Header("Scriptable actions")]
         [SerializeField] private List<AwaitableScriptableAction> onHoverEnterActions = new();
