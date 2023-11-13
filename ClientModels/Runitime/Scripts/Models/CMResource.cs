@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+
 using UnityEngine;
 
 namespace Reflectis.SDK.ClientModels
@@ -60,8 +61,9 @@ namespace Reflectis.SDK.ClientModels
                 return $"{SizeBytes} bytes";
             }
         }
-        public object Metadata { get => metadata; set => metadata = value; }
         
+        public object Metadata { get => metadata; set => metadata = value; }
+
         public CMResource() { }
 
         public CMResource(int id, string name, int sizeBytes, string path, string thumbnailPath, int type, DateTime creationDate)
