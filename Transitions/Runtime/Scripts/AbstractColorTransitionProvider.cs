@@ -1,5 +1,4 @@
 using DG.Tweening;
-
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -17,22 +16,20 @@ namespace Reflectis.SDK.Transitions
         [SerializeField]
         private AnimationCurve ease;
 
+        private bool isInit = false;
+
         private Color defaultColor = Color.white;
 
         private Tween tween;
-
         public Color Color { get => color; set => color = value; }
 
         protected virtual void Awake()
         {
-            if (ease.keys.Count() == 0)
-            {
-                ease = AnimationCurve.Linear(0, 0, duration, 1);
-            }
-            defaultColor = Getter();
+            Init();
         }
         public override async Task EnterTransitionAsync()
         {
+            Init();
             onEnterTransitionStart?.Invoke();
             if (tween != null)
             {
@@ -48,6 +45,7 @@ namespace Reflectis.SDK.Transitions
 
         public override async Task ExitTransitionAsync()
         {
+            Init();
             if (tween != null)
             {
                 tween.Kill();
@@ -59,6 +57,19 @@ namespace Reflectis.SDK.Transitions
                 await Task.Yield();
             }
             onExitTransitionFinish?.Invoke();
+        }
+
+        private void Init()
+        {
+            if (!isInit)
+            {
+                defaultColor = Getter();
+                if (ease.keys.Count() == 0)
+                {
+                    ease = AnimationCurve.Linear(0, 0, duration, 1);
+                }
+                isInit = true;
+            }
         }
 
         protected abstract Color Getter();
