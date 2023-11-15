@@ -204,6 +204,14 @@ namespace Reflectis.SDK.ClientModels
 
         Task<CMUserPreference> GetUserPreference(int userId);
         /// <summary>
+        /// Update user preferences
+        /// if fails returns error string, null if successfull
+        /// </summary>
+        /// <param name=""></param>
+        /// <returns></returns>
+        Task<string> UpdateUserPreference(CMUserPreference newPreferences);
+
+        /// <summary>
         /// Get all the users with given tag id
         /// </summary>
         /// <param name="id"></param>
