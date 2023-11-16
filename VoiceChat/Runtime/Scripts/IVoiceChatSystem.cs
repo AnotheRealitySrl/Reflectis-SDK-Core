@@ -1,7 +1,7 @@
 using Reflectis.SDK.Core;
 
 using System;
-
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Reflectis.SDK.VoiceChat
@@ -97,7 +97,9 @@ namespace Reflectis.SDK.VoiceChat
         public int videoHeight;
         public int videoWidth;
 
-        public CommunicationChannel(string name, ChannelType type, bool muteAudio, bool muteVideo, int videoHeight, int videoWidth)
+        public List<int> members;
+
+        public CommunicationChannel(string name, ChannelType type, bool muteAudio, bool muteVideo, int videoHeight, int videoWidth, List<int> members)
         {
             this.name = name;
 
@@ -108,24 +110,27 @@ namespace Reflectis.SDK.VoiceChat
 
             this.videoHeight = videoHeight;
             this.videoWidth = videoWidth;
+            this.members = members;
         }
 
-        public CommunicationChannel(string name, ChannelType type, bool muteAudio, bool muteVideo)
+        public CommunicationChannel(string name, ChannelType type, bool muteAudio, bool muteVideo, List<int> members)
         {
             this.name = name;
             Type = type;
 
             this.muteAudio = muteAudio;
             this.muteVideo = muteVideo;
+            this.members = members;
 
             videoHeight = 640;
             videoWidth = 360;
         }
 
-        public CommunicationChannel(string name, ChannelType type)
+        public CommunicationChannel(string name, ChannelType type, List<int> members)
         {
             this.name = name;
             Type = type;
+            this.members = members;
 
             muteAudio = false;
             muteVideo = false;
