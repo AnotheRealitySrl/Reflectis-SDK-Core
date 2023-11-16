@@ -19,6 +19,6 @@ namespace Reflectis.SDK.InteractionNew
     public struct Reference
     {
         public string name;
-        public MonoBehaviour behaviour;
+        public Component component;
     }
 }
