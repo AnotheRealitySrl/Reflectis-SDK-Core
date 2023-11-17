@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3657252432766759514}
   - component: {fileID: 4545376471689550100}
   - component: {fileID: 7113817448381072861}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: ScalablePointFace
   m_TagString: Untagged
   m_Icon: {fileID: 0}
