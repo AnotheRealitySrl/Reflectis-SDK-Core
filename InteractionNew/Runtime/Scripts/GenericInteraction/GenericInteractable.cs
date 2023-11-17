@@ -1,6 +1,8 @@
 #if ODIN_INSPECTOR
 #endif
 
+using Reflectis.SDK.Core;
+using Reflectis.SDK.Platform;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -80,7 +82,7 @@ namespace Reflectis.SDK.InteractionNew
 
         private void Awake()
         {
-            switch (Application.platform)
+            switch (SM.GetSystem<IPlatformSystem>().RuntimePlatform)
             {
                 case RuntimePlatform.WebGLPlayer:
                     skipSelectState = !DesktopAllowedStates.HasFlag(EAllowedGenericInteractableState.Selected);
