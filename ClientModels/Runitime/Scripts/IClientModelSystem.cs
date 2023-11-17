@@ -199,8 +199,18 @@ namespace Reflectis.SDK.ClientModels
         /// Return all users that match search criteria
         /// </summary>
         Task<List<CMUser>> SearchUsersByNickname(string nicknameSubstring);
+        /// <summary>
+        /// Return the local player data
+        /// </summary>
+        /// <returns></returns>
+        Task<CMUser> GetPlayerData();
 
-        Task<CMUser> GetUserData();
+        /// <summary>
+        /// Return data of the player with given id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<CMUser> GetUserData(int id);
 
         Task<CMUserPreference> GetUserPreference(int userId);
         /// <summary>
