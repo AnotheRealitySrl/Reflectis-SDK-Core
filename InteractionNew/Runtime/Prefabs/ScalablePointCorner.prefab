@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5991711970118043867}
   - component: {fileID: 4041784225408215200}
   - component: {fileID: 8836457449367804280}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: ScalablePointCorner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
