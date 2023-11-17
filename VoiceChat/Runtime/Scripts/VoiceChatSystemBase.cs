@@ -14,7 +14,8 @@ namespace Reflectis.SDK.VoiceChat
         [Header("Id of Agora subscription")]
         [SerializeField] protected string appId;
 
-        [SerializeField] protected readonly byte photonGlobalChannel = 250;
+        [SerializeField, Min(1)]
+        protected byte photonGlobalChannel = 1;
 
         public virtual event Action<string> OnJoinChannelSuccess;
         public virtual event Action<string> OnRejoinChannelSuccess;
