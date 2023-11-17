@@ -1,7 +1,6 @@
 using Reflectis.SDK.Core;
 
 using System;
-
 using UnityEngine;
 
 namespace Reflectis.SDK.VoiceChat
@@ -13,6 +12,7 @@ namespace Reflectis.SDK.VoiceChat
     {
         CommunicationChannel CurrentChannel { get; }
         string AppId { get; }
+        byte PHOTON_GLOBAL_CHANNEL { get; }
 
         void AskPermissions();
 
@@ -83,6 +83,7 @@ namespace Reflectis.SDK.VoiceChat
 
     public struct CommunicationChannel
     {
+        public int id;
         public string name;
 
         public ChannelType Type;
@@ -97,7 +98,7 @@ namespace Reflectis.SDK.VoiceChat
         public int videoHeight;
         public int videoWidth;
 
-        public CommunicationChannel(string name, ChannelType type, bool muteAudio, bool muteVideo, int videoHeight, int videoWidth)
+        public CommunicationChannel(string name, ChannelType type, bool muteAudio, bool muteVideo, int videoHeight, int videoWidth, int id)
         {
             this.name = name;
 
@@ -108,9 +109,10 @@ namespace Reflectis.SDK.VoiceChat
 
             this.videoHeight = videoHeight;
             this.videoWidth = videoWidth;
+            this.id = id;
         }
 
-        public CommunicationChannel(string name, ChannelType type, bool muteAudio, bool muteVideo)
+        public CommunicationChannel(string name, ChannelType type, bool muteAudio, bool muteVideo, int id)
         {
             this.name = name;
             Type = type;
@@ -120,9 +122,10 @@ namespace Reflectis.SDK.VoiceChat
 
             videoHeight = 640;
             videoWidth = 360;
+            this.id = id;
         }
 
-        public CommunicationChannel(string name, ChannelType type)
+        public CommunicationChannel(string name, ChannelType type, int id)
         {
             this.name = name;
             Type = type;
@@ -132,6 +135,7 @@ namespace Reflectis.SDK.VoiceChat
 
             videoHeight = 640;
             videoWidth = 360;
+            this.id = id;
         }
     }
 
