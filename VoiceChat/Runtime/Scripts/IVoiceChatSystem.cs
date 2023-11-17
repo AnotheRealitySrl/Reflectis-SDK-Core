@@ -1,7 +1,6 @@
 using Reflectis.SDK.Core;
 
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Reflectis.SDK.VoiceChat
@@ -13,6 +12,7 @@ namespace Reflectis.SDK.VoiceChat
     {
         CommunicationChannel CurrentChannel { get; }
         string AppId { get; }
+        byte PHOTON_GLOBAL_CHANNEL { get; }
 
         void AskPermissions();
 
@@ -83,6 +83,7 @@ namespace Reflectis.SDK.VoiceChat
 
     public struct CommunicationChannel
     {
+        public int id;
         public string name;
 
         public ChannelType Type;
@@ -97,9 +98,7 @@ namespace Reflectis.SDK.VoiceChat
         public int videoHeight;
         public int videoWidth;
 
-        public List<int> members;
-
-        public CommunicationChannel(string name, ChannelType type, bool muteAudio, bool muteVideo, int videoHeight, int videoWidth, List<int> members)
+        public CommunicationChannel(string name, ChannelType type, bool muteAudio, bool muteVideo, int videoHeight, int videoWidth, int id)
         {
             this.name = name;
 
@@ -110,33 +109,33 @@ namespace Reflectis.SDK.VoiceChat
 
             this.videoHeight = videoHeight;
             this.videoWidth = videoWidth;
-            this.members = members;
+            this.id = id;
         }
 
-        public CommunicationChannel(string name, ChannelType type, bool muteAudio, bool muteVideo, List<int> members)
+        public CommunicationChannel(string name, ChannelType type, bool muteAudio, bool muteVideo, int id)
         {
             this.name = name;
             Type = type;
 
             this.muteAudio = muteAudio;
             this.muteVideo = muteVideo;
-            this.members = members;
 
             videoHeight = 640;
             videoWidth = 360;
+            this.id = id;
         }
 
-        public CommunicationChannel(string name, ChannelType type, List<int> members)
+        public CommunicationChannel(string name, ChannelType type, int id)
         {
             this.name = name;
             Type = type;
-            this.members = members;
 
             muteAudio = false;
             muteVideo = false;
 
             videoHeight = 640;
             videoWidth = 360;
+            this.id = id;
         }
     }
 
