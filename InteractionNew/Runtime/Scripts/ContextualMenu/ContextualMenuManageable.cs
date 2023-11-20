@@ -29,6 +29,7 @@ namespace Reflectis.SDK.InteractionNew
             Delete = 8,
             ColorPicker = 16,
             Explodable = 32,
+            NonProportionalScale = 64,
         }
 
         [SerializeField]
@@ -63,7 +64,8 @@ namespace Reflectis.SDK.InteractionNew
             { EContextualMenuOption.Duplicate, new UnityEvent() },
             { EContextualMenuOption.Delete, new UnityEvent() },
             { EContextualMenuOption.ColorPicker, new UnityEvent() },
-            { EContextualMenuOption.Explodable, new UnityEvent() }
+            { EContextualMenuOption.Explodable, new UnityEvent() },
+            { EContextualMenuOption.NonProportionalScale, new UnityEvent() },
         };
 
         public override void OnHoverStateEntered()
