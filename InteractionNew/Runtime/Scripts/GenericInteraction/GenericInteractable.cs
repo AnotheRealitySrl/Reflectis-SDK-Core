@@ -1,8 +1,6 @@
-#if ODIN_INSPECTOR
-#endif
-
 using Reflectis.SDK.Core;
 using Reflectis.SDK.Platform;
+
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -92,6 +90,15 @@ namespace Reflectis.SDK.InteractionNew
                     skipSelectState = !VRAllowedStates.HasFlag(EAllowedGenericInteractableState.Selected);
                     hasInteractState = VRAllowedStates.HasFlag(EAllowedGenericInteractableState.Interacting);
                     break;
+            }
+        }
+
+        private void OnDestroy()
+        {
+            if (!IsIdleState)
+            {
+                onDeselectingActions.ForEach(x => x.Action());
+                onDeselectedActions.ForEach(x => x.Action());
             }
         }
 
