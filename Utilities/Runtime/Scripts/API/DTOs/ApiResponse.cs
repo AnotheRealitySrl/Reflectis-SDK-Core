@@ -100,7 +100,7 @@ namespace Reflectis.SDK.Utilities.API
                 JsonConvert.DeserializeObject<ApiResponseError>(content).DisplayError();
             }
             ReasonPhrase = reasonPhrase;
-            Content = IsSuccess ? JsonUtility.FromJson<ContentSearch<T>>(content) : null;
+            Content = IsSuccess ? JsonConvert.DeserializeObject<ContentSearch<T>>(content) : null;
         }
         [Serializable]
         public class ContentSearch<T> where T : class

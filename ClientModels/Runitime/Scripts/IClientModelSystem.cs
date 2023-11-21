@@ -65,28 +65,28 @@ namespace Reflectis.SDK.ClientModels
         /// <summary>
         /// Returns the list of all events visible by user
         /// </summary>
-        Task<List<CMEvent>> GetAllEvents();
+        Task<List<CMEvent>> GetActiveEvents();
 
         /// <summary>
         /// Return the list events in which the player is also the owner
         /// </summary>
         /// <returns></returns>
-        Task<List<CMEvent>> GetMyEvents();
+        Task<List<CMEvent>> GetMyActiveEvents();
 
         /// <summary>
         /// Returns the list of all events visible by user filtered by category
         /// </summary>
-        Task<List<CMEvent>> GetAllEventsByCategoryID(int categoryId);
+        Task<List<CMEvent>> GetActiveEventsByCategoryID(int categoryId);
 
         /// <summary>
         /// Returns the list of all events visible by user filtered by environment
         /// </summary>
-        Task<List<CMEvent>> GetAllEventsByEnvironmentID(int environmentId);
+        Task<List<CMEvent>> GetActiveEventsByEnvironmentID(int environmentId);
 
         /// <summary>
         /// Returns the list of all events visible by user filtered by environment
         /// </summary>
-        Task<List<CMEvent>> GetAllEventsByEnvironmentName(string environmentName);
+        Task<List<CMEvent>> GetActiveEventsByEnvironmentName(string environmentName);
 
         /// <summary>
         /// Returns the list of users registered for this event.
