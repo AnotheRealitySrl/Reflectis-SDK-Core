@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class ModelScaler_Desktop : MonoBehaviour
+public class ModelScaler_Desktop : ModelScaler
 {
     [Header("Settings")]
     [SerializeField] private float scaleMultiplier = 0.0075f;
@@ -48,6 +48,42 @@ public class ModelScaler_Desktop : MonoBehaviour
 
     public List<GameObject> ScalingCorners { get => scalingCorners; set => scalingCorners = value; }
     public List<GameObject> ScalingFaces { get => scalingFaces; set => scalingFaces = value; }
+
+
+    public void Setup()
+    {
+        ContextualMenuManageable contextualMenuManageable = GetComponent<ContextualMenuManageable>();
+
+        // Registers callback to the contextual menu button click
+        contextualMenuManageable.OnContextualMenuButtonSelected[ContextualMenuManageable.EContextualMenuOption.NonProportionalScale].AddListener(ActivateNonProportionalGizmos);
+
+        // Registers callback to object deselection (through contextual menu manageable)
+        contextualMenuManageable.OnExitInteractionState.AddListener(() => OnExitInteractionState_Handler());
+    }
+
+    public void ActivateNonProportionalGizmos()
+    {
+        ToggleNonProportionalGizmos(true);
+    }
+    
+    public override void ToggleNonProportionalGizmos(bool enable)
+    {
+        foreach (GameObject scalingFace in scalingFaces)
+        {
+            scalingFace.gameObject.SetActive(enable);
+        }
+
+        foreach (GameObject scalingCorner in scalingCorners)
+        {
+            scalingCorner.gameObject.SetActive(!enable);
+        }
+    }
+
+    // Called when this objects gets deselected
+    private void OnExitInteractionState_Handler()
+    {
+        ToggleNonProportionalGizmos(false);
+    }
 
     public void OnLeftMouseDown(GameObject hit)
     {

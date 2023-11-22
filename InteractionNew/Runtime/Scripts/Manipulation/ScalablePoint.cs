@@ -16,12 +16,18 @@ namespace Reflectis.SDK.InteractionNew
 
         public void OnHoverEnter()
         { 
-            meshRenderer.enabled = true;
+            if (meshRenderer != null)
+            {
+                meshRenderer.enabled = true;
+            }
         }
 
         public void OnHoverExit()
         { 
-            meshRenderer.enabled = false;
+            if (meshRenderer != null)
+            {
+                meshRenderer.enabled = false;
+            }
         }
     }
 }
