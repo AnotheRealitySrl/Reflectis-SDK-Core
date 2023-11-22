@@ -68,6 +68,9 @@ namespace Reflectis.SDK.InteractionNew
             { EContextualMenuOption.NonProportionalScale, new UnityEvent() },
         };
 
+        public UnityEvent OnEnterInteractionState = new UnityEvent();
+        public UnityEvent OnExitInteractionState = new UnityEvent();
+
         public override void OnHoverStateEntered()
         {
             SM.GetSystem<ContextualMenuSystem>()?.OnHoverEnterActions.ForEach(x => x.Action(InteractableRef));
@@ -81,12 +84,14 @@ namespace Reflectis.SDK.InteractionNew
         public override async Task EnterInteractionState()
         {
             await base.EnterInteractionState();
+            OnEnterInteractionState?.Invoke();
             CurrentInteractionState = EContextualMenuInteractableState.Showing;
         }
 
         public override async Task ExitInteractionState()
         {
             await base.ExitInteractionState();
+            OnExitInteractionState?.Invoke();
             CurrentInteractionState = EContextualMenuInteractableState.Idle;
         }
 
