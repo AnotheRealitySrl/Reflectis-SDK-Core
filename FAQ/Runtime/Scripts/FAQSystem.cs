@@ -1,8 +1,5 @@
 using Reflectis.SDK.Core;
 using Reflectis.SDK.Utilities.API;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -13,7 +10,7 @@ namespace Reflectis.SDK.FAQ
     public class FAQSystem : BaseSystem, IFAQSystem
     {
         [SerializeField]
-        [TextArea(1,30)]
+        [TextArea(1, 30)]
         private string mockFAQResponse;
 
         private FAQCategoryData[] faqs;
@@ -42,10 +39,6 @@ namespace Reflectis.SDK.FAQ
         private async Task DownloadFAQs()
         {
             faqs = await Task.FromResult(JsonArrayHelper.FromJson<FAQCategoryData>(mockFAQResponse));
-            foreach (var faq in faqs)
-            {
-                Debug.Log("Category" + faq.CategoryTitle);
-            }
         }
     }
 }
