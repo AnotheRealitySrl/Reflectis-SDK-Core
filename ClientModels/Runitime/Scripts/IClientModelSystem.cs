@@ -32,7 +32,7 @@ namespace Reflectis.SDK.ClientModels
         #region Events
 
         CMEvent CurrentEvent { get; set; }
-        CMEvent DefaultEvent { get; }
+        CMEvent DefaultEvent { get; set; }
         List<CMEvent> StaticEvents { get; }
 
         /// <summary>
