@@ -36,7 +36,7 @@ namespace Reflectis.SDK.Transitions
                 tween.Kill();
             }
             tween = DOTween.To(Getter, Setter, color, duration).SetEase(ease);
-            while (tween.IsPlaying())
+            while (tween.IsActive() && tween.IsPlaying())
             {
                 await Task.Yield();
             }
@@ -52,7 +52,7 @@ namespace Reflectis.SDK.Transitions
             }
             OnExitTransitionStart?.Invoke();
             tween = DOTween.To(Getter, Setter, defaultColor, duration).SetEase(ease);
-            while (tween.IsPlaying())
+            while (tween.IsActive() && tween.IsPlaying())
             {
                 await Task.Yield();
             }

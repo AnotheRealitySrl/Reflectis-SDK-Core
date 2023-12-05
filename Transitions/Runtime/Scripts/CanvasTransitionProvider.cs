@@ -66,7 +66,7 @@ namespace Reflectis.SDK.Transitions
 
         private void KillActiveTransition()
         {
-            if (transition != null && (!transition.IsComplete() || !transition.IsActive()))
+            if (transition != null && ((transition.IsActive() && !transition.IsComplete()) || !transition.IsActive()))
             {
                 transition.Kill();
             }
