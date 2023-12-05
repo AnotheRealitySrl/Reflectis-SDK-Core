@@ -59,6 +59,11 @@ namespace Reflectis.SDK.ClientModels
         public bool StartingPoint { get => startingPoint; set => startingPoint = value; }
         public bool StaticEvent { get => staticEvent; set => staticEvent = value; }
         public List<CMPermission> Permissions { get => permissions; set => permissions = value; }
+
+        public bool IsLimited { get => maxParticipants != -1 && maxParticipants <= UNLIMITED_EVENT_CAPACITY; }
+
+
+        public const int UNLIMITED_EVENT_CAPACITY = 30;
     }
 
 }

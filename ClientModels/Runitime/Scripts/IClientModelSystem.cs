@@ -320,6 +320,8 @@ namespace Reflectis.SDK.ClientModels
         Task<List<CMOnlinePresence>> GetOnlineUsers(bool includeMyself = true);
         Task PingMyOnlinePresence(int? eventId, int? shardId);
 
+        Task<List<CMOnlinePresence>> GetUsersInEvent(int eventId, bool forceRefresh = true);
+
         #endregion
 
         #region Shards
