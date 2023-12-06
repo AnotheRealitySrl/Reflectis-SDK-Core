@@ -22,7 +22,7 @@ namespace Reflectis.SDK.Utilities
 
             if (userIconCached.TryGetValue(mediaUrl, out Texture2D texture))
             {
-                if (texture == null)
+                if (texture != null)
                 {
                     onCompletionCallback(texture);
                 }
@@ -61,7 +61,10 @@ namespace Reflectis.SDK.Utilities
             yield return new WaitUntil(() => !userIconCached.ContainsKey(mediaUrl) || (userIconCached.TryGetValue(mediaUrl, out texture) && texture != null));
             if (!userIconCached.ContainsKey(mediaUrl))
             {
-                onFailedCallback();
+                if (onFailedCallback != null)
+                {
+                    onFailedCallback();
+                }
             }
             else
             {
