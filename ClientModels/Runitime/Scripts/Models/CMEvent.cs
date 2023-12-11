@@ -62,8 +62,8 @@ namespace Reflectis.SDK.ClientModels
 
         public bool IsLimited { get => maxParticipants != -1 && maxParticipants <= UNLIMITED_EVENT_CAPACITY; }
 
-
-        public const int UNLIMITED_EVENT_CAPACITY = 30;
+        public const int UNLIMITED_EVENT_CAPACITY = 20;
+        public const int LIMITED_EVENT_CAPACITY = 20;
     }
 
 }
