@@ -1,7 +1,6 @@
 using UnityEditor;
 using UnityEditor.Compilation;
 using UnityEngine;
-using WebSocketSharp;
 
 namespace Reflectis.SDK.Utilities.Editor
 {
@@ -20,7 +19,7 @@ namespace Reflectis.SDK.Utilities.Editor
 
         public static void ShowRecompileProjectWindow(string text)
         {
-            displayText = text.IsNullOrEmpty() ? DEFAULT_TEXT : text;
+            displayText = string.IsNullOrEmpty(text) ? DEFAULT_TEXT : text;
             if (window == null)
             {
                 window = GetWindow<RecompileProjectEditorWindow>();

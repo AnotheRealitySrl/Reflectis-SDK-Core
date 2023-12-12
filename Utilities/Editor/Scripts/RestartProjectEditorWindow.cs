@@ -1,7 +1,6 @@
 using System.IO;
 using UnityEditor;
 using UnityEngine;
-using WebSocketSharp;
 
 namespace Reflectis.SDK.Utilities.Editor
 {
@@ -18,7 +17,7 @@ namespace Reflectis.SDK.Utilities.Editor
 
         public static void ShowRestartProjectWindow(string text)
         {
-            displayText = text.IsNullOrEmpty() ? DEFAULT_TEXT : text;
+            displayText = string.IsNullOrEmpty(text) ? DEFAULT_TEXT : text;
             var window = GetWindow<RestartProjectEditorWindow>();
             window.titleContent.text = "";
         }
