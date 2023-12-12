@@ -55,7 +55,16 @@ namespace Reflectis.SDK.ClientModels
         public bool Multiplayer { get => multiplayer; set => multiplayer = value; }
         public List<CMTemplateObj> Template { get => template; set => template = value; }
         public bool IsFavorite { get => isFavorite; set => isFavorite = value; }
-        public bool CanJoin { get => canJoin; set => canJoin = value; }
+        public bool CanJoin
+        {
+            get
+            {
+                bool onTime = DateTime.UtcNow > StartDateTime.ToUniversalTime() && DateTime.UtcNow < EndDateTime.ToUniversalTime();
+                return IsOwner || (canJoin && onTime);
+            }
+
+            set => canJoin = value;
+        }
         public bool StartingPoint { get => startingPoint; set => startingPoint = value; }
         public bool StaticEvent { get => staticEvent; set => staticEvent = value; }
         public List<CMPermission> Permissions { get => permissions; set => permissions = value; }
