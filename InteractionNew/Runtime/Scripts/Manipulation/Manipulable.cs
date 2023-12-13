@@ -106,6 +106,32 @@ namespace Reflectis.SDK.InteractionNew
                 // No visual elements found
                 else
                 {
+                    Debug.LogError("Size not available: no visual element has been found");
+                    return Vector3.zero;
+                }
+            }
+        }
+        /// <summary>
+        /// The overall center position of this manipulable item's mesh elements.
+        /// </summary>
+        public Vector3 ObjectCenter
+        {
+            get
+            {
+                if (BoundingBox)
+                {
+                    return BoundingBox.transform.position;
+                }
+                // If no bounding box is available, looks for a mesh or skinned
+                // mesh renderer on this gameobject
+                else if (GetComponent<Renderer>() is Renderer localRenderer)
+                {
+                    return localRenderer.bounds.center;
+                }
+                // No visual elements found
+                else
+                {
+                    Debug.LogError("Center point not available: no visual element has been found");
                     return Vector3.zero;
                 }
             }
