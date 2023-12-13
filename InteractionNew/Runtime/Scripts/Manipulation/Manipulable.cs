@@ -86,6 +86,30 @@ namespace Reflectis.SDK.InteractionNew
                 return boundingBox;
             }
         }
+        /// <summary>
+        /// The overall size of this manipulable item's mesh elements.
+        /// </summary>
+        public Vector3 ObjectSize
+        {
+            get
+            {
+                if (BoundingBox)
+                {
+                    return Vector3.Scale(BoundingBox.transform.localScale, transform.localScale);
+                }
+                // If no bounding box is available, looks for a mesh or skinned
+                // mesh renderer on this gameobject
+                else if (GetComponent<Renderer>() is Renderer localRenderer)
+                {
+                    return localRenderer.bounds.size;
+                }
+                // No visual elements found
+                else
+                {
+                    return Vector3.zero;
+                }
+            }
+        }
 
         public UnityEvent<EManipulableState> OnCurrentStateChange { get; set; } = new();
 
