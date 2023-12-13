@@ -24,12 +24,16 @@ namespace Reflectis.SDK.Transitions
 
         public override async Task EnterTransitionAsync()
         {
+            int currentAnimation = animator.GetCurrentAnimatorStateInfo(0).shortNameHash;
+
             if (animator.ContainsParam(animatorParameter))
             {
                 animator.SetBool(animatorParameter, true);
             }
             onEnterTransitionStart?.Invoke();
-            while (animator.IsInTransition(0) || animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1)
+            while (currentAnimation == animator.GetCurrentAnimatorStateInfo(0).shortNameHash
+                || animator.IsInTransition(0)
+                || animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1)
             {
                 await Task.Yield();
             }
@@ -38,12 +42,14 @@ namespace Reflectis.SDK.Transitions
 
         public override async Task ExitTransitionAsync()
         {
+            int currentAnimation = animator.GetCurrentAnimatorStateInfo(0).shortNameHash;
             if (animator.ContainsParam(animatorParameter))
             {
                 animator.SetBool(animatorParameter, false);
             }
             OnExitTransitionStart?.Invoke();
-            while (animator.IsInTransition(0) || animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1)
+            while (currentAnimation == animator.GetCurrentAnimatorStateInfo(0).shortNameHash
+                || animator.IsInTransition(0) || animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1)
             {
                 await Task.Yield();
             }
