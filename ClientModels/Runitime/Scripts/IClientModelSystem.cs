@@ -36,10 +36,10 @@ namespace Reflectis.SDK.ClientModels
         List<CMEvent> StaticEvents { get; }
 
         /// <summary>
-        /// Ask for data refresh 
+        /// Force refresh on cached event data
         /// </summary>
         /// <returns></returns>
-        Task RefreshEventDataIfNecessary();
+        Task RefreshCachedData();
 
         /// <summary>
         /// Force refresh on cached event data
