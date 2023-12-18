@@ -99,9 +99,14 @@ namespace Reflectis.SDK.InteractionNew
                 }
                 // If no bounding box is available, looks for a mesh or skinned
                 // mesh renderer on this gameobject
-                else if (GetComponent<Renderer>() is Renderer localRenderer)
+                else if (GetComponent<Renderer>() is Renderer localRenderer && localRenderer != null)
                 {
                     return localRenderer.bounds.size;
+                }
+                // Tries to look for a collider
+                else if (GetComponent<Collider>() is Collider localCollider && localCollider != null)
+                {
+                    return localCollider.bounds.size;
                 }
                 // No visual elements found
                 else
@@ -124,9 +129,14 @@ namespace Reflectis.SDK.InteractionNew
                 }
                 // If no bounding box is available, looks for a mesh or skinned
                 // mesh renderer on this gameobject
-                else if (GetComponent<Renderer>() is Renderer localRenderer)
+                else if (GetComponent<Renderer>() is Renderer localRenderer && localRenderer != null)
                 {
                     return localRenderer.bounds.center;
+                }
+                // Tries to look for a collider
+                else if (GetComponent<Collider>() is Collider localCollider && localCollider != null)
+                {
+                    return localCollider.bounds.center;
                 }
                 // No visual elements found
                 else
