@@ -61,7 +61,7 @@ namespace Reflectis.SDK.InteractionNew
         public override bool IsIdleState => CurrentInteractionState == EGenericInteractableState.Idle;
 
         private EGenericInteractableState currentInteractionState;
-        private EGenericInteractableState CurrentInteractionState
+        public EGenericInteractableState CurrentInteractionState
         {
             get => currentInteractionState;
             set

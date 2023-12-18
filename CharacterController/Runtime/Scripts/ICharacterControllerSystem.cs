@@ -82,12 +82,6 @@ namespace Reflectis.SDK.CharacterController
         void EnableCameraZoom(bool value);
 
         /// <summary>
-        /// Function to manage a counter of the character interaction
-        /// </summary>
-        /// <param name="activate"></param>
-        int ManageCounterCharacterInteraction(bool activate);
-
-        /// <summary>
         /// Sends the character to intract state (Desktop only)
         /// </summary>
         /// <param name="interactingItem"></param>
