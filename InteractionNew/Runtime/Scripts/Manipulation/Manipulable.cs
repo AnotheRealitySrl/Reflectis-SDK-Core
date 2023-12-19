@@ -5,8 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-using UnityEditor;
-
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -185,31 +183,4 @@ namespace Reflectis.SDK.InteractionNew
         }
     }
 
-#if UNITY_EDITOR
-
-    [CustomEditor(typeof(Manipulable))]
-    public class ManipulableEditor : Editor
-    {
-        public override void OnInspectorGUI()
-        {
-            DrawDefaultInspector();
-
-            Manipulable interactable = (Manipulable)target;
-
-            GUIStyle style = new(EditorStyles.label)
-            {
-                richText = true
-            };
-
-            EditorGUILayout.Separator();
-            EditorGUILayout.LabelField("Debug", EditorStyles.boldLabel);
-
-            if (Application.isPlaying)
-            {
-                EditorGUILayout.LabelField($"<b>Current state:</b> {interactable.CurrentInteractionState}", style);
-            }
-        }
-    }
-
-#endif
 }
