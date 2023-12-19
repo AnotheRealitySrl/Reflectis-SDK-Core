@@ -60,6 +60,8 @@ namespace Reflectis.SDK.Avatars
         // The config manager associated to the avatar instance
         private IAvatarConfigController avatarInstanceConfigManager;
 
+        private int avatarMeshDisablerCounter;
+
         #endregion
 
         #region System implementation
@@ -139,10 +141,28 @@ namespace Reflectis.SDK.Avatars
 
         public void UpdateAvatarInstanceCustomization(IAvatarConfig config) => AvatarInstanceConfigManager?.UpdateAvatarCustomization(config);
         public void UpdateAvatarInstanceNickName(string newName) => AvatarInstanceConfigManager?.UpdateAvatarNickName(newName);
-        public void EnableAvatarInstanceMeshes(bool enable) => AvatarInstanceConfigManager?.EnableAvatarMeshes(enable);
+        public void EnableAvatarInstanceMeshes(bool enable)
+        {
+            if (enable)
+            {
+                avatarMeshDisablerCounter--;
+                if (avatarMeshDisablerCounter == 0)
+                {
+                    AvatarInstanceConfigManager?.EnableAvatarMeshes(true);
+                }
+            }
+            else
+            {
+                avatarMeshDisablerCounter++;
+                if (avatarMeshDisablerCounter == 1)
+                {
+                    AvatarInstanceConfigManager?.EnableAvatarMeshes(false);
+                }
+            }
+
+        }
         public void EnableAvatarInstanceHandMeshes(bool enable) => AvatarInstanceConfigManager?.EnableHandMeshes(enable);
         public void EnableAvatarInstanceHandMesh(int id, bool enable) => AvatarInstanceConfigManager?.EnableHandMesh(id, enable);
-        public int ManageCounterAvatarMeshEnable(bool enable) { return (int)AvatarInstanceConfigManager?.ManageCounterAvatarMeshEnable(enable); }
         #endregion
     }
 }
