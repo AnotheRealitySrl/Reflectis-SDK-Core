@@ -165,7 +165,7 @@ namespace Reflectis.SDK.InteractionNew
             }
         }
 
-        public bool CanManipulate { get; set; }
+        public bool CanManipulate { get; set; } = true;
 
         public override void OnHoverStateEntered()
         {
