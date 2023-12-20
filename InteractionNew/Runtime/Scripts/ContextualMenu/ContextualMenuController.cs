@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using UnityEngine;
-
+using UnityEngine.Events;
 using static Reflectis.SDK.InteractionNew.ContextualMenuManageable;
 
 namespace Reflectis.SDK.InteractionNew
@@ -22,7 +22,12 @@ namespace Reflectis.SDK.InteractionNew
 
         [SerializeField] private List<ContextualMenuItem> contextualMenuItems = new();
 
+        public UnityEvent onShow;
+        public UnityEvent onHide;
+
+
         private AbstractTransitionProvider transitionProvider;
+
 
         private void Awake()
         {
@@ -49,14 +54,16 @@ namespace Reflectis.SDK.InteractionNew
             });
         }
 
-        public async Task Show()
+        public virtual async Task Show()
         {
             await transitionProvider.DoTransitionAsync(true);
+            onShow?.Invoke();
         }
 
-        public async Task Hide()
+        public virtual async Task Hide()
         {
             await transitionProvider.DoTransitionAsync(false);
+            onHide?.Invoke();
         }
 
         public void ShowPreview()
