@@ -1,6 +1,5 @@
 using Reflectis.SDK.Core;
 using System.Threading.Tasks;
-using UnityEngine;
 using UnityEngine.Events;
 
 namespace Reflectis.SDK.Avatars
@@ -19,7 +18,7 @@ namespace Reflectis.SDK.Avatars
         }
         #endregion
 
-            #region Unity events
+        #region Unity events
 
         UnityEvent<IAvatarConfig> OnPlayerAvatarConfigChanged { get; }
         UnityEvent<string> PlayerNickNameChanged { get; }
@@ -82,11 +81,6 @@ namespace Reflectis.SDK.Avatars
         /// <param name="newName">The new name</param>
         public void EnableAvatarInstanceHandMesh(int id, bool enable);
 
-        /// <summary>
-        /// Function to manage a counter of avatar enable mesh calls.
-        /// </summary>
-        /// <param name="enable"></param>
-        public int ManageCounterAvatarMeshEnable(bool enable);
         #endregion
     }
 }
