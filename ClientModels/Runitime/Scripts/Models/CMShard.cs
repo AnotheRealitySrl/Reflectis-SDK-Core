@@ -1,3 +1,5 @@
+using Reflectis.SDK.Core;
+
 using System;
 
 using UnityEngine;
@@ -19,7 +21,7 @@ namespace Reflectis.SDK.ClientModels
         {
             get
             {
-                return Math.Clamp(maxParticipants, 0, CMEvent.UNLIMITED_EVENT_CAPACITY);
+                return Math.Clamp(maxParticipants, 0, SM.GetSystem<IClientModelSystem>().MaxShardCapacity);
             }
             set => maxParticipants = value;
         }

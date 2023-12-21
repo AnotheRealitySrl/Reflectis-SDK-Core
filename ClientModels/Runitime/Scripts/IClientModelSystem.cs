@@ -326,6 +326,7 @@ namespace Reflectis.SDK.ClientModels
 
         #region Shards
 
+        int MaxShardCapacity { get; set; }
         CMShard CurrentShard { get; set; }
 
         /// <summary>
