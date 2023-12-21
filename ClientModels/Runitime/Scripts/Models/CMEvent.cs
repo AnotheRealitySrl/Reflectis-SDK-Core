@@ -13,6 +13,7 @@ namespace Reflectis.SDK.ClientModels
         [SerializeField] private int id;
         [SerializeField] private string title;
         [SerializeField] private string? description;
+        [SerializeField] private int worldId;
         [SerializeField] private CMCategory? category;
         [SerializeField] private CMCategory? subCategory;
         [SerializeField] private DateTime startDateTime;
@@ -39,6 +40,7 @@ namespace Reflectis.SDK.ClientModels
         public int Id { get => id; set => id = value; }
         public string Title { get => title; set => title = value; }
         public string? Description { get => description; set => description = value; }
+        public int WorldId { get => worldId; set => worldId = value; }
         public CMCategory? Category { get => category; set => category = value; }
         public CMCategory? SubCategory { get => subCategory; set => subCategory = value; }
         public DateTime StartDateTime { get => startDateTime; set => startDateTime = value; }
