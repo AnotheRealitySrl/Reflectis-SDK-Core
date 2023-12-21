@@ -64,7 +64,7 @@ namespace Reflectis.SDK.ClientModels
             get
             {
                 bool onTime = DateTime.UtcNow > StartDateTime.ToUniversalTime() && DateTime.UtcNow < EndDateTime.ToUniversalTime();
-                return IsOwner || (canJoin && onTime);
+                return IsOwner || (canJoin && (onTime || staticEvent));
             }
 
             set => canJoin = value;
