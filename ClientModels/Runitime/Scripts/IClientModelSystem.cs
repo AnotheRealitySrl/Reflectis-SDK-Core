@@ -240,7 +240,8 @@ namespace Reflectis.SDK.ClientModels
         /// <returns></returns>
         Task<List<CMFacet>> GetWorldFacets(int worldId);
 
-        public bool IsPermissionGranted(EFacetIdentifier identifier);
+        public bool IsEventPermissionGranted(EFacetIdentifier identifier);
+        public bool IsWorldPermissionGranted(EFacetIdentifier identifier);
 
         #endregion
 
