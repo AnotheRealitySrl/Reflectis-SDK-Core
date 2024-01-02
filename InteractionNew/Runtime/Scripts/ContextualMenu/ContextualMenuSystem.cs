@@ -23,7 +23,7 @@ namespace Reflectis.SDK.InteractionNew
 
         protected ContextualMenuController contextualMenu;
         protected ContextualMenuManageable selectedInteractable;
-
+        protected bool isMenuActive = false;
 
         public ContextualMenuController ContextualMenuInstance => contextualMenu;
         public ContextualMenuManageable SelectedInteractable => selectedInteractable;
@@ -33,6 +33,8 @@ namespace Reflectis.SDK.InteractionNew
 
         public List<AwaitableScriptableAction> OnHoverEnterActions => onHoverEnterActions;
         public List<AwaitableScriptableAction> OnHoverExitActions => onHoverExitActions;
+
+        public bool IsMenuActive { get => isMenuActive; set => isMenuActive = value; }
 
         public override void Init()
         {
@@ -95,6 +97,7 @@ namespace Reflectis.SDK.InteractionNew
 
         public virtual async Task HideContextualMenu()
         {
+            isMenuActive = false;
             await contextualMenu.Hide();
             contextualMenu.Unsetup();
         }
