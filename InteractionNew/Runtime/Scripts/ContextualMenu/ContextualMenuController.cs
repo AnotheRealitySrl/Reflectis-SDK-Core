@@ -78,9 +78,6 @@ namespace Reflectis.SDK.InteractionNew
 
         public void OnContextualMenuButtonClicked(int option)
         {
-            if (SM.GetSystem<ContextualMenuSystem>().IsMenuActive) return;
-
-            SM.GetSystem<ContextualMenuSystem>().IsMenuActive = true;
             SM.GetSystem<ContextualMenuSystem>().SelectedInteractable.OnContextualMenuButtonClicked((EContextualMenuOption)option);
         }
     }

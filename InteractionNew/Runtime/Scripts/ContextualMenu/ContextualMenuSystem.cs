@@ -97,7 +97,6 @@ namespace Reflectis.SDK.InteractionNew
 
         public virtual async Task HideContextualMenu()
         {
-            isMenuActive = false;
             await contextualMenu.Hide();
             contextualMenu.Unsetup();
         }
