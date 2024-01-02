@@ -95,7 +95,7 @@ namespace Reflectis.SDK.InteractionNew
 
         private void OnDestroy()
         {
-            if (!IsIdleState)
+            if (!IsIdleState && CurrentInteractionState != EGenericInteractableState.SelectExiting)
             {
                 onDeselectingActions.ForEach(x => x.Action());
                 onDeselectedActions.ForEach(x => x.Action());
