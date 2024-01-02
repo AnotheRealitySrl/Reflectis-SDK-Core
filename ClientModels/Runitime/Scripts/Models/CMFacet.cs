@@ -1,5 +1,5 @@
 using System;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 namespace Reflectis.SDK.ClientModels
@@ -21,6 +21,7 @@ namespace Reflectis.SDK.ClientModels
         SendGlobalMessage = 12,
         SendAnnouncement = 13,
         SendShardMessage = 14,
+        EventWriterFacet = 15,
     }
 
     public enum EFacetGroup
@@ -50,15 +51,15 @@ namespace Reflectis.SDK.ClientModels
         [SerializeField] private EFacetGroup facetGroup;
         [SerializeField] private EFacetStatus status;
         [SerializeField] private string[] requiredRoles;
-        
+
         public int Id { get => id; set => id = value; }
-        
+
         public EFacetIdentifier Identifier { get => identifier; set => identifier = value; }
-        
+
         public string Label { get => label; set => label = value; }
-        
+
         public string Note { get => note; set => note = value; }
-        
+
         public DateTime CreationDate { get => creationDate; set => creationDate = value; }
 
         public DateTime LastUpdate { get => lastUpdate; set => lastUpdate = value; }
