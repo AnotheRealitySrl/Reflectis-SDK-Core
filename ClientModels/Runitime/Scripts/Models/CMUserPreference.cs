@@ -39,7 +39,6 @@ namespace Reflectis.SDK.ClientModels
         [SerializeField][CanBeNull] private string dateOfBirth;
         [SerializeField][CanBeNull] private string city;
         [SerializeField] private string hand;
-        [SerializeField] private bool isHand;
         [SerializeField] private Dictionary<string, string> mascotteNames;
 
         [JsonProperty("language")]
