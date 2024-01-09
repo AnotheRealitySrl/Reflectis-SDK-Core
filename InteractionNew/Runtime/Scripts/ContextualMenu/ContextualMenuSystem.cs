@@ -13,7 +13,6 @@ namespace Reflectis.SDK.InteractionNew
     public abstract class ContextualMenuSystem : BaseSystem
     {
         [SerializeField] private ContextualMenuTypesDictionary customContextualMenuControllers;
-        //[SerializeField] private ContextualMenuController contextualMenuPrefab;
         [SerializeField] private float showTime = 1.5f;
         [SerializeField] private float hideTime = 1.5f;
         [SerializeField] private bool createMenuOnInit = true;
