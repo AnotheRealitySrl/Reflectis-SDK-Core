@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+using static Reflectis.SDK.InteractionNew.ContextualMenuManageable;
+
 namespace Reflectis.SDK.InteractionNew
 {
     public abstract class ContextualMenuSystem : BaseSystem
     {
-        [SerializeField] private ContextualMenuController contextualMenuPrefab;
+        [SerializeField] private ContextualMenuTypesDictionary customContextualMenuControllers;
+        //[SerializeField] private ContextualMenuController contextualMenuPrefab;
         [SerializeField] private float showTime = 1.5f;
         [SerializeField] private float hideTime = 1.5f;
         [SerializeField] private bool createMenuOnInit = true;
@@ -24,6 +27,8 @@ namespace Reflectis.SDK.InteractionNew
         protected ContextualMenuController contextualMenu;
         protected ContextualMenuManageable selectedInteractable;
         protected bool isMenuActive = false;
+
+        private Dictionary<EContextualMenuType, ContextualMenuController> customContextualMenuControllersCache = new();
 
         public ContextualMenuController ContextualMenuInstance => contextualMenu;
         public ContextualMenuManageable SelectedInteractable => selectedInteractable;
@@ -67,17 +72,13 @@ namespace Reflectis.SDK.InteractionNew
 
         public void CreateMenu(Transform parent = null)
         {
-            if (parent != null)
+            foreach (var contextualMenu in customContextualMenuControllers.ContextualMenuTypes)
             {
-                contextualMenu = Instantiate(contextualMenuPrefab, parent);
-            }
-            else
-            {
-                contextualMenu = Instantiate(contextualMenuPrefab);
-            }
+                customContextualMenuControllersCache.Add(contextualMenu.Key, Instantiate(contextualMenu.Value, parent));
 
-            if (dontDestroyOnLoad)
-                DontDestroyOnLoad(contextualMenu);
+                if (dontDestroyOnLoad)
+                    DontDestroyOnLoad(contextualMenu.Value);
+            }
         }
 
         public void DestroyMenu()
@@ -91,8 +92,11 @@ namespace Reflectis.SDK.InteractionNew
 
         public virtual async Task ShowContextualMenu(ContextualMenuManageable manageable)
         {
-            contextualMenu.Setup(manageable.ContextualMenuOptions);
-            await contextualMenu.Show();
+            if (customContextualMenuControllersCache.TryGetValue(manageable.ContextualMenuType, out contextualMenu))
+            {
+                contextualMenu.Setup(manageable.ContextualMenuOptions);
+                await contextualMenu.Show();
+            }
         }
 
         public virtual async Task HideContextualMenu()
@@ -103,8 +107,11 @@ namespace Reflectis.SDK.InteractionNew
 
         public void ShowPreviewContextualMenu(ContextualMenuManageable manageable)
         {
-            contextualMenu.Setup(manageable.ContextualMenuOptions);
-            contextualMenu.ShowPreview();
+            if (customContextualMenuControllersCache.TryGetValue(manageable.ContextualMenuType, out contextualMenu))
+            {
+                contextualMenu.Setup(manageable.ContextualMenuOptions);
+                contextualMenu.ShowPreview();
+            }
         }
 
         public void HidePreviewContextualMenu()

@@ -20,6 +20,13 @@ namespace Reflectis.SDK.InteractionNew
             Showing
         }
 
+        public enum EContextualMenuType
+        {
+            Default,
+            VideoPlayerConttroller,
+            PresentationPlayerController
+        }
+
         [Flags]
         public enum EContextualMenuOption
         {
@@ -40,6 +47,8 @@ namespace Reflectis.SDK.InteractionNew
             EContextualMenuOption.Delete;
 
         public EContextualMenuOption ContextualMenuOptions { get => contextualMenuOptions; set => contextualMenuOptions = value; }
+
+        public EContextualMenuType ContextualMenuType = EContextualMenuType.Default;
 
         public override bool IsIdleState => CurrentInteractionState == EContextualMenuInteractableState.Idle;
 
@@ -68,29 +77,43 @@ namespace Reflectis.SDK.InteractionNew
             { EContextualMenuOption.NonProportionalScale, new UnityEvent() },
         };
 
-        public UnityEvent OnEnterInteractionState = new UnityEvent();
-        public UnityEvent OnExitInteractionState = new UnityEvent();
+        public UnityEvent OnEnterInteractionState = new();
+        public UnityEvent OnExitInteractionState = new();
 
         public override void OnHoverStateEntered()
         {
+            if (!CanInteract)
+                return;
+
             SM.GetSystem<ContextualMenuSystem>()?.OnHoverEnterActions.ForEach(x => x.Action(InteractableRef));
         }
 
         public override void OnHoverStateExited()
         {
+            if (!CanInteract)
+                return;
+
             SM.GetSystem<ContextualMenuSystem>()?.OnHoverExitActions.ForEach(x => x.Action(InteractableRef));
         }
 
         public override async Task EnterInteractionState()
         {
+            if (!CanInteract)
+                return;
+
             await base.EnterInteractionState();
+
             OnEnterInteractionState?.Invoke();
             CurrentInteractionState = EContextualMenuInteractableState.Showing;
         }
 
         public override async Task ExitInteractionState()
         {
+            if (!CanInteract)
+                return;
+
             await base.ExitInteractionState();
+
             OnExitInteractionState?.Invoke();
             CurrentInteractionState = EContextualMenuInteractableState.Idle;
         }

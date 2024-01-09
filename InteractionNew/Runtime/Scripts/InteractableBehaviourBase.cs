@@ -10,8 +10,9 @@ namespace Reflectis.SDK.InteractionNew
 
         public abstract bool IsIdleState { get; }
 
-        public abstract void OnHoverStateEntered();
+        public bool CanInteract { get; set; } = true;
 
+        public abstract void OnHoverStateEntered();
         public abstract void OnHoverStateExited();
 
         public virtual Task EnterInteractionState()

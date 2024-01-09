@@ -104,16 +104,27 @@ namespace Reflectis.SDK.InteractionNew
 
         public override void OnHoverStateEntered()
         {
+            if (!CanInteract)
+                return;
+
             onHoverEnterActions.ForEach(a => a.Action(InteractableRef));
         }
 
         public override void OnHoverStateExited()
         {
+            if (!CanInteract)
+                return;
+
             onHoverExitActions.ForEach(a => a.Action(InteractableRef));
         }
 
         public override async Task EnterInteractionState()
         {
+            if (!CanInteract)
+                return;
+
+            await base.EnterInteractionState();
+
             CurrentInteractionState = EGenericInteractableState.SelectEntering;
             foreach (var action in OnSelectingActions)
             {
@@ -134,6 +145,11 @@ namespace Reflectis.SDK.InteractionNew
 
         public override async Task ExitInteractionState()
         {
+            if (!CanInteract)
+                return;
+
+            await base.ExitInteractionState();
+
             CurrentInteractionState = EGenericInteractableState.SelectExiting;
             foreach (var action in onDeselectingActions)
             {
@@ -149,6 +165,9 @@ namespace Reflectis.SDK.InteractionNew
 
         public async Task Interact()
         {
+            if (!CanInteract)
+                return;
+
             if (CurrentInteractionState != EGenericInteractableState.Selected && hasInteractState)
                 return;
 

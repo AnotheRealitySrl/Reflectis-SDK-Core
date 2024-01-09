@@ -23,7 +23,7 @@ public class ManipulableEditor : Editor
         {
             Manipulable manipulable = (Manipulable)target;
             EditorGUILayout.LabelField($"<b>Current state:</b> {manipulable.CurrentInteractionState}", style);
-            EditorGUILayout.LabelField($"<b>Can manipulate:</b> id: {manipulable.CanManipulate}", style);
+            EditorGUILayout.LabelField($"<b>Can manipulate:</b> id: {manipulable.CanInteract}", style);
         }
     }
 }

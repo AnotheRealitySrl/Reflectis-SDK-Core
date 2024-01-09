@@ -4,8 +4,9 @@ namespace Reflectis.SDK.InteractionNew
 {
     public interface IInteractableBehaviour
     {
-        public IInteractable InteractableRef { get; }
-        public bool IsIdleState { get; }
+        IInteractable InteractableRef { get; }
+        bool IsIdleState { get; }
+        bool CanInteract { get; set; }
 
         void OnHoverStateEntered();
         void OnHoverStateExited();

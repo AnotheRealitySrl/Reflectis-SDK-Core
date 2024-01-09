@@ -165,15 +165,19 @@ namespace Reflectis.SDK.InteractionNew
             }
         }
 
-        public bool CanManipulate { get; set; } = true;
-
         public override void OnHoverStateEntered()
         {
+            if (!CanInteract)
+                return;
+
             SM.GetSystem<IManipulationSystem>()?.OnHoverEnterActions.ForEach(x => x.Action(InteractableRef));
         }
 
         public override void OnHoverStateExited()
         {
+            if (!CanInteract)
+                return;
+
             SM.GetSystem<IManipulationSystem>()?.OnHoverExitActions.ForEach(x => x.Action(InteractableRef));
         }
 
