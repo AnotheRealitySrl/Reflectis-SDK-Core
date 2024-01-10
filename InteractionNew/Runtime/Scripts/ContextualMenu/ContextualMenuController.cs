@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 using UnityEngine;
 using UnityEngine.Events;
+
 using static Reflectis.SDK.InteractionNew.ContextualMenuManageable;
 
 namespace Reflectis.SDK.InteractionNew
@@ -36,7 +37,7 @@ namespace Reflectis.SDK.InteractionNew
             Hide();
         }
 
-        public void Setup(EContextualMenuOption options)
+        public virtual void Setup(EContextualMenuOption options)
         {
             contextualMenuItems.ForEach(x =>
             {
@@ -45,7 +46,7 @@ namespace Reflectis.SDK.InteractionNew
             });
         }
 
-        public void Unsetup()
+        public virtual void Unsetup()
         {
             contextualMenuItems.ForEach(x =>
             {
