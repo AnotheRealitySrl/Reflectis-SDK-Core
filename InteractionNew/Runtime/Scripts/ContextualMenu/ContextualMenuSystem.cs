@@ -73,7 +73,7 @@ namespace Reflectis.SDK.InteractionNew
         {
             foreach (var contextualMenu in customContextualMenuControllers.ContextualMenuTypes)
             {
-                customContextualMenuControllersCache.Add(contextualMenu.Key, Instantiate(contextualMenu.Value, parent));
+                customContextualMenuControllersCache.TryAdd(contextualMenu.Key, Instantiate(contextualMenu.Value, parent));
 
                 if (dontDestroyOnLoad)
                     DontDestroyOnLoad(contextualMenu.Value);
