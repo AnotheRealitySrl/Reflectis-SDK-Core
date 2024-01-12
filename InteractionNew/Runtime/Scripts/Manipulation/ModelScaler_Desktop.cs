@@ -1,7 +1,9 @@
 using Reflectis.SDK.CharacterController;
 using Reflectis.SDK.InteractionNew;
+
 using System.Collections.Generic;
 using System.Linq;
+
 using UnityEngine;
 
 public class ModelScaler_Desktop : ModelScaler
@@ -12,7 +14,7 @@ public class ModelScaler_Desktop : ModelScaler
     private float lowestDragPointDistance = 10;
     [SerializeField, Tooltip("Scaling should be negated if it would get any of the three axes lower " +
         "than these values")]
-    private Vector3 lowestScaleAxisValues = new Vector3(.25f, .25f, .25f);
+    private Vector3 lowestScaleAxisValues = new(.25f, .25f, .25f);
 
     public enum ScaleType
     {
@@ -65,17 +67,17 @@ public class ModelScaler_Desktop : ModelScaler
     {
         ToggleNonProportionalGizmos(true);
     }
-    
+
     public override void ToggleNonProportionalGizmos(bool enable)
     {
         foreach (GameObject scalingFace in scalingFaces)
         {
-            scalingFace.gameObject.SetActive(enable);
+            scalingFace.SetActive(enable);
         }
 
         foreach (GameObject scalingCorner in scalingCorners)
         {
-            scalingCorner.gameObject.SetActive(!enable);
+            scalingCorner.SetActive(!enable);
         }
     }
 
@@ -145,13 +147,13 @@ public class ModelScaler_Desktop : ModelScaler
                 switch (scaleType)
                 {
                     case ScaleType.X_ONLY:
-                        newScale += new Vector3(newScale.x, 0, 0) * scaleDelta * scaleMultiplier;
+                        newScale += scaleDelta * scaleMultiplier * new Vector3(newScale.x, 0, 0);
                         break;
                     case ScaleType.Y_ONLY:
-                        newScale += new Vector3(0, newScale.y, 0) * scaleDelta * scaleMultiplier;
+                        newScale += scaleDelta * scaleMultiplier * new Vector3(0, newScale.y, 0);
                         break;
                     case ScaleType.Z_ONLY:
-                        newScale += new Vector3(0, 0, newScale.z) * scaleDelta * scaleMultiplier;
+                        newScale += scaleDelta * scaleMultiplier * new Vector3(0, 0, newScale.z);
                         break;
                 }
 
@@ -180,7 +182,7 @@ public class ModelScaler_Desktop : ModelScaler
             if (currentDragPointDistance > lowestDragPointDistance &&
                 isDragPointInRightDirection)
             {
-                Vector3 newScale = scaleStartValue + (scaleStartValue * scaleDelta * scaleMultiplier);
+                Vector3 newScale = scaleStartValue + (scaleDelta * scaleMultiplier * scaleStartValue);
                 // The new scale value is applied, but only if none of the scale
                 // axes will get below the lowest allowed values
                 if (newScale.x > lowestScaleAxisValues.x &&

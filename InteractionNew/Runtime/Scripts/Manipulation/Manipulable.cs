@@ -51,10 +51,7 @@ namespace Reflectis.SDK.InteractionNew
         {
             get
             {
-                if (scalingCorners == null)
-                {
-                    scalingCorners = GetComponent<BaseInteractable>().GameObjectRef.GetComponentsInChildren<GenericHookComponent>().Where(x => x.Id == "ScalableCorner").Select(x => x.gameObject).ToList();
-                }
+                scalingCorners ??= GetComponent<BaseInteractable>().GameObjectRef.GetComponentsInChildren<GenericHookComponent>().Where(x => x.Id == "ScalableCorner").Select(x => x.gameObject).ToList();
                 return scalingCorners;
             }
         }
@@ -62,10 +59,7 @@ namespace Reflectis.SDK.InteractionNew
         {
             get
             {
-                if (scalingFaces == null)
-                {
-                    scalingFaces = GetComponent<BaseInteractable>().GameObjectRef.GetComponentsInChildren<GenericHookComponent>().Where(x => x.Id == "ScalableFace").Select(x => x.gameObject).ToList();
-                }
+                scalingFaces ??= GetComponent<BaseInteractable>().GameObjectRef.GetComponentsInChildren<GenericHookComponent>().Where(x => x.Id == "ScalableFace").Select(x => x.gameObject).ToList();
                 return scalingFaces;
             }
         }
@@ -75,8 +69,7 @@ namespace Reflectis.SDK.InteractionNew
             {
                 if (boundingBox == null)
                 {
-                    BaseInteractable baseInteractable = GetComponent<BaseInteractable>();
-                    if (baseInteractable != null)
+                    if (TryGetComponent<BaseInteractable>(out var baseInteractable))
                     {
                         boundingBox = baseInteractable.GameObjectRef.GetComponentsInChildren<GenericHookComponent>().FirstOrDefault(x => x.Id == "BoundingBox")?.gameObject;
                     }
