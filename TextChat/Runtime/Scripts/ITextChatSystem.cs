@@ -1,8 +1,7 @@
-using System;
-using System.Collections.Generic;
-
 using Reflectis.SDK.Core;
 using Reflectis.SDK.TextChat.Enums;
+using System;
+using System.Collections.Generic;
 
 namespace Reflectis.SDK.TextChat
 {
@@ -118,6 +117,13 @@ namespace Reflectis.SDK.TextChat
         /// <param name="channelId">Id of the channel to fetch all the messages</param>
         /// <param name="type">The type of the channel</param>
         void FetchHistoryMessages(string channelId, EChatMessageType type);
+
+        /// <summary>
+        /// Get the current messages count from a specific channel.
+        /// </summary>
+        /// <param name="channelId">Id of the channel to fetch all the messages</param>
+        /// <param name="type">The type of the channel</param>
+        int GetCurrentMessagesCount(string channelId, EChatMessageType type);
 
         /// <summary>
         /// Get all the public channels
