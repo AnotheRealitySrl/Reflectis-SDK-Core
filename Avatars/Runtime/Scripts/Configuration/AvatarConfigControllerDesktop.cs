@@ -53,8 +53,8 @@ namespace Reflectis.SDK.Avatars
             {
                 animatorControllerReference = masculineAnimatorController;
             }
-            
-            if(parentAnimator != null)
+
+            if (parentAnimator != null)
             {
                 parentAnimator.runtimeAnimatorController = animatorControllerReference;
 
@@ -67,7 +67,7 @@ namespace Reflectis.SDK.Avatars
             if (GetComponent<AvatarControllerBase>() == avatarSystem.AvatarInstance)
             {
                 SM.GetSystem<CharacterControllerSystem>().OnCharacterControllerSetupComplete.Invoke(GetComponent<AvatarControllerBase>().CharacterReference);
-                
+
             }
 
             GetComponent<CharacterBase>().Setup();
@@ -76,7 +76,7 @@ namespace Reflectis.SDK.Avatars
             {
                 Destroy(prevRef);
             }
-            
+
             //onAfterAction?.Invoke();
         }
 
@@ -85,12 +85,13 @@ namespace Reflectis.SDK.Avatars
             // This call may be done after run closure. This line prevents the error.
             if (!Application.isPlaying)
                 return;
-
-            foreach (Renderer rend in FullBodyAvatarReference?.GetComponentsInChildren<Renderer>())
+            if (FullBodyAvatarReference != null)
             {
-                rend.enabled = enable;
+                foreach (Renderer rend in FullBodyAvatarReference?.GetComponentsInChildren<Renderer>())
+                {
+                    rend.enabled = enable;
+                }
             }
-
             base.EnableAvatarMeshes(enable);
 
         }
