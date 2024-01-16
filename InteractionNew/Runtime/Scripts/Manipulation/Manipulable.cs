@@ -1,16 +1,14 @@
-using Reflectis.SDK.CharacterController;
 using Reflectis.SDK.Core;
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace Reflectis.SDK.InteractionNew
 {
-    public class Manipulable : InteractableBehaviourBase
+    public abstract class Manipulable : InteractableBehaviourBase
     {
         public enum EManipulableState
         {
@@ -39,44 +37,22 @@ namespace Reflectis.SDK.InteractionNew
         [SerializeField] private bool mouseLookAtCamera;
         [SerializeField] private bool nonProportionalScale;
 
+        #region Properties
+
         public EManipulationMode ManipulationMode { get => manipulationMode; set => manipulationMode = value; }
         public EVRInteraction VRInteraction { get => vrInteraction; set => vrInteraction = value; }
         public bool MouseLookAtCamera { get => mouseLookAtCamera; set => mouseLookAtCamera = value; }
         public bool NonProportionalScale { get => nonProportionalScale; set => nonProportionalScale = value; }
 
-        private List<GameObject> scalingCorners;
-        private List<GameObject> scalingFaces;
-        private GameObject boundingBox;
-        public List<GameObject> ScalingCorners
-        {
-            get
-            {
-                scalingCorners ??= GetComponent<BaseInteractable>().GameObjectRef.GetComponentsInChildren<GenericHookComponent>().Where(x => x.Id == "ScalableCorner").Select(x => x.gameObject).ToList();
-                return scalingCorners;
-            }
-        }
-        public List<GameObject> ScalingFaces
-        {
-            get
-            {
-                scalingFaces ??= GetComponent<BaseInteractable>().GameObjectRef.GetComponentsInChildren<GenericHookComponent>().Where(x => x.Id == "ScalableFace").Select(x => x.gameObject).ToList();
-                return scalingFaces;
-            }
-        }
-        public GameObject BoundingBox
-        {
-            get
-            {
-                if (boundingBox == null)
-                {
-                    if (TryGetComponent<BaseInteractable>(out var baseInteractable))
-                    {
-                        boundingBox = baseInteractable.GameObjectRef.GetComponentsInChildren<GenericHookComponent>().FirstOrDefault(x => x.Id == "BoundingBox")?.gameObject;
-                    }
-                }
-                return boundingBox;
-            }
-        }
+        protected List<GameObject> scalingCorners = new();
+        public List<GameObject> ScalingCorners => scalingCorners;
+
+        protected List<GameObject> scalingFaces = new();
+        public List<GameObject> ScalingFaces => scalingFaces;
+
+        protected Transform boundingBox;
+        public Transform BoundingBox => boundingBox;
+
         /// <summary>
         /// The overall size of this manipulable item's mesh elements.
         /// </summary>
@@ -84,9 +60,9 @@ namespace Reflectis.SDK.InteractionNew
         {
             get
             {
-                if (BoundingBox)
+                if (boundingBox)
                 {
-                    return Vector3.Scale(BoundingBox.transform.localScale, transform.localScale);
+                    return Vector3.Scale(boundingBox.localScale, transform.localScale);
                 }
                 // If no bounding box is available, looks for a mesh or skinned
                 // mesh renderer on this gameobject
@@ -107,6 +83,7 @@ namespace Reflectis.SDK.InteractionNew
                 }
             }
         }
+
         /// <summary>
         /// The overall center position of this manipulable item's mesh elements.
         /// </summary>
@@ -114,9 +91,9 @@ namespace Reflectis.SDK.InteractionNew
         {
             get
             {
-                if (BoundingBox)
+                if (boundingBox)
                 {
-                    return BoundingBox.transform.position;
+                    return boundingBox.position;
                 }
                 // If no bounding box is available, looks for a mesh or skinned
                 // mesh renderer on this gameobject
@@ -138,8 +115,6 @@ namespace Reflectis.SDK.InteractionNew
             }
         }
 
-        public UnityEvent<EManipulableState> OnCurrentStateChange { get; set; } = new();
-
         public override bool IsIdleState => CurrentInteractionState == EManipulableState.Idle;
 
         private EManipulableState currentInteractionState;
@@ -158,6 +133,26 @@ namespace Reflectis.SDK.InteractionNew
             }
         }
 
+        public UnityEvent<EManipulableState> OnCurrentStateChange { get; set; } = new();
+
+        #endregion
+
+        #region Setup
+
+        public override void Setup()
+        {
+            if (ManipulationMode.HasFlag(EManipulationMode.Scale))
+            {
+                ModelScaler_Desktop scaler = gameObject.AddComponent<ModelScaler_Desktop>();
+                SetScalingPoints(scaler, InteractableRef as BaseInteractable);
+                scaler.Setup();
+            }
+        }
+
+        #endregion
+
+        #region Overrides
+
         public override void OnHoverStateEntered()
         {
             if (!CanInteract)
@@ -174,10 +169,23 @@ namespace Reflectis.SDK.InteractionNew
             SM.GetSystem<IManipulationSystem>()?.OnHoverExitActions.ForEach(x => x.Action(InteractableRef));
         }
 
+        #endregion
+
+        #region Abstract methods
+
+        protected abstract void SetScalingPoints(ModelScaler scaler, BaseInteractable interactable);
+        public abstract void SetPositionScalePoints();
+
+        #endregion
+
+        #region Public methods
+
         public void ToggleBoundingBoxCollider(bool state)
         {
-            BoundingBox.GetComponent<Collider>().enabled = state;
+            boundingBox.GetComponent<Collider>().enabled = state;
         }
+
+        #endregion
     }
 
 }

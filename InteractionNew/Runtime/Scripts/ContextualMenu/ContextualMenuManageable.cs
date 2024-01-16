@@ -80,6 +80,15 @@ namespace Reflectis.SDK.InteractionNew
         public UnityEvent OnEnterInteractionState = new();
         public UnityEvent OnExitInteractionState = new();
 
+        public override void Setup()
+        {
+            if (ContextualMenuOptions.HasFlag(EContextualMenuOption.ColorPicker))
+            {
+                SM.GetSystem<ContextualMenuSystem>().AssignTool(this, EContextualMenuOption.ColorPicker);
+                //colorChanger.Setup();
+            }
+        }
+
         public override void OnHoverStateEntered()
         {
             if (!CanInteract)

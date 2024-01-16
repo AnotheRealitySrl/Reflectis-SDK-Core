@@ -12,6 +12,8 @@ namespace Reflectis.SDK.InteractionNew
 
         public bool CanInteract { get; set; } = true;
 
+        public abstract void Setup();
+
         public abstract void OnHoverStateEntered();
         public abstract void OnHoverStateExited();
 
