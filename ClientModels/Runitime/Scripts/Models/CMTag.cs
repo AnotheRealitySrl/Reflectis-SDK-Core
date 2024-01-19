@@ -1,12 +1,10 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Reflectis.SDK.ClientModels
 {
     [Serializable]
-    public class CMTag 
+    public class CMTag
     {
 
         [SerializeField] private int id;
@@ -17,6 +15,7 @@ namespace Reflectis.SDK.ClientModels
         [SerializeField] private bool isEnabled;
         [SerializeField] private Color color;
         [SerializeField] private ETagType type;
+        [SerializeField] private bool visible;
 
         public int Id { get => id; set => id = value; }
         public DateTime CreationDate { get => creationDate; set => creationDate = value; }
@@ -26,6 +25,7 @@ namespace Reflectis.SDK.ClientModels
         public bool IsEnabled { get => isEnabled; set => isEnabled = value; }
         public Color Color { get => color; set => color = value; }
         public ETagType Type { get => type; set => type = value; }
+        public bool Visible { get => visible; set => visible = value; }
     }
 
     public enum ETagType
