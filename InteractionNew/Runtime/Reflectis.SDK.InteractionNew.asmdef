@@ -2,12 +2,14 @@
     "name": "Reflectis.SDK.InteractionNew",
     "rootNamespace": "Reflectis.SDK.InteractionNew",
     "references": [
+        "GUID:e12f610351776714fbea1c97ca084b85",
+        "GUID:82ded40e11815f8499517421d250ddfc",
         "GUID:ab59f74e483e1ee4595bfefea56493f2",
-        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:dba5cbab235b3704bad98b3bf9e16ffd",
+        "GUID:a502502db8c019c4aaa00ebc94c89276",
         "GUID:2f0761e914296ab40b6b0eb0528cb9ec",
         "GUID:6621723ab2f3cff4a8be0e8c1642af94",
-        "GUID:e12f610351776714fbea1c97ca084b85",
-        "GUID:a502502db8c019c4aaa00ebc94c89276"
+        "GUID:75469ad4d38634e559750d17036d5f7c"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

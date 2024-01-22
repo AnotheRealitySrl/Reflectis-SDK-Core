@@ -52,7 +52,7 @@ public class ModelScaler_Desktop : ModelScaler
     public List<GameObject> ScalingFaces { get => scalingFaces; set => scalingFaces = value; }
 
 
-    public void Setup()
+    public void Awake()
     {
         ContextualMenuManageable contextualMenuManageable = GetComponent<ContextualMenuManageable>();
 

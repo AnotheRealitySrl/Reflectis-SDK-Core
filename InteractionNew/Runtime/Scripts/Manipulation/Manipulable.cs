@@ -143,9 +143,8 @@ namespace Reflectis.SDK.InteractionNew
         {
             if (ManipulationMode.HasFlag(EManipulationMode.Scale))
             {
-                ModelScaler_Desktop scaler = gameObject.AddComponent<ModelScaler_Desktop>();
+                ModelScaler scaler = SM.GetSystem<ManipulationSystemBase>().AssignScaler(this);
                 SetScalingPoints(scaler, InteractableRef as BaseInteractable);
-                scaler.Setup();
             }
         }
 

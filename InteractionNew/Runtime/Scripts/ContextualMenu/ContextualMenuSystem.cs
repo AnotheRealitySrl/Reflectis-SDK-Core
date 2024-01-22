@@ -1,5 +1,4 @@
 using Reflectis.SDK.Core;
-using Reflectis.SDK.InteractionDesktop;
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -13,7 +12,6 @@ namespace Reflectis.SDK.InteractionNew
 {
     public abstract class ContextualMenuSystem : BaseSystem
     {
-        [SerializeField] private ContextualMenuToolsDictionary toolsDictionary;
         [SerializeField] private ContextualMenuTypesDictionary customContextualMenuControllers;
         [SerializeField] private float showTime = 1.5f;
         [SerializeField] private float hideTime = 1.5f;
@@ -70,11 +68,6 @@ namespace Reflectis.SDK.InteractionNew
         #endregion
 
         #region API
-
-        public void AssignTool(ContextualMenuManageable manageable, EContextualMenuOption option)
-        {
-            UnityEngineInternal.APIUpdaterRuntimeServices.AddComponent(manageable.gameObject, "Packages/SPACS-SDK/InteractionNew/Runtime/Scripts/ContextualMenu/ContextualMenuSystem.cs (76,13)", toolsDictionary.Tools[option].ToString());
-        }
 
         public void CreateMenu(Transform parent = null)
         {

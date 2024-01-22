@@ -84,8 +84,12 @@ namespace Reflectis.SDK.InteractionNew
         {
             if (ContextualMenuOptions.HasFlag(EContextualMenuOption.ColorPicker))
             {
-                SM.GetSystem<ContextualMenuSystem>().AssignTool(this, EContextualMenuOption.ColorPicker);
-                //colorChanger.Setup();
+                SM.GetSystem<IColorPickerSystem>().AssignColorPicker(gameObject);
+            }
+
+            if (ContextualMenuOptions.HasFlag(EContextualMenuOption.Explodable))
+            {
+                SM.GetSystem<IModelExploderSystem>().AssignModelExploder(gameObject);
             }
         }
 
