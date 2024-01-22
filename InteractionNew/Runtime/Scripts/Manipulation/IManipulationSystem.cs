@@ -6,7 +6,8 @@ namespace Reflectis.SDK.InteractionNew
 {
     public interface IManipulationSystem : ISystem
     {
-        public ModelScaler AssignScaler(Manipulable manipulable);
+        public void SetScalingPoints(Manipulable manipulable);
+        public void UpdateScalingPointsPosition(Manipulable manipulable);
 
         public List<AwaitableScriptableAction> OnHoverEnterActions { get; }
         public List<AwaitableScriptableAction> OnHoverExitActions { get; }

@@ -82,6 +82,8 @@ namespace Reflectis.SDK.InteractionNew
 
         public override void Setup()
         {
+            base.Setup();
+
             if (ContextualMenuOptions.HasFlag(EContextualMenuOption.ColorPicker))
             {
                 SM.GetSystem<IColorPickerSystem>().AssignColorPicker(gameObject);

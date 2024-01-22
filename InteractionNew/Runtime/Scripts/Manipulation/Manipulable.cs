@@ -1,14 +1,16 @@
+using Reflectis.SDK.CharacterController;
 using Reflectis.SDK.Core;
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace Reflectis.SDK.InteractionNew
 {
-    public abstract class Manipulable : InteractableBehaviourBase
+    public class Manipulable : InteractableBehaviourBase
     {
         public enum EManipulableState
         {
@@ -81,12 +83,12 @@ namespace Reflectis.SDK.InteractionNew
                 }
                 // If no bounding box is available, looks for a mesh or skinned
                 // mesh renderer on this gameobject
-                else if (GetComponent<Renderer>() is Renderer localRenderer && localRenderer != null)
+                else if (GetComponentInChildren<Renderer>() is Renderer localRenderer && localRenderer != null)
                 {
                     return localRenderer.bounds.size;
                 }
                 // Tries to look for a collider
-                else if (GetComponent<Collider>() is Collider localCollider && localCollider != null)
+                else if (GetComponentInChildren<Collider>() is Collider localCollider && localCollider != null)
                 {
                     return localCollider.bounds.size;
                 }
@@ -112,12 +114,12 @@ namespace Reflectis.SDK.InteractionNew
                 }
                 // If no bounding box is available, looks for a mesh or skinned
                 // mesh renderer on this gameobject
-                else if (GetComponent<Renderer>() is Renderer localRenderer && localRenderer != null)
+                else if (GetComponentInChildren<Renderer>() is Renderer localRenderer && localRenderer != null)
                 {
                     return localRenderer.bounds.center;
                 }
                 // Tries to look for a collider
-                else if (GetComponent<Collider>() is Collider localCollider && localCollider != null)
+                else if (GetComponentInChildren<Collider>() is Collider localCollider && localCollider != null)
                 {
                     return localCollider.bounds.center;
                 }
@@ -156,10 +158,14 @@ namespace Reflectis.SDK.InteractionNew
 
         public override void Setup()
         {
+            base.Setup();
+
+            boundingBox = InteractableRef.GameObjectRef.GetComponentsInChildren<GenericHookComponent>()
+                .FirstOrDefault(x => x.Id == "BoundingBox")?.TransformRef;
+
             if (ManipulationMode.HasFlag(EManipulationMode.Scale))
             {
-                ModelScaler scaler = SM.GetSystem<ManipulationSystemBase>().AssignScaler(this);
-                SetScalingPoints(scaler, InteractableRef as BaseInteractable);
+                SM.GetSystem<ManipulationSystemBase>().SetScalingPoints(this);
             }
         }
 
@@ -182,13 +188,6 @@ namespace Reflectis.SDK.InteractionNew
 
             SM.GetSystem<IManipulationSystem>()?.OnHoverExitActions.ForEach(x => x.Action(InteractableRef));
         }
-
-        #endregion
-
-        #region Abstract methods
-
-        protected abstract void SetScalingPoints(ModelScaler scaler, BaseInteractable interactable);
-        public abstract void SetPositionScalePoints();
 
         #endregion
 

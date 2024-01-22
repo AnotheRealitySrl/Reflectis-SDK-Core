@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 
 using UnityEditor;
 
@@ -12,10 +11,11 @@ namespace Reflectis.SDK.InteractionNew
 {
     public class BaseInteractable : MonoBehaviour, IInteractable
     {
+        [SerializeField] private List<InteractableBehaviourBase> interactableBehaviours = new();
         [SerializeField] private List<Collider> interactionColliders = new();
 
         public EInteractionState InteractionState { get; set; } = EInteractionState.Idle;
-        public List<IInteractableBehaviour> InteractableBehaviours { get; set; } = new();
+        public List<IInteractableBehaviour> InteractableBehaviours { get; private set; } = new();
 
         public GameObject GameObjectRef => gameObject;
         public List<Collider> InteractionColliders { get => interactionColliders; set => interactionColliders = value; }
@@ -24,12 +24,12 @@ namespace Reflectis.SDK.InteractionNew
 
         private void Awake()
         {
-            InteractableBehaviours = GetComponentsInChildren<IInteractableBehaviour>().ToList();
-
             if (interactionColliders.Count == 0)
             {
                 interactionColliders.AddRange(GetComponentsInChildren<Collider>());
             }
+
+            interactableBehaviours.ForEach(x => x.Setup());
         }
 
         public void OnHoverEnter()

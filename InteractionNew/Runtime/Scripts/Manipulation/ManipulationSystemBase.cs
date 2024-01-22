@@ -20,7 +20,8 @@ namespace Reflectis.SDK.InteractionNew
         public List<AwaitableScriptableAction> OnHoverEnterActions => onHoverEnterActions;
         public List<AwaitableScriptableAction> OnHoverExitActions => onHoverExitActions;
 
-        public abstract ModelScaler AssignScaler(Manipulable manipulable);
+        public abstract void SetScalingPoints(Manipulable manipulable);
+        public abstract void UpdateScalingPointsPosition(Manipulable manipulable);
 
         public override void Init()
         {
