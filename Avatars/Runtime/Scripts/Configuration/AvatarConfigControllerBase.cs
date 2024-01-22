@@ -35,6 +35,8 @@ namespace Reflectis.SDK.Avatars
         private AvatarLoaderBase avatarLoader;
 
         protected int avatarCounterEnable = 0;
+
+        protected Bounds combinedBounds;
         #endregion
 
         #region Properties
@@ -89,6 +91,10 @@ namespace Reflectis.SDK.Avatars
             AvatarLoader.onLoadingAvatarComplete.AddListenerOnce((_,_) => { onAfterAction?.Invoke(); } );
 
             await AvatarLoader.LoadAvatar(config);
+
+            float labelPositionY;
+            labelPositionY = GetBounds();
+            character.LabelReference.transform.localPosition = new Vector3(character.LabelReference.transform.localPosition.x, labelPositionY, character.LabelReference.transform.localPosition.z);
 
             onAfterAction?.Invoke();
 
@@ -162,7 +168,28 @@ namespace Reflectis.SDK.Avatars
                 }
                 
             }
-        } 
+        }
+
+        protected float GetBounds()
+        {
+            Renderer[] childObjects = GetComponentsInChildren<Renderer>();
+            combinedBounds = new Bounds();
+
+            if(childObjects.Length == 0)
+            {
+                return 2f;
+            }
+
+            foreach (Renderer renderer in childObjects)
+            {
+                Bounds bound = renderer.localBounds;
+                combinedBounds.Encapsulate(bound);
+            }
+
+            float labelPositionY = (float)((combinedBounds.extents.y * 2) - character.LabelOffsetFromBounds);
+            return labelPositionY;
+        }
+
         #endregion
     }
 }

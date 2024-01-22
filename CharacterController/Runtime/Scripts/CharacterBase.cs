@@ -15,6 +15,7 @@ namespace Reflectis.SDK.CharacterController
         [SerializeField] protected Transform leftHandReference;
         [SerializeField] protected Transform rightHandReference;
         [SerializeField] protected Transform labelReference;
+        [SerializeField] protected float labelOffsetFromBounds = 0.06f;
         [SerializeField] protected Transform tagReference;
 
 
@@ -70,6 +71,7 @@ namespace Reflectis.SDK.CharacterController
         public Transform LeftInteractorReference => leftHandReference;
         public Transform RightInteractorReference => rightHandReference;
         public Transform LabelReference => labelReference;
+        public float LabelOffsetFromBounds => labelOffsetFromBounds;
         public Transform TagReference => tagReference;
 
         public float PlayerHeight { get => playerHeight; set => playerHeight = value; }

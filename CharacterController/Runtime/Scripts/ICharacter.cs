@@ -33,6 +33,7 @@ namespace Reflectis.SDK.CharacterController
         /// If the character has a reference to a label with its information
         /// </summary>
         Transform LabelReference { get; }
+        float LabelOffsetFromBounds { get; }
 
         /// <summary>
         /// Setups a character controller
