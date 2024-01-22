@@ -35,14 +35,27 @@ namespace Reflectis.SDK.InteractionNew
         [SerializeField] private EManipulationMode manipulationMode = (EManipulationMode)~0;
         [SerializeField] private EVRInteraction vrInteraction = (EVRInteraction)~0;
         [SerializeField] private bool mouseLookAtCamera;
+        [SerializeField] private bool dynamicAttach;
         [SerializeField] private bool nonProportionalScale;
+        [SerializeField] private bool adjustRotationOnRelease;
+        [SerializeField] private bool realignAxisX = true;
+        [SerializeField] private bool realignAxisY = false;
+        [SerializeField] private bool realignAxisZ = true;
+        [SerializeField] private float realignDurationTimeInSeconds = 1f;
 
         #region Properties
 
+        public bool DynamicAttach { get => dynamicAttach; set => dynamicAttach = value; }
         public EManipulationMode ManipulationMode { get => manipulationMode; set => manipulationMode = value; }
         public EVRInteraction VRInteraction { get => vrInteraction; set => vrInteraction = value; }
         public bool MouseLookAtCamera { get => mouseLookAtCamera; set => mouseLookAtCamera = value; }
         public bool NonProportionalScale { get => nonProportionalScale; set => nonProportionalScale = value; }
+        public bool AdjustRotationOnRelease { get => adjustRotationOnRelease; set => adjustRotationOnRelease = value; }
+        public bool RealignAxisX { get => realignAxisX; set => realignAxisX = value; }
+        public bool RealignAxisY { get => realignAxisY; set => realignAxisY = value; }
+        public bool RealignAxisZ { get => realignAxisZ; set => realignAxisZ = value; }
+        public float RealignDurationTimeInSeconds { get => realignDurationTimeInSeconds; set => realignDurationTimeInSeconds = value; }
+
 
         protected List<GameObject> scalingCorners = new();
         public List<GameObject> ScalingCorners => scalingCorners;

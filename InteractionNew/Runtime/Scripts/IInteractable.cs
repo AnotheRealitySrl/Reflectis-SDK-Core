@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 using UnityEngine;
@@ -10,6 +11,14 @@ namespace Reflectis.SDK.InteractionNew
     /// </summary>
     public interface IInteractable
     {
+        [Flags]
+        public enum EInteractableType
+        {
+            GenericInteractable = 1,
+            Manipulable = 2,
+            ContextualMenuInteractable = 4
+        }
+
         public enum EInteractionState
         {
             Idle,

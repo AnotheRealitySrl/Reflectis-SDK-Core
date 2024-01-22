@@ -104,7 +104,7 @@ namespace Reflectis.SDK.InteractionNew
 
         public override void Setup()
         {
-            throw new NotImplementedException();
+            // Nothing to do
         }
 
         public override void OnHoverStateEntered()
