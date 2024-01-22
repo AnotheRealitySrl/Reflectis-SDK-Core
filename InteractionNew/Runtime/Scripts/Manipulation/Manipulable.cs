@@ -36,6 +36,7 @@ namespace Reflectis.SDK.InteractionNew
         [SerializeField] private EVRInteraction vrInteraction = (EVRInteraction)~0;
         [SerializeField] private bool mouseLookAtCamera;
         [SerializeField] private bool dynamicAttach;
+        [SerializeField] private Transform attachTransform;
         [SerializeField] private bool nonProportionalScale;
         [SerializeField] private bool adjustRotationOnRelease;
         [SerializeField] private bool realignAxisX = true;
@@ -45,11 +46,12 @@ namespace Reflectis.SDK.InteractionNew
 
         #region Properties
 
-        public bool DynamicAttach { get => dynamicAttach; set => dynamicAttach = value; }
         public EManipulationMode ManipulationMode { get => manipulationMode; set => manipulationMode = value; }
         public EVRInteraction VRInteraction { get => vrInteraction; set => vrInteraction = value; }
         public bool MouseLookAtCamera { get => mouseLookAtCamera; set => mouseLookAtCamera = value; }
         public bool NonProportionalScale { get => nonProportionalScale; set => nonProportionalScale = value; }
+        public bool DynamicAttach { get => dynamicAttach; set => dynamicAttach = value; }
+        public Transform AttachTransform { get => attachTransform; set => attachTransform = value; }
         public bool AdjustRotationOnRelease { get => adjustRotationOnRelease; set => adjustRotationOnRelease = value; }
         public bool RealignAxisX { get => realignAxisX; set => realignAxisX = value; }
         public bool RealignAxisY { get => realignAxisY; set => realignAxisY = value; }
