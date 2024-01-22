@@ -92,7 +92,8 @@ namespace Reflectis.SDK.Avatars
 
             await AvatarLoader.LoadAvatar(config);
 
-            float labelPositionY = GetBounds();
+            float labelPositionY;
+            labelPositionY = GetBounds();
             character.LabelReference.transform.localPosition = new Vector3(character.LabelReference.transform.localPosition.x, labelPositionY, character.LabelReference.transform.localPosition.z);
 
             onAfterAction?.Invoke();
@@ -173,6 +174,11 @@ namespace Reflectis.SDK.Avatars
         {
             Renderer[] childObjects = GetComponentsInChildren<Renderer>();
             combinedBounds = new Bounds();
+
+            if(childObjects.Length == 0)
+            {
+                return 2f;
+            }
 
             foreach (Renderer renderer in childObjects)
             {
