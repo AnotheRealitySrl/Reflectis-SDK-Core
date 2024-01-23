@@ -102,6 +102,8 @@ namespace Reflectis.SDK.InteractionNew
             }
         }
 
+        public override void Setup() => SM.GetSystem<IGenericInteractionSystem>().SetupGenericInteractable(this);
+
         public override void OnHoverStateEntered()
         {
             if (!CanInteract)

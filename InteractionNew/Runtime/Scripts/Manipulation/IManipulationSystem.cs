@@ -6,6 +6,7 @@ namespace Reflectis.SDK.InteractionNew
 {
     public interface IManipulationSystem : ISystem
     {
+        public void SetupManipulable(Manipulable manipulable);
         public void SetScalingPoints(Manipulable manipulable);
         public void UpdateScalingPointsPosition(Manipulable manipulable);
 

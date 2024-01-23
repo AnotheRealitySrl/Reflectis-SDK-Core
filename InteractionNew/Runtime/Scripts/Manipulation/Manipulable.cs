@@ -1,9 +1,7 @@
-using Reflectis.SDK.CharacterController;
 using Reflectis.SDK.Core;
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 using UnityEngine;
 using UnityEngine.Events;
@@ -61,14 +59,9 @@ namespace Reflectis.SDK.InteractionNew
         public float RealignDurationTimeInSeconds { get => realignDurationTimeInSeconds; set => realignDurationTimeInSeconds = value; }
 
 
-        protected List<GameObject> scalingCorners = new();
-        public List<GameObject> ScalingCorners => scalingCorners;
-
-        protected List<GameObject> scalingFaces = new();
-        public List<GameObject> ScalingFaces => scalingFaces;
-
-        protected Transform boundingBox;
-        public Transform BoundingBox => boundingBox;
+        public List<GameObject> ScalingCorners { get; } = new();
+        public List<GameObject> ScalingFaces { get; } = new();
+        public Transform BoundingBox { get; set; }
 
         /// <summary>
         /// The overall size of this manipulable item's mesh elements.
@@ -77,9 +70,9 @@ namespace Reflectis.SDK.InteractionNew
         {
             get
             {
-                if (boundingBox)
+                if (BoundingBox)
                 {
-                    return Vector3.Scale(boundingBox.localScale, transform.localScale);
+                    return Vector3.Scale(BoundingBox.localScale, transform.localScale);
                 }
                 // If no bounding box is available, looks for a mesh or skinned
                 // mesh renderer on this gameobject
@@ -108,9 +101,9 @@ namespace Reflectis.SDK.InteractionNew
         {
             get
             {
-                if (boundingBox)
+                if (BoundingBox)
                 {
-                    return boundingBox.position;
+                    return BoundingBox.position;
                 }
                 // If no bounding box is available, looks for a mesh or skinned
                 // mesh renderer on this gameobject
@@ -154,24 +147,9 @@ namespace Reflectis.SDK.InteractionNew
 
         #endregion
 
-        #region Setup
-
-        public override void Setup()
-        {
-            base.Setup();
-
-            boundingBox = InteractableRef.GameObjectRef.GetComponentsInChildren<GenericHookComponent>()
-                .FirstOrDefault(x => x.Id == "BoundingBox")?.TransformRef;
-
-            if (ManipulationMode.HasFlag(EManipulationMode.Scale))
-            {
-                SM.GetSystem<ManipulationSystemBase>().SetScalingPoints(this);
-            }
-        }
-
-        #endregion
-
         #region Overrides
+
+        public override void Setup() => SM.GetSystem<IManipulationSystem>().SetupManipulable(this);
 
         public override void OnHoverStateEntered()
         {
@@ -195,7 +173,7 @@ namespace Reflectis.SDK.InteractionNew
 
         public void ToggleBoundingBoxCollider(bool state)
         {
-            boundingBox.GetComponent<Collider>().enabled = state;
+            BoundingBox.GetComponent<Collider>().enabled = state;
         }
 
         #endregion

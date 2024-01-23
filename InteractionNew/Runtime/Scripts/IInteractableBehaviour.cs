@@ -8,6 +8,8 @@ namespace Reflectis.SDK.InteractionNew
         bool IsIdleState { get; }
         bool CanInteract { get; set; }
 
+        void Setup();
+
         void OnHoverStateEntered();
         void OnHoverStateExited();
 

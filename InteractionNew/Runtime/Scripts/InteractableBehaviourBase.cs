@@ -12,10 +12,17 @@ namespace Reflectis.SDK.InteractionNew
 
         public bool CanInteract { get; set; } = true;
 
-        public virtual void Setup()
+        public virtual void OnEnable()
         {
             InteractableRef.InteractableBehaviours.Add(this);
         }
+
+        public virtual void OnDisable()
+        {
+            InteractableRef.InteractableBehaviours.Remove(this);
+        }
+
+        public abstract void Setup();
 
         public abstract void OnHoverStateEntered();
         public abstract void OnHoverStateExited();

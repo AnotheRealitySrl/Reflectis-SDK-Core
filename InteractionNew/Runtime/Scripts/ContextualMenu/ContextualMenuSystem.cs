@@ -69,6 +69,19 @@ namespace Reflectis.SDK.InteractionNew
 
         #region API
 
+        public virtual void SetupContextualMenuManageable(ContextualMenuManageable manageable)
+        {
+            if (manageable.ContextualMenuOptions.HasFlag(EContextualMenuOption.ColorPicker))
+            {
+                SM.GetSystem<IColorPickerSystem>().AssignColorPicker(manageable.gameObject);
+            }
+
+            if (manageable.ContextualMenuOptions.HasFlag(EContextualMenuOption.Explodable))
+            {
+                SM.GetSystem<IModelExploderSystem>().AssignModelExploder(manageable.gameObject);
+            }
+        }
+
         public void CreateMenu(Transform parent = null)
         {
             foreach (var contextualMenu in customContextualMenuControllers.ContextualMenuTypes)
