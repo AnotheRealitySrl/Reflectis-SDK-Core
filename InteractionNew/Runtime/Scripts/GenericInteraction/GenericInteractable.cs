@@ -214,6 +214,7 @@ namespace Reflectis.SDK.InteractionNew
                 if (Application.isPlaying)
                 {
                     EditorGUILayout.LabelField($"<b>Current state:</b> {interactable.CurrentInteractionState}", style);
+                    EditorGUILayout.LabelField($"<b>Can interact:</b> {interactable.CanInteract}", style);
                 }
             }
         }

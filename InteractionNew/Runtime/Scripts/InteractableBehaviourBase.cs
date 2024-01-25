@@ -10,7 +10,7 @@ namespace Reflectis.SDK.InteractionNew
 
         public abstract bool IsIdleState { get; }
 
-        public bool CanInteract { get; set; } = true;
+        public virtual bool CanInteract { get; set; } = true;
 
         private void Awake()
         {

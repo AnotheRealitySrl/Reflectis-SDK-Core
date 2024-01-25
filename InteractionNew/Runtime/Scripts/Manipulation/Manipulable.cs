@@ -63,6 +63,24 @@ namespace Reflectis.SDK.InteractionNew
         public List<GameObject> ScalingFaces { get; } = new();
         public Transform BoundingBox { get; set; }
 
+        private bool canInteract = true;
+        public override bool CanInteract
+        {
+            get => canInteract;
+            set
+            {
+                canInteract = value;
+
+                BoundingBox.GetComponentInChildren<Renderer>().enabled = value && enabled;
+
+                if (manipulationMode.HasFlag(EManipulationMode.Scale))
+                    ScalingCorners.ForEach(x => x.SetActive(value && enabled));
+
+                if (nonProportionalScale)
+                    ScalingFaces.ForEach(x => x.SetActive(value && enabled));
+            }
+        }
+
         /// <summary>
         /// The overall size of this manipulable item's mesh elements.
         /// </summary>
