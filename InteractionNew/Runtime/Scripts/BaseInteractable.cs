@@ -29,6 +29,7 @@ namespace Reflectis.SDK.InteractionNew
                 interactionColliders.AddRange(GetComponentsInChildren<Collider>());
             }
 
+            InteractableBehaviours.AddRange(interactableBehaviours);
             interactableBehaviours.ForEach(x => x.Setup());
         }
 

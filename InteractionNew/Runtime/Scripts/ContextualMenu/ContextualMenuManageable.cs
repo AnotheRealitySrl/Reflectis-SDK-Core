@@ -12,6 +12,7 @@ using UnityEngine.Events;
 namespace Reflectis.SDK.InteractionNew
 {
     [Serializable]
+    [RequireComponent(typeof(BaseInteractable))]
     public class ContextualMenuManageable : InteractableBehaviourBase
     {
         public enum EContextualMenuInteractableState

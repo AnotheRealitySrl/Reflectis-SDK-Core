@@ -11,6 +11,7 @@ using UnityEngine;
 
 namespace Reflectis.SDK.InteractionNew
 {
+    [RequireComponent(typeof(BaseInteractable))]
     public class GenericInteractable : InteractableBehaviourBase, IInteractableBehaviour
     {
         [Flags]
@@ -102,7 +103,10 @@ namespace Reflectis.SDK.InteractionNew
             }
         }
 
-        public override void Setup() => SM.GetSystem<IGenericInteractionSystem>().SetupGenericInteractable(this);
+        public override void Setup()
+        {
+            SM.GetSystem<IGenericInteractionSystem>().SetupGenericInteractable(this);
+        }
 
         public override void OnHoverStateEntered()
         {

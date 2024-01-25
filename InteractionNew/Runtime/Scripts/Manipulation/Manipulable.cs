@@ -8,6 +8,7 @@ using UnityEngine.Events;
 
 namespace Reflectis.SDK.InteractionNew
 {
+    [RequireComponent(typeof(BaseInteractable))]
     public class Manipulable : InteractableBehaviourBase
     {
         public enum EManipulableState
