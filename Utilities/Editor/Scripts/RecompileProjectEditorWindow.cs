@@ -40,6 +40,10 @@ namespace Reflectis.SDK.Utilities.Editor
 
         public static void RecompileProject()
         {
+            if (window == null)
+            {
+                window = GetWindow<RecompileProjectEditorWindow>();
+            }
             window.Close();
 #if UNITY_2019_3_OR_NEWER
             CompilationPipeline.RequestScriptCompilation();
