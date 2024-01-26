@@ -1,4 +1,5 @@
 using Reflectis.SDK.Core;
+using UnityEngine;
 
 namespace Reflectis.SDK.InteractionNew
 {
@@ -6,5 +7,6 @@ namespace Reflectis.SDK.InteractionNew
     {
         public bool IsTyping { get; set; }
         public bool IsHoveringUI { get; set; }
+        public GameObject InteractableUIHovered { get; set; }
     }
 }
