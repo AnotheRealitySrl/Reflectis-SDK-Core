@@ -6,11 +6,15 @@ namespace Reflectis.SDK.InteractionNew
 {
     public abstract class InteractableBehaviourBase : MonoBehaviour, IInteractableBehaviour
     {
+        [SerializeField] private bool lockHoverDuringInteraction = true;
+
         public IInteractable InteractableRef => GetComponentInParent<IInteractable>();
 
         public abstract bool IsIdleState { get; }
 
         public virtual bool CanInteract { get; set; } = true;
+
+        public bool LockHoverDuringInteraction => lockHoverDuringInteraction;
 
         private void Awake()
         {
