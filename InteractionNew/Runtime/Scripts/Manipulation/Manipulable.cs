@@ -72,7 +72,7 @@ namespace Reflectis.SDK.InteractionNew
             {
                 canInteract = value;
 
-                BoundingBox.GetComponentInChildren<Renderer>().enabled = value && enabled;
+                BoundingBox.GetComponentInChildren<Renderer>(true).enabled = value && enabled;
 
                 if (manipulationMode.HasFlag(EManipulationMode.Scale))
                     ScalingCorners.ForEach(x => x.SetActive(value && enabled));

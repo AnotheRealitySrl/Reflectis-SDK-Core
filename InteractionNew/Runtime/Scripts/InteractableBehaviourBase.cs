@@ -14,7 +14,8 @@ namespace Reflectis.SDK.InteractionNew
 
         private void Awake()
         {
-            InteractableRef.InteractableBehaviours.Add(this);
+            if (!InteractableRef.InteractableBehaviours.Contains(this))
+                InteractableRef.InteractableBehaviours.Add(this);
         }
 
         public abstract void Setup();
