@@ -57,6 +57,7 @@ namespace Reflectis.SDK.InteractionNew
 
         public virtual async Task Show()
         {
+            gameObject.SetActive(true);
             await transitionProvider.DoTransitionAsync(true);
             onShow?.Invoke();
         }
@@ -65,6 +66,7 @@ namespace Reflectis.SDK.InteractionNew
         {
             await transitionProvider.DoTransitionAsync(false);
             onHide?.Invoke();
+            gameObject.SetActive(false);
         }
 
         public void ShowPreview()
