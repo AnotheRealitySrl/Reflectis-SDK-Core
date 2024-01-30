@@ -12,15 +12,16 @@ namespace Reflectis.SDK.Transitions
         [SerializeField, Tooltip("The GameObject to activate")]
         private GameObject content;
 
-        public GameObject Content { 
-            get 
+        public GameObject Content
+        {
+            get
             {
-                if(content == null)
+                if (content == null)
                 {
                     return gameObject;
                 }
                 return content;
-            } 
+            }
         }
 
         public override async Task EnterTransitionAsync()
