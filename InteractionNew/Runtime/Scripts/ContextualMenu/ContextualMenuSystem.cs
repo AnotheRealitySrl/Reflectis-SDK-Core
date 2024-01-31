@@ -84,13 +84,11 @@ namespace Reflectis.SDK.InteractionNew
 
         public void CreateMenu(Transform parent = null)
         {
+            customContextualMenuControllersCache.Clear();
             foreach (var contextualMenu in customContextualMenuControllers.ContextualMenuTypes)
             {
                 ContextualMenuController instantiatedMenu = Instantiate(contextualMenu.Value, parent);
                 customContextualMenuControllersCache.TryAdd(contextualMenu.Key, instantiatedMenu);
-
-                if (dontDestroyOnLoad)
-                    DontDestroyOnLoad(instantiatedMenu);
             }
         }
 
