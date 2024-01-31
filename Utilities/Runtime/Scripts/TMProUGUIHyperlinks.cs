@@ -12,7 +12,7 @@ namespace Reflectis.SDK.Utilities
     /// Does not support strike-through, but can be easily implemented in the same way as the underline
     /// </summary>
     [DisallowMultipleComponent()]
-    [RequireComponent(typeof(TextMeshPro))]
+    [RequireComponent(typeof(TMP_Text))]
     public class TMProUGUIHyperlinks : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         [SerializeField]

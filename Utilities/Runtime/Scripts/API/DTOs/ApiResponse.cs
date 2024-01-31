@@ -67,7 +67,7 @@ namespace Reflectis.SDK.Utilities.API
         public bool IsSuccess { get => (statusCode >= 200) && (statusCode <= 299); }
         public long StatusCode { get => statusCode; private set => statusCode = (int)value; }
         public string ReasonPhrase { get => reasonPhrase; private set => reasonPhrase = value; }
-        public T[] Content { get => content; set => content = value; }
+        public T[] Content { get => content; private set => content = value; }
 
         public ApiResponseArray(long statusCode, string reasonPhrase, string content)
         {
@@ -85,12 +85,12 @@ namespace Reflectis.SDK.Utilities.API
     {
         [SerializeField] private int statusCode;
         [SerializeField] private string reasonPhrase;
-        [SerializeField] private ContentSearch<T> content;
+        [SerializeField] private ContentSearch content;
 
         public bool IsSuccess { get => (statusCode >= 200) && (statusCode <= 299); }
         public long StatusCode { get => statusCode; private set => statusCode = (int)value; }
         public string ReasonPhrase { get => reasonPhrase; private set => reasonPhrase = value; }
-        public ContentSearch<T> Content { get => content; set => content = value; }
+        public ContentSearch Content { get => content; set => content = value; }
 
         public ApiResponseSearch(long statusCode, string reasonPhrase, string content)
         {
@@ -100,10 +100,10 @@ namespace Reflectis.SDK.Utilities.API
                 JsonConvert.DeserializeObject<ApiResponseError>(content).DisplayError();
             }
             ReasonPhrase = reasonPhrase;
-            Content = IsSuccess ? JsonConvert.DeserializeObject<ContentSearch<T>>(content) : null;
+            Content = IsSuccess ? JsonConvert.DeserializeObject<ContentSearch>(content) : null;
         }
         [Serializable]
-        public class ContentSearch<T> where T : class
+        public class ContentSearch
         {
             [SerializeField] private T[] data;
             [SerializeField] private int totalCount;

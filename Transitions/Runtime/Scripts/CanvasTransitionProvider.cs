@@ -58,7 +58,8 @@ namespace Reflectis.SDK.Transitions
             await transition.AsyncWaitForCompletion();
             if (activateGameObject && newTransition == transition)
             {
-                canvasGroup.gameObject.SetActive(false);
+                if (canvasGroup != null)
+                    canvasGroup.gameObject.SetActive(false);
             }
             transition = null;
             onExitTransitionFinish?.Invoke();
