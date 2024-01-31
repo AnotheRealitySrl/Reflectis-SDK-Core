@@ -12,8 +12,8 @@ namespace Reflectis.SDK.InteractionNew
     public class ContextualMenuTypesDictionary : SerializedScriptableObject
     {
         // This Dictionary will be serialized by Odin.
-        [SerializeField] private Dictionary<EContextualMenuType, ContextualMenuController> contextualMenuTypes = new();
+        [SerializeField] private Dictionary<EContextualMenuType, GameObject> contextualMenuTypes = new();
 
-        public Dictionary<EContextualMenuType, ContextualMenuController> ContextualMenuTypes => contextualMenuTypes;
+        public Dictionary<EContextualMenuType, GameObject> ContextualMenuTypes => contextualMenuTypes;
     }
 }
