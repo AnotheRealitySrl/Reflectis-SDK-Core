@@ -17,6 +17,8 @@ namespace Reflectis.SDK.InteractionNew
         [SerializeField] private float hideTime = 1.5f;
         [SerializeField] private bool createMenuOnInit = true;
         [SerializeField] private bool dontDestroyOnLoad = false;
+        [SerializeField, Tooltip("Checked if only one contextual menu can be opened at a time")]
+        private bool esclusiveContextualMenus = false;
         [SerializeField] protected InputActionReference contextualMenuInputActionRef;
 
         [Header("Scriptable actions")]
@@ -112,14 +114,28 @@ namespace Reflectis.SDK.InteractionNew
 
         public virtual async Task ShowContextualMenu(ContextualMenuManageable manageable)
         {
+            var oldContextualMenu = contextualMenu;
             if (customContextualMenuControllersCache.TryGetValue(manageable.ContextualMenuType, out contextualMenu))
             {
+                if (esclusiveContextualMenus && contextualMenu != oldContextualMenu)
+                {
+                    await HideContextualMenu(oldContextualMenu);
+
+                }
                 contextualMenu.Setup(manageable.ContextualMenuOptions);
                 await contextualMenu.Show();
             }
         }
 
         public virtual async Task HideContextualMenu()
+        {
+            if (contextualMenu)
+            {
+                await contextualMenu.Hide();
+                contextualMenu.Unsetup();
+            }
+        }
+        public virtual async Task HideContextualMenu(ContextualMenuController contextualMenu)
         {
             if (contextualMenu)
             {
