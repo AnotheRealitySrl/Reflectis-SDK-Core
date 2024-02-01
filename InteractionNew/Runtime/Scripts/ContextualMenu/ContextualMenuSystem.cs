@@ -91,6 +91,11 @@ namespace Reflectis.SDK.InteractionNew
                 {
                     GameObject instantiatedMenu = Instantiate(contextualMenu.Value, parent);
                     customContextualMenuControllersCache.TryAdd(contextualMenu.Key, instantiatedMenu.GetComponent<ContextualMenuController>());
+
+                    if (dontDestroyOnLoad)
+                    {
+                        DontDestroyOnLoad(instantiatedMenu);
+                    }
                 }
 
             }
