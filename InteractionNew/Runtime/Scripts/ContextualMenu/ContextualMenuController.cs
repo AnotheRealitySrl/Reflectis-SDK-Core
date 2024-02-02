@@ -30,7 +30,7 @@ namespace Reflectis.SDK.InteractionNew
         private AbstractTransitionProvider transitionProvider;
 
 
-        private void Awake()
+        protected virtual void Awake()
         {
             transitionProvider = GetComponent<AbstractTransitionProvider>();
             Unsetup();
