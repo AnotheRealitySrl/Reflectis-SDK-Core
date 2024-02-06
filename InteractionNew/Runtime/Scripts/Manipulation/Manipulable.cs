@@ -67,10 +67,11 @@ namespace Reflectis.SDK.InteractionNew
         private bool canInteract = true;
         public override bool CanInteract
         {
-            get => canInteract;
+            get => canInteract && enabled;
             set
             {
                 canInteract = value;
+                OnInteractionEnabledChange.Invoke(canInteract && enabled);
 
                 BoundingBox.GetComponentInChildren<Renderer>(true).enabled = value && enabled;
 

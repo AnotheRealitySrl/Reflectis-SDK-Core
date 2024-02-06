@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Reflectis.SDK.InteractionNew
 {
@@ -12,7 +13,18 @@ namespace Reflectis.SDK.InteractionNew
 
         public abstract bool IsIdleState { get; }
 
-        public virtual bool CanInteract { get; set; } = true;
+        private bool canInteract = true;
+        public virtual bool CanInteract
+        {
+            get => canInteract && enabled;
+            set
+            {
+                canInteract = value;
+                OnInteractionEnabledChange.Invoke(value);
+            }
+        }
+
+        public UnityEvent<bool> OnInteractionEnabledChange { get; set; } = new();
 
         public bool LockHoverDuringInteraction => lockHoverDuringInteraction;
 
