@@ -28,8 +28,10 @@ namespace Reflectis.SDK.InteractionNew
         public enum EAllowedGenericInteractableState
         {
             Selected = 1,
-            Interacting = 2
+            Interacting = 2,
+            Hovered = 4,
         }
+
 
         [SerializeField] private List<AwaitableScriptableAction> onHoverEnterActions = new();
         [SerializeField] private List<AwaitableScriptableAction> onHoverExitActions = new();
@@ -75,6 +77,7 @@ namespace Reflectis.SDK.InteractionNew
             }
         }
 
+        private bool hasHoveredState = false;
         private bool skipSelectState = false;
         private bool hasInteractState = false;
 
@@ -86,10 +89,12 @@ namespace Reflectis.SDK.InteractionNew
                 case RuntimePlatform.WebGLPlayer:
                     skipSelectState = !DesktopAllowedStates.HasFlag(EAllowedGenericInteractableState.Selected);
                     hasInteractState = DesktopAllowedStates.HasFlag(EAllowedGenericInteractableState.Interacting);
+                    hasHoveredState = DesktopAllowedStates.HasFlag(EAllowedGenericInteractableState.Hovered);
                     break;
                 case RuntimePlatform.Android:
                     skipSelectState = !VRAllowedStates.HasFlag(EAllowedGenericInteractableState.Selected);
                     hasInteractState = VRAllowedStates.HasFlag(EAllowedGenericInteractableState.Interacting);
+                    hasHoveredState = VRAllowedStates.HasFlag(EAllowedGenericInteractableState.Hovered);
                     break;
             }
         }
@@ -110,7 +115,7 @@ namespace Reflectis.SDK.InteractionNew
 
         public override void OnHoverStateEntered()
         {
-            if (!CanInteract)
+            if (!CanInteract || !hasHoveredState)
                 return;
 
             onHoverEnterActions.ForEach(a => a.Action(InteractableRef));
@@ -118,7 +123,7 @@ namespace Reflectis.SDK.InteractionNew
 
         public override void OnHoverStateExited()
         {
-            if (!CanInteract)
+            if (!CanInteract || !hasHoveredState)
                 return;
 
             onHoverExitActions.ForEach(a => a.Action(InteractableRef));
