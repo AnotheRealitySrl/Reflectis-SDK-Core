@@ -1,3 +1,5 @@
+using System;
+
 using UnityEditor;
 
 using UnityEngine;
@@ -52,7 +54,7 @@ namespace Reflectis.SDK.Utilities.Editor
                 case "bool":
                     return comparedField.boolValue.Equals(drawIf.comparedValue);
                 case "Enum":
-                    return comparedField.enumValueIndex.Equals((int)drawIf.comparedValue);
+                    return (comparedField.enumValueFlag & ((Int32)drawIf.comparedValue)) > 0;
                 default:
                     Debug.LogError("Error: " + comparedField.type + " is not supported of " + path);
                     return true;
