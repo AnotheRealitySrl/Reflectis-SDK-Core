@@ -55,7 +55,10 @@ namespace Reflectis.SDK.Utilities
             {
                 Debug.Log(request.error);
                 userIconCached.Remove(mediaUrl);
-                onFailedCallback();
+                if (onFailedCallback != null)
+                {
+                    onFailedCallback();
+                }
             }
             else
             {
