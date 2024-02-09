@@ -27,7 +27,6 @@ namespace Reflectis.SDK.InteractionNew
 
         protected ContextualMenuController contextualMenu;
         protected ContextualMenuManageable selectedInteractable;
-        protected bool isMenuActive = false;
 
         private Dictionary<EContextualMenuType, ContextualMenuController> customContextualMenuControllersCache = new();
 
@@ -40,7 +39,6 @@ namespace Reflectis.SDK.InteractionNew
         public List<AwaitableScriptableAction> OnHoverEnterActions => onHoverEnterActions;
         public List<AwaitableScriptableAction> OnHoverExitActions => onHoverExitActions;
 
-        public bool IsMenuActive { get => isMenuActive; set => isMenuActive = value; }
 
         public override void Init()
         {

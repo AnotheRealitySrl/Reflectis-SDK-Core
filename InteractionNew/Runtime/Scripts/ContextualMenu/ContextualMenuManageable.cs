@@ -127,6 +127,15 @@ namespace Reflectis.SDK.InteractionNew
         }
 
 
+        private async void OnDestroy()
+        {
+            var contextualMenuSystem = SM.GetSystem<ContextualMenuSystem>();
+            if (contextualMenuSystem?.SelectedInteractable == this)
+            {
+                await contextualMenuSystem.HideContextualMenu();
+            }
+        }
+
 #if UNITY_EDITOR
 
         [CustomEditor(typeof(ContextualMenuManageable))]
