@@ -12,7 +12,7 @@ namespace Reflectis.SDK.InteractionNew
 {
     public abstract class ContextualMenuSystem : BaseSystem
     {
-        [SerializeField] private ContextualMenuTypesDictionary customContextualMenuControllers;
+        [SerializeField] private List<ContextualMenuDict> customContextualMenuControllers;
         [SerializeField] private float showTime = 1.5f;
         [SerializeField] private float hideTime = 1.5f;
         [SerializeField] private bool createMenuOnInit = true;
@@ -85,7 +85,7 @@ namespace Reflectis.SDK.InteractionNew
         public void CreateMenu(Transform parent = null)
         {
             customContextualMenuControllersCache.Clear();
-            foreach (var contextualMenu in customContextualMenuControllers.ContextualMenuTypes)
+            foreach (var contextualMenu in customContextualMenuControllers)
             {
                 if (contextualMenu.Value.GetComponent<ContextualMenuController>())
                 {
