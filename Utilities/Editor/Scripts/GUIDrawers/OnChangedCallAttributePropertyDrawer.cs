@@ -19,7 +19,8 @@ namespace Reflectis.SDK.Utilities.Editor
                 OnChangedCallAttribute at = attribute as OnChangedCallAttribute;
                 MethodInfo method = property.serializedObject.targetObject.GetType().GetMethods().Where(m => m.Name == at.methodName).First();
 
-                Debug.Log(method);
+                // Ensure property has changed
+                property.serializedObject.ApplyModifiedProperties();
 
                 // Only instantiate methods with 0 parameters
                 if (method != null && method.GetParameters().Count() == 0)
