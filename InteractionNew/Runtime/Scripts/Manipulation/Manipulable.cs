@@ -9,7 +9,7 @@ using UnityEngine.Events;
 namespace Reflectis.SDK.InteractionNew
 {
     [RequireComponent(typeof(BaseInteractable))]
-    public class Manipulable : InteractableBehaviourBase
+    public abstract class Manipulable : InteractableBehaviourBase
     {
         public enum EManipulableState
         {
@@ -167,9 +167,14 @@ namespace Reflectis.SDK.InteractionNew
 
         #endregion
 
-        #region Overrides
+        #region Abstract methods
 
-        public override void Setup() => SM.GetSystem<IManipulationSystem>().SetupManipulable(this);
+        public abstract void SetScalingPoints();
+        public abstract void UpdateScalingPointsPosition();
+
+        #endregion
+
+        #region Overrides
 
         public override void OnHoverStateEntered()
         {

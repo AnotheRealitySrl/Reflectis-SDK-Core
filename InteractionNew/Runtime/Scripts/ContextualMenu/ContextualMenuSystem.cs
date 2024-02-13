@@ -67,20 +67,13 @@ namespace Reflectis.SDK.InteractionNew
 
         #endregion
 
+        #region Abstract methods
+
+        public abstract InteractableBehaviourBase SetupInteractableBehaviour(GameObject obj);
+
+        #endregion
+
         #region API
-
-        public virtual void SetupContextualMenuManageable(ContextualMenuManageable manageable)
-        {
-            if (manageable.ContextualMenuOptions.HasFlag(EContextualMenuOption.ColorPicker))
-            {
-                SM.GetSystem<IColorPickerSystem>().AssignColorPicker(manageable.gameObject);
-            }
-
-            if (manageable.ContextualMenuOptions.HasFlag(EContextualMenuOption.Explodable))
-            {
-                SM.GetSystem<IModelExploderSystem>().AssignModelExploder(manageable.gameObject);
-            }
-        }
 
         public void CreateMenu(Transform parent = null)
         {

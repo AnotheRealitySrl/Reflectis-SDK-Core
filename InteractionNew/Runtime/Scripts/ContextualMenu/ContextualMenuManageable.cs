@@ -11,9 +11,8 @@ using UnityEngine.Events;
 
 namespace Reflectis.SDK.InteractionNew
 {
-    [Serializable]
-    [RequireComponent(typeof(BaseInteractable))]
-    public class ContextualMenuManageable : InteractableBehaviourBase
+    [Serializable, RequireComponent(typeof(BaseInteractable))]
+    public abstract class ContextualMenuManageable : InteractableBehaviourBase
     {
         public enum EContextualMenuInteractableState
         {
@@ -81,7 +80,18 @@ namespace Reflectis.SDK.InteractionNew
         public UnityEvent OnEnterInteractionState = new();
         public UnityEvent OnExitInteractionState = new();
 
-        public override void Setup() => SM.GetSystem<ContextualMenuSystem>().SetupContextualMenuManageable(this);
+        public override void Setup()
+        {
+            if (ContextualMenuOptions.HasFlag(EContextualMenuOption.ColorPicker))
+            {
+                SM.GetSystem<IColorPickerSystem>().AssignColorPicker(gameObject);
+            }
+
+            if (ContextualMenuOptions.HasFlag(EContextualMenuOption.Explodable))
+            {
+                SM.GetSystem<IModelExploderSystem>().AssignModelExploder(gameObject);
+            }
+        }
 
         public override void OnHoverStateEntered()
         {
