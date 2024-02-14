@@ -277,7 +277,7 @@ namespace Reflectis.SDK.ClientModels
 
         Task<List<CMResource>> GetMyAssets(string searchQuery);
 
-        Task<List<CMResource>> GetCurrentEventAssets();
+        Task<List<CMResource>> GetEventAssets(int eventId);
 
         Task CreateEventAssetsAssociation(int eventId, List<CMResource> resources);
 
