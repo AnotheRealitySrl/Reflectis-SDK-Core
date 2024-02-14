@@ -47,6 +47,9 @@ namespace Reflectis.SDK.InteractionNew
         [SerializeField] private EAllowedGenericInteractableState desktopAllowedStates = EAllowedGenericInteractableState.Selected | EAllowedGenericInteractableState.Interacting;
         [SerializeField] private EAllowedGenericInteractableState vrAllowedStates = EAllowedGenericInteractableState.Selected | EAllowedGenericInteractableState.Interacting;
 
+        public bool VisualScriptingInteractionFinished { get; set; }
+
+        public Action<GameObject> OnSelectedActionVisualScripting;
 
         public List<AwaitableScriptableAction> OnHoverEnterActions { get => onHoverEnterActions; set => onHoverEnterActions = value; }
         public List<AwaitableScriptableAction> OnHoverExitActions { get => onHoverExitActions; set => onHoverExitActions = value; }
@@ -119,6 +122,7 @@ namespace Reflectis.SDK.InteractionNew
                 return;
 
             onHoverEnterActions.ForEach(a => a.Action(InteractableRef));
+
         }
 
         public override void OnHoverStateExited()
@@ -151,6 +155,13 @@ namespace Reflectis.SDK.InteractionNew
             if (skipSelectState)
             {
                 await Interact();
+            }
+
+            OnSelectedActionVisualScripting?.Invoke(this.gameObject);
+
+            while (!VisualScriptingInteractionFinished)
+            {
+                await Task.Yield();
             }
         }
 
