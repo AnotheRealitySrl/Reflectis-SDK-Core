@@ -279,17 +279,9 @@ namespace Reflectis.SDK.ClientModels
 
         Task<List<CMResource>> GetCurrentEventAssets();
 
-        Task<int> GetAssetsFoldersCount();
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="path">if path is "" the number of files in the root will be returned</param>
-        /// <returns></returns>
-        Task<int> GetAssetsCountInFolder(string path);
+        Task<CMSearch<CMFolder>> GetEventAssetsFolders(int eventId, int pageSize, int page = 1, FileTypeExt fileType = FileTypeExt.None);
 
-        Task<List<CMFolder>> GetFolders(int pageSize, int page = 1);
-
-        Task<List<CMResource>> GetAssetsInsideFolder(string path, int pageSize, int page = 1);
+        Task<CMSearch<CMResource>> GetEventAssetsInFolder(int eventId, string path, int pageSize, int page = 1, int offset = 0, FileTypeExt fileType = FileTypeExt.None);
 
         Task CreateEventAssetsAssociation(int eventId, List<CMResource> resources);
 
