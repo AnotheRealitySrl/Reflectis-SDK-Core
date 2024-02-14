@@ -48,6 +48,7 @@ namespace Reflectis.SDK.InteractionNew
         [SerializeField] private EAllowedGenericInteractableState vrAllowedStates = EAllowedGenericInteractableState.Selected | EAllowedGenericInteractableState.Interacting;
 
         public bool VisualScriptingInteractionFinished { get; set; } = false;
+        public int VisualScriptingInteractionCount { get; set; } = 0;
 
         public Action<GameObject> OnSelectedActionVisualScripting;
 
@@ -146,6 +147,15 @@ namespace Reflectis.SDK.InteractionNew
                 await action.Action(InteractableRef);
             }
 
+            OnSelectedActionVisualScripting?.Invoke(this.gameObject);
+
+            while (VisualScriptingInteractionCount > 0)
+            {
+                await Task.Yield();
+            }
+
+            Debug.Log("Visual SCripting Finished");
+
             CurrentInteractionState = EGenericInteractableState.Selected;
             foreach (var action in onSelectedActions)
             {
@@ -156,15 +166,6 @@ namespace Reflectis.SDK.InteractionNew
             {
                 await Interact();
             }
-
-            OnSelectedActionVisualScripting?.Invoke(this.gameObject);
-
-            while (!VisualScriptingInteractionFinished)
-            {
-                await Task.Yield();
-            }
-
-            Debug.Log("Visual SCripting Finished");
         }
 
         public override async Task ExitInteractionState()
