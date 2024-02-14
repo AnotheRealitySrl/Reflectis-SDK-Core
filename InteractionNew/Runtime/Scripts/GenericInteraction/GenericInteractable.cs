@@ -47,7 +47,7 @@ namespace Reflectis.SDK.InteractionNew
         [SerializeField] private EAllowedGenericInteractableState desktopAllowedStates = EAllowedGenericInteractableState.Selected | EAllowedGenericInteractableState.Interacting;
         [SerializeField] private EAllowedGenericInteractableState vrAllowedStates = EAllowedGenericInteractableState.Selected | EAllowedGenericInteractableState.Interacting;
 
-        public bool VisualScriptingInteractionFinished { get; set; }
+        public bool VisualScriptingInteractionFinished { get; set; } = false;
 
         public Action<GameObject> OnSelectedActionVisualScripting;
 
@@ -163,6 +163,8 @@ namespace Reflectis.SDK.InteractionNew
             {
                 await Task.Yield();
             }
+
+            Debug.Log("Visual SCripting Finished");
         }
 
         public override async Task ExitInteractionState()
