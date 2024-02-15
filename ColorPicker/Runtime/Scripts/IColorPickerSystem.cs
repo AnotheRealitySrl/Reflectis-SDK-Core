@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IColorPickerSystem : ISystem
 {
-    void AssignColorPicker(GameObject obj);
+    void AssignColorPicker(GameObject obj, bool networkedContext = true);
 }
