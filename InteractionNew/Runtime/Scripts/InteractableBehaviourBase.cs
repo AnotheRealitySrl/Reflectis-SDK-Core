@@ -13,7 +13,7 @@ namespace Reflectis.SDK.InteractionNew
 
         public abstract bool IsIdleState { get; }
 
-        private bool canInteract = true;
+        protected bool canInteract = true;
         public virtual bool CanInteract
         {
             get => canInteract && enabled;

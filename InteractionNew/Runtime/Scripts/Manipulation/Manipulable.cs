@@ -59,12 +59,13 @@ namespace Reflectis.SDK.InteractionNew
         public bool RealignAxisZ { get => realignAxisZ; set => realignAxisZ = value; }
         public float RealignDurationTimeInSeconds { get => realignDurationTimeInSeconds; set => realignDurationTimeInSeconds = value; }
 
-
         public List<GameObject> ScalingCorners { get; } = new();
         public List<GameObject> ScalingFaces { get; } = new();
         public Transform BoundingBox { get; set; }
 
-        private bool canInteract = true;
+        //TODO Refactor of CanInteract/Ownership/CanManipulate... This variable will later be removed
+        public bool canManipulate = true;
+
         public override bool CanInteract
         {
             get => canInteract && enabled;
