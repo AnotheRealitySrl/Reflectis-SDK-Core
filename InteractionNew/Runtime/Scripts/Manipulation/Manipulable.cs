@@ -65,6 +65,7 @@ namespace Reflectis.SDK.InteractionNew
         public Transform BoundingBox { get; set; }
 
         private bool canInteract = true;
+        public bool isBigScreen = false;
         public override bool CanInteract
         {
             get => canInteract && enabled;
