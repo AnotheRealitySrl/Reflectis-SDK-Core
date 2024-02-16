@@ -50,7 +50,7 @@ namespace Reflectis.SDK.InteractionNew
 
         public EContextualMenuType ContextualMenuType = EContextualMenuType.Default;
 
-        public override bool IsIdleState => CurrentInteractionState == EContextualMenuInteractableState.Idle;
+        public override bool IsIdleState => CurrentInteractionState == EContextualMenuInteractableState.Idle || CurrentInteractionState == EContextualMenuInteractableState.Showing;
 
         private EContextualMenuInteractableState currentInteractionState;
         private EContextualMenuInteractableState CurrentInteractionState
@@ -62,6 +62,10 @@ namespace Reflectis.SDK.InteractionNew
                 if (currentInteractionState == EContextualMenuInteractableState.Idle)
                 {
                     InteractableRef.OnHoverExit();
+                }
+                if (currentInteractionState == EContextualMenuInteractableState.Showing)
+                {
+                    InteractableRef.InteractionState = IInteractable.EInteractionState.Hovered;
                 }
             }
         }
