@@ -64,9 +64,35 @@ namespace Reflectis.SDK.InteractionNew
         public Transform BoundingBox { get; set; }
 
         //TODO Refactor of CanInteract/Ownership/CanManipulate... This variable will later be removed
-        public bool canManipulate = true;
 
-        public override bool CanInteract
+        public override EInteractionState CurrentInteractionBehaviourState
+        {
+            get => currentInteractionBehaviourState;
+            set
+            {
+                currentInteractionBehaviourState = value;
+                OnCurrentInteractionStateChange.Invoke(currentInteractionBehaviourState);
+
+                if (currentInteractionBehaviourState.HasFlag(EInteractionState.Blocked))
+                    BoundingBox.GetComponentInChildren<Renderer>(true).enabled = true;
+                else
+                    BoundingBox.GetComponentInChildren<Renderer>(true).enabled = false;
+
+                if (manipulationMode.HasFlag(EManipulationMode.Scale))
+                    if (currentInteractionBehaviourState.HasFlag(EInteractionState.Blocked))
+                        ScalingCorners.ForEach(x => x.SetActive(false));
+                    else
+                        ScalingCorners.ForEach(x => x.SetActive(true));
+
+                if (nonProportionalScale)
+                    if (currentInteractionBehaviourState.HasFlag(EInteractionState.Blocked))
+                        ScalingFaces.ForEach(x => x.SetActive(false));
+                    else
+                        ScalingFaces.ForEach(x => x.SetActive(true));
+            }
+        }
+
+        /*public override bool CanInteract
         {
             get => canInteract && enabled;
             set
@@ -82,7 +108,7 @@ namespace Reflectis.SDK.InteractionNew
                 if (nonProportionalScale)
                     ScalingFaces.ForEach(x => x.SetActive(value && enabled));
             }
-        }
+        }*/
 
         /// <summary>
         /// The overall size of this manipulable item's mesh elements.

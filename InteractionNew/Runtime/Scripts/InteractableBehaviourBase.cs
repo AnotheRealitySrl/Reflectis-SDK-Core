@@ -28,6 +28,28 @@ namespace Reflectis.SDK.InteractionNew
 
         public bool LockHoverDuringInteraction => lockHoverDuringInteraction;
 
+        [System.Flags]
+        public enum EInteractionState
+        {
+            Idle = 1,
+            Selected = 2, //used in events like pan/unpan and similar --> Never set by ownership
+            Blocked = 4, //the interaction are blocked --> Set by general scripts and also by Ownership
+        }
+
+        protected EInteractionState currentInteractionBehaviourState;
+        public virtual EInteractionState CurrentInteractionBehaviourState
+        {
+            get => currentInteractionBehaviourState;
+            set
+            {
+                Debug.LogError("Setting interaction behaviour state");
+                currentInteractionBehaviourState = value;
+                OnCurrentInteractionStateChange.Invoke(value);
+            }
+        }
+
+        public UnityEvent<EInteractionState> OnCurrentInteractionStateChange { get; set; } = new();
+
         private void Awake()
         {
             if (!InteractableRef.InteractableBehaviours.Contains(this))
