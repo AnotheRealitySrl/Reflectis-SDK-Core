@@ -99,7 +99,8 @@ namespace Reflectis.SDK.InteractionNew
 
         public override void OnHoverStateEntered()
         {
-            if (!CanInteract)
+            //if (!CanInteract)
+            if(CurrentBlockedState != 0)
                 return;
 
             SM.GetSystem<ContextualMenuSystem>()?.OnHoverEnterActions.ForEach(x => x.Action(InteractableRef));
@@ -107,7 +108,8 @@ namespace Reflectis.SDK.InteractionNew
 
         public override void OnHoverStateExited()
         {
-            if (!CanInteract)
+            //if (!CanInteract)
+            if (CurrentBlockedState != 0)
                 return;
 
             SM.GetSystem<ContextualMenuSystem>()?.OnHoverExitActions.ForEach(x => x.Action(InteractableRef));
@@ -115,9 +117,10 @@ namespace Reflectis.SDK.InteractionNew
 
         public override async Task EnterInteractionState()
         {
-            if (!CanInteract)
+            //if (!CanInteract)
+            if (CurrentBlockedState != 0)
                 return;
-
+            
             await base.EnterInteractionState();
 
             OnEnterInteractionState?.Invoke();
@@ -126,7 +129,8 @@ namespace Reflectis.SDK.InteractionNew
 
         public override async Task ExitInteractionState()
         {
-            if (!CanInteract)
+            //if (!CanInteract)
+            if (CurrentBlockedState != 0)
                 return;
 
             await base.ExitInteractionState();

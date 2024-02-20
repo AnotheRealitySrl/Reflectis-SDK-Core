@@ -44,39 +44,43 @@ namespace Reflectis.SDK.InteractionNew
         [SerializeField] private bool realignAxisY = false;
         [SerializeField] private bool realignAxisZ = true;
         [SerializeField] private float realignDurationTimeInSeconds = 1f;
+        [SerializeField] private EBlockedState exampleInteractionForInspector;
 
         #region Properties
-
-        public EManipulationMode ManipulationMode { get => manipulationMode; set => manipulationMode = value; }
-        public EVRInteraction VRInteraction { get => vrInteraction; set => vrInteraction = value; }
-        public bool MouseLookAtCamera { get => mouseLookAtCamera; set => mouseLookAtCamera = value; }
-        public bool NonProportionalScale { get => nonProportionalScale; set => nonProportionalScale = value; }
-        public bool DynamicAttach { get => dynamicAttach; set => dynamicAttach = value; }
-        public Transform AttachTransform { get => attachTransform; set => attachTransform = value; }
-        public bool AdjustRotationOnRelease { get => adjustRotationOnRelease; set => adjustRotationOnRelease = value; }
-        public bool RealignAxisX { get => realignAxisX; set => realignAxisX = value; }
-        public bool RealignAxisY { get => realignAxisY; set => realignAxisY = value; }
-        public bool RealignAxisZ { get => realignAxisZ; set => realignAxisZ = value; }
-        public float RealignDurationTimeInSeconds { get => realignDurationTimeInSeconds; set => realignDurationTimeInSeconds = value; }
-
-        public List<GameObject> ScalingCorners { get; } = new();
-        public List<GameObject> ScalingFaces { get; } = new();
-        public Transform BoundingBox { get; set; }
-
-        //TODO Refactor of CanInteract/Ownership/CanManipulate... This variable will later be removed
-
-        public override EInteractionState CurrentInteractionBehaviourState
+        public override EBlockedState CurrentBlockedState
         {
-            get => currentInteractionBehaviourState;
+            get => currentBlockedState;
             set
             {
-                currentInteractionBehaviourState = value;
-                OnCurrentInteractionStateChange.Invoke(currentInteractionBehaviourState);
+                currentBlockedState = value;
+                exampleInteractionForInspector = value;
+                OnCurrentBlockedChanged.Invoke(currentBlockedState);
 
-                if (currentInteractionBehaviourState.HasFlag(EInteractionState.Blocked))
+                if (currentBlockedState == 0 || currentBlockedState == EBlockedState.BlockedByOthers)
+                {
                     BoundingBox.GetComponentInChildren<Renderer>(true).enabled = true;
+                }
                 else
+                {
                     BoundingBox.GetComponentInChildren<Renderer>(true).enabled = false;
+                }
+
+                if (manipulationMode.HasFlag(EManipulationMode.Scale))
+                    if (currentBlockedState == 0 || currentBlockedState == EBlockedState.BlockedByOthers)
+                        ScalingCorners.ForEach(x => x.SetActive(true));
+                    else
+                        ScalingCorners.ForEach(x => x.SetActive(false));
+
+                if (nonProportionalScale)
+                    if (currentBlockedState == 0 || currentBlockedState == EBlockedState.BlockedByOthers)
+                        ScalingFaces.ForEach(x => x.SetActive(true));
+                    else
+                        ScalingFaces.ForEach(x => x.SetActive(false));
+
+                /*if (currentInteractionBehaviourState.HasFlag(EInteractionState.Blocked))
+                    BoundingBox.GetComponentInChildren<Renderer>(true).enabled = false;
+                else
+                    BoundingBox.GetComponentInChildren<Renderer>(true).enabled = true;
 
                 if (manipulationMode.HasFlag(EManipulationMode.Scale))
                     if (currentInteractionBehaviourState.HasFlag(EInteractionState.Blocked))
@@ -88,9 +92,11 @@ namespace Reflectis.SDK.InteractionNew
                     if (currentInteractionBehaviourState.HasFlag(EInteractionState.Blocked))
                         ScalingFaces.ForEach(x => x.SetActive(false));
                     else
-                        ScalingFaces.ForEach(x => x.SetActive(true));
+                        ScalingFaces.ForEach(x => x.SetActive(true));*/
             }
         }
+
+        //TODO Refactor of CanInteract/Ownership/CanManipulate... This variable will later be removed
 
         /*public override bool CanInteract
         {
@@ -109,6 +115,22 @@ namespace Reflectis.SDK.InteractionNew
                     ScalingFaces.ForEach(x => x.SetActive(value && enabled));
             }
         }*/
+        public EManipulationMode ManipulationMode { get => manipulationMode; set => manipulationMode = value; }
+        public EVRInteraction VRInteraction { get => vrInteraction; set => vrInteraction = value; }
+        public bool MouseLookAtCamera { get => mouseLookAtCamera; set => mouseLookAtCamera = value; }
+        public bool NonProportionalScale { get => nonProportionalScale; set => nonProportionalScale = value; }
+        public bool DynamicAttach { get => dynamicAttach; set => dynamicAttach = value; }
+        public Transform AttachTransform { get => attachTransform; set => attachTransform = value; }
+        public bool AdjustRotationOnRelease { get => adjustRotationOnRelease; set => adjustRotationOnRelease = value; }
+        public bool RealignAxisX { get => realignAxisX; set => realignAxisX = value; }
+        public bool RealignAxisY { get => realignAxisY; set => realignAxisY = value; }
+        public bool RealignAxisZ { get => realignAxisZ; set => realignAxisZ = value; }
+        public float RealignDurationTimeInSeconds { get => realignDurationTimeInSeconds; set => realignDurationTimeInSeconds = value; }
+
+        public List<GameObject> ScalingCorners { get; } = new();
+        public List<GameObject> ScalingFaces { get; } = new();
+        public Transform BoundingBox { get; set; }
+
 
         /// <summary>
         /// The overall size of this manipulable item's mesh elements.
@@ -205,7 +227,8 @@ namespace Reflectis.SDK.InteractionNew
 
         public override void OnHoverStateEntered()
         {
-            if (!CanInteract)
+            //if (!CanInteract)
+            if (CurrentBlockedState != 0)             
                 return;
 
             SM.GetSystem<IManipulationSystem>()?.OnHoverEnterActions.ForEach(x => x.Action(InteractableRef));
@@ -213,7 +236,8 @@ namespace Reflectis.SDK.InteractionNew
 
         public override void OnHoverStateExited()
         {
-            if (!CanInteract)
+            //if (!CanInteract)
+            if (CurrentBlockedState != 0)             
                 return;
 
             SM.GetSystem<IManipulationSystem>()?.OnHoverExitActions.ForEach(x => x.Action(InteractableRef));

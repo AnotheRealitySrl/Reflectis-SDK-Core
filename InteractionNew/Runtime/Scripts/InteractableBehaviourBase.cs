@@ -13,7 +13,7 @@ namespace Reflectis.SDK.InteractionNew
 
         public abstract bool IsIdleState { get; }
 
-        protected bool canInteract = true;
+        /*protected bool canInteract = true;
         public virtual bool CanInteract
         {
             get => canInteract && enabled;
@@ -24,31 +24,32 @@ namespace Reflectis.SDK.InteractionNew
             }
         }
 
-        public UnityEvent<bool> OnInteractionEnabledChange { get; set; } = new();
+        public UnityEvent<bool> OnInteractionEnabledChange { get; set; } = new();*/
 
         public bool LockHoverDuringInteraction => lockHoverDuringInteraction;
 
+        //bitmask used to know if an interactable is blocked for various reasons
         [System.Flags]
-        public enum EInteractionState
+        public enum EBlockedState
         {
-            Idle = 1,
-            Selected = 2, //used in events like pan/unpan and similar --> Never set by ownership
-            Blocked = 4, //the interaction are blocked --> Set by general scripts and also by Ownership
+            BlockedByOthers = 1, //blocked by player manipolation (like when manipulating with ownership)
+            BlockedBySelection = 2, //used in events like pan/unpan and similar --> Never set by ownership
+            BlockedByGenerals = 4, //the interactions are blocked --> Set by general scripts. When in this state interaction are stopped and the interactable script is usually set to false
         }
 
-        protected EInteractionState currentInteractionBehaviourState;
-        public virtual EInteractionState CurrentInteractionBehaviourState
+        //set the currentBlockedState to none
+        protected EBlockedState currentBlockedState = 0; //set interaction to nothing at the beginning
+        public virtual EBlockedState CurrentBlockedState
         {
-            get => currentInteractionBehaviourState;
+            get => currentBlockedState;
             set
             {
-                Debug.LogError("Setting interaction behaviour state");
-                currentInteractionBehaviourState = value;
-                OnCurrentInteractionStateChange.Invoke(value);
+                currentBlockedState = value;
+                OnCurrentBlockedChanged.Invoke(value);
             }
         }
 
-        public UnityEvent<EInteractionState> OnCurrentInteractionStateChange { get; set; } = new();
+        public UnityEvent<EBlockedState> OnCurrentBlockedChanged { get; set; } = new();
 
         private void Awake()
         {
