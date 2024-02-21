@@ -13,19 +13,6 @@ namespace Reflectis.SDK.InteractionNew
 
         public abstract bool IsIdleState { get; }
 
-        /*protected bool canInteract = true;
-        public virtual bool CanInteract
-        {
-            get => canInteract && enabled;
-            set
-            {
-                canInteract = value;
-                OnInteractionEnabledChange.Invoke(value);
-            }
-        }
-
-        public UnityEvent<bool> OnInteractionEnabledChange { get; set; } = new();*/
-
         public bool LockHoverDuringInteraction => lockHoverDuringInteraction;
 
         //bitmask used to know if an interactable is blocked for various reasons

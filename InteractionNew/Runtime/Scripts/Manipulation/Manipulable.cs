@@ -53,10 +53,9 @@ namespace Reflectis.SDK.InteractionNew
             set
             {
                 currentBlockedState = value;
-                exampleInteractionForInspector = value;
+                exampleInteractionForInspector = value; 
                 OnCurrentBlockedChanged.Invoke(currentBlockedState);
-
-                if (currentBlockedState == 0 || currentBlockedState == EBlockedState.BlockedByOthers)
+                if (value == 0)
                 {
                     BoundingBox.GetComponentInChildren<Renderer>(true).enabled = true;
                 }
@@ -66,33 +65,16 @@ namespace Reflectis.SDK.InteractionNew
                 }
 
                 if (manipulationMode.HasFlag(EManipulationMode.Scale))
-                    if (currentBlockedState == 0 || currentBlockedState == EBlockedState.BlockedByOthers)
+                    if(value == 0)
                         ScalingCorners.ForEach(x => x.SetActive(true));
                     else
                         ScalingCorners.ForEach(x => x.SetActive(false));
 
                 if (nonProportionalScale)
-                    if (currentBlockedState == 0 || currentBlockedState == EBlockedState.BlockedByOthers)
+                    if (value == 0)
                         ScalingFaces.ForEach(x => x.SetActive(true));
                     else
                         ScalingFaces.ForEach(x => x.SetActive(false));
-
-                /*if (currentInteractionBehaviourState.HasFlag(EInteractionState.Blocked))
-                    BoundingBox.GetComponentInChildren<Renderer>(true).enabled = false;
-                else
-                    BoundingBox.GetComponentInChildren<Renderer>(true).enabled = true;
-
-                if (manipulationMode.HasFlag(EManipulationMode.Scale))
-                    if (currentInteractionBehaviourState.HasFlag(EInteractionState.Blocked))
-                        ScalingCorners.ForEach(x => x.SetActive(false));
-                    else
-                        ScalingCorners.ForEach(x => x.SetActive(true));
-
-                if (nonProportionalScale)
-                    if (currentInteractionBehaviourState.HasFlag(EInteractionState.Blocked))
-                        ScalingFaces.ForEach(x => x.SetActive(false));
-                    else
-                        ScalingFaces.ForEach(x => x.SetActive(true));*/
             }
         }
 
