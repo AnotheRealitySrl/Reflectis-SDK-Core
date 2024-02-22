@@ -9,7 +9,7 @@ using UnityEngine.Events;
 namespace Reflectis.SDK.InteractionNew
 {
     [RequireComponent(typeof(BaseInteractable))]
-    public class Manipulable : InteractableBehaviourBase
+    public abstract class Manipulable : InteractableBehaviourBase
     {
         public enum EManipulableState
         {
@@ -44,28 +44,43 @@ namespace Reflectis.SDK.InteractionNew
         [SerializeField] private bool realignAxisY = false;
         [SerializeField] private bool realignAxisZ = true;
         [SerializeField] private float realignDurationTimeInSeconds = 1f;
+        [SerializeField] private EBlockedState exampleInteractionForInspector;
 
         #region Properties
+        public override EBlockedState CurrentBlockedState
+        {
+            get => currentBlockedState;
+            set
+            {
+                currentBlockedState = value;
+                exampleInteractionForInspector = value; 
+                OnCurrentBlockedChanged.Invoke(currentBlockedState);
+                if (value == 0)
+                {
+                    BoundingBox.GetComponentInChildren<Renderer>(true).enabled = true;
+                }
+                else
+                {
+                    BoundingBox.GetComponentInChildren<Renderer>(true).enabled = false;
+                }
 
-        public EManipulationMode ManipulationMode { get => manipulationMode; set => manipulationMode = value; }
-        public EVRInteraction VRInteraction { get => vrInteraction; set => vrInteraction = value; }
-        public bool MouseLookAtCamera { get => mouseLookAtCamera; set => mouseLookAtCamera = value; }
-        public bool NonProportionalScale { get => nonProportionalScale; set => nonProportionalScale = value; }
-        public bool DynamicAttach { get => dynamicAttach; set => dynamicAttach = value; }
-        public Transform AttachTransform { get => attachTransform; set => attachTransform = value; }
-        public bool AdjustRotationOnRelease { get => adjustRotationOnRelease; set => adjustRotationOnRelease = value; }
-        public bool RealignAxisX { get => realignAxisX; set => realignAxisX = value; }
-        public bool RealignAxisY { get => realignAxisY; set => realignAxisY = value; }
-        public bool RealignAxisZ { get => realignAxisZ; set => realignAxisZ = value; }
-        public float RealignDurationTimeInSeconds { get => realignDurationTimeInSeconds; set => realignDurationTimeInSeconds = value; }
+                if (manipulationMode.HasFlag(EManipulationMode.Scale))
+                    if(value == 0)
+                        ScalingCorners.ForEach(x => x.SetActive(true));
+                    else
+                        ScalingCorners.ForEach(x => x.SetActive(false));
 
+                if (nonProportionalScale)
+                    if (value == 0)
+                        ScalingFaces.ForEach(x => x.SetActive(true));
+                    else
+                        ScalingFaces.ForEach(x => x.SetActive(false));
+            }
+        }
 
-        public List<GameObject> ScalingCorners { get; } = new();
-        public List<GameObject> ScalingFaces { get; } = new();
-        public Transform BoundingBox { get; set; }
+        //TODO Refactor of CanInteract/Ownership/CanManipulate... This variable will later be removed
 
-        private bool canInteract = true;
-        public override bool CanInteract
+        /*public override bool CanInteract
         {
             get => canInteract && enabled;
             set
@@ -81,7 +96,23 @@ namespace Reflectis.SDK.InteractionNew
                 if (nonProportionalScale)
                     ScalingFaces.ForEach(x => x.SetActive(value && enabled));
             }
-        }
+        }*/
+        public EManipulationMode ManipulationMode { get => manipulationMode; set => manipulationMode = value; }
+        public EVRInteraction VRInteraction { get => vrInteraction; set => vrInteraction = value; }
+        public bool MouseLookAtCamera { get => mouseLookAtCamera; set => mouseLookAtCamera = value; }
+        public bool NonProportionalScale { get => nonProportionalScale; set => nonProportionalScale = value; }
+        public bool DynamicAttach { get => dynamicAttach; set => dynamicAttach = value; }
+        public Transform AttachTransform { get => attachTransform; set => attachTransform = value; }
+        public bool AdjustRotationOnRelease { get => adjustRotationOnRelease; set => adjustRotationOnRelease = value; }
+        public bool RealignAxisX { get => realignAxisX; set => realignAxisX = value; }
+        public bool RealignAxisY { get => realignAxisY; set => realignAxisY = value; }
+        public bool RealignAxisZ { get => realignAxisZ; set => realignAxisZ = value; }
+        public float RealignDurationTimeInSeconds { get => realignDurationTimeInSeconds; set => realignDurationTimeInSeconds = value; }
+
+        public List<GameObject> ScalingCorners { get; } = new();
+        public List<GameObject> ScalingFaces { get; } = new();
+        public Transform BoundingBox { get; set; }
+
 
         /// <summary>
         /// The overall size of this manipulable item's mesh elements.
@@ -167,13 +198,19 @@ namespace Reflectis.SDK.InteractionNew
 
         #endregion
 
-        #region Overrides
+        #region Abstract methods
 
-        public override void Setup() => SM.GetSystem<IManipulationSystem>().SetupManipulable(this);
+        public abstract void SetScalingPoints();
+        public abstract void UpdateScalingPointsPosition();
+
+        #endregion
+
+        #region Overrides
 
         public override void OnHoverStateEntered()
         {
-            if (!CanInteract)
+            //if (!CanInteract)
+            if (CurrentBlockedState != 0)             
                 return;
 
             SM.GetSystem<IManipulationSystem>()?.OnHoverEnterActions.ForEach(x => x.Action(InteractableRef));
@@ -181,7 +218,8 @@ namespace Reflectis.SDK.InteractionNew
 
         public override void OnHoverStateExited()
         {
-            if (!CanInteract)
+            //if (!CanInteract)
+            if (CurrentBlockedState != 0)             
                 return;
 
             SM.GetSystem<IManipulationSystem>()?.OnHoverExitActions.ForEach(x => x.Action(InteractableRef));

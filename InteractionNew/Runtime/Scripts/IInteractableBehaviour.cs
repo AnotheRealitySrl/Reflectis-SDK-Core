@@ -6,7 +6,7 @@ namespace Reflectis.SDK.InteractionNew
     {
         IInteractable InteractableRef { get; }
         bool IsIdleState { get; }
-        bool CanInteract { get; set; }
+        //bool CanInteract { get; set; }
         bool LockHoverDuringInteraction { get; }
 
         void Setup();

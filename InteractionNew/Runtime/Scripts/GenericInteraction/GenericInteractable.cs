@@ -12,7 +12,7 @@ using UnityEngine;
 namespace Reflectis.SDK.InteractionNew
 {
     [RequireComponent(typeof(BaseInteractable))]
-    public class GenericInteractable : InteractableBehaviourBase, IInteractableBehaviour
+    public abstract class GenericInteractable : InteractableBehaviourBase, IInteractableBehaviour
     {
         [Flags]
         public enum EGenericInteractableState
@@ -108,14 +108,12 @@ namespace Reflectis.SDK.InteractionNew
             }
         }
 
-        public override void Setup()
-        {
-            SM.GetSystem<IGenericInteractionSystem>().SetupGenericInteractable(this);
-        }
+        public override abstract void Setup();
 
         public override void OnHoverStateEntered()
         {
-            if (!CanInteract || !hasHoveredState)
+            //if (!CanInteract || !hasHoveredState)
+            if (CurrentBlockedState != 0 || !hasHoveredState)
                 return;
 
             onHoverEnterActions.ForEach(a => a.Action(InteractableRef));
@@ -123,7 +121,8 @@ namespace Reflectis.SDK.InteractionNew
 
         public override void OnHoverStateExited()
         {
-            if (!CanInteract || !hasHoveredState)
+            //if (!CanInteract || !hasHoveredState)
+            if (CurrentBlockedState != 0 || !hasHoveredState)
                 return;
 
             onHoverExitActions.ForEach(a => a.Action(InteractableRef));
@@ -131,7 +130,8 @@ namespace Reflectis.SDK.InteractionNew
 
         public override async Task EnterInteractionState()
         {
-            if (!CanInteract)
+            //if (!CanInteract)
+            if (CurrentBlockedState != 0)
                 return;
 
             await base.EnterInteractionState();
@@ -156,7 +156,8 @@ namespace Reflectis.SDK.InteractionNew
 
         public override async Task ExitInteractionState()
         {
-            if (!CanInteract)
+            //if (!CanInteract)
+            if (CurrentBlockedState != 0)              
                 return;
 
             await base.ExitInteractionState();
@@ -176,7 +177,8 @@ namespace Reflectis.SDK.InteractionNew
 
         public async Task Interact()
         {
-            if (!CanInteract)
+            //if (!CanInteract)
+            if (CurrentBlockedState != 0)              
                 return;
 
             if (CurrentInteractionState != EGenericInteractableState.Selected && hasInteractState)
@@ -223,7 +225,7 @@ namespace Reflectis.SDK.InteractionNew
                 if (Application.isPlaying)
                 {
                     EditorGUILayout.LabelField($"<b>Current state:</b> {interactable.CurrentInteractionState}", style);
-                    EditorGUILayout.LabelField($"<b>Can interact:</b> {interactable.CanInteract}", style);
+                    //EditorGUILayout.LabelField($"<b>Can interact:</b> {interactable.CanInteract}", style);
                 }
             }
         }
