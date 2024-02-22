@@ -277,7 +277,9 @@ namespace Reflectis.SDK.ClientModels
 
         Task<List<CMResource>> GetMyAssets(string searchQuery);
 
-        Task<List<CMResource>> GetEventAssets(int eventId);
+        Task<CMSearch<CMFolder>> GetEventAssetsFolders(int eventId, int pageSize, int page = 1, IEnumerable<FileTypeExt> fileTypes = null);
+
+        Task<CMSearch<CMResource>> GetEventAssetsInFolder(int eventId, string path, int pageSize, int page = 1, IEnumerable<FileTypeExt> fileTypes = null);
 
         Task CreateEventAssetsAssociation(int eventId, List<CMResource> resources);
 
