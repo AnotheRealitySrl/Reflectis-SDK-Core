@@ -11,6 +11,7 @@ namespace Reflectis.SDK.InteractionNew
 {
     public class BaseInteractable : MonoBehaviour, IInteractable
     {
+        [SerializeField] private bool doAutomaticSetup = true;
         [SerializeField] private List<InteractableBehaviourBase> interactableBehaviours = new();
         [SerializeField] private List<Collider> interactionColliders = new();
 
@@ -22,7 +23,19 @@ namespace Reflectis.SDK.InteractionNew
 
         public UnityEvent OnInteractableSetupComplete { get; } = new();
 
+        [HideInInspector]
+        public bool setupCompleted = false;
+
+
         private void Awake()
+        {
+            if (doAutomaticSetup)
+            {
+                Setup();
+            }
+        }
+
+        public void Setup()
         {
             if (interactionColliders.Count == 0)
             {
@@ -31,6 +44,7 @@ namespace Reflectis.SDK.InteractionNew
 
             InteractableBehaviours.AddRange(interactableBehaviours);
             interactableBehaviours.ForEach(x => x.Setup());
+            setupCompleted = true;
         }
 
         public void OnHoverEnter()
