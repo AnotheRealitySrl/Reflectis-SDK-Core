@@ -84,23 +84,23 @@ namespace Reflectis.SDK.InteractionNew
         public UnityEvent OnEnterInteractionState = new();
         public UnityEvent OnExitInteractionState = new();
 
-        public override void Setup()
+        public override async Task Setup()
         {
             if (ContextualMenuOptions.HasFlag(EContextualMenuOption.ColorPicker))
             {
-                SM.GetSystem<IColorPickerSystem>().AssignColorPicker(gameObject);
+                await SM.GetSystem<IColorPickerSystem>().AssignColorPicker(gameObject);
             }
 
             if (ContextualMenuOptions.HasFlag(EContextualMenuOption.Explodable))
             {
-                SM.GetSystem<IModelExploderSystem>().AssignModelExploder(gameObject);
+                await SM.GetSystem<IModelExploderSystem>().AssignModelExploder(gameObject);
             }
         }
 
         public override void OnHoverStateEntered()
         {
             //if (!CanInteract)
-            if(CurrentBlockedState != 0)
+            if (CurrentBlockedState != 0)
                 return;
 
             SM.GetSystem<ContextualMenuSystem>()?.OnHoverEnterActions.ForEach(x => x.Action(InteractableRef));
@@ -120,7 +120,7 @@ namespace Reflectis.SDK.InteractionNew
             //if (!CanInteract)
             if (CurrentBlockedState != 0)
                 return;
-            
+
             await base.EnterInteractionState();
 
             OnEnterInteractionState?.Invoke();

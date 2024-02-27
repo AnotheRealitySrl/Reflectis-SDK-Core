@@ -1,8 +1,10 @@
 using Reflectis.SDK.Core;
 
+using System.Threading.Tasks;
+
 using UnityEngine;
 
 public interface IColorPickerSystem : ISystem
 {
-    void AssignColorPicker(GameObject obj);
+    Task AssignColorPicker(GameObject obj);
 }
