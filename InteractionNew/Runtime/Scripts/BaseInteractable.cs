@@ -42,7 +42,13 @@ namespace Reflectis.SDK.InteractionNew
                 interactionColliders.AddRange(GetComponentsInChildren<Collider>());
             }
 
-            InteractableBehaviours.AddRange(interactableBehaviours);
+            foreach (var behaviour in interactableBehaviours)
+            {
+                if (!InteractableBehaviours.Contains(behaviour))
+                {
+                    InteractableBehaviours.Add(behaviour);
+                }
+            }
 
             foreach (var interactable in InteractableBehaviours)
             {
