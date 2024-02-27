@@ -44,7 +44,7 @@ namespace Reflectis.SDK.InteractionNew
                 InteractableRef.InteractableBehaviours.Add(this);
         }
 
-        public abstract void Setup();
+        public abstract Task Setup();
 
         public abstract void OnHoverStateEntered();
         public abstract void OnHoverStateExited();

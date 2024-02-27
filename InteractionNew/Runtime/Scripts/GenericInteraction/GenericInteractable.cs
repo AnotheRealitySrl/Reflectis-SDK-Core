@@ -108,7 +108,7 @@ namespace Reflectis.SDK.InteractionNew
             }
         }
 
-        public override abstract void Setup();
+        public override abstract Task Setup();
 
         public override void OnHoverStateEntered()
         {
@@ -157,7 +157,7 @@ namespace Reflectis.SDK.InteractionNew
         public override async Task ExitInteractionState()
         {
             //if (!CanInteract)
-            if (CurrentBlockedState != 0)              
+            if (CurrentBlockedState != 0)
                 return;
 
             await base.ExitInteractionState();
@@ -178,7 +178,7 @@ namespace Reflectis.SDK.InteractionNew
         public async Task Interact()
         {
             //if (!CanInteract)
-            if (CurrentBlockedState != 0)              
+            if (CurrentBlockedState != 0)
                 return;
 
             if (CurrentInteractionState != EGenericInteractableState.Selected && hasInteractState)

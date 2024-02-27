@@ -35,7 +35,7 @@ namespace Reflectis.SDK.InteractionNew
             }
         }
 
-        public void Setup()
+        public async void Setup()
         {
             if (interactionColliders.Count == 0)
             {
@@ -43,7 +43,11 @@ namespace Reflectis.SDK.InteractionNew
             }
 
             InteractableBehaviours.AddRange(interactableBehaviours);
-            interactableBehaviours.ForEach(x => x.Setup());
+
+            foreach (var interactable in InteractableBehaviours)
+            {
+                await interactable.Setup();
+            }
             setupCompleted = true;
         }
 
