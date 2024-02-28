@@ -7,9 +7,12 @@ namespace Reflectis.SDK.Audio
     [CreateAssetMenu(menuName = "Reflectis/SDK-Audio/AudioSystem", fileName = "AudioSystemConfig")]
     public class AudioSystem : BaseSystem
     {
-        [SerializeField] AudioMixer mixer;
+        [SerializeField] AudioMixerGroup musicMixerGroup;
 
-        public AudioMixer Mixer => mixer;
+        [SerializeField] AudioMixerGroup voiceChatMixerGroup;
+
+        public AudioMixerGroup MusicMixerGroup { get => musicMixerGroup; }
+        public AudioMixerGroup VoiceChatMixerGroup { get => voiceChatMixerGroup; }
 
         public override void Init()
         {
@@ -27,7 +30,8 @@ namespace Reflectis.SDK.Audio
             if (volume < 1f) volume = 0.001f;
 
             var volumeVal = Mathf.Log10(volume / 100) * 20;
-            mixer.SetFloat("Music&Sound", volumeVal);
+
+            MusicMixerGroup.audioMixer.SetFloat(MusicMixerGroup.name, volumeVal);
         }
 
         public float DecibelToLinear(float dB)
@@ -46,7 +50,8 @@ namespace Reflectis.SDK.Audio
             if (volume < 1f) volume = 0.001f;
 
             var volumeVal = Mathf.Log10(volume / 100) * 20;
-            mixer.SetFloat("VoiceChat", volumeVal);
+
+            VoiceChatMixerGroup.audioMixer.SetFloat(VoiceChatMixerGroup.name, volumeVal);
         }
 
         #endregion
