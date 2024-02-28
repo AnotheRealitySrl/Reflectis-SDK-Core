@@ -37,6 +37,11 @@ namespace Reflectis.SDK.InteractionNew
 
         public async void Setup()
         {
+            if (interactableBehaviours.Count == 0)
+            {
+                interactableBehaviours.AddRange(GetComponentsInChildren<InteractableBehaviourBase>());
+            }
+
             if (interactionColliders.Count == 0)
             {
                 interactionColliders.AddRange(GetComponentsInChildren<Collider>());

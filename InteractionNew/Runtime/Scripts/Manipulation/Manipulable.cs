@@ -8,7 +8,7 @@ using UnityEngine.Events;
 
 namespace Reflectis.SDK.InteractionNew
 {
-    [RequireComponent(typeof(BaseInteractable))]
+    //[RequireComponent(typeof(BaseInteractable))]
     public abstract class Manipulable : InteractableBehaviourBase
     {
         public enum EManipulableState
@@ -53,7 +53,7 @@ namespace Reflectis.SDK.InteractionNew
             set
             {
                 currentBlockedState = value;
-                exampleInteractionForInspector = value; 
+                exampleInteractionForInspector = value;
                 OnCurrentBlockedChanged.Invoke(currentBlockedState);
                 if (value == 0)
                 {
@@ -65,7 +65,7 @@ namespace Reflectis.SDK.InteractionNew
                 }
 
                 if (manipulationMode.HasFlag(EManipulationMode.Scale))
-                    if(value == 0)
+                    if (value == 0)
                         ScalingCorners.ForEach(x => x.SetActive(true));
                     else
                         ScalingCorners.ForEach(x => x.SetActive(false));
@@ -210,7 +210,7 @@ namespace Reflectis.SDK.InteractionNew
         public override void OnHoverStateEntered()
         {
             //if (!CanInteract)
-            if (CurrentBlockedState != 0)             
+            if (CurrentBlockedState != 0)
                 return;
 
             SM.GetSystem<IManipulationSystem>()?.OnHoverEnterActions.ForEach(x => x.Action(InteractableRef));
@@ -219,7 +219,7 @@ namespace Reflectis.SDK.InteractionNew
         public override void OnHoverStateExited()
         {
             //if (!CanInteract)
-            if (CurrentBlockedState != 0)             
+            if (CurrentBlockedState != 0)
                 return;
 
             SM.GetSystem<IManipulationSystem>()?.OnHoverExitActions.ForEach(x => x.Action(InteractableRef));

@@ -11,7 +11,7 @@ using UnityEngine;
 
 namespace Reflectis.SDK.InteractionNew
 {
-    [RequireComponent(typeof(BaseInteractable))]
+    //[RequireComponent(typeof(BaseInteractable))]
     public abstract class GenericInteractable : InteractableBehaviourBase, IInteractableBehaviour
     {
         [Flags]

@@ -38,12 +38,6 @@ namespace Reflectis.SDK.InteractionNew
 
         public UnityEvent<EBlockedState> OnCurrentBlockedChanged { get; set; } = new();
 
-        private void Awake()
-        {
-            if (!InteractableRef.InteractableBehaviours.Contains(this))
-                InteractableRef.InteractableBehaviours.Add(this);
-        }
-
         public abstract Task Setup();
 
         public abstract void OnHoverStateEntered();
