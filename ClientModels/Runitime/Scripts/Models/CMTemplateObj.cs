@@ -26,6 +26,9 @@ namespace Reflectis.SDK.ClientModels
             // SceneObj: Downloaded3DModel
             public int id;
 
+            // SceneObj: Downloaded3DModel---ColorPicker
+            public Color modelColor = Color.white;
+
             // SceneObj: Downloaded3DPickables
             public string addressableString;
 
