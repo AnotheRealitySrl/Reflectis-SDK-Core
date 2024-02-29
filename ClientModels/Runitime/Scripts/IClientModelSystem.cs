@@ -60,7 +60,7 @@ namespace Reflectis.SDK.ClientModels
         /// <summary>
         /// Returns an event given its id
         /// </summary>
-        Task<CMEvent> GetEventById(int id);
+        Task<CMEvent> GetEventById(int id, bool useCache = true);
 
         /// <summary>
         /// Returns the list of all events visible by user
