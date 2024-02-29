@@ -121,26 +121,33 @@ namespace Reflectis.SDK.InteractionNew
         {
             get
             {
-                if (BoundingBox)
+                // Checks if this manipulable is at the root of the interactable object.
+                // If not, this is a submesh
+                GameObject rootManipulableObj = ((BaseInteractable)this.InteractableRef).gameObject;
+                if (rootManipulableObj == this.gameObject)
                 {
+                    // This manipulable is at the root of the interactive object
                     return Vector3.Scale(BoundingBox.localScale, transform.localScale);
                 }
-                // If no bounding box is available, looks for a mesh or skinned
-                // mesh renderer on this gameobject
-                else if (GetComponentInChildren<Renderer>() is Renderer localRenderer && localRenderer != null)
-                {
-                    return localRenderer.bounds.size;
-                }
-                // Tries to look for a collider
-                else if (GetComponentInChildren<Collider>() is Collider localCollider && localCollider != null)
-                {
-                    return localCollider.bounds.size;
-                }
-                // No visual elements found
                 else
                 {
-                    Debug.LogError("Size not available: no visual element has been found");
-                    return Vector3.zero;
+                    // This manipulable is on a submesh of the interactive object.
+                    // It will now look for a mesh or skinned mesh renderer on this gameobject
+                    if (GetComponentInChildren<Renderer>() is Renderer localRenderer && localRenderer != null)
+                    {
+                        return localRenderer.bounds.size;
+                    }
+                    // Tries to look for a collider
+                    else if (GetComponentInChildren<Collider>() is Collider localCollider && localCollider != null)
+                    {
+                        return localCollider.bounds.size;
+                    }
+                    // No visual elements found
+                    else
+                    {
+                        Debug.LogError("Size not available: no visual element has been found");
+                        return Vector3.zero;
+                    }
                 }
             }
         }
@@ -152,26 +159,33 @@ namespace Reflectis.SDK.InteractionNew
         {
             get
             {
-                if (BoundingBox)
+                // Checks if this manipulable is at the root of the interactable object.
+                // If not, this is a submesh
+                GameObject rootManipulableObj = ((BaseInteractable)this.InteractableRef).gameObject;
+                if (rootManipulableObj == this.gameObject)
                 {
+                    // This manipulable is at the root of the interactive object
                     return BoundingBox.position;
                 }
-                // If no bounding box is available, looks for a mesh or skinned
-                // mesh renderer on this gameobject
-                else if (GetComponentInChildren<Renderer>() is Renderer localRenderer && localRenderer != null)
-                {
-                    return localRenderer.bounds.center;
-                }
-                // Tries to look for a collider
-                else if (GetComponentInChildren<Collider>() is Collider localCollider && localCollider != null)
-                {
-                    return localCollider.bounds.center;
-                }
-                // No visual elements found
                 else
                 {
-                    Debug.LogError("Center point not available: no visual element has been found");
-                    return Vector3.zero;
+                    // This manipulable is on a submesh of the interactive object.
+                    // It will now look for a mesh or skinned mesh renderer on this gameobject
+                    if (GetComponentInChildren<Renderer>() is Renderer localRenderer && localRenderer != null)
+                    {
+                        return localRenderer.bounds.center;
+                    }
+                    // Tries to look for a collider
+                    else if (GetComponentInChildren<Collider>() is Collider localCollider && localCollider != null)
+                    {
+                        return localCollider.bounds.center;
+                    }
+                    // No visual elements found
+                    else
+                    {
+                        Debug.LogError("Center point not available: no visual element has been found");
+                        return Vector3.zero;
+                    }
                 }
             }
         }
