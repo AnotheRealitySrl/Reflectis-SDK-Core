@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace Reflectis.SDK.Avatars
 {
     /// <summary>
@@ -5,6 +7,10 @@ namespace Reflectis.SDK.Avatars
     /// </summary>
     public interface IAvatarConfig
     {
-
+        #region Properties
+        public float? PlayerHeight { get; }
+        public string AvatarId { get; }
+        public string AvatarPNG { get; }
+        #endregion
     }
 }

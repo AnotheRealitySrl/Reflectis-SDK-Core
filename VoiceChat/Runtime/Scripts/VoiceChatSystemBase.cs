@@ -14,6 +14,9 @@ namespace Reflectis.SDK.VoiceChat
         [Header("Id of Agora subscription")]
         [SerializeField] protected string appId;
 
+        [SerializeField, Min(1)]
+        protected byte photonGlobalChannel = 1;
+
         public virtual event Action<string> OnJoinChannelSuccess;
         public virtual event Action<string> OnRejoinChannelSuccess;
         public virtual event Action OnLeaveChannel;
@@ -28,16 +31,20 @@ namespace Reflectis.SDK.VoiceChat
 
         public string AppId { get => appId; set => appId = value; }
 
+        public byte PHOTON_GLOBAL_CHANNEL => photonGlobalChannel;
+
         public abstract void AskPermissions();
         public abstract void ConnectToChannel(CommunicationChannel channel);
         public abstract void DestroyVideoView(uint uid);
         public abstract void DisconnectFromChannel();
-        public abstract void DisposeEngine();
+        public virtual void DisposeEngine() => DisconnectFromChannel();
         public abstract string GetChannelName();
         public abstract float GetSystemVolume();
+        public abstract bool GetVoiceDetection();
         public abstract void InitEngine();
         public abstract GameObject MakeVideoView(string parentName, GameObject videoView, uint uid = 0, string channelId = "");
         public abstract void MuteAllRemoteStream(bool muteAudio, bool muteVideo);
+        public abstract void MuteLocalUser(bool muteAudio);
         public abstract void MuteLocalUser(bool muteAudio, bool muteVideo);
         public abstract void MuteUser(RemoteUser user);
         public abstract void SetVolume(int volume);

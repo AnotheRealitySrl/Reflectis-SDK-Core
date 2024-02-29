@@ -1,11 +1,13 @@
 {
   "name": "com.anotherealitysrl.reflectis-sdk",
   "displayName": "Reflectis-SDK",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "unity": "2020.1",
   "description": "Reflectis SDK",
   "dependencies": {
-    "com.unity.inputsystem": "1.2.0"
+    "com.unity.inputsystem": "1.6.1",
+    "com.unity.nuget.newtonsoft-json": "3.2.1",
+    "com.unity.addressables": "1.21.14"
   },
   "keywords": [
     "unity"

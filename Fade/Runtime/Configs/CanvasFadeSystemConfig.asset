@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2917e354fe0bae44a9807db07093ff77, type: 3}
+  m_Name: CanvasFadeSystemConfig
+  m_EditorClassIdentifier: 
+  _subSystems: []
+  autoInitAtStartup: 1
+  fadeManagerPrefab: {fileID: 5360559746602165678, guid: c2a15683e35e629498b4c53c9b2b3aa0,
+    type: 3}
+  fadeTime: 1
+  fadeOnStart: 0
+  layerManager: {fileID: 11400000, guid: 4ca313f8886b29947b951a0ce13628e1, type: 2}

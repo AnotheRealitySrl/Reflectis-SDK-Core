@@ -9,6 +9,8 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 
+using System.Threading.Tasks;
+
 namespace Reflectis.SDK.CharacterController
 {
     [CreateAssetMenu(menuName = "Reflectis/SDK-CharacterController/CharacterControllerBaseSystemConfig", fileName = "CharacterControllerBaseSystemConfig")]
@@ -37,6 +39,8 @@ namespace Reflectis.SDK.CharacterController
         protected Pose spawnPose;
 
         #endregion
+
+        private int interactionCount = 0;
 
         #region Properties
 
@@ -112,6 +116,33 @@ namespace Reflectis.SDK.CharacterController
         public virtual void MoveCharacter(Pose newPose)
         {
             CharacterControllerInstance.transform.SetPositionAndRotation(newPose.position, newPose.rotation);
+        }
+
+        public virtual void ActivateReactionAnimation(string reactionName) { }
+
+        public virtual void EnableCharacterMovement(bool value) { }
+
+        public virtual void EnableCharacterJump(bool value) { }
+
+        public virtual void EnableCameraRotation(bool value) { }
+
+        public virtual void EnableCameraZoom(bool value) { }
+
+        public virtual Task GoToInteractState(Transform targetTransform) => Task.CompletedTask;
+
+        public virtual Task GoToSetMovementState() => Task.CompletedTask;
+
+        public virtual int ManageCounterCharacterInteraction(bool activate)
+        {
+            if (activate)
+            {
+                interactionCount++;
+            }
+            else
+            {
+                interactionCount--;
+            }
+            return interactionCount;
         }
 
         #endregion

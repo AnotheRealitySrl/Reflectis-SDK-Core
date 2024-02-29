@@ -12,7 +12,9 @@ namespace Reflectis.SDK.CharacterController
         #region Inspector variables
 
         [SerializeField] protected Camera cam;
+        [SerializeField] protected AudioListener audioListener;
         [SerializeField] protected ICharacterController.EInteractionType interactorsType;
+        [SerializeField] private bool isInRangeToInteract = false;
 
         #endregion
 
@@ -20,6 +22,8 @@ namespace Reflectis.SDK.CharacterController
 
         public Camera Camera { get => cam; set => cam = value; }
         public ICharacterController.EInteractionType InteractorsType => interactorsType;
+        public bool IsInRangeToInteract { get => isInRangeToInteract; set => isInRangeToInteract = value; }
+        public AudioListener AudioListener => audioListener;
 
         #endregion
     }

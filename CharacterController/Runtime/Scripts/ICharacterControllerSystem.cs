@@ -1,9 +1,13 @@
+using Reflectis.SDK.Core;
+
+using System.Threading.Tasks;
+
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace Reflectis.SDK.CharacterController
 {
-    public interface ICharacterControllerSystem
+    public interface ICharacterControllerSystem : ISystem
     {
         #region Properties
 
@@ -38,13 +42,55 @@ namespace Reflectis.SDK.CharacterController
 
         #endregion
 
-        #region Utilities
+        #region Public API
 
         /// <summary>
         /// Moves the character controller to a destination position and rotation
         /// </summary>
         /// <param name="newPose">The destination pose of the character</param>
         void MoveCharacter(Pose newPose);
+
+        /// <summary>
+        /// Sets the character controller to "reaction" state and activates one of the 
+        /// reaction animations
+        /// </summary>
+        /// <param name="reactionName">Name of the reaction animation to activate</param>
+        void ActivateReactionAnimation(string reactionName);
+
+        /// <summary>
+        /// Enable or disable based on value the movement of the character
+        /// </summary>
+        /// <param name="enable"></param>
+        void EnableCharacterMovement(bool value);
+
+        /// <summary>
+        /// Enable or disable based on value the jump of the character
+        /// </summary>
+        /// <param name="value"></param>
+        void EnableCharacterJump(bool value);
+
+        /// <summary>
+        /// Enable or disable the rotation of the player camera (Desktop only)
+        /// </summary>
+        /// <param name="value"></param>
+        void EnableCameraRotation(bool value);
+
+        /// <summary>
+        /// Enable or disable the zoom of the player camera (Desktop only)
+        /// </summary>
+        /// <param name="value"></param>
+        void EnableCameraZoom(bool value);
+
+        /// <summary>
+        /// Sends the character to intract state (Desktop only)
+        /// </summary>
+        /// <param name="interactingItem"></param>
+        public Task GoToInteractState(Transform targetTransform);
+
+        /// <summary>
+        /// Sends the character to movement state (Desktop only)
+        /// </summary>
+        public Task GoToSetMovementState();
 
         #endregion
     }

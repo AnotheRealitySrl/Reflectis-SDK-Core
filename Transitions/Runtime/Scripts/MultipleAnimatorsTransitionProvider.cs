@@ -18,6 +18,7 @@ namespace Reflectis.SDK.Transitions
 
         public override async Task EnterTransitionAsync()
         {
+            onEnterTransitionStart?.Invoke();
             IEnumerable<Task> animatorsTaskList = animatorsList.Select(async animator =>
             {
                 if (animator.ContainsParam(animatorParameter))
@@ -32,10 +33,12 @@ namespace Reflectis.SDK.Transitions
             });
 
             await Task.WhenAll(animatorsTaskList);
+            OnEnterTransitionFinish?.Invoke();
         }
 
         public override async Task ExitTransitionAsync()
         {
+            OnExitTransitionStart?.Invoke();
             IEnumerable<Task> animatorsTaskList = animatorsList.Select(async animator =>
             {
                 if (animator.ContainsParam(animatorParameter))
@@ -50,6 +53,7 @@ namespace Reflectis.SDK.Transitions
             });
 
             await Task.WhenAll(animatorsTaskList);
+            onExitTransitionFinish?.Invoke();
         }
     }
 }

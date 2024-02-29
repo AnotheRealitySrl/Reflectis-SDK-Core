@@ -1,5 +1,5 @@
+using Reflectis.SDK.Core;
 using System.Threading.Tasks;
-
 using UnityEngine.Events;
 
 namespace Reflectis.SDK.Avatars
@@ -7,17 +7,20 @@ namespace Reflectis.SDK.Avatars
     /// <summary>
     /// The avatar system manages the lifecycle of the avatar instance, i.e. the avatar associated to the character controller
     /// </summary>
-    public interface IAvatarSystem
+    public interface IAvatarSystem : ISystem
     {
         #region Properties
 
         AvatarControllerBase AvatarInstance { get; }
-
+        public IAvatarConfigController AvatarInstanceConfigManager
+        {
+            get;
+        }
         #endregion
 
         #region Unity events
 
-        UnityEvent<IAvatarConfig> AvatarConfigChanged { get; }
+        UnityEvent<IAvatarConfig> OnPlayerAvatarConfigChanged { get; }
         UnityEvent<string> PlayerNickNameChanged { get; }
 
         #endregion

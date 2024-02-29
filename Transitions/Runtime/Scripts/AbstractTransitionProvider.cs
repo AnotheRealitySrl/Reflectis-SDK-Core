@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
-
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Reflectis.SDK.Transitions
 {
@@ -11,7 +11,17 @@ namespace Reflectis.SDK.Transitions
     {
         [SerializeField, Tooltip("If true, methods DoTranition and DoTransitionAsync revert their boolean parameter value")]
         private bool reverseTransitions;
+        [Tooltip("Events called before an enter transition is started")]
+        public UnityEvent onEnterTransitionStart;
+        [Tooltip("Events called after an exit transition is finished")]
+        public UnityEvent onExitTransitionFinish;
 
+        private UnityEvent onEnterTransitionFinish = new UnityEvent();
+        private UnityEvent onExitTransitionStart = new UnityEvent();
+
+        public UnityEvent OnEnterTransitionFinish { get => onEnterTransitionFinish; set => onEnterTransitionFinish = value; }
+
+        public UnityEvent OnExitTransitionStart { get => onExitTransitionStart; set => onExitTransitionStart = value; }
 
         /// <summary>
         /// Performs an enter transition. It can be awaited
@@ -29,12 +39,20 @@ namespace Reflectis.SDK.Transitions
         /// <summary>
         /// Non-awaitable version of <see cref="EnterTransitionAsync"/>
         /// </summary>
-        public virtual async void EnterTransition() => await EnterTransitionAsync();
+        public virtual async void EnterTransition()
+        {
+            await EnterTransitionAsync();
+        }
+
 
         /// <summary>
         /// Non-awaitable version of <see cref="ExitTransitionAsync"/>
         /// </summary>
-        public virtual async void ExitTransition() => await ExitTransitionAsync();
+        public virtual async void ExitTransition()
+        {
+            await ExitTransitionAsync();
+        }
+
 
 
         /// <summary>
@@ -62,6 +80,12 @@ namespace Reflectis.SDK.Transitions
         /// </summary>
         /// <param name="value">If true, it performes <see cref="EnterTransitionAsync"/>, otherwise <see cref="ExitTransitionAsync"/></param>
         public virtual async void DoTransition(bool value) => await DoTransitionAsync(value);
+
+        public virtual async Task DoEnterExitTransitionAsync()
+        {
+            await DoTransitionAsync(true);
+            await DoTransitionAsync(false);
+        }
     }
 }
 

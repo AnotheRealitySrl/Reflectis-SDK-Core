@@ -24,28 +24,45 @@ namespace Reflectis.SDK.Transitions
 
         public override async Task EnterTransitionAsync()
         {
+            int currentAnimation = animator.GetCurrentAnimatorStateInfo(0).shortNameHash;
+
             if (animator.ContainsParam(animatorParameter))
             {
                 animator.SetBool(animatorParameter, true);
             }
-
-            while (animator.IsInTransition(0) || animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1)
+            onEnterTransitionStart?.Invoke();
+            while (currentAnimation == animator.GetCurrentAnimatorStateInfo(0).shortNameHash
+                || animator.IsInTransition(0)
+                || animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1)
             {
                 await Task.Yield();
             }
+            OnEnterTransitionFinish?.Invoke();
         }
 
         public override async Task ExitTransitionAsync()
         {
+            //Check null reference on application quit log error.
+            if (animator == null) return;
+
+            int currentAnimation = animator.GetCurrentAnimatorStateInfo(0).shortNameHash;
             if (animator.ContainsParam(animatorParameter))
             {
                 animator.SetBool(animatorParameter, false);
             }
+            OnExitTransitionStart?.Invoke();
 
-            while (animator.IsInTransition(0) || animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1)
+            //Check null reference on application quit log error.
+            if (animator == null) return;
+
+            while (animator != null && currentAnimation == animator.GetCurrentAnimatorStateInfo(0).shortNameHash
+            || animator != null && animator.IsInTransition(0) || animator != null && animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1)
             {
                 await Task.Yield();
             }
+
+
+            onExitTransitionFinish?.Invoke();
         }
     }
 }

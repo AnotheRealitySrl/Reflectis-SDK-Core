@@ -1,4 +1,6 @@
+#if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
+#endif
 
 using Reflectis.SDK.Core;
 using Reflectis.SDK.CharacterController;
@@ -42,20 +44,23 @@ namespace Reflectis.SDK.Avatars
 
         public AvatarControllerBase AvatarInstance { get; private set; }
         public string LayerNameHiddenToPlayer => layerNameHiddenToPlayer;
-
+        public IAvatarConfigController AvatarInstanceConfigManager { get => avatarInstanceConfigManager; }
         #endregion
 
         #region Unity events
 
-        public UnityEvent<IAvatarConfig> AvatarConfigChanged { get; } = new();
+        public UnityEvent<IAvatarConfig> OnPlayerAvatarConfigChanged { get; } = new();
         public UnityEvent<string> PlayerNickNameChanged { get; } = new();
+
 
         #endregion
 
         #region Private variables
 
         // The config manager associated to the avatar instance
-        private IAvatarConfigManager avatarInstanceConfigManager;
+        private IAvatarConfigController avatarInstanceConfigManager;
+
+        private int avatarMeshDisablerCounter;
 
         #endregion
 
@@ -89,7 +94,7 @@ namespace Reflectis.SDK.Avatars
                 }
             }
 
-            AvatarConfigChanged.AddListener(UpdateAvatarInstanceCustomization);
+            OnPlayerAvatarConfigChanged.AddListener(UpdateAvatarInstanceCustomization);
             PlayerNickNameChanged.AddListener(UpdateAvatarInstanceNickName);
         }
 
@@ -114,8 +119,9 @@ namespace Reflectis.SDK.Avatars
             // Attaches the new avatar instance to the character controller instance
             await AvatarInstance.Setup(ccs.CharacterControllerInstance);
 
-            avatarInstanceConfigManager = AvatarInstance.GetComponent<IAvatarConfigManager>();
+            avatarInstanceConfigManager = AvatarInstance.GetComponent<IAvatarConfigController>();
 
+            //avatarInstanceConfigManager.OnAvatarIstantiated.AddListener((_)=>AvatarInstance.Setup(ccs.CharacterControllerInstance));
             if (setupAvatarInstanceAutomatically)
             {
                 await AvatarInstance.CharacterReference.Setup();
@@ -133,12 +139,30 @@ namespace Reflectis.SDK.Avatars
             avatarInstanceConfigManager = null;
         }
 
-        public void UpdateAvatarInstanceCustomization(IAvatarConfig config) => avatarInstanceConfigManager?.UpdateAvatarCustomization(config);
-        public void UpdateAvatarInstanceNickName(string newName) => avatarInstanceConfigManager?.UpdateAvatarNickName(newName);
-        public void EnableAvatarInstanceMeshes(bool enable) => avatarInstanceConfigManager?.EnableAvatarMeshes(enable);
-        public void EnableAvatarInstanceHandMeshes(bool enable) => avatarInstanceConfigManager?.EnableHandMeshes(enable);
-        public void EnableAvatarInstanceHandMesh(int id, bool enable) => avatarInstanceConfigManager?.EnableHandMesh(id, enable);
+        public void UpdateAvatarInstanceCustomization(IAvatarConfig config) => AvatarInstanceConfigManager?.UpdateAvatarCustomization(config);
+        public void UpdateAvatarInstanceNickName(string newName) => AvatarInstanceConfigManager?.UpdateAvatarNickName(newName);
+        public void EnableAvatarInstanceMeshes(bool enable)
+        {
+            if (enable)
+            {
+                avatarMeshDisablerCounter--;
+                if (avatarMeshDisablerCounter == 0)
+                {
+                    AvatarInstanceConfigManager?.EnableAvatarMeshes(true);
+                }
+            }
+            else
+            {
+                avatarMeshDisablerCounter++;
+                if (avatarMeshDisablerCounter == 1)
+                {
+                    AvatarInstanceConfigManager?.EnableAvatarMeshes(false);
+                }
+            }
 
+        }
+        public void EnableAvatarInstanceHandMeshes(bool enable) => AvatarInstanceConfigManager?.EnableHandMeshes(enable);
+        public void EnableAvatarInstanceHandMesh(int id, bool enable) => AvatarInstanceConfigManager?.EnableHandMesh(id, enable);
         #endregion
     }
 }

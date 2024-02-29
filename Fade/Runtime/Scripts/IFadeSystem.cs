@@ -1,3 +1,4 @@
+using Reflectis.SDK.Core;
 using System;
 using System.Collections.Generic;
 
@@ -9,7 +10,7 @@ namespace Reflectis.SDK.Fade
     /// The Fade System manages fade in and fade out of what camera sees.
     /// Optionally, is possible to filter out some objects from fade.
     /// </summary>
-    public interface IFadeSystem
+    public interface IFadeSystem : ISystem
     {
         /// <summary>
         /// Fades to black
