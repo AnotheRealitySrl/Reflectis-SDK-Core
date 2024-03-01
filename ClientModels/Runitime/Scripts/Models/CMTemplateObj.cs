@@ -29,6 +29,10 @@ namespace Reflectis.SDK.ClientModels
             // SceneObj: Downloaded3DModel---ColorPicker
             public Color modelColor = Color.white;
 
+            // SceneObj: Downloaded3DModel---Explodable
+            public float modelExplosionValue;
+            public int modelExplosionType;
+
             // SceneObj: Downloaded3DPickables
             public string addressableString;
 
