@@ -7,20 +7,20 @@
 - Avatars: refactored loading logic, `AvatarLoaderBase` is the base class for the implementation of any avatar loader and `AvatarLoadersController` handles the choice of the avatar loader.
 - Avatars: renamed `AvatarConfigChanged` event to `OnPlayerAvatarConfigChanged`.
 - Core: moved auto-initialization of systems to root systems instead of sub-systems.
-<!-- - Voice: add channel id to communication channels -->
+- Voice: Added Photon global channel and id to communication channels. `CommunicationChannel` constructor is changed to add the id as parameter.
 - Utilities: `ContentSearch` parameter of `ApiResponse` is not generic anymore.
 
 ### Added
 
 - New ClientModels module, providing the data model used by the business logic and an API definition for data access.
-- New TextChat module
-- New Audio module
-- New Notification module
-- New Faq module
-- New ObjectSpawner module
-- New Interaction module
-- New Platform module
-- New Help module
+- New TextChat module.
+- New Audio module, which allows to manage volume and other audio-specific features.
+- New Notification module.
+- New Faq module.
+- New ObjectSpawner module.
+- New Interaction module.
+- New Platform module to know in which platform the application is running.
+- New Help module useful to implement tutorials.
 - New ColorPicker module with base logic for changing the color of an interactable.
 - New ModelScaler module with base logic for scaling an interactable.
 - Avatars: Implemented avatar loading logic in `AvatarLoadersController`.
