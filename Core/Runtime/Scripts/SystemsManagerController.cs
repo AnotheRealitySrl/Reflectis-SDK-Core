@@ -23,6 +23,5 @@ namespace Reflectis.SDK.Core
         {
             SM.LoadAndSetup(systems);
         }
-
     }
 }

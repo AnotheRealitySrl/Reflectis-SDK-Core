@@ -1,5 +1,23 @@
 # Release notes
 
+## Unreleased
+
+### Changed
+
+- BaseSystem: Changed system to include an IsInit property that has to be set once the system has been initialized. Implemented base virtual Init.
+- Systems: Removed empty system initialization and added IsInit set on systems initialization.
+
+### Added
+
+- New IApplicationManager: Interfaces that allows visibility on application management methods (QuitApplication, ErasePlayerSessionData)
+- New NetworkUtilities: Class that contains static network utilities methods such as CheckUserInternetConnection
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
 ## v4.0.0
 
 ### Changed

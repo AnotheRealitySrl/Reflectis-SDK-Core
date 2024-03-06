@@ -14,11 +14,6 @@ namespace Reflectis.SDK.Audio
         public AudioMixerGroup MusicMixerGroup { get => musicMixerGroup; }
         public AudioMixerGroup VoiceChatMixerGroup { get => voiceChatMixerGroup; }
 
-        public override void Init()
-        {
-
-        }
-
         #region Public Methods
 
         /// <summary>
