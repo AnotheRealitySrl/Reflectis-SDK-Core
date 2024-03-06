@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -74,6 +75,7 @@ namespace Reflectis.SDK.Core
 
             while (CurrentSystems.Exists(x => x.AutoInitAtStartup && !x.IsInit))
             {
+                Debug.Log($"System {string.Join("", CurrentSystems.Where(x => x.AutoInitAtStartup && !x.IsInit).Select(x => "|" + x.ToString() + "|").ToList())} not initialized yet");
                 await Task.Yield();
             }
 
