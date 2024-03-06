@@ -7,5 +7,7 @@ namespace Reflectis.SDK.Utilities
         public void QuitApplication();
 
         public void ErasePlayerSessionData();
+
+        public void HideEverything();
     }
 }

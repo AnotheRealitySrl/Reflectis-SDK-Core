@@ -9,7 +9,7 @@
 
 ### Added
 
-- New IApplicationManager: Interfaces that allows visibility on application management methods (QuitApplication, ErasePlayerSessionData)
+- New IApplicationManager: Interfaces that allows visibility on application management methods (QuitApplication, ErasePlayerSessionData, HideEverithing)
 - New NetworkUtilities: Class that contains static network utilities methods such as CheckUserInternetConnection
 
 ### Deprecated
