@@ -115,16 +115,28 @@ namespace Reflectis.SDK.InteractionNew
 
 
         /// <summary>
-        /// The overall size of this manipulable item's mesh elements.
+        /// Returns true if this manipulable is on a submesh element. Returns false 
+        /// if this manipulable is at the root of an interactive object.
         /// </summary>
-        public Vector3 ObjectSize
+        public bool IsSubmesh
         {
             get
             {
                 // Checks if this manipulable is at the root of the interactable object.
                 // If not, this is a submesh
                 GameObject rootManipulableObj = ((BaseInteractable)this.InteractableRef).gameObject;
-                if (rootManipulableObj == this.gameObject)
+                return rootManipulableObj != this.gameObject;
+            }
+        }
+
+        /// <summary>
+        /// The overall size of this manipulable item's mesh elements.
+        /// </summary>
+        public Vector3 ObjectSize
+        {
+            get
+            {
+                if (!IsSubmesh)
                 {
                     // This manipulable is at the root of the interactive object
                     return Vector3.Scale(BoundingBox.localScale, transform.localScale);
@@ -159,10 +171,7 @@ namespace Reflectis.SDK.InteractionNew
         {
             get
             {
-                // Checks if this manipulable is at the root of the interactable object.
-                // If not, this is a submesh
-                GameObject rootManipulableObj = ((BaseInteractable)this.InteractableRef).gameObject;
-                if (rootManipulableObj == this.gameObject)
+                if (!IsSubmesh)
                 {
                     // This manipulable is at the root of the interactive object
                     return BoundingBox.position;
