@@ -3,7 +3,7 @@ using Sirenix.OdinInspector;
 
 #endif
 using System.Collections.Generic;
-
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Reflectis.SDK.Core
@@ -41,18 +41,18 @@ namespace Reflectis.SDK.Core
             set => _subSystems = value.ConvertAll(s => (BaseSystem)s);
         }
 
-        public void InitInternal(ISystem parentSystem = null)
+        public Task InitInternal(ISystem parentSystem = null)
         {
             ParentSystem = parentSystem;
-            Init();
+            return Init();
         }
 
         /// <summary>
-        /// Override with init functionalities and set isInit to true
+        /// Override with init functionalities
         /// </summary>
-        public virtual void Init()
+        public virtual Task Init()
         {
-            isInit = true;
+            return Task.CompletedTask;
         }
 
         /// <summary>

@@ -56,7 +56,7 @@ namespace Reflectis.SDK.CharacterController
 
         #region Interface implementation
 
-        public override void Init()
+        public override Task Init()
         {
             if (createCharacterControllerInstanceOnInit)
             {
@@ -83,7 +83,7 @@ namespace Reflectis.SDK.CharacterController
                     }
                 }
             }
-            base.Init();
+            return base.Init();
         }
 
         #endregion

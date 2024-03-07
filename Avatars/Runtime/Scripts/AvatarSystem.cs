@@ -66,37 +66,42 @@ namespace Reflectis.SDK.Avatars
 
         #region System implementation
 
-        public override async void Init()
+        public override async Task Init()
         {
             if (createAvatarInstanceOnInit)
             {
-                if (avatarAlreadyInScene)
+                CreateAvatar();
+            }
+            OnPlayerAvatarConfigChanged.AddListener(UpdateAvatarInstanceCustomization);
+            PlayerNickNameChanged.AddListener(UpdateAvatarInstanceNickName);
+            await base.Init();
+        }
+
+        private async void CreateAvatar()
+        {
+
+            if (avatarAlreadyInScene)
+            {
+                if (FindObjectOfType<AvatarControllerBase>() is AvatarControllerBase avatarController)
                 {
-                    if (FindObjectOfType<AvatarControllerBase>() is AvatarControllerBase avatarController)
-                    {
-                        await CreateAvatarInstance(avatarController);
-                    }
-                    else
-                    {
-                        throw new System.Exception("Avatar not found in scene");
-                    }
+                    await CreateAvatarInstance(avatarController);
                 }
                 else
                 {
-                    if (avatarPrefab)
-                    {
-                        await CreateAvatarInstance(avatarPrefab);
-                    }
-                    else
-                    {
-                        throw new System.Exception("Avatar prefab not specified");
-                    }
+                    throw new System.Exception("Avatar not found in scene");
                 }
             }
-
-            OnPlayerAvatarConfigChanged.AddListener(UpdateAvatarInstanceCustomization);
-            PlayerNickNameChanged.AddListener(UpdateAvatarInstanceNickName);
-            base.Init();
+            else
+            {
+                if (avatarPrefab)
+                {
+                    await CreateAvatarInstance(avatarPrefab);
+                }
+                else
+                {
+                    throw new System.Exception("Avatar prefab not specified");
+                }
+            }
         }
 
         #endregion
