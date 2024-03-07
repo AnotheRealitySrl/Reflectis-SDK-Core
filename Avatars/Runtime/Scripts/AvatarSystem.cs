@@ -1,6 +1,3 @@
-#if ODIN_INSPECTOR
-using Sirenix.OdinInspector;
-#endif
 
 using Reflectis.SDK.CharacterController;
 using Reflectis.SDK.Core;
@@ -23,9 +20,6 @@ namespace Reflectis.SDK.Avatars
         private bool avatarAlreadyInScene;
 
         [Header("Avatar instantiation")]
-#if ODIN_INSPECTOR
-        [HideIf(nameof(avatarAlreadyInScene))]
-#endif
         [SerializeField, Tooltip("Reference to the avatar prefab")]
         private AvatarControllerBase avatarPrefab;
         [SerializeField, Tooltip("Reference to the network avatar prefab")]
