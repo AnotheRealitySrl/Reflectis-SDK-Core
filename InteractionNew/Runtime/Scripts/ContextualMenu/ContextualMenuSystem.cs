@@ -52,6 +52,7 @@ namespace Reflectis.SDK.InteractionNew
             contextualMenuInputActionRef.action.started += OnMenuActivate;
             contextualMenuInputActionRef.action.performed += OnMenuActivate;
             contextualMenuInputActionRef.action.canceled += OnMenuActivate;
+            base.Init();
         }
 
         private void OnDestroy()

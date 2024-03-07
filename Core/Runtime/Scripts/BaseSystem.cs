@@ -23,6 +23,12 @@ namespace Reflectis.SDK.Core
         [SerializeField]
         private bool autoInitAtStartup = true;
 
+        protected bool isInit;
+
+
+
+        public bool IsInit { get => isInit; }
+
         public bool RequiresNewInstance { get; set; } = true;
 
         public bool AutoInitAtStartup { get => autoInitAtStartup; }
@@ -42,9 +48,12 @@ namespace Reflectis.SDK.Core
         }
 
         /// <summary>
-        /// Override with init functionalities.
+        /// Override with init functionalities and set isInit to true
         /// </summary>
-        public abstract void Init();
+        public virtual void Init()
+        {
+            isInit = true;
+        }
 
         /// <summary>
         /// Called when finish system lifecycle. Override if needed.

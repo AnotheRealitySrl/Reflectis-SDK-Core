@@ -34,6 +34,7 @@ namespace Reflectis.SDK.FAQ
         public override async void Init()
         {
             await DownloadFAQs();
+            base.Init();
         }
 
         private async Task DownloadFAQs()
