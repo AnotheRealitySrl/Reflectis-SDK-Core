@@ -11,6 +11,7 @@ namespace Reflectis.SDK.InteractionNew
 {
     public class BaseInteractable : MonoBehaviour, IInteractable
     {
+        [SerializeField] private bool doAutomaticSetup = true;
         [SerializeField] private List<InteractableBehaviourBase> interactableBehaviours = new();
         [SerializeField] private List<Collider> interactionColliders = new();
 
@@ -22,15 +23,43 @@ namespace Reflectis.SDK.InteractionNew
 
         public UnityEvent OnInteractableSetupComplete { get; } = new();
 
+        [HideInInspector]
+        public bool setupCompleted = false;
+
+
         private void Awake()
         {
+            if (doAutomaticSetup)
+            {
+                Setup();
+            }
+        }
+
+        public async void Setup()
+        {
+            if (interactableBehaviours.Count == 0)
+            {
+                interactableBehaviours.AddRange(GetComponentsInChildren<InteractableBehaviourBase>());
+            }
+
             if (interactionColliders.Count == 0)
             {
                 interactionColliders.AddRange(GetComponentsInChildren<Collider>());
             }
 
-            InteractableBehaviours.AddRange(interactableBehaviours);
-            interactableBehaviours.ForEach(x => x.Setup());
+            foreach (var behaviour in interactableBehaviours)
+            {
+                if (!InteractableBehaviours.Contains(behaviour))
+                {
+                    InteractableBehaviours.Add(behaviour);
+                }
+            }
+
+            foreach (var interactable in InteractableBehaviours)
+            {
+                await interactable.Setup();
+            }
+            setupCompleted = true;
         }
 
         public void OnHoverEnter()

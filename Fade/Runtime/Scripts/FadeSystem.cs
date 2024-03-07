@@ -54,6 +54,7 @@ namespace Reflectis.SDK.Fade
             }
 
             fadeManager.Init();
+            base.Init();
         }
 
         #endregion

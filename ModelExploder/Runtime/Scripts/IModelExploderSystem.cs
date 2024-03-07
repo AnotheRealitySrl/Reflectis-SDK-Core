@@ -1,8 +1,12 @@
 using Reflectis.SDK.Core;
 
+using System.Threading.Tasks;
+
 using UnityEngine;
 
 public interface IModelExploderSystem : ISystem
 {
-    void AssignModelExploder(GameObject obj);
+    Task AssignModelExploder(GameObject obj);
+
+    void AssignExplosionToModelExploder(float explosionValue, int explosionType, GameObject obj);
 }

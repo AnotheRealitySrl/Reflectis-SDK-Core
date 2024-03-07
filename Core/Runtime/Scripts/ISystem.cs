@@ -12,6 +12,8 @@ namespace Reflectis.SDK.Core
 
         bool AutoInitAtStartup { get; }
 
+        bool IsInit { get; }
+
         List<ISystem> SubSystems { get; }
     }
 

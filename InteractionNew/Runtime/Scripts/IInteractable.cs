@@ -34,7 +34,9 @@ namespace Reflectis.SDK.InteractionNew
 
         UnityEvent OnInteractableSetupComplete { get; }
 
+        void Setup();
         void OnHoverEnter();
         void OnHoverExit();
+
     }
 }

@@ -96,6 +96,7 @@ namespace Reflectis.SDK.Avatars
 
             OnPlayerAvatarConfigChanged.AddListener(UpdateAvatarInstanceCustomization);
             PlayerNickNameChanged.AddListener(UpdateAvatarInstanceNickName);
+            base.Init();
         }
 
         #endregion

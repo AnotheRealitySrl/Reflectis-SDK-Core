@@ -22,6 +22,5 @@ namespace Reflectis.SDK.InteractionNew
 
         public abstract InteractableBehaviourBase SetupInteractableBehaviour(GameObject obj);
 
-        public override void Init() { }
     }
 }

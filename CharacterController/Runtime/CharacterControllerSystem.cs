@@ -83,6 +83,7 @@ namespace Reflectis.SDK.CharacterController
                     }
                 }
             }
+            base.Init();
         }
 
         #endregion

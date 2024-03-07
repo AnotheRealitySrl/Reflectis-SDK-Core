@@ -18,7 +18,7 @@ namespace Reflectis.SDK.InteractionNew
         [SerializeField] private bool createMenuOnInit = true;
         [SerializeField] private bool dontDestroyOnLoad = false;
         [SerializeField, Tooltip("Checked if only one contextual menu can be opened at a time")]
-        private bool esclusiveContextualMenus = false;
+        protected bool esclusiveContextualMenus = false;
         [SerializeField] protected InputActionReference contextualMenuInputActionRef;
 
         [Header("Scriptable actions")]
@@ -28,7 +28,7 @@ namespace Reflectis.SDK.InteractionNew
         protected ContextualMenuController contextualMenu;
         protected ContextualMenuManageable selectedInteractable;
 
-        private Dictionary<EContextualMenuType, ContextualMenuController> customContextualMenuControllersCache = new();
+        protected Dictionary<EContextualMenuType, ContextualMenuController> customContextualMenuControllersCache = new();
 
         public ContextualMenuController ContextualMenuInstance => contextualMenu;
         public ContextualMenuManageable SelectedInteractable => selectedInteractable;
@@ -52,6 +52,7 @@ namespace Reflectis.SDK.InteractionNew
             contextualMenuInputActionRef.action.started += OnMenuActivate;
             contextualMenuInputActionRef.action.performed += OnMenuActivate;
             contextualMenuInputActionRef.action.canceled += OnMenuActivate;
+            base.Init();
         }
 
         private void OnDestroy()
