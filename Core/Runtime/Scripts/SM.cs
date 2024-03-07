@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -63,7 +62,7 @@ namespace Reflectis.SDK.Core
                     CurrentSystems.Add(systemInstance);
                     if (system.AutoInitAtStartup)
                     {
-                        _ = InitSystem(systemInstance, null);
+                        _ = await InitSystem(systemInstance, null);
                     }
                 }
                 else
@@ -73,11 +72,11 @@ namespace Reflectis.SDK.Core
                 }
             }
 
-            while (CurrentSystems.Exists(x => x.AutoInitAtStartup && !x.IsInit))
-            {
-                Debug.Log($"System {string.Join("", CurrentSystems.Where(x => x.AutoInitAtStartup && !x.IsInit).Select(x => "|" + x.ToString() + "|").ToList())} not initialized yet");
-                await Task.Yield();
-            }
+            //while (CurrentSystems.Exists(x => x.AutoInitAtStartup && !x.IsInit))
+            //{
+            //    Debug.Log($"System {string.Join("", CurrentSystems.Where(x => x.AutoInitAtStartup && !x.IsInit).Select(x => "|" + x.ToString() + "|").ToList())} not initialized yet");
+            //    await Task.Yield();
+            //}
 
             IsReady = true;
 
@@ -90,17 +89,16 @@ namespace Reflectis.SDK.Core
         /// <param name="systemToInitialize"></param>
         /// <param name="parentSystem"></param>
         /// <returns></returns>
-        private static ISystem InitSystem(ISystem systemToInitialize, ISystem parentSystem)
+        private static async Task<ISystem> InitSystem(ISystem systemToInitialize, ISystem parentSystem)
         {
-
-            systemToInitialize.InitInternal(parentSystem);
+            await systemToInitialize.InitInternal(parentSystem);
             foreach (ISystem subSystem in systemToInitialize.SubSystems)
             {
                 //if (subSystem.AutoInitAtStartup)
                 //{
                 BaseSystem systemInstance = subSystem.RequiresNewInstance ? ScriptableObject.Instantiate(subSystem as BaseSystem) : subSystem as BaseSystem;
                 CurrentSystems.Add(systemInstance);
-                _ = InitSystem(systemInstance, systemToInitialize);
+                _ = await InitSystem(systemInstance, systemToInitialize);
                 //}
             }
             return systemToInitialize;

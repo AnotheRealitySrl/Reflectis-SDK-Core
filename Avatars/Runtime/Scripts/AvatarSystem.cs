@@ -2,11 +2,9 @@
 using Sirenix.OdinInspector;
 #endif
 
-using Reflectis.SDK.Core;
 using Reflectis.SDK.CharacterController;
-
+using Reflectis.SDK.Core;
 using System.Threading.Tasks;
-
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -30,6 +28,8 @@ namespace Reflectis.SDK.Avatars
 #endif
         [SerializeField, Tooltip("Reference to the avatar prefab")]
         private AvatarControllerBase avatarPrefab;
+        [SerializeField, Tooltip("Reference to the network avatar prefab")]
+        private AvatarControllerBase networkAvatarPrefab;
 
         [Header("General settings")]
         [SerializeField, Tooltip("If true, once a new avatar instance is created, the method Setup of its SourceCharacter is called")]
@@ -45,14 +45,15 @@ namespace Reflectis.SDK.Avatars
         public AvatarControllerBase AvatarInstance { get; private set; }
         public string LayerNameHiddenToPlayer => layerNameHiddenToPlayer;
         public IAvatarConfigController AvatarInstanceConfigManager { get => avatarInstanceConfigManager; }
+
+        public AvatarControllerBase AvatarPrefab { get => avatarPrefab; }
+        public AvatarControllerBase AvatarNetworkPrefab { get => networkAvatarPrefab; }
         #endregion
 
         #region Unity events
 
         public UnityEvent<IAvatarConfig> OnPlayerAvatarConfigChanged { get; } = new();
         public UnityEvent<string> PlayerNickNameChanged { get; } = new();
-
-
         #endregion
 
         #region Private variables
@@ -66,37 +67,41 @@ namespace Reflectis.SDK.Avatars
 
         #region System implementation
 
-        public override async void Init()
+        public override async Task Init()
         {
             if (createAvatarInstanceOnInit)
             {
-                if (avatarAlreadyInScene)
+                CreateAvatarAtInit();
+            }
+            OnPlayerAvatarConfigChanged.AddListener(UpdateAvatarInstanceCustomization);
+            PlayerNickNameChanged.AddListener(UpdateAvatarInstanceNickName);
+            await base.Init();
+        }
+
+        private async void CreateAvatarAtInit()
+        {
+            if (avatarAlreadyInScene)
+            {
+                if (FindObjectOfType<AvatarControllerBase>() is AvatarControllerBase avatarController)
                 {
-                    if (FindObjectOfType<AvatarControllerBase>() is AvatarControllerBase avatarController)
-                    {
-                        await CreateAvatarInstance(avatarController);
-                    }
-                    else
-                    {
-                        throw new System.Exception("Avatar not found in scene");
-                    }
+                    await CreateAvatarInstance(avatarController);
                 }
                 else
                 {
-                    if (avatarPrefab)
-                    {
-                        await CreateAvatarInstance(avatarPrefab);
-                    }
-                    else
-                    {
-                        throw new System.Exception("Avatar prefab not specified");
-                    }
+                    throw new System.Exception("Avatar not found in scene");
                 }
             }
-
-            OnPlayerAvatarConfigChanged.AddListener(UpdateAvatarInstanceCustomization);
-            PlayerNickNameChanged.AddListener(UpdateAvatarInstanceNickName);
-            base.Init();
+            else
+            {
+                if (avatarPrefab)
+                {
+                    await CreateAvatarInstance(avatarPrefab);
+                }
+                else
+                {
+                    throw new System.Exception("Avatar prefab not specified");
+                }
+            }
         }
 
         #endregion

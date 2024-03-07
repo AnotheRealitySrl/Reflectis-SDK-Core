@@ -40,7 +40,7 @@ namespace Reflectis.SDK.InteractionNew
         public List<AwaitableScriptableAction> OnHoverExitActions => onHoverExitActions;
 
 
-        public override void Init()
+        public override Task Init()
         {
             if (createMenuOnInit)
             {
@@ -52,7 +52,7 @@ namespace Reflectis.SDK.InteractionNew
             contextualMenuInputActionRef.action.started += OnMenuActivate;
             contextualMenuInputActionRef.action.performed += OnMenuActivate;
             contextualMenuInputActionRef.action.canceled += OnMenuActivate;
-            base.Init();
+            return base.Init();
         }
 
         private void OnDestroy()

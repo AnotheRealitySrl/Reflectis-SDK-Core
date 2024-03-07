@@ -4,8 +4,8 @@
 
 ### Changed
 
-- BaseSystem: Changed system to include an IsInit property that has to be set once the system has been initialized. Implemented base virtual Init.
-- Systems: Removed empty system initialization and added IsInit set on systems initialization.
+- BaseSystem: Made system initiation awaitable
+- AvatarSystem: Added references to network avatar prefabs
 
 ### Added
 
