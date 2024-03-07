@@ -1,5 +1,7 @@
 using System.Threading.Tasks;
-
+#if !UNITY_WEBGL
+using UnityEngine;
+#endif
 namespace Reflectis.SDK.Utilities
 {
     public static class NetworkUtilities

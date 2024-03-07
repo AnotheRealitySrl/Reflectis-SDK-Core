@@ -5,6 +5,7 @@
 ### Changed
 
 - BaseSystem: Made system initiation awaitable
+- AvatarSystem: Added references to network avatar prefabs
 
 ### Added
 
