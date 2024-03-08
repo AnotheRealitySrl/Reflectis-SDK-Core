@@ -8,5 +8,5 @@ public interface IModelExploderSystem : ISystem
 {
     Task AssignModelExploder(GameObject obj);
 
-    void AssignExplosionToModelExploder(float explosionValue, int explosionType, GameObject obj);
+    void AssignSavedExplosionToModelExploder(float explosionValue, int explosionType, GameObject obj);
 }
