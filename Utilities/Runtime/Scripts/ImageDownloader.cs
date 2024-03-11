@@ -23,7 +23,11 @@ namespace Reflectis.SDK.Utilities
                 GameObject go = new GameObject("ImageDownloaderWorker");
                 worker = go.AddComponent<Worker>();
             }
-
+            if (string.IsNullOrEmpty(key))
+            {
+                Debug.LogError("Trying to download an image with an empty url!");
+                return;
+            }
             if (userIconCached.TryGetValue(key, out Texture2D texture))
             {
                 if (texture != null)
