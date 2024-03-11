@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Reflectis.SDK.Utilities.Extensions;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Reflectis.SDK.Core
 {
@@ -13,11 +14,11 @@ namespace Reflectis.SDK.Core
     {
         #region Readiness
 
-        public static Action OnAllSystemsSetupsDone;
+        public static UnityEvent OnAllSystemsSetupsDone = new UnityEvent();
 
         public static bool IsReady { get; private set; } = false;
 
-        public static void DoOnceReady(Action callback)
+        public static void DoOnceWhenReady(UnityAction callback)
         {
             if (callback == null)
             {
@@ -32,7 +33,7 @@ namespace Reflectis.SDK.Core
             }
             else
             {
-                OnAllSystemsSetupsDone += callback;
+                OnAllSystemsSetupsDone.AddListenerOnce(callback);
             }
         }
 
