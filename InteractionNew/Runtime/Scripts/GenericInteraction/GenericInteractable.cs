@@ -3,10 +3,10 @@ using Reflectis.SDK.Platform;
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
-
+using Unity.VisualScripting;
 using UnityEditor;
-
 using UnityEngine;
 
 namespace Reflectis.SDK.InteractionNew
@@ -42,13 +42,11 @@ namespace Reflectis.SDK.InteractionNew
         [SerializeField] private List<AwaitableScriptableAction> onInteractActions = new();
         [SerializeField] private List<AwaitableScriptableAction> onInteractFinishActions = new();
 
+        [SerializeField] private ScriptMachine interactionScriptMachine = null;
 
         [Header("Allowed states")]
         [SerializeField] private EAllowedGenericInteractableState desktopAllowedStates = EAllowedGenericInteractableState.Selected | EAllowedGenericInteractableState.Interacting;
         [SerializeField] private EAllowedGenericInteractableState vrAllowedStates = EAllowedGenericInteractableState.Selected | EAllowedGenericInteractableState.Interacting;
-
-        public bool VisualScriptingInteractionFinished { get; set; } = false;
-        public int VisualScriptingInteractionCount { get; set; } = 0;
 
         public Action<GameObject> OnSelectedActionVisualScripting;
 
@@ -60,6 +58,8 @@ namespace Reflectis.SDK.InteractionNew
         public List<AwaitableScriptableAction> OnDeselectedActions { get => onDeselectedActions; set => onDeselectedActions = value; }
         public List<AwaitableScriptableAction> OnInteractActions { get => onInteractActions; set => onInteractActions = value; }
         public List<AwaitableScriptableAction> OnInteractFinishActions { get => onInteractFinishActions; set => onInteractFinishActions = value; }
+
+        public ScriptMachine InteractionScriptMachine { get => interactionScriptMachine; set => interactionScriptMachine = value; }
 
         public EAllowedGenericInteractableState DesktopAllowedStates { get => desktopAllowedStates; set => desktopAllowedStates = value; }
         public EAllowedGenericInteractableState VRAllowedStates { get => vrAllowedStates; set => vrAllowedStates = value; }
@@ -81,12 +81,22 @@ namespace Reflectis.SDK.InteractionNew
             }
         }
 
+
         private bool hasHoveredState = false;
         private bool skipSelectState = false;
         private bool hasInteractState = false;
 
+        private List<HoverEnterEventUnit> hoverEnterEventUnits = new List<HoverEnterEventUnit>();
 
-        private void Awake()
+        private List<HoverExitEventUnit> hoverExitEventUnits = new List<HoverExitEventUnit>();
+
+        private List<SelectEnterEventUnit> selectEnterEventUnits = new List<SelectEnterEventUnit>();
+
+        private List<SelectExitEventUnit> selectExitEventUnits = new List<SelectExitEventUnit>();
+
+        private List<InteractEventUnit> interactEventUnits = new List<InteractEventUnit>();
+
+        protected override void Awake()
         {
             switch (SM.GetSystem<IPlatformSystem>().RuntimePlatform)
             {
@@ -101,6 +111,7 @@ namespace Reflectis.SDK.InteractionNew
                     hasHoveredState = VRAllowedStates.HasFlag(EAllowedGenericInteractableState.Hovered);
                     break;
             }
+            base.Awake();
         }
 
         private void OnDestroy()
@@ -114,22 +125,76 @@ namespace Reflectis.SDK.InteractionNew
 
         public override void Setup()
         {
+            switch (SM.GetSystem<IPlatformSystem>().RuntimePlatform)
+            {
+                case RuntimePlatform.WebGLPlayer:
+                    skipSelectState = !DesktopAllowedStates.HasFlag(EAllowedGenericInteractableState.Selected);
+                    hasInteractState = DesktopAllowedStates.HasFlag(EAllowedGenericInteractableState.Interacting);
+                    hasHoveredState = DesktopAllowedStates.HasFlag(EAllowedGenericInteractableState.Hovered);
+                    break;
+                case RuntimePlatform.Android:
+                    skipSelectState = !VRAllowedStates.HasFlag(EAllowedGenericInteractableState.Selected);
+                    hasInteractState = VRAllowedStates.HasFlag(EAllowedGenericInteractableState.Interacting);
+                    hasHoveredState = VRAllowedStates.HasFlag(EAllowedGenericInteractableState.Hovered);
+                    break;
+            }
+            if (interactionScriptMachine != null)
+            {
+                foreach (var unit in interactionScriptMachine.graph.units)
+                {
+                    if (unit is HoverEnterEventUnit hoverEnterEventUnit)
+                    {
+                        hoverEnterEventUnits.Add(hoverEnterEventUnit);
+                    }
+                    if (unit is HoverExitEventUnit hoverExitEventUnit)
+                    {
+                        hoverExitEventUnits.Add(hoverExitEventUnit);
+                    }
+                    if (unit is SelectEnterEventUnit selectEnterEventUnit)
+                    {
+                        selectEnterEventUnits.Add(selectEnterEventUnit);
+                    }
+                    if (unit is SelectExitEventUnit selectExitEventUnit)
+                    {
+                        selectExitEventUnits.Add(selectExitEventUnit);
+                    }
+                    if (unit is InteractEventUnit interactEventUnit)
+                    {
+                        interactEventUnits.Add(interactEventUnit);
+                    }
+                }
+            }
+
             SM.GetSystem<IGenericInteractionSystem>().SetupGenericInteractable(this);
         }
 
-        public override void OnHoverStateEntered()
+        public override async void OnHoverStateEntered()
         {
             if (!CanInteract || !hasHoveredState)
                 return;
+
+            IEnumerable<Task> hoverEnterUnitsTask = hoverEnterEventUnits.Select(async unit =>
+            {
+                await unit.AwaitableTrigger(interactionScriptMachine.GetReference().AsReference(), this);
+            });
+
+            await Task.WhenAll(hoverEnterUnitsTask);
 
             onHoverEnterActions.ForEach(a => a.Action(InteractableRef));
 
         }
 
-        public override void OnHoverStateExited()
+        public override async void OnHoverStateExited()
         {
             if (!CanInteract || !hasHoveredState)
                 return;
+
+            IEnumerable<Task> hoverExitUnitsTask = hoverExitEventUnits.Select(async unit =>
+            {
+                await unit.AwaitableTrigger(interactionScriptMachine.GetReference().AsReference(), this);
+            });
+
+            await Task.WhenAll(hoverExitUnitsTask);
 
             onHoverExitActions.ForEach(a => a.Action(InteractableRef));
         }
@@ -147,14 +212,13 @@ namespace Reflectis.SDK.InteractionNew
                 await action.Action(InteractableRef);
             }
 
-            OnSelectedActionVisualScripting?.Invoke(this.gameObject);
-
-            while (VisualScriptingInteractionCount > 0)
+            IEnumerable<Task> selectEnterUnitsTasks = selectEnterEventUnits.Select(async unit =>
             {
-                await Task.Yield();
-            }
+                await unit.AwaitableTrigger(interactionScriptMachine.GetReference().AsReference(), this);
+            });
 
-            Debug.Log("Visual SCripting Finished");
+            await Task.WhenAll(selectEnterUnitsTasks);
+            Debug.Log("SELECT STATE ENTERED!");
 
             CurrentInteractionState = EGenericInteractableState.Selected;
             foreach (var action in onSelectedActions)
@@ -181,6 +245,13 @@ namespace Reflectis.SDK.InteractionNew
                 await action.Action(InteractableRef);
             }
 
+            IEnumerable<Task> selectExitUnitsTasks = selectExitEventUnits.Select(async unit =>
+            {
+                await unit.AwaitableTrigger(interactionScriptMachine.GetReference().AsReference(), this);
+            });
+
+            await Task.WhenAll(selectExitUnitsTasks);
+
             CurrentInteractionState = EGenericInteractableState.Idle;
             foreach (var action in OnDeselectedActions)
             {
@@ -201,6 +272,13 @@ namespace Reflectis.SDK.InteractionNew
             {
                 await action.Action(InteractableRef);
             }
+
+            IEnumerable<Task> interactUnitsTasks = interactEventUnits.Select(async unit =>
+            {
+                await unit.AwaitableTrigger(interactionScriptMachine.GetReference().AsReference(), this);
+            });
+
+            await Task.WhenAll(interactUnitsTasks);
 
             CurrentInteractionState = EGenericInteractableState.Selected;
             foreach (var action in onInteractFinishActions)

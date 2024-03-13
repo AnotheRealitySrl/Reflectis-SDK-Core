@@ -28,7 +28,7 @@ namespace Reflectis.SDK.InteractionNew
 
         public bool LockHoverDuringInteraction => lockHoverDuringInteraction;
 
-        private void Awake()
+        protected virtual void Awake()
         {
             if (!InteractableRef.InteractableBehaviours.Contains(this))
                 InteractableRef.InteractableBehaviours.Add(this);
