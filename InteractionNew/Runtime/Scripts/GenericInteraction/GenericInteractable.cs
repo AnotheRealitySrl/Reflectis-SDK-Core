@@ -96,7 +96,7 @@ namespace Reflectis.SDK.InteractionNew
 
         private List<InteractEventUnit> interactEventUnits = new List<InteractEventUnit>();
 
-        protected override void Awake()
+        protected void Awake()
         {
             switch (SM.GetSystem<IPlatformSystem>().RuntimePlatform)
             {
@@ -111,7 +111,6 @@ namespace Reflectis.SDK.InteractionNew
                     hasHoveredState = VRAllowedStates.HasFlag(EAllowedGenericInteractableState.Hovered);
                     break;
             }
-            base.Awake();
         }
 
         private void OnDestroy()
@@ -123,21 +122,9 @@ namespace Reflectis.SDK.InteractionNew
             }
         }
 
-        public override virtual Task Setup()
+        public override Task Setup()
         {
-            switch (SM.GetSystem<IPlatformSystem>().RuntimePlatform)
-            {
-                case RuntimePlatform.WebGLPlayer:
-                    skipSelectState = !DesktopAllowedStates.HasFlag(EAllowedGenericInteractableState.Selected);
-                    hasInteractState = DesktopAllowedStates.HasFlag(EAllowedGenericInteractableState.Interacting);
-                    hasHoveredState = DesktopAllowedStates.HasFlag(EAllowedGenericInteractableState.Hovered);
-                    break;
-                case RuntimePlatform.Android:
-                    skipSelectState = !VRAllowedStates.HasFlag(EAllowedGenericInteractableState.Selected);
-                    hasInteractState = VRAllowedStates.HasFlag(EAllowedGenericInteractableState.Interacting);
-                    hasHoveredState = VRAllowedStates.HasFlag(EAllowedGenericInteractableState.Hovered);
-                    break;
-            }
+
             if (interactionScriptMachine != null)
             {
                 foreach (var unit in interactionScriptMachine.graph.units)
@@ -164,8 +151,7 @@ namespace Reflectis.SDK.InteractionNew
                     }
                 }
             }
-
-            SM.GetSystem<IGenericInteractionSystem>().SetupGenericInteractable(this);
+            return Task.CompletedTask;
         }
 
         public override async void OnHoverStateEntered()
