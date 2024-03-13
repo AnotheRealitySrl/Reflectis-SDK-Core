@@ -63,13 +63,15 @@ namespace Reflectis.SDK.Utilities.API
         [SerializeField] private int statusCode;
         [SerializeField] private string reasonPhrase;
         [SerializeField] T[] content;
+        [SerializeField] int totalCount;
 
         public bool IsSuccess { get => (statusCode >= 200) && (statusCode <= 299); }
         public long StatusCode { get => statusCode; private set => statusCode = (int)value; }
         public string ReasonPhrase { get => reasonPhrase; private set => reasonPhrase = value; }
         public T[] Content { get => content; private set => content = value; }
+        public int TotalCount { get => totalCount; private set => totalCount = value; }
 
-        public ApiResponseArray(long statusCode, string reasonPhrase, string content)
+        public ApiResponseArray(long statusCode, string reasonPhrase, string content, int totalCount = -1)
         {
             StatusCode = statusCode;
             if (!((statusCode >= 200) && (statusCode <= 299)) && !string.IsNullOrWhiteSpace(content))
@@ -77,7 +79,10 @@ namespace Reflectis.SDK.Utilities.API
                 JsonConvert.DeserializeObject<ApiResponseError>(content).DisplayError();
             }
             ReasonPhrase = reasonPhrase;
+
             Content = IsSuccess ? JsonArrayHelper.FromJson<T>(content) : null;
+
+            TotalCount = totalCount;
         }
     }
     [Serializable]

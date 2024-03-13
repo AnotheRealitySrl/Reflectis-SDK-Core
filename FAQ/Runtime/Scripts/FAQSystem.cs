@@ -31,9 +31,10 @@ namespace Reflectis.SDK.FAQ
             }
         }
 
-        public override async void Init()
+        public override async Task Init()
         {
-            await DownloadFAQs();
+            DownloadFAQs();
+            await base.Init();
         }
 
         private async Task DownloadFAQs()

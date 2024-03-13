@@ -1,12 +1,8 @@
-using Reflectis.SDK.CharacterController;
 using Reflectis.SDK.Core;
 
 using System.Collections.Generic;
-using System.Linq;
 
 using UnityEngine;
-
-using static Reflectis.SDK.InteractionNew.Manipulable;
 
 namespace Reflectis.SDK.InteractionNew
 {
@@ -24,23 +20,7 @@ namespace Reflectis.SDK.InteractionNew
         public List<AwaitableScriptableAction> OnHoverEnterActions => onHoverEnterActions;
         public List<AwaitableScriptableAction> OnHoverExitActions => onHoverExitActions;
 
-        public virtual void SetupManipulable(Manipulable manipulable)
-        {
-            manipulable.BoundingBox = manipulable.InteractableRef.GameObjectRef.GetComponentsInChildren<GenericHookComponent>()
-                .FirstOrDefault(x => x.Id == "BoundingBox")?.TransformRef;
+        public abstract InteractableBehaviourBase SetupInteractableBehaviour(GameObject obj);
 
-            if (manipulable.ManipulationMode.HasFlag(EManipulationMode.Scale))
-            {
-                SetScalingPoints(manipulable);
-            }
-        }
-
-        public abstract void SetScalingPoints(Manipulable manipulable);
-        public abstract void UpdateScalingPointsPosition(Manipulable manipulable);
-
-        public override void Init()
-        {
-
-        }
     }
 }

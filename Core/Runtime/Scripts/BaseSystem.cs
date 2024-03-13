@@ -3,7 +3,7 @@ using Sirenix.OdinInspector;
 
 #endif
 using System.Collections.Generic;
-
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Reflectis.SDK.Core
@@ -23,6 +23,12 @@ namespace Reflectis.SDK.Core
         [SerializeField]
         private bool autoInitAtStartup = true;
 
+        protected bool isInit;
+
+
+
+        public bool IsInit { get => isInit; }
+
         public bool RequiresNewInstance { get; set; } = true;
 
         public bool AutoInitAtStartup { get => autoInitAtStartup; }
@@ -35,16 +41,19 @@ namespace Reflectis.SDK.Core
             set => _subSystems = value.ConvertAll(s => (BaseSystem)s);
         }
 
-        public void InitInternal(ISystem parentSystem = null)
+        public Task InitInternal(ISystem parentSystem = null)
         {
             ParentSystem = parentSystem;
-            Init();
+            return Init();
         }
 
         /// <summary>
-        /// Override with init functionalities.
+        /// Override with init functionalities
         /// </summary>
-        public abstract void Init();
+        public virtual Task Init()
+        {
+            return Task.CompletedTask;
+        }
 
         /// <summary>
         /// Called when finish system lifecycle. Override if needed.

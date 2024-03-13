@@ -11,9 +11,8 @@ using UnityEngine.Events;
 
 namespace Reflectis.SDK.InteractionNew
 {
-    [Serializable]
-    [RequireComponent(typeof(BaseInteractable))]
-    public class ContextualMenuManageable : InteractableBehaviourBase
+    [Serializable, RequireComponent(typeof(BaseInteractable))]
+    public abstract class ContextualMenuManageable : InteractableBehaviourBase
     {
         public enum EContextualMenuInteractableState
         {
@@ -51,7 +50,7 @@ namespace Reflectis.SDK.InteractionNew
 
         public EContextualMenuType ContextualMenuType = EContextualMenuType.Default;
 
-        public override bool IsIdleState => CurrentInteractionState == EContextualMenuInteractableState.Idle;
+        public override bool IsIdleState => CurrentInteractionState == EContextualMenuInteractableState.Idle || CurrentInteractionState == EContextualMenuInteractableState.Showing;
 
         private EContextualMenuInteractableState currentInteractionState;
         private EContextualMenuInteractableState CurrentInteractionState
@@ -63,6 +62,10 @@ namespace Reflectis.SDK.InteractionNew
                 if (currentInteractionState == EContextualMenuInteractableState.Idle)
                 {
                     InteractableRef.OnHoverExit();
+                }
+                if (currentInteractionState == EContextualMenuInteractableState.Showing)
+                {
+                    InteractableRef.InteractionState = IInteractable.EInteractionState.Hovered;
                 }
             }
         }
@@ -81,11 +84,23 @@ namespace Reflectis.SDK.InteractionNew
         public UnityEvent OnEnterInteractionState = new();
         public UnityEvent OnExitInteractionState = new();
 
-        public override void Setup() => SM.GetSystem<ContextualMenuSystem>().SetupContextualMenuManageable(this);
+        public override async Task Setup()
+        {
+            if (ContextualMenuOptions.HasFlag(EContextualMenuOption.ColorPicker))
+            {
+                await SM.GetSystem<IColorPickerSystem>().AssignColorPicker(gameObject);
+            }
+
+            if (ContextualMenuOptions.HasFlag(EContextualMenuOption.Explodable))
+            {
+                await SM.GetSystem<IModelExploderSystem>().AssignModelExploder(gameObject);
+            }
+        }
 
         public override void OnHoverStateEntered()
         {
-            if (!CanInteract)
+            //if (!CanInteract)
+            if (CurrentBlockedState != 0)
                 return;
 
             SM.GetSystem<ContextualMenuSystem>()?.OnHoverEnterActions.ForEach(x => x.Action(InteractableRef));
@@ -93,7 +108,8 @@ namespace Reflectis.SDK.InteractionNew
 
         public override void OnHoverStateExited()
         {
-            if (!CanInteract)
+            //if (!CanInteract)
+            if (CurrentBlockedState != 0)
                 return;
 
             SM.GetSystem<ContextualMenuSystem>()?.OnHoverExitActions.ForEach(x => x.Action(InteractableRef));
@@ -101,7 +117,8 @@ namespace Reflectis.SDK.InteractionNew
 
         public override async Task EnterInteractionState()
         {
-            if (!CanInteract)
+            //if (!CanInteract)
+            if (CurrentBlockedState != 0)
                 return;
 
             await base.EnterInteractionState();
@@ -112,7 +129,8 @@ namespace Reflectis.SDK.InteractionNew
 
         public override async Task ExitInteractionState()
         {
-            if (!CanInteract)
+            //if (!CanInteract)
+            if (CurrentBlockedState != 0)
                 return;
 
             await base.ExitInteractionState();

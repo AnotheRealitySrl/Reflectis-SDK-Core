@@ -2,7 +2,7 @@ using Reflectis.SDK.Core;
 
 using System;
 using System.Collections.Generic;
-
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Reflectis.SDK.Fade
@@ -35,7 +35,7 @@ namespace Reflectis.SDK.Fade
 
         #region System implementation
 
-        public override void Init()
+        public override Task Init()
         {
             if (!Instantiate(fadeManagerPrefab, Camera.main.transform).TryGetComponent(out fadeManager))
             {
@@ -54,6 +54,7 @@ namespace Reflectis.SDK.Fade
             }
 
             fadeManager.Init();
+            return base.Init();
         }
 
         #endregion

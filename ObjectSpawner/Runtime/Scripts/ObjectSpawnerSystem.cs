@@ -1,12 +1,8 @@
-using Reflectis.SDK.Core;
 using Reflectis.SDK.CharacterController;
-
-using UnityEngine;
-using UnityEngine.AddressableAssets;
-using System;
-using UnityEngine.InputSystem;
+using Reflectis.SDK.Core;
 using Reflectis.SDK.CreatorKit;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace Reflectis.SDK.ObjectSpawner
 {
@@ -16,15 +12,16 @@ namespace Reflectis.SDK.ObjectSpawner
     {
         private Transform origin;
 
-        public override void Init()
+        public override Task Init()
         {
             //Get origin
             origin = SM.GetSystem<CharacterControllerSystem>().CharacterControllerInstance.HeadReference;
+            return base.Init();
         }
 
-        public GameObject CheckEntireFovAndSpawn(SpawnableData data, Transform origin = null) 
+        public GameObject CheckEntireFovAndSpawn(SpawnableData data, Transform origin = null)
         {
-            if(origin == null)
+            if (origin == null)
             {
                 origin = this.origin;
             }

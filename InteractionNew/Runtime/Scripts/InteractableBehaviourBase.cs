@@ -13,28 +13,32 @@ namespace Reflectis.SDK.InteractionNew
 
         public abstract bool IsIdleState { get; }
 
-        private bool canInteract = true;
-        public virtual bool CanInteract
+        public bool LockHoverDuringInteraction => lockHoverDuringInteraction;
+
+        //bitmask used to know if an interactable is blocked for various reasons
+        [System.Flags]
+        public enum EBlockedState
         {
-            get => canInteract && enabled;
+            BlockedByOthers = 1, //blocked by player manipolation (like when manipulating with ownership)
+            BlockedBySelection = 2, //used in events like pan/unpan and similar --> Never set by ownership
+            BlockedByGenerals = 4, //the interactions are blocked --> Set by general scripts. When in this state interaction are stopped and the interactable script is usually set to false
+        }
+
+        //set the currentBlockedState to none
+        protected EBlockedState currentBlockedState = 0; //set interaction to nothing at the beginning
+        public virtual EBlockedState CurrentBlockedState
+        {
+            get => currentBlockedState;
             set
             {
-                canInteract = value;
-                OnInteractionEnabledChange.Invoke(value);
+                currentBlockedState = value;
+                OnCurrentBlockedChanged.Invoke(value);
             }
         }
 
-        public UnityEvent<bool> OnInteractionEnabledChange { get; set; } = new();
+        public UnityEvent<EBlockedState> OnCurrentBlockedChanged { get; set; } = new();
 
-        public bool LockHoverDuringInteraction => lockHoverDuringInteraction;
-
-        protected virtual void Awake()
-        {
-            if (!InteractableRef.InteractableBehaviours.Contains(this))
-                InteractableRef.InteractableBehaviours.Add(this);
-        }
-
-        public abstract void Setup();
+        public abstract Task Setup();
 
         public abstract void OnHoverStateEntered();
         public abstract void OnHoverStateExited();

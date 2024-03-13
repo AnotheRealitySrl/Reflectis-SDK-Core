@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 namespace Reflectis.SDK.Utilities.Extensions
@@ -28,6 +29,32 @@ namespace Reflectis.SDK.Utilities.Extensions
                     sb.Append(c);
                 }
             }
+            return sb.ToString();
+        }
+
+        public static string ConcatenateStrings(this IEnumerable<string> list, char separator)
+        {
+            // Use StringBuilder for efficient string concatenation
+            StringBuilder sb = new StringBuilder();
+
+            // Iterate through each element in the list
+            foreach (string element in list)
+            {
+                // Append the current element to the StringBuilder
+                sb.Append(element);
+
+                // Append the separator character after each element
+
+                sb.Append(separator);
+
+            }
+            //remove separator from the last element
+            if (sb.Length > 0)
+            {
+                // remove last string character
+                sb.Remove(sb.Length - 1, 1);
+            }
+            // Return the resulting string
             return sb.ToString();
         }
     }
