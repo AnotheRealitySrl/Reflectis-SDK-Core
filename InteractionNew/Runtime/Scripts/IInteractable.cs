@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -34,7 +34,7 @@ namespace Reflectis.SDK.InteractionNew
 
         UnityEvent OnInteractableSetupComplete { get; }
 
-        void Setup();
+        Task Setup();
         void OnHoverEnter();
         void OnHoverExit();
 

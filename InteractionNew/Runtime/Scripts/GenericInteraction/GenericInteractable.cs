@@ -96,7 +96,16 @@ namespace Reflectis.SDK.InteractionNew
 
         private List<InteractEventUnit> interactEventUnits = new List<InteractEventUnit>();
 
-        protected void Awake()
+        private void OnDestroy()
+        {
+            if (!IsIdleState && CurrentInteractionState != EGenericInteractableState.SelectExiting)
+            {
+                onDeselectingActions.ForEach(x => x.Action());
+                onDeselectedActions.ForEach(x => x.Action());
+            }
+        }
+
+        public override Task Setup()
         {
             switch (SM.GetSystem<IPlatformSystem>().RuntimePlatform)
             {
@@ -111,19 +120,6 @@ namespace Reflectis.SDK.InteractionNew
                     hasHoveredState = VRAllowedStates.HasFlag(EAllowedGenericInteractableState.Hovered);
                     break;
             }
-        }
-
-        private void OnDestroy()
-        {
-            if (!IsIdleState && CurrentInteractionState != EGenericInteractableState.SelectExiting)
-            {
-                onDeselectingActions.ForEach(x => x.Action());
-                onDeselectedActions.ForEach(x => x.Action());
-            }
-        }
-
-        public override Task Setup()
-        {
 
             if (interactionScriptMachine != null)
             {
@@ -207,7 +203,6 @@ namespace Reflectis.SDK.InteractionNew
             });
 
             await Task.WhenAll(selectEnterUnitsTasks);
-            Debug.Log("SELECT STATE ENTERED!");
 
             CurrentInteractionState = EGenericInteractableState.Selected;
             foreach (var action in onSelectedActions)
