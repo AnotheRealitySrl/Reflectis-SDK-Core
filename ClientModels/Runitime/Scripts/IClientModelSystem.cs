@@ -27,6 +27,8 @@ namespace Reflectis.SDK.ClientModels
         /// </summary>
         Task<List<CMWorld>> GetAllWorlds();
 
+        Task<List<CMCatalog>> GetWorldCatalogs(int worldId);
+
         #endregion
 
         #region Events
