@@ -15,6 +15,7 @@ namespace Reflectis.SDK.ClientModels
         [SerializeField] private Texture imageTexture;
         [SerializeField] private string addressableKey;
         [SerializeField] private string catalog;
+        [SerializeField] private int worldId;
 
         public int ID { get => id; set => id = value; }
         public string Name { get => name; set => name = value; }
@@ -23,6 +24,7 @@ namespace Reflectis.SDK.ClientModels
         public Texture ImageTexture { get => imageTexture; set => imageTexture = value; }
         public string AddressableKey { get => addressableKey; set => addressableKey = value; }
         public string Catalog { get => catalog; set => catalog = value; }
+        public int WorldId { get => worldId; set => worldId = value; }
     }
 
     public class CMEnvironmentNameComparerer : IEqualityComparer<CMEnvironment>
