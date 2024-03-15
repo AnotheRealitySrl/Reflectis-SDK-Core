@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Unity.VisualScripting;
+using UnityEngine;
 
 public abstract class AwaitableEventNode<T> : EventUnit<T>
 {
@@ -54,10 +55,8 @@ public abstract class AwaitableEventNode<T> : EventUnit<T>
 
     private IEnumerator TriggerState(Flow flow)
     {
-        while (flow.stack != null) //check if it is still running
-        {
-            yield return null;
-        }
+        yield return new WaitUntil(() => flow.stack != null);
+
         runningFlows.Remove(flow);
     }
 }
