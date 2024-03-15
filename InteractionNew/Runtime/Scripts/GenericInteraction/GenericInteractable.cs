@@ -33,15 +33,6 @@ namespace Reflectis.SDK.InteractionNew
         }
 
 
-        [SerializeField] private List<AwaitableScriptableAction> onHoverEnterActions = new();
-        [SerializeField] private List<AwaitableScriptableAction> onHoverExitActions = new();
-        [SerializeField] private List<AwaitableScriptableAction> onSelectingActions = new();
-        [SerializeField] private List<AwaitableScriptableAction> onSelectedActions = new();
-        [SerializeField] private List<AwaitableScriptableAction> onDeselectingActions = new();
-        [SerializeField] private List<AwaitableScriptableAction> onDeselectedActions = new();
-        [SerializeField] private List<AwaitableScriptableAction> onInteractActions = new();
-        [SerializeField] private List<AwaitableScriptableAction> onInteractFinishActions = new();
-
         [SerializeField] private ScriptMachine interactionScriptMachine = null;
 
         [Header("Allowed states")]
@@ -49,15 +40,6 @@ namespace Reflectis.SDK.InteractionNew
         [SerializeField] private EAllowedGenericInteractableState vrAllowedStates = EAllowedGenericInteractableState.Selected | EAllowedGenericInteractableState.Interacting;
 
         public Action<GameObject> OnSelectedActionVisualScripting;
-
-        public List<AwaitableScriptableAction> OnHoverEnterActions { get => onHoverEnterActions; set => onHoverEnterActions = value; }
-        public List<AwaitableScriptableAction> OnHoverExitActions { get => onHoverExitActions; set => onHoverExitActions = value; }
-        public List<AwaitableScriptableAction> OnSelectingActions { get => onSelectingActions; set => onSelectingActions = value; }
-        public List<AwaitableScriptableAction> OnSelectedActions { get => onSelectedActions; set => onSelectedActions = value; }
-        public List<AwaitableScriptableAction> OnDeselectingActions { get => onDeselectingActions; set => onDeselectingActions = value; }
-        public List<AwaitableScriptableAction> OnDeselectedActions { get => onDeselectedActions; set => onDeselectedActions = value; }
-        public List<AwaitableScriptableAction> OnInteractActions { get => onInteractActions; set => onInteractActions = value; }
-        public List<AwaitableScriptableAction> OnInteractFinishActions { get => onInteractFinishActions; set => onInteractFinishActions = value; }
 
         public ScriptMachine InteractionScriptMachine { get => interactionScriptMachine; set => interactionScriptMachine = value; }
 
@@ -100,8 +82,10 @@ namespace Reflectis.SDK.InteractionNew
         {
             if (!IsIdleState && CurrentInteractionState != EGenericInteractableState.SelectExiting)
             {
-                onDeselectingActions.ForEach(x => x.Action());
-                onDeselectedActions.ForEach(x => x.Action());
+                foreach (var unit in selectExitEventUnits)
+                {
+                    unit.AwaitableTrigger(interactionScriptMachine.GetReference().AsReference(), this);
+                }
             }
         }
 
@@ -163,8 +147,6 @@ namespace Reflectis.SDK.InteractionNew
 
             await Task.WhenAll(hoverEnterUnitsTask);
 
-            onHoverEnterActions.ForEach(a => a.Action(InteractableRef));
-
         }
 
         public override async void OnHoverStateExited()
@@ -180,7 +162,6 @@ namespace Reflectis.SDK.InteractionNew
 
             await Task.WhenAll(hoverExitUnitsTask);
 
-            onHoverExitActions.ForEach(a => a.Action(InteractableRef));
         }
 
         public override async Task EnterInteractionState()
@@ -192,10 +173,7 @@ namespace Reflectis.SDK.InteractionNew
             await base.EnterInteractionState();
 
             CurrentInteractionState = EGenericInteractableState.SelectEntering;
-            foreach (var action in OnSelectingActions)
-            {
-                await action.Action(InteractableRef);
-            }
+
 
             IEnumerable<Task> selectEnterUnitsTasks = selectEnterEventUnits.Select(async unit =>
             {
@@ -205,10 +183,6 @@ namespace Reflectis.SDK.InteractionNew
             await Task.WhenAll(selectEnterUnitsTasks);
 
             CurrentInteractionState = EGenericInteractableState.Selected;
-            foreach (var action in onSelectedActions)
-            {
-                await action.Action(InteractableRef);
-            }
 
             if (skipSelectState)
             {
@@ -225,10 +199,6 @@ namespace Reflectis.SDK.InteractionNew
             await base.ExitInteractionState();
 
             CurrentInteractionState = EGenericInteractableState.SelectExiting;
-            foreach (var action in onDeselectingActions)
-            {
-                await action.Action(InteractableRef);
-            }
 
             IEnumerable<Task> selectExitUnitsTasks = selectExitEventUnits.Select(async unit =>
             {
@@ -238,10 +208,7 @@ namespace Reflectis.SDK.InteractionNew
             await Task.WhenAll(selectExitUnitsTasks);
 
             CurrentInteractionState = EGenericInteractableState.Idle;
-            foreach (var action in OnDeselectedActions)
-            {
-                await action.Action(InteractableRef);
-            }
+
         }
 
         public async Task Interact()
@@ -254,10 +221,6 @@ namespace Reflectis.SDK.InteractionNew
                 return;
 
             CurrentInteractionState = EGenericInteractableState.Interacting;
-            foreach (var action in onInteractActions)
-            {
-                await action.Action(InteractableRef);
-            }
 
             IEnumerable<Task> interactUnitsTasks = interactEventUnits.Select(async unit =>
             {
@@ -267,10 +230,6 @@ namespace Reflectis.SDK.InteractionNew
             await Task.WhenAll(interactUnitsTasks);
 
             CurrentInteractionState = EGenericInteractableState.Selected;
-            foreach (var action in onInteractFinishActions)
-            {
-                await action.Action(InteractableRef);
-            }
 
             if (skipSelectState)
             {

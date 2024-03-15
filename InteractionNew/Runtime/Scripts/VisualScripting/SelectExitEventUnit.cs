@@ -2,8 +2,10 @@ using Unity.VisualScripting;
 
 namespace Reflectis.SDK.InteractionNew
 {
-    [UnitTitle("OnInteractableSelectExit")]//Custom EventUnit to receive the event. Adding On to the unit title as an event naming convention.
-    [UnitCategory("Events\\ReflectisEvent\\GenericInteractable")]
+    [UnitTitle("GenericInteractable: SelectExit")]
+    [UnitSurtitle("Generic Interactable")]
+    [UnitShortTitle("Select Exit")]
+    [UnitCategory("Reflectis\\Events\\GenericInteractable")]
     public class SelectExitEventUnit : GenericInteractableEventUnit
     {
 

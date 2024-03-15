@@ -21,10 +21,6 @@ namespace Reflectis.SDK.InteractionNew
         protected bool esclusiveContextualMenus = false;
         [SerializeField] protected InputActionReference contextualMenuInputActionRef;
 
-        [Header("Scriptable actions")]
-        [SerializeField] private List<AwaitableScriptableAction> onHoverEnterActions = new();
-        [SerializeField] private List<AwaitableScriptableAction> onHoverExitActions = new();
-
         protected ContextualMenuController contextualMenu;
         protected ContextualMenuManageable selectedInteractable;
 
@@ -35,10 +31,6 @@ namespace Reflectis.SDK.InteractionNew
 
         public float ShowToastTime { get => showTime; private set => showTime = value; }
         public float HideToastTime { get => hideTime; private set => hideTime = value; }
-
-        public List<AwaitableScriptableAction> OnHoverEnterActions => onHoverEnterActions;
-        public List<AwaitableScriptableAction> OnHoverExitActions => onHoverExitActions;
-
 
         public override Task Init()
         {
@@ -134,21 +126,6 @@ namespace Reflectis.SDK.InteractionNew
                 await contextualMenu.Hide();
                 contextualMenu.Unsetup();
             }
-        }
-
-        public void ShowPreviewContextualMenu(ContextualMenuManageable manageable)
-        {
-            if (customContextualMenuControllersCache.TryGetValue(manageable.ContextualMenuType, out contextualMenu))
-            {
-                contextualMenu.Setup(manageable.ContextualMenuOptions);
-                contextualMenu.ShowPreview();
-            }
-        }
-
-        public void HidePreviewContextualMenu()
-        {
-            contextualMenu.HidePreview();
-            contextualMenu.Unsetup();
         }
 
         #endregion

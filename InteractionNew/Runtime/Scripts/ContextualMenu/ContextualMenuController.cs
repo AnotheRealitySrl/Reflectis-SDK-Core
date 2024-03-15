@@ -68,16 +68,6 @@ namespace Reflectis.SDK.InteractionNew
             gameObject.SetActive(false);
         }
 
-        public void ShowPreview()
-        {
-            //GetComponentInChildren<CanvasGroup>().alpha = 0.5f;
-        }
-
-        public void HidePreview()
-        {
-            //GetComponentInChildren<CanvasGroup>().alpha = 0f;
-        }
-
         public void OnContextualMenuButtonClicked(int option)
         {
             SM.GetSystem<ContextualMenuSystem>().SelectedInteractable.OnContextualMenuButtonClicked((EContextualMenuOption)option);

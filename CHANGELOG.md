@@ -18,6 +18,8 @@
 
 ### Removed
 
+- Removed awaitable scriptable actions
+
 ### Fixed
 
 ## v4.0.0

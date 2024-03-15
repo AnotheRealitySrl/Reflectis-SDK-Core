@@ -236,7 +236,7 @@ namespace Reflectis.SDK.InteractionNew
             if (CurrentBlockedState != 0)
                 return;
 
-            SM.GetSystem<IManipulationSystem>()?.OnHoverEnterActions.ForEach(x => x.Action(InteractableRef));
+            SM.GetSystem<IManipulationSystem>()?.OnManipulableHoverEnter(InteractableRef);
         }
 
         public override void OnHoverStateExited()
@@ -245,7 +245,7 @@ namespace Reflectis.SDK.InteractionNew
             if (CurrentBlockedState != 0)
                 return;
 
-            SM.GetSystem<IManipulationSystem>()?.OnHoverExitActions.ForEach(x => x.Action(InteractableRef));
+            SM.GetSystem<IManipulationSystem>()?.OnManipulableHoverExit(InteractableRef);
         }
 
         #endregion

@@ -2,8 +2,10 @@ using Unity.VisualScripting;
 
 namespace Reflectis.SDK.InteractionNew
 {
-    [UnitTitle("OnInteractableHoverEnter")]//Custom EventUnit to receive the event. Adding On to the unit title as an event naming convention.
-    [UnitCategory("Events\\ReflectisEvent\\GenericInteractable")]
+    [UnitTitle("GenericInteractable: HoverEnter")]
+    [UnitSurtitle("Generic Interactable")]
+    [UnitShortTitle("Hover Enter")]
+    [UnitCategory("Reflectis\\Events\\GenericInteractable")]
     public class HoverEnterEventUnit : GenericInteractableEventUnit
     {
 

@@ -2,8 +2,10 @@ using Unity.VisualScripting;
 
 namespace Reflectis.SDK.InteractionNew
 {
-    [UnitTitle("OnInteractableSelectEnter")]//Custom EventUnit to receive the event. Adding On to the unit title as an event naming convention.
-    [UnitCategory("Events\\ReflectisEvent\\GenericInteractable")]
+    [UnitTitle("GenericInteractable: SelectEnter")]
+    [UnitSurtitle("Generic Interactable")]
+    [UnitShortTitle("Select Enter")]
+    [UnitCategory("Reflectis\\Events\\GenericInteractable")]
     public class SelectEnterEventUnit : GenericInteractableEventUnit
     {
 
