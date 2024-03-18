@@ -24,19 +24,30 @@ namespace Reflectis.SDK.Utilities
             List<string> types = new List<string>();
 
             string[] namespaceSplit = textAsset.RemoveComments().Split("namespace");
-
-            for (int i = 1; i < namespaceSplit.Length; i++)
+            if (namespaceSplit.Length > 1)
             {
-                string textBeforeNamespaceParenthesys = namespaceSplit[i].Split('{')[0];
-                string _namespace = (Regex.Replace(textBeforeNamespaceParenthesys, @"\s+", "")) + '.';
-                string text = namespaceSplit[i].Substring(textBeforeNamespaceParenthesys.Length + 1); //all text after namespace {
-
-                List<string> textTypes = GetTextTypesWithoutNamespace(text);
-                foreach (var textType in textTypes)
+                for (int i = 1; i < namespaceSplit.Length; i++)
                 {
-                    types.Add(string.Concat(_namespace, textType));
+                    string textBeforeNamespaceParenthesys = namespaceSplit[i].Split('{')[0];
+                    string _namespace = (Regex.Replace(textBeforeNamespaceParenthesys, @"\s+", "")) + '.';
+                    string text = namespaceSplit[i].Substring(textBeforeNamespaceParenthesys.Length + 1); //all text after namespace {
+
+                    List<string> textTypes = GetTextTypesWithoutNamespace(text);
+                    foreach (var textType in textTypes)
+                    {
+                        types.Add(string.Concat(_namespace, textType));
+                    }
                 }
             }
+            else
+            {
+                List<string> textTypes = GetTextTypesWithoutNamespace(textAsset.text);
+                foreach (var textType in textTypes)
+                {
+                    types.Add(textType);
+                }
+            }
+
             return types;
         }
 
