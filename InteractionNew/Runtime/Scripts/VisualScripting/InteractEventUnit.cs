@@ -2,10 +2,10 @@ using Unity.VisualScripting;
 
 namespace Reflectis.SDK.InteractionNew
 {
-    [UnitTitle("GenericInteractable: Interact")]
+    [UnitTitle("Reflectis Generic Interactable: On Interact")]
     [UnitSurtitle("Generic Interactable")]
-    [UnitShortTitle("Interact")]
-    [UnitCategory("Reflectis\\Events\\GenericInteractable")]
+    [UnitShortTitle("On Interact")]
+    [UnitCategory("Events\\Reflectis")]
     public class InteractEventUnit : GenericInteractableEventUnit
     {
 
