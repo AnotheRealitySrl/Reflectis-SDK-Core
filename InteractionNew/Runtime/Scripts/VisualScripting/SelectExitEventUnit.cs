@@ -2,10 +2,10 @@ using Unity.VisualScripting;
 
 namespace Reflectis.SDK.InteractionNew
 {
-    [UnitTitle("GenericInteractable: SelectExit")]
+    [UnitTitle("Reflectis Generic Interactable: On Select Exit")]
     [UnitSurtitle("Generic Interactable")]
-    [UnitShortTitle("Select Exit")]
-    [UnitCategory("Reflectis\\Events\\GenericInteractable")]
+    [UnitShortTitle("On Select Exit")]
+    [UnitCategory("Events\\Reflectis")]
     public class SelectExitEventUnit : GenericInteractableEventUnit
     {
 

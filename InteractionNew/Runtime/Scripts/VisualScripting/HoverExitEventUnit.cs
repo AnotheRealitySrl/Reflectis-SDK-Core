@@ -2,10 +2,10 @@ using Unity.VisualScripting;
 
 namespace Reflectis.SDK.InteractionNew
 {
-    [UnitTitle("GenericInteractable: HoverExit")]
+    [UnitTitle("Reflectis Generic Interactable: On Hover Exit")]
     [UnitSurtitle("Generic Interactable")]
-    [UnitShortTitle("Hover Exit")]
-    [UnitCategory("Reflectis\\Events\\GenericInteractable")]
+    [UnitShortTitle("On Hover Exit")]
+    [UnitCategory("Events\\Reflectis")]
     public class HoverExitEventUnit : GenericInteractableEventUnit
     {
 

@@ -2,10 +2,10 @@ using Unity.VisualScripting;
 
 namespace Reflectis.SDK.InteractionNew
 {
-    [UnitTitle("GenericInteractable: SelectEnter")]
+    [UnitTitle("Reflectis Generic Interactable: On Select Enter")]
     [UnitSurtitle("Generic Interactable")]
-    [UnitShortTitle("Select Enter")]
-    [UnitCategory("Reflectis\\Events\\GenericInteractable")]
+    [UnitShortTitle("On Select Enter")]
+    [UnitCategory("Events\\Reflectis")]
     public class SelectEnterEventUnit : GenericInteractableEventUnit
     {
 
