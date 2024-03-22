@@ -138,6 +138,17 @@ namespace Reflectis.SDK.Utilities
             }
         }
 
+        public static IEnumerable<PropertyInfo> GetPropertiesRecurse<BaseType>(BaseType obj, BindingFlags flags) where BaseType : class
+        {
+            var type = obj.GetType();
+            while (type != typeof(BaseType))
+            {
+                foreach (var property in type.GetProperties(flags | BindingFlags.DeclaredOnly))
+                    yield return property;
+                type = type.BaseType;
+            }
+        }
+
         public static MethodInfo GetMethodRecurse<BaseType>(BaseType obj, string name, BindingFlags flags) where BaseType : class
         {
             var type = obj.GetType();
