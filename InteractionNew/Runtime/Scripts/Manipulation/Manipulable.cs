@@ -46,6 +46,8 @@ namespace Reflectis.SDK.InteractionNew
         [SerializeField] private float realignDurationTimeInSeconds = 1f;
         [SerializeField] private EBlockedState exampleInteractionForInspector;
 
+        protected EManipulationInput currentManipulationInput;
+
         #region Properties
         public override EBlockedState CurrentBlockedState
         {
@@ -218,6 +220,7 @@ namespace Reflectis.SDK.InteractionNew
         }
 
         public UnityEvent<EManipulableState> OnCurrentStateChange { get; set; } = new();
+        public EManipulationInput CurrentManipulationInput { get => currentManipulationInput; }
 
         #endregion
 
