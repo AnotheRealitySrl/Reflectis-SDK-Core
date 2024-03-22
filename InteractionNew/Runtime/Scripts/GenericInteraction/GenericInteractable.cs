@@ -35,6 +35,8 @@ namespace Reflectis.SDK.InteractionNew
 
         [SerializeField] private ScriptMachine interactionScriptMachine = null;
 
+        [SerializeField] private ScriptMachine unselectOnDestroyScriptMachine = null;
+
         [Header("Allowed states")]
         [SerializeField] private EAllowedGenericInteractableState desktopAllowedStates = EAllowedGenericInteractableState.Selected | EAllowedGenericInteractableState.Interacting;
         [SerializeField] private EAllowedGenericInteractableState vrAllowedStates = EAllowedGenericInteractableState.Selected | EAllowedGenericInteractableState.Interacting;
@@ -42,6 +44,7 @@ namespace Reflectis.SDK.InteractionNew
         public Action<GameObject> OnSelectedActionVisualScripting;
 
         public ScriptMachine InteractionScriptMachine { get => interactionScriptMachine; set => interactionScriptMachine = value; }
+        public ScriptMachine UnselectOnDestroyScriptMachine { get => unselectOnDestroyScriptMachine; set => unselectOnDestroyScriptMachine = value; }
 
         public EAllowedGenericInteractableState DesktopAllowedStates { get => desktopAllowedStates; set => desktopAllowedStates = value; }
         public EAllowedGenericInteractableState VRAllowedStates { get => vrAllowedStates; set => vrAllowedStates = value; }
@@ -78,16 +81,24 @@ namespace Reflectis.SDK.InteractionNew
 
         private List<InteractEventUnit> interactEventUnits = new List<InteractEventUnit>();
 
-        private void OnDestroy()
+        private List<UnselectOnDestroyUnit> unselectOnDestroyEventUnits = new List<UnselectOnDestroyUnit>();
+
+        private GameObject unselectOnDestroyGameobject;
+        private async void OnDestroy()
         {
             if (!IsIdleState && CurrentInteractionState != EGenericInteractableState.SelectExiting)
             {
-                foreach (var unit in selectExitEventUnits)
+                foreach (var unit in unselectOnDestroyEventUnits)
                 {
-                    unit.AwaitableTrigger(interactionScriptMachine.GetReference().AsReference(), this);
+                    await unit.AwaitableTrigger(unselectOnDestroyScriptMachine.GetReference().AsReference(), this);
                 }
             }
+            if (unselectOnDestroyGameobject != null)
+            {
+                Destroy(unselectOnDestroyGameobject);
+            }
         }
+
 
         public override Task Setup()
         {
@@ -128,6 +139,33 @@ namespace Reflectis.SDK.InteractionNew
                     if (unit is InteractEventUnit interactEventUnit)
                     {
                         interactEventUnits.Add(interactEventUnit);
+                    }
+                }
+            }
+
+            if (unselectOnDestroyScriptMachine != null)
+            {
+                if (unselectOnDestroyScriptMachine.gameObject == gameObject)
+                {
+                    Debug.LogError("Unselect on destroy script machine inserted on interactable gameObject." +
+                        " This is not allowed please insert the script machine on a different empty gameobject");
+                }
+                else
+                {
+                    bool foundUnit = false;
+                    foreach (var unit in unselectOnDestroyScriptMachine.graph.units)
+                    {
+                        if (unit is UnselectOnDestroyUnit unselectOnDestroyEventUnit)
+                        {
+                            unselectOnDestroyEventUnits.Add(unselectOnDestroyEventUnit);
+                            foundUnit = true;
+                        }
+                    }
+                    if (foundUnit)
+                    {
+                        unselectOnDestroyGameobject = unselectOnDestroyScriptMachine.gameObject;
+                        unselectOnDestroyGameobject.transform.parent = null;
+                        DontDestroyOnLoad(unselectOnDestroyGameobject);
                     }
                 }
             }
