@@ -3,10 +3,10 @@ using Reflectis.SDK.Platform;
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
-
+using Unity.VisualScripting;
 using UnityEditor;
-
 using UnityEngine;
 
 namespace Reflectis.SDK.InteractionNew
@@ -33,29 +33,15 @@ namespace Reflectis.SDK.InteractionNew
         }
 
 
-        [SerializeField] private List<AwaitableScriptableAction> onHoverEnterActions = new();
-        [SerializeField] private List<AwaitableScriptableAction> onHoverExitActions = new();
-        [SerializeField] private List<AwaitableScriptableAction> onSelectingActions = new();
-        [SerializeField] private List<AwaitableScriptableAction> onSelectedActions = new();
-        [SerializeField] private List<AwaitableScriptableAction> onDeselectingActions = new();
-        [SerializeField] private List<AwaitableScriptableAction> onDeselectedActions = new();
-        [SerializeField] private List<AwaitableScriptableAction> onInteractActions = new();
-        [SerializeField] private List<AwaitableScriptableAction> onInteractFinishActions = new();
-
+        [SerializeField] private ScriptMachine interactionScriptMachine = null;
 
         [Header("Allowed states")]
         [SerializeField] private EAllowedGenericInteractableState desktopAllowedStates = EAllowedGenericInteractableState.Selected | EAllowedGenericInteractableState.Interacting;
         [SerializeField] private EAllowedGenericInteractableState vrAllowedStates = EAllowedGenericInteractableState.Selected | EAllowedGenericInteractableState.Interacting;
 
+        public Action<GameObject> OnSelectedActionVisualScripting;
 
-        public List<AwaitableScriptableAction> OnHoverEnterActions { get => onHoverEnterActions; set => onHoverEnterActions = value; }
-        public List<AwaitableScriptableAction> OnHoverExitActions { get => onHoverExitActions; set => onHoverExitActions = value; }
-        public List<AwaitableScriptableAction> OnSelectingActions { get => onSelectingActions; set => onSelectingActions = value; }
-        public List<AwaitableScriptableAction> OnSelectedActions { get => onSelectedActions; set => onSelectedActions = value; }
-        public List<AwaitableScriptableAction> OnDeselectingActions { get => onDeselectingActions; set => onDeselectingActions = value; }
-        public List<AwaitableScriptableAction> OnDeselectedActions { get => onDeselectedActions; set => onDeselectedActions = value; }
-        public List<AwaitableScriptableAction> OnInteractActions { get => onInteractActions; set => onInteractActions = value; }
-        public List<AwaitableScriptableAction> OnInteractFinishActions { get => onInteractFinishActions; set => onInteractFinishActions = value; }
+        public ScriptMachine InteractionScriptMachine { get => interactionScriptMachine; set => interactionScriptMachine = value; }
 
         public EAllowedGenericInteractableState DesktopAllowedStates { get => desktopAllowedStates; set => desktopAllowedStates = value; }
         public EAllowedGenericInteractableState VRAllowedStates { get => vrAllowedStates; set => vrAllowedStates = value; }
@@ -77,12 +63,33 @@ namespace Reflectis.SDK.InteractionNew
             }
         }
 
+
         private bool hasHoveredState = false;
         private bool skipSelectState = false;
         private bool hasInteractState = false;
 
+        private List<HoverEnterEventUnit> hoverEnterEventUnits = new List<HoverEnterEventUnit>();
 
-        private void Awake()
+        private List<HoverExitEventUnit> hoverExitEventUnits = new List<HoverExitEventUnit>();
+
+        private List<SelectEnterEventUnit> selectEnterEventUnits = new List<SelectEnterEventUnit>();
+
+        private List<SelectExitEventUnit> selectExitEventUnits = new List<SelectExitEventUnit>();
+
+        private List<InteractEventUnit> interactEventUnits = new List<InteractEventUnit>();
+
+        private void OnDestroy()
+        {
+            if (!IsIdleState && CurrentInteractionState != EGenericInteractableState.SelectExiting)
+            {
+                foreach (var unit in selectExitEventUnits)
+                {
+                    unit.AwaitableTrigger(interactionScriptMachine.GetReference().AsReference(), this);
+                }
+            }
+        }
+
+        public override Task Setup()
         {
             switch (SM.GetSystem<IPlatformSystem>().RuntimePlatform)
             {
@@ -97,35 +104,64 @@ namespace Reflectis.SDK.InteractionNew
                     hasHoveredState = VRAllowedStates.HasFlag(EAllowedGenericInteractableState.Hovered);
                     break;
             }
-        }
 
-        private void OnDestroy()
-        {
-            if (!IsIdleState && CurrentInteractionState != EGenericInteractableState.SelectExiting)
+            if (interactionScriptMachine != null)
             {
-                onDeselectingActions.ForEach(x => x.Action());
-                onDeselectedActions.ForEach(x => x.Action());
+                foreach (var unit in interactionScriptMachine.graph.units)
+                {
+                    if (unit is HoverEnterEventUnit hoverEnterEventUnit)
+                    {
+                        hoverEnterEventUnits.Add(hoverEnterEventUnit);
+                    }
+                    if (unit is HoverExitEventUnit hoverExitEventUnit)
+                    {
+                        hoverExitEventUnits.Add(hoverExitEventUnit);
+                    }
+                    if (unit is SelectEnterEventUnit selectEnterEventUnit)
+                    {
+                        selectEnterEventUnits.Add(selectEnterEventUnit);
+                    }
+                    if (unit is SelectExitEventUnit selectExitEventUnit)
+                    {
+                        selectExitEventUnits.Add(selectExitEventUnit);
+                    }
+                    if (unit is InteractEventUnit interactEventUnit)
+                    {
+                        interactEventUnits.Add(interactEventUnit);
+                    }
+                }
             }
+            return Task.CompletedTask;
         }
 
-        public override abstract Task Setup();
-
-        public override void OnHoverStateEntered()
+        public override async void OnHoverStateEntered()
         {
             //if (!CanInteract || !hasHoveredState)
             if (CurrentBlockedState != 0 || !hasHoveredState)
                 return;
 
-            onHoverEnterActions.ForEach(a => a.Action(InteractableRef));
+            IEnumerable<Task> hoverEnterUnitsTask = hoverEnterEventUnits.Select(async unit =>
+            {
+                await unit.AwaitableTrigger(interactionScriptMachine.GetReference().AsReference(), this);
+            });
+
+            await Task.WhenAll(hoverEnterUnitsTask);
+
         }
 
-        public override void OnHoverStateExited()
+        public override async void OnHoverStateExited()
         {
             //if (!CanInteract || !hasHoveredState)
             if (CurrentBlockedState != 0 || !hasHoveredState)
                 return;
 
-            onHoverExitActions.ForEach(a => a.Action(InteractableRef));
+            IEnumerable<Task> hoverExitUnitsTask = hoverExitEventUnits.Select(async unit =>
+            {
+                await unit.AwaitableTrigger(interactionScriptMachine.GetReference().AsReference(), this);
+            });
+
+            await Task.WhenAll(hoverExitUnitsTask);
+
         }
 
         public override async Task EnterInteractionState()
@@ -137,16 +173,16 @@ namespace Reflectis.SDK.InteractionNew
             await base.EnterInteractionState();
 
             CurrentInteractionState = EGenericInteractableState.SelectEntering;
-            foreach (var action in OnSelectingActions)
+
+
+            IEnumerable<Task> selectEnterUnitsTasks = selectEnterEventUnits.Select(async unit =>
             {
-                await action.Action(InteractableRef);
-            }
+                await unit.AwaitableTrigger(interactionScriptMachine.GetReference().AsReference(), this);
+            });
+
+            await Task.WhenAll(selectEnterUnitsTasks);
 
             CurrentInteractionState = EGenericInteractableState.Selected;
-            foreach (var action in onSelectedActions)
-            {
-                await action.Action(InteractableRef);
-            }
 
             if (skipSelectState)
             {
@@ -163,16 +199,16 @@ namespace Reflectis.SDK.InteractionNew
             await base.ExitInteractionState();
 
             CurrentInteractionState = EGenericInteractableState.SelectExiting;
-            foreach (var action in onDeselectingActions)
+
+            IEnumerable<Task> selectExitUnitsTasks = selectExitEventUnits.Select(async unit =>
             {
-                await action.Action(InteractableRef);
-            }
+                await unit.AwaitableTrigger(interactionScriptMachine.GetReference().AsReference(), this);
+            });
+
+            await Task.WhenAll(selectExitUnitsTasks);
 
             CurrentInteractionState = EGenericInteractableState.Idle;
-            foreach (var action in OnDeselectedActions)
-            {
-                await action.Action(InteractableRef);
-            }
+
         }
 
         public async Task Interact()
@@ -185,16 +221,15 @@ namespace Reflectis.SDK.InteractionNew
                 return;
 
             CurrentInteractionState = EGenericInteractableState.Interacting;
-            foreach (var action in onInteractActions)
+
+            IEnumerable<Task> interactUnitsTasks = interactEventUnits.Select(async unit =>
             {
-                await action.Action(InteractableRef);
-            }
+                await unit.AwaitableTrigger(interactionScriptMachine.GetReference().AsReference(), this);
+            });
+
+            await Task.WhenAll(interactUnitsTasks);
 
             CurrentInteractionState = EGenericInteractableState.Selected;
-            foreach (var action in onInteractFinishActions)
-            {
-                await action.Action(InteractableRef);
-            }
 
             if (skipSelectState)
             {

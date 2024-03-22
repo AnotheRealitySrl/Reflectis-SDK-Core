@@ -1,7 +1,10 @@
 {
-    "name": "Reflectis.SDK.Core",
-    "rootNamespace": "Reflectis.SDK.Core",
+    "name": "Reflectis.SDK.VisualScripting",
+    "rootNamespace": "",
     "references": [
+        "GUID:ab59f74e483e1ee4595bfefea56493f2",
+        "GUID:21b0c8d1703a94250bfac916590cea4f",
+        "GUID:ea715009a4efd4c6cbc85be3ae097dd3",
         "GUID:6621723ab2f3cff4a8be0e8c1642af94"
     ],
     "includePlatforms": [],

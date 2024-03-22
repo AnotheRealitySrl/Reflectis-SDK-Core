@@ -6,13 +6,13 @@ using System.Reflection;
 
 using UnityEngine;
 
-namespace Reflectis.SDK.Utilities.Extensions
+namespace Reflectis.SDK.Utilities
 {
     ///////////////////////////////////////////////////////////////////////////
     /// <summary>
     /// Static utility functions for Reflection operations
     /// </summary>
-    public static class ReflectionExtensions
+    public static class ReflectionUtilities
     {
         public const BindingFlags BindingInstanceFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
 
@@ -125,6 +125,40 @@ namespace Reflectis.SDK.Utilities.Extensions
                 MemberTypes.Property => ((PropertyInfo)member).PropertyType,
                 _ => throw new ArgumentException("Input MemberInfo must be if type EventInfo, FieldInfo, MethodInfo, or PropertyInfo"),
             };
+        }
+
+        public static IEnumerable<FieldInfo> GetFieldsRecurse<BaseType>(BaseType obj, BindingFlags flags) where BaseType : class
+        {
+            var type = obj.GetType();
+            while (type != typeof(BaseType))
+            {
+                foreach (var field in type.GetFields(flags | BindingFlags.DeclaredOnly))
+                    yield return field;
+                type = type.BaseType;
+            }
+        }
+
+        public static IEnumerable<PropertyInfo> GetPropertiesRecurse<BaseType>(BaseType obj, BindingFlags flags) where BaseType : class
+        {
+            var type = obj.GetType();
+            while (type != typeof(BaseType))
+            {
+                foreach (var property in type.GetProperties(flags | BindingFlags.DeclaredOnly))
+                    yield return property;
+                type = type.BaseType;
+            }
+        }
+
+        public static MethodInfo GetMethodRecurse<BaseType>(BaseType obj, string name, BindingFlags flags) where BaseType : class
+        {
+            var type = obj.GetType();
+            MethodInfo result = null;
+            while (type != typeof(BaseType) && result == null)
+            {
+                result = type.GetMethod(name, flags | BindingFlags.DeclaredOnly);
+                type = type.BaseType;
+            }
+            return result;
         }
     }
 }

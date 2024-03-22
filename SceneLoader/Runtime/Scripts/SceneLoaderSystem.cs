@@ -32,14 +32,6 @@ namespace Reflectis.SDK.SceneLoader
 
         #endregion
 
-        #region System implementation
-
-        public override void Init()
-        {
-            // Nothing to do
-        }
-
-        #endregion
 
         #region Public API
 

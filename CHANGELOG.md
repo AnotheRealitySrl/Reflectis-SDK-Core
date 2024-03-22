@@ -1,5 +1,27 @@
 # Release notes
 
+## Unreleased
+
+### Changed
+
+- BaseSystem: Made system initiation awaitable
+- AvatarSystem: Added references to network avatar prefabs
+- InteractablePlaceholder: Now accepts script machines instead of scriptable actions to define custom logic
+
+### Added
+
+- New IApplicationManager: Interfaces that allows visibility on application management methods (QuitApplication, ErasePlayerSessionData, HideEverithing)
+- New NetworkUtilities: Class that contains static network utilities methods such as CheckUserInternetConnection
+- new VisualScriptingNodes: Added generic interactable event nodes and expose node
+
+### Deprecated
+
+### Removed
+
+- Removed awaitable scriptable actions
+
+### Fixed
+
 ## v4.0.0
 
 ### Changed

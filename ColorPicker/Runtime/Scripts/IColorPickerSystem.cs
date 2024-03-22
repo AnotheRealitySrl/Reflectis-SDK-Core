@@ -6,7 +6,7 @@ using UnityEngine;
 
 public interface IColorPickerSystem : ISystem
 {
-    Task AssignColorPicker(GameObject obj);
+    Task AssignColorPicker(GameObject obj, bool networkedContext = true);
 
-    void AssignColorToPicker(Color assignColor, GameObject obj);
+    void AssignSavedColorToPicker(Color assignColor, GameObject obj);
 }

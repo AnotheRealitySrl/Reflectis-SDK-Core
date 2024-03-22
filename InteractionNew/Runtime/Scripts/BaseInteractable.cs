@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-
+using System.Threading.Tasks;
 using UnityEditor;
 
 using UnityEngine;
@@ -11,7 +11,7 @@ namespace Reflectis.SDK.InteractionNew
 {
     public class BaseInteractable : MonoBehaviour, IInteractable
     {
-        [SerializeField] private bool doAutomaticSetup = true;
+        [SerializeField] private bool doAutomaticSetup = false;
         [SerializeField] private List<InteractableBehaviourBase> interactableBehaviours = new();
         [SerializeField] private List<Collider> interactionColliders = new();
 
@@ -35,7 +35,7 @@ namespace Reflectis.SDK.InteractionNew
             }
         }
 
-        public async void Setup()
+        public async Task Setup()
         {
             if (interactableBehaviours.Count == 0)
             {

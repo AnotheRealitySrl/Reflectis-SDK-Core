@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 using UnityEngine;
 using UnityEngine.Events;
-
 using static Reflectis.SDK.InteractionNew.ContextualMenuManageable;
 
 namespace Reflectis.SDK.InteractionNew
@@ -26,13 +25,12 @@ namespace Reflectis.SDK.InteractionNew
         public UnityEvent onShow;
         public UnityEvent onHide;
 
-
-        private AbstractTransitionProvider transitionProvider;
+        protected AbstractTransitionProvider transitionProvider;
 
 
         protected virtual void Awake()
         {
-            transitionProvider = GetComponent<AbstractTransitionProvider>();
+            transitionProvider = GetComponentInChildren<AbstractTransitionProvider>();
             Unsetup();
             Hide();
         }
@@ -62,21 +60,12 @@ namespace Reflectis.SDK.InteractionNew
             onShow?.Invoke();
         }
 
+
         public virtual async Task Hide()
         {
             await transitionProvider.DoTransitionAsync(false);
             onHide?.Invoke();
             gameObject.SetActive(false);
-        }
-
-        public void ShowPreview()
-        {
-            //GetComponentInChildren<CanvasGroup>().alpha = 0.5f;
-        }
-
-        public void HidePreview()
-        {
-            //GetComponentInChildren<CanvasGroup>().alpha = 0f;
         }
 
         public void OnContextualMenuButtonClicked(int option)

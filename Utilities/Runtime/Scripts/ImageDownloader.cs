@@ -10,20 +10,18 @@ namespace Reflectis.SDK.Utilities
     {
         public static Dictionary<string, Texture2D> userIconCached = new Dictionary<string, Texture2D>();
 
-        private static Worker worker;
-
         public static void DownloadImage(string mediaUrl, Action<Texture2D> onCompletionCallback, Action onFailedCallback = null, string key = null)
         {
             if (string.IsNullOrEmpty(key))
             {
                 key = mediaUrl;
             }
-            if (worker == null)
+            
+            if (string.IsNullOrEmpty(key))
             {
-                GameObject go = new GameObject("ImageDownloaderWorker");
-                worker = go.AddComponent<Worker>();
+                Debug.LogError("Trying to download an image with an empty url!");
+                return;
             }
-
             if (userIconCached.TryGetValue(key, out Texture2D texture))
             {
                 if (texture != null)
@@ -32,12 +30,12 @@ namespace Reflectis.SDK.Utilities
                 }
                 else
                 {
-                    worker.StartCoroutine(WaitForTextureDownload(mediaUrl, onCompletionCallback, onFailedCallback, key));
+                    CoroutineRunner.Instance.StartCoroutine(WaitForTextureDownload(mediaUrl, onCompletionCallback, onFailedCallback, key));
                 }
             }
             else
             {
-                worker.StartCoroutine(DownloadImageCoroutine(mediaUrl, onCompletionCallback, onFailedCallback, key));
+                CoroutineRunner.Instance.StartCoroutine(DownloadImageCoroutine(mediaUrl, onCompletionCallback, onFailedCallback, key));
             }
         }
 
