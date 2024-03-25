@@ -220,7 +220,7 @@ namespace Reflectis.SDK.InteractionNew
         }
 
         public UnityEvent<EManipulableState> OnCurrentStateChange { get; set; } = new();
-        public EManipulationInput CurrentManipulationInput { get => currentManipulationInput; }
+        public EManipulationInput CurrentManipulationInput { get => currentManipulationInput; set => currentManipulationInput = value; }
 
         #endregion
 
