@@ -111,7 +111,7 @@ namespace Reflectis.SDK.InteractionNew
             }
 
             OnContextualMenuButtonSelected[EContextualMenuOption.Delete] = AskForDelete;
-            DoDestroy = DoDestroy;
+            DoDestroy = LocalDestroy;
         }
 
         public override void OnHoverStateEntered()
@@ -153,12 +153,7 @@ namespace Reflectis.SDK.InteractionNew
             OnContextualMenuButtonSelected[option].Invoke();
         }
 
-        public void LocalDestroy()
-        {
-            Destroy(gameObject);
-        }
-
-        private void AskForDelete()
+        public void AskForDelete()
         {
             SM.GetSystem<IPopupSystem>().Instantiate(
                 // Used for asset deletion
@@ -169,6 +164,10 @@ namespace Reflectis.SDK.InteractionNew
                 popUpGravity: EPopUpGravity.Replaceable);
         }
 
+        public void LocalDestroy()
+        {
+            Destroy(gameObject);
+        }
 
 #if UNITY_EDITOR
 
