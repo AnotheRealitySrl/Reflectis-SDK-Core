@@ -161,6 +161,7 @@ namespace Reflectis.SDK.InteractionNew
                 popupParent: transform,
                 whereToDisplay: PopupLocation.Floating,
                 button1Callback: DoDestroy,
+                button2Callback: () => { },
                 popUpGravity: EPopUpGravity.Replaceable);
         }
 
