@@ -49,6 +49,7 @@ namespace Reflectis.SDK.InteractionNew
         public EAllowedGenericInteractableState DesktopAllowedStates { get => desktopAllowedStates; set => desktopAllowedStates = value; }
         public EAllowedGenericInteractableState VRAllowedStates { get => vrAllowedStates; set => vrAllowedStates = value; }
 
+        public bool SkipSelectState => skipSelectState;
 
         public override bool IsIdleState => CurrentInteractionState == EGenericInteractableState.Idle;
 
@@ -65,6 +66,7 @@ namespace Reflectis.SDK.InteractionNew
                 }
             }
         }
+
 
 
         private bool hasHoveredState = false;
@@ -207,22 +209,23 @@ namespace Reflectis.SDK.InteractionNew
             //if (!CanInteract)
             if (CurrentBlockedState != 0)
                 return;
-
-            await base.EnterInteractionState();
-
-            CurrentInteractionState = EGenericInteractableState.SelectEntering;
-
-
-            IEnumerable<Task> selectEnterUnitsTasks = selectEnterEventUnits.Select(async unit =>
+            if (!SkipSelectState)
             {
-                await unit.AwaitableTrigger(interactionScriptMachine.GetReference().AsReference(), this);
-            });
+                await base.EnterInteractionState();
 
-            await Task.WhenAll(selectEnterUnitsTasks);
+                CurrentInteractionState = EGenericInteractableState.SelectEntering;
 
-            CurrentInteractionState = EGenericInteractableState.Selected;
 
-            if (skipSelectState)
+                IEnumerable<Task> selectEnterUnitsTasks = selectEnterEventUnits.Select(async unit =>
+                {
+                    await unit.AwaitableTrigger(interactionScriptMachine.GetReference().AsReference(), this);
+                });
+
+                await Task.WhenAll(selectEnterUnitsTasks);
+
+                CurrentInteractionState = EGenericInteractableState.Selected;
+            }
+            else
             {
                 await Interact();
             }
@@ -255,7 +258,7 @@ namespace Reflectis.SDK.InteractionNew
             if (CurrentBlockedState != 0)
                 return;
 
-            if (CurrentInteractionState != EGenericInteractableState.Selected && hasInteractState)
+            if (CurrentInteractionState != EGenericInteractableState.Selected && hasInteractState && !SkipSelectState)
                 return;
 
             CurrentInteractionState = EGenericInteractableState.Interacting;
@@ -267,12 +270,8 @@ namespace Reflectis.SDK.InteractionNew
 
             await Task.WhenAll(interactUnitsTasks);
 
-            CurrentInteractionState = EGenericInteractableState.Selected;
+            CurrentInteractionState = SkipSelectState ? EGenericInteractableState.Idle : EGenericInteractableState.Selected;
 
-            if (skipSelectState)
-            {
-                await ExitInteractionState();
-            }
         }
 
 
