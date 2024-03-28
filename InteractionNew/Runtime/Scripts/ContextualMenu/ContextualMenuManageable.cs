@@ -89,6 +89,11 @@ namespace Reflectis.SDK.InteractionNew
         public UnityEvent OnExitInteractionState = new();
 
 
+        private void Awake()
+        {
+            DoDestroy ??= LocalDestroy;
+        }
+
         private async void OnDestroy()
         {
             var contextualMenuSystem = SM.GetSystem<ContextualMenuSystem>();
@@ -111,7 +116,6 @@ namespace Reflectis.SDK.InteractionNew
             }
 
             OnContextualMenuButtonSelected[EContextualMenuOption.Delete] = AskForDelete;
-            DoDestroy = LocalDestroy;
         }
 
         public override void OnHoverStateEntered()
