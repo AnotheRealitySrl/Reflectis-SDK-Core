@@ -7,12 +7,19 @@
 - BaseSystem: Made system initiation awaitable
 - AvatarSystem: Added references to network avatar prefabs
 - InteractablePlaceholder: Now accepts script machines instead of scriptable actions to define custom logic
+- `MTemplateObj`: changed model color saved data from Color to string, to allow for an empty/null color value
+- `IColorPickerSystem`: renamed method used to load saved model color state, from `AssignColorToPicker` to `AssignSavedColorToPicker'
+- `IModelExploderSystem`: renamed method used to load saved model explosion state, from `AssignExplosionToModelExploder` to `AssignSavedExplosionToModelExploder'
 
 ### Added
 
 - New IApplicationManager: Interfaces that allows visibility on application management methods (QuitApplication, ErasePlayerSessionData, HideEverithing)
 - New NetworkUtilities: Class that contains static network utilities methods such as CheckUserInternetConnection
 - new VisualScriptingNodes: Added generic interactable event nodes and expose node
+- `Manipulable`: new public property `IsSubMesh`, to check if the behavior is on an interactive object or a submesh
+- `IColorPickerSystem`: added optional boolean parameter 'networkedContext' to `AssignColorPicker`, to allow for offline/networked color changer component setup
+- `IModelExploderSystem`: added optional boolean parameter 'networkedContext' to `AssignModelExploder`, to allow for offline/networked model exploder component setup
+- `Manipulable`: new public property `RootManipulable`, which returns the Manipulable component at the root of the interactive object, whether the Manipulable reference is on the root of the interactive object or on one of its submeshes
 
 ### Deprecated
 
@@ -21,6 +28,8 @@
 - Removed awaitable scriptable actions
 
 ### Fixed
+
+- `Manipulable`: updated ObjectCenter and ObjectSize properties to be more coherent in checking if the manipulable is on a submesh or not
 
 ## v4.0.0
 
