@@ -69,6 +69,12 @@ namespace Reflectis.SDK.Avatars
         void EnableAvatarInstanceMeshes(bool enable);
 
         /// <summary>
+        /// Reset avatar mesh disabler counter
+        /// </summary>
+        /// <param name="enable"></param>
+        void ResetAvatarMeshDisabler();
+
+        /// <summary>
         /// Shows/hides a specific hand mesh (only for half-body avatars)
         /// </summary>
         /// <param name="id">The hand to update (0 for left, 1 for right)</param>
