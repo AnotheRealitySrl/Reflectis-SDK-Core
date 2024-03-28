@@ -113,6 +113,12 @@ namespace Reflectis.SDK.InteractionNew
             }
         }
 
+        /// <summary>
+        /// Returns the Manipulable component at the root of the interactive object where this 
+        /// component is placed.
+        /// This can be used to get a reference to the root Manipulable even from a 
+        /// Manipulable object placed on a model's submesh.
+        /// </summary>
         public Manipulable RootManipulable
         {
             get
