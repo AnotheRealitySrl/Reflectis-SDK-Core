@@ -113,6 +113,15 @@ namespace Reflectis.SDK.InteractionNew
             }
         }
 
+        public Manipulable RootManipulable
+        {
+            get
+            {
+                GameObject rootManipulableObj = ((BaseInteractable)this.InteractableRef).gameObject;
+                return rootManipulableObj.GetComponent<Manipulable>();
+            }
+        }
+
         /// <summary>
         /// The overall size of this manipulable item's mesh elements.
         /// </summary>
