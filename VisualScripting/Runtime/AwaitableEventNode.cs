@@ -55,8 +55,7 @@ public abstract class AwaitableEventNode<T> : EventUnit<T>
 
     private IEnumerator TriggerState(Flow flow)
     {
-        yield return new WaitUntil(() => flow.stack != null);
-
+        yield return new WaitUntil(() => { return flow.stack == null; });
         runningFlows.Remove(flow);
     }
 }

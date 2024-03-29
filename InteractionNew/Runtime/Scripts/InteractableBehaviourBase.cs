@@ -9,11 +9,11 @@ namespace Reflectis.SDK.InteractionNew
     {
         [SerializeField] private bool lockHoverDuringInteraction = true;
 
-        public IInteractable InteractableRef => GetComponentInParent<IInteractable>();
+        public IInteractable InteractableRef => GetComponentInParent<IInteractable>(true);
 
         public abstract bool IsIdleState { get; }
 
-        public bool LockHoverDuringInteraction => lockHoverDuringInteraction;
+        public bool LockHoverDuringInteraction { get => lockHoverDuringInteraction; set => lockHoverDuringInteraction = value; }
 
         //bitmask used to know if an interactable is blocked for various reasons
         [System.Flags]

@@ -1,7 +1,10 @@
+using Reflectis.SDK.CharacterController;
 using Reflectis.SDK.Core;
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 using UnityEngine;
 using UnityEngine.Events;
@@ -46,6 +49,9 @@ namespace Reflectis.SDK.InteractionNew
         [SerializeField] private float realignDurationTimeInSeconds = 1f;
         [SerializeField] private EBlockedState exampleInteractionForInspector;
 
+        protected EManipulationInput currentManipulationInput;
+        private Renderer boundingBoxRenderer;
+
         #region Properties
         public override EBlockedState CurrentBlockedState
         {
@@ -55,13 +61,10 @@ namespace Reflectis.SDK.InteractionNew
                 currentBlockedState = value;
                 exampleInteractionForInspector = value;
                 OnCurrentBlockedChanged.Invoke(currentBlockedState);
-                if (value == 0)
+
+                if (boundingBoxRenderer)
                 {
-                    BoundingBox.GetComponentInChildren<Renderer>(true).enabled = true;
-                }
-                else
-                {
-                    BoundingBox.GetComponentInChildren<Renderer>(true).enabled = false;
+                    boundingBoxRenderer.enabled = value == 0;
                 }
 
                 if (manipulationMode.HasFlag(EManipulationMode.Scale))
@@ -78,25 +81,6 @@ namespace Reflectis.SDK.InteractionNew
             }
         }
 
-        //TODO Refactor of CanInteract/Ownership/CanManipulate... This variable will later be removed
-
-        /*public override bool CanInteract
-        {
-            get => canInteract && enabled;
-            set
-            {
-                canInteract = value;
-                OnInteractionEnabledChange.Invoke(canInteract && enabled);
-
-                BoundingBox.GetComponentInChildren<Renderer>(true).enabled = value && enabled;
-
-                if (manipulationMode.HasFlag(EManipulationMode.Scale))
-                    ScalingCorners.ForEach(x => x.SetActive(value && enabled));
-
-                if (nonProportionalScale)
-                    ScalingFaces.ForEach(x => x.SetActive(value && enabled));
-            }
-        }*/
         public EManipulationMode ManipulationMode { get => manipulationMode; set => manipulationMode = value; }
         public EVRInteraction VRInteraction { get => vrInteraction; set => vrInteraction = value; }
         public bool MouseLookAtCamera { get => mouseLookAtCamera; set => mouseLookAtCamera = value; }
@@ -111,7 +95,7 @@ namespace Reflectis.SDK.InteractionNew
 
         public List<GameObject> ScalingCorners { get; } = new();
         public List<GameObject> ScalingFaces { get; } = new();
-        public Transform BoundingBox { get; set; }
+        public Collider BoundingBox { get; set; }
 
 
         /// <summary>
@@ -130,6 +114,21 @@ namespace Reflectis.SDK.InteractionNew
         }
 
         /// <summary>
+        /// Returns the Manipulable component at the root of the interactive object where this 
+        /// component is placed.
+        /// This can be used to get a reference to the root Manipulable even from a 
+        /// Manipulable object placed on a model's submesh.
+        /// </summary>
+        public Manipulable RootManipulable
+        {
+            get
+            {
+                GameObject rootManipulableObj = ((BaseInteractable)this.InteractableRef).gameObject;
+                return rootManipulableObj.GetComponent<Manipulable>();
+            }
+        }
+
+        /// <summary>
         /// The overall size of this manipulable item's mesh elements.
         /// </summary>
         public Vector3 ObjectSize
@@ -139,7 +138,7 @@ namespace Reflectis.SDK.InteractionNew
                 if (!IsSubmesh)
                 {
                     // This manipulable is at the root of the interactive object
-                    return Vector3.Scale(BoundingBox.localScale, transform.localScale);
+                    return Vector3.Scale(BoundingBox.transform.localScale, transform.localScale);
                 }
                 else
                 {
@@ -174,7 +173,7 @@ namespace Reflectis.SDK.InteractionNew
                 if (!IsSubmesh)
                 {
                     // This manipulable is at the root of the interactive object
-                    return BoundingBox.position;
+                    return BoundingBox.transform.position;
                 }
                 else
                 {
@@ -218,6 +217,7 @@ namespace Reflectis.SDK.InteractionNew
         }
 
         public UnityEvent<EManipulableState> OnCurrentStateChange { get; set; } = new();
+        public EManipulationInput CurrentManipulationInput { get => currentManipulationInput; set => currentManipulationInput = value; }
 
         #endregion
 
@@ -230,9 +230,17 @@ namespace Reflectis.SDK.InteractionNew
 
         #region Overrides
 
+        public override async Task Setup()
+        {
+            if (GetComponentsInChildren<GenericHookComponent>(true).FirstOrDefault(x => x.Id == "BoundingBoxVisual") is GenericHookComponent boundingBoxVisualHookComponent)
+                boundingBoxRenderer = boundingBoxVisualHookComponent.GetComponent<Renderer>();
+
+            Collider boundingBox = InteractableRef.InteractionColliders.FirstOrDefault(x => x.GetComponents<GenericHookComponent>().FirstOrDefault(x => x.Id == "BoundingBox"));
+            BoundingBox = boundingBox ? boundingBox : InteractableRef.InteractionColliders[0];
+        }
+
         public override void OnHoverStateEntered()
         {
-            //if (!CanInteract)
             if (CurrentBlockedState != 0)
                 return;
 
@@ -241,7 +249,6 @@ namespace Reflectis.SDK.InteractionNew
 
         public override void OnHoverStateExited()
         {
-            //if (!CanInteract)
             if (CurrentBlockedState != 0)
                 return;
 

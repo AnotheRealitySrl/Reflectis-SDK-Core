@@ -9,6 +9,8 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 
+using static IPopupSystem;
+
 namespace Reflectis.SDK.InteractionNew
 {
     [Serializable, RequireComponent(typeof(BaseInteractable))]
@@ -70,19 +72,36 @@ namespace Reflectis.SDK.InteractionNew
             }
         }
 
-        public Dictionary<EContextualMenuOption, UnityEvent> OnContextualMenuButtonSelected { get; } = new()
+        public Dictionary<EContextualMenuOption, UnityAction> OnContextualMenuButtonSelected { get; } = new()
         {
-            { EContextualMenuOption.LockTransform, new UnityEvent() },
-            { EContextualMenuOption.ResetTransform, new UnityEvent() },
-            { EContextualMenuOption.Duplicate, new UnityEvent() },
-            { EContextualMenuOption.Delete, new UnityEvent() },
-            { EContextualMenuOption.ColorPicker, new UnityEvent() },
-            { EContextualMenuOption.Explodable, new UnityEvent() },
-            { EContextualMenuOption.NonProportionalScale, new UnityEvent() },
+            { EContextualMenuOption.LockTransform, null },
+            { EContextualMenuOption.ResetTransform, null },
+            { EContextualMenuOption.Duplicate, null },
+            { EContextualMenuOption.Delete, null },
+            { EContextualMenuOption.ColorPicker, null },
+            { EContextualMenuOption.Explodable, null },
+            { EContextualMenuOption.NonProportionalScale, null },
         };
+
+        public UnityAction DoDestroy { get; set; }
 
         public UnityEvent OnEnterInteractionState = new();
         public UnityEvent OnExitInteractionState = new();
+
+
+        private void Awake()
+        {
+            DoDestroy ??= LocalDestroy;
+        }
+
+        private async void OnDestroy()
+        {
+            var contextualMenuSystem = SM.GetSystem<ContextualMenuSystem>();
+            if (contextualMenuSystem?.SelectedInteractable == this)
+            {
+                await contextualMenuSystem.HideContextualMenu();
+            }
+        }
 
         public override async Task Setup()
         {
@@ -95,25 +114,24 @@ namespace Reflectis.SDK.InteractionNew
             {
                 await SM.GetSystem<IModelExploderSystem>().AssignModelExploder(gameObject);
             }
+
+            OnContextualMenuButtonSelected[EContextualMenuOption.Delete] = AskForDelete;
         }
 
         public override void OnHoverStateEntered()
         {
-            //if (!CanInteract)
             if (CurrentBlockedState != 0)
                 return;
         }
 
         public override void OnHoverStateExited()
         {
-            //if (!CanInteract)
             if (CurrentBlockedState != 0)
                 return;
         }
 
         public override async Task EnterInteractionState()
         {
-            //if (!CanInteract)
             if (CurrentBlockedState != 0)
                 return;
 
@@ -125,7 +143,6 @@ namespace Reflectis.SDK.InteractionNew
 
         public override async Task ExitInteractionState()
         {
-            //if (!CanInteract)
             if (CurrentBlockedState != 0)
                 return;
 
@@ -140,14 +157,21 @@ namespace Reflectis.SDK.InteractionNew
             OnContextualMenuButtonSelected[option].Invoke();
         }
 
-
-        private async void OnDestroy()
+        public void AskForDelete()
         {
-            var contextualMenuSystem = SM.GetSystem<ContextualMenuSystem>();
-            if (contextualMenuSystem?.SelectedInteractable == this)
-            {
-                await contextualMenuSystem.HideContextualMenu();
-            }
+            SM.GetSystem<IPopupSystem>().Instantiate(
+                // Used for asset deletion
+                13,
+                popupParent: transform,
+                whereToDisplay: PopupLocation.Floating,
+                button1Callback: DoDestroy,
+                button2Callback: () => { },
+                popUpGravity: EPopUpGravity.Replaceable);
+        }
+
+        public void LocalDestroy()
+        {
+            Destroy(gameObject);
         }
 
 #if UNITY_EDITOR
