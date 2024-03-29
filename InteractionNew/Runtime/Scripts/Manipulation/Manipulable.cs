@@ -222,6 +222,11 @@ namespace Reflectis.SDK.InteractionNew
 
         #endregion
 
+        #region UnityEvents Callbacks
+        [HideInInspector] public UnityEvent OnGrabManipulableStart = default;
+        [HideInInspector] public UnityEvent OnGrabManipulableEnd = default;
+        #endregion
+
         #region Overrides
 
         public override async Task Setup()
