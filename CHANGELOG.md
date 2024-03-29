@@ -1,35 +1,45 @@
 # Release notes
 
-## Unreleased
+## v5.0.0
 
 ### Changed
 
-- BaseSystem: Made system initiation awaitable
-- AvatarSystem: Added references to network avatar prefabs
-- InteractablePlaceholder: Now accepts script machines instead of scriptable actions to define custom logic
-- `MTemplateObj`: changed model color saved data from Color to string, to allow for an empty/null color value
-- `IColorPickerSystem`: renamed method used to load saved model color state, from `AssignColorToPicker` to `AssignSavedColorToPicker'
-- `IModelExploderSystem`: renamed method used to load saved model explosion state, from `AssignExplosionToModelExploder` to `AssignSavedExplosionToModelExploder'
+- AvatarSystem: Added references to network avatar prefabs.
+- ClientModels: changed saved color in `CMTemplateObj` from Color to string, to allow for an empty/null color value.
+- ColorPicker: renamed method used to load saved model color state, from `AssignColorToPicker` to `AssignSavedColorToPicker`.
+- Core: systems initialization is now awaitable.
+- Interaction: `GenericInteractable` now accepts script machines instead of scriptable actions to define custom logic.
+- Interaction: `ContextualMenuManageable`'s dictionary with button ids as keys now has `UnityAction`s as values instead of `UnityEvent`s.
+- ModelExploder: renamed method used to load saved model explosion state, from `AssignExplosionToModelExploder` to `AssignSavedExplosionToModelExploder`.
+- Utilities: renamed `ReflectionExtensions` to `ReflectionUtilities`.
 
 ### Added
 
-- New IApplicationManager: Interfaces that allows visibility on application management methods (QuitApplication, ErasePlayerSessionData, HideEverithing)
-- New NetworkUtilities: Class that contains static network utilities methods such as CheckUserInternetConnection
-- new VisualScriptingNodes: Added generic interactable event nodes and expose node
-- `Manipulable`: new public property `IsSubMesh`, to check if the behavior is on an interactive object or a submesh
-- `IColorPickerSystem`: added optional boolean parameter 'networkedContext' to `AssignColorPicker`, to allow for offline/networked color changer component setup
-- `IModelExploderSystem`: added optional boolean parameter 'networkedContext' to `AssignModelExploder`, to allow for offline/networked model exploder component setup
-- `Manipulable`: new public property `RootManipulable`, which returns the Manipulable component at the root of the interactive object, whether the Manipulable reference is on the root of the interactive object or on one of its submeshes
-
-### Deprecated
+- Added new Popup module with `IPopupSystem` interface.
+- ClientModels: added `Catalog` property to `CMEnvironment`.
+- ClientModels: added `Email` property to `CMUser`.
+- ClientModels: added `WorldId` property to `CMEvent`.
+- ClientModels: added `CMCatalog` entity and `GetWorldCatalogs(int worldId)` in `IClientModelSystem`.
+- ColorPicker: added optional boolean parameter `networkedContext` to `AssignColorPicker`, to allow for offline/networked color changer component setup.
+- Interaction: added new visual scripting nodes - generic interactable event nodes and expose node.
+- Interaction: implement logic of object destroying on `ContextualMenuManageable`.
+- Interaction: added new public property `IsSubMesh` in `Manipulable`, to check if the `Manipulable` is applied to a submesh.
+- Interaction: added new public property `RootManipulable` in `Manipulable`, which returns the component at the root of the interactable object, whether the `Manipulable` reference is on the root of the interactable object or on one of its submeshes.
+- ModelExploder: added optional boolean parameter `networkedContext` to `AssignModelExploder`, to allow for offline/networked model exploder component setup.
+- Utilities: added new `IApplicationManager` interface that defines application management methods (`QuitApplication`, `ErasePlayerSessionData`, `HideEverithing`).
+- Utilities: added new `NetworkUtilities` which contains static utilitiy methods such as `CheckUserInternetConnection`.
+- Utilities: added `GetFieldsRecurse`, `GetPropertiesRecurse` and `GetMethodRecurse` in `ReflectionUtilities`.
 
 ### Removed
 
-- Removed awaitable scriptable actions
+- ClientModels: removed `CMEnvironmentNameComparer` in `CMEnvironment`.
+- Interaction: removed awaitable scriptable actions.
+- Interaction: removed legacy `IDesktopInteractionSystem` interface.
 
 ### Fixed
 
-- `Manipulable`: updated ObjectCenter and ObjectSize properties to be more coherent in checking if the manipulable is on a submesh or not
+- Interaction: fixed `Manipulable`'s `BoundingBox` initialization.
+- Interaction: updated `ObjectCenter` and `ObjectSize` properties of `Manipulable` to be more coherent in checking if the `Manipulable` is on a submesh or not.
 
 ## v4.0.0
 
@@ -53,7 +63,7 @@
 - New Platform module to know in which platform the application is running.
 - New Help module useful to implement tutorials.
 - New ColorPicker module with base logic for changing the color of an interactable.
-- New ModelScaler module with base logic for scaling an interactable.
+- New ModelExploder module with base logic for exploding a 3D asset.
 - Avatars: Implemented avatar loading logic in `AvatarLoadersController`.
 - Avatars: added `IAvatarConfigController` reference associated with the avatar instance in `IAvatarSystem`.
 - Avatars: added `AvatarId` and `AvatarPNG` properties in `IAvatarConfig`.
