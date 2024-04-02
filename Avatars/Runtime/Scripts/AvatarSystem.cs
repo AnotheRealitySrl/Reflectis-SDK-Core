@@ -161,6 +161,19 @@ namespace Reflectis.SDK.Avatars
                 }
             }
         }
+
+        public void EnableAvatarInstanceTag(bool enable)
+        {
+
+            if (enable)
+            {
+                AvatarInstanceConfigManager?.EnableAvatarTag(true);
+            }
+            else
+            {
+                AvatarInstanceConfigManager?.EnableAvatarTag(false);
+            }
+        }
         public void ResetAvatarMeshDisabler()
         {
             avatarMeshDisablerCounter = 0;

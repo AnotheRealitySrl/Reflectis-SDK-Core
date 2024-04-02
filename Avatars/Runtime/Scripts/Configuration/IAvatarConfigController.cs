@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Reflectis.SDK.Avatars
 {
@@ -21,7 +20,7 @@ namespace Reflectis.SDK.Avatars
         /// <summary>
         /// Current avatar configuration
         /// </summary>
-        public IAvatarConfig AvatarConfig { get;  }
+        public IAvatarConfig AvatarConfig { get; }
 
         /// <summary>
         /// Event called before istantiating the avatar
@@ -51,6 +50,12 @@ namespace Reflectis.SDK.Avatars
         /// </summary>
         /// <param name="enable"></param>
         void EnableAvatarMeshes(bool enable);
+
+        /// <summary>
+        /// Shows/hides avatar tag
+        /// </summary>
+        /// <param name="enable"></param>
+        void EnableAvatarTag(bool enable);
 
         /// <summary>
         /// Shows/hides avatar's hands (only for half-body avatars)
