@@ -89,9 +89,11 @@ namespace Reflectis.SDK.Avatars
             {
                 foreach (Renderer rend in FullBodyAvatarReference?.GetComponentsInChildren<Renderer>())
                 {
-                    rend.enabled = enable;
+                    //rend.enabled = enable;
+                    rend.gameObject.layer = enable ? LayerMask.NameToLayer("AvatarWelcomeRoom") : LayerMask.NameToLayer("HiddenToPlayer");
                 }
             }
+
             base.EnableAvatarMeshes(enable);
 
         }
