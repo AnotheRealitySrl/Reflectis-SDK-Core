@@ -1,6 +1,6 @@
 {
-    "name": "Reflectis.SDK.SceneHierarchy",
-    "rootNamespace": "Reflectis.SDK.SceneHierarchy",
+    "name": "Reflectis.SDK.SceneObjects",
+    "rootNamespace": "Reflectis.SDK.SceneObjects",
     "references": [
         "GUID:ab59f74e483e1ee4595bfefea56493f2"
     ],

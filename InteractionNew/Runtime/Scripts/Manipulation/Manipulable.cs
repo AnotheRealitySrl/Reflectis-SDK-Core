@@ -235,8 +235,9 @@ namespace Reflectis.SDK.InteractionNew
             if (GetComponentsInChildren<GenericHookComponent>(true).FirstOrDefault(x => x.Id == "BoundingBoxVisual") is GenericHookComponent boundingBoxVisualHookComponent)
                 boundingBoxRenderer = boundingBoxVisualHookComponent.GetComponent<Renderer>();
 
-            Collider boundingBox = InteractableRef.InteractionColliders.FirstOrDefault(x => x.GetComponents<GenericHookComponent>().FirstOrDefault(x => x.Id == "BoundingBox"));
-            BoundingBox = boundingBox ? boundingBox : InteractableRef.InteractionColliders[0];
+            BoundingBox = InteractableRef.InteractionColliders.FirstOrDefault(x => x.GetComponents<GenericHookComponent>().FirstOrDefault(x => x.Id == "BoundingBox"));
+
+
         }
 
         public override void OnHoverStateEntered()

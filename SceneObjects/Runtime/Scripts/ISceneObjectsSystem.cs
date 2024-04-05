@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Reflectis.SDK.SceneHierarchy
 {
-    public interface ISceneHierarchySystem : ISystem
+    public interface ISceneObjectsSystem : ISystem
     {
         public void EnableOtherAvatars(bool enable, List<GameObject> except = null);
 
