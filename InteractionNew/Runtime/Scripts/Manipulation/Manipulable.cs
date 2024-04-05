@@ -225,6 +225,8 @@ namespace Reflectis.SDK.InteractionNew
         #region UnityEvents Callbacks
         [HideInInspector] public UnityEvent OnGrabManipulableStart = default;
         [HideInInspector] public UnityEvent OnGrabManipulableEnd = default;
+        [HideInInspector] public UnityEvent OnRayGrabManipulableStart = default;
+        [HideInInspector] public UnityEvent OnRayGrabManipulableEnd = default;
         #endregion
 
         #region Overrides
@@ -236,6 +238,13 @@ namespace Reflectis.SDK.InteractionNew
 
             Collider boundingBox = InteractableRef.InteractionColliders.FirstOrDefault(x => x.GetComponents<GenericHookComponent>().FirstOrDefault(x => x.Id == "BoundingBox"));
             BoundingBox = boundingBox ? boundingBox : InteractableRef.InteractionColliders[0];
+
+            //event callbacks
+            OnGrabManipulableStart = new UnityEvent();
+            OnGrabManipulableEnd = new UnityEvent();
+            OnRayGrabManipulableStart = new UnityEvent();
+            OnRayGrabManipulableEnd = new UnityEvent();
+
         }
 
         public override void OnHoverStateEntered()
