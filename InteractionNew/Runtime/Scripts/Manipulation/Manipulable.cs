@@ -236,7 +236,28 @@ namespace Reflectis.SDK.InteractionNew
                 boundingBoxRenderer = boundingBoxVisualHookComponent.GetComponent<Renderer>();
 
             BoundingBox = InteractableRef.InteractionColliders.FirstOrDefault(x => x.GetComponents<GenericHookComponent>().FirstOrDefault(x => x.Id == "BoundingBox"));
+            if (BoundingBox == null)
+            {
+                GameObject boundingBoxGO = new GameObject("BoundingBox");
+                BoxCollider collider = boundingBoxGO.AddComponent<BoxCollider>();
+                collider.enabled = false;
+                boundingBoxGO.transform.parent = transform;
+                var renderers = GetComponentsInChildren<Renderer>();
+                var bounds = renderers.First().bounds;
+                foreach (var renderer in renderers.Skip(1))
+                {
+                    bounds.Encapsulate(renderer.bounds);
+                }
 
+
+                Debug.Log($"bounds: {bounds.center}, {bounds.size}");
+                // offset so that the bounding box is centered in zero and apply scale
+                boundingBoxGO.transform.localPosition = Vector3.zero;
+                boundingBoxGO.transform.localScale = bounds.size;
+                BoundingBox = collider;
+                //BoundingBox = InteractableRef.InteractionColliders[0];
+
+            }
 
         }
 
