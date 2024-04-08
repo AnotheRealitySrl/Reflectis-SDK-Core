@@ -241,6 +241,7 @@ namespace Reflectis.SDK.Fade
                 }
             }
 
+            material.SetFloat(opacityParameter, endWeight);
             yield return null;
             onEnd?.Invoke();
             yield return null;

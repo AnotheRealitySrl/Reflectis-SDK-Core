@@ -28,6 +28,14 @@ namespace Reflectis.SDK.CharacterController
         /// </summary>
         public Transform TransformRef => transformRef != null ? transformRef : transform;
 
+        /// <summary>
+        /// Use this method to set the id when adding this component at runtime
+        /// </summary>
+        public void Init(string id)
+        {
+            this.id = id;
+        }
+
 #if ODIN_INSPECTOR
         [Button]
 #endif

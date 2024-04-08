@@ -143,6 +143,7 @@ namespace Reflectis.SDK.Avatars
         public void UpdateAvatarInstanceNickName(string newName) => AvatarInstanceConfigManager?.UpdateAvatarNickName(newName);
         public void EnableAvatarInstanceMeshes(bool enable)
         {
+
             if (enable)
             {
                 avatarMeshDisablerCounter--;
@@ -159,10 +160,28 @@ namespace Reflectis.SDK.Avatars
                     AvatarInstanceConfigManager?.EnableAvatarMeshes(false);
                 }
             }
-
         }
+
+        public void EnableAvatarInstanceTag(bool enable)
+        {
+
+            if (enable)
+            {
+                AvatarInstanceConfigManager?.EnableAvatarTag(true);
+            }
+            else
+            {
+                AvatarInstanceConfigManager?.EnableAvatarTag(false);
+            }
+        }
+        public void ResetAvatarMeshDisabler()
+        {
+            avatarMeshDisablerCounter = 0;
+        }
+
         public void EnableAvatarInstanceHandMeshes(bool enable) => AvatarInstanceConfigManager?.EnableHandMeshes(enable);
         public void EnableAvatarInstanceHandMesh(int id, bool enable) => AvatarInstanceConfigManager?.EnableHandMesh(id, enable);
+
         #endregion
     }
 }

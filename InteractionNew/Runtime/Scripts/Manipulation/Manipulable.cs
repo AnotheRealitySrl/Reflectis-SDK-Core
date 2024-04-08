@@ -113,6 +113,12 @@ namespace Reflectis.SDK.InteractionNew
             }
         }
 
+        /// <summary>
+        /// Returns the Manipulable component at the root of the interactive object where this 
+        /// component is placed.
+        /// This can be used to get a reference to the root Manipulable even from a 
+        /// Manipulable object placed on a model's submesh.
+        /// </summary>
         public Manipulable RootManipulable
         {
             get
@@ -236,15 +242,35 @@ namespace Reflectis.SDK.InteractionNew
             if (GetComponentsInChildren<GenericHookComponent>(true).FirstOrDefault(x => x.Id == "BoundingBoxVisual") is GenericHookComponent boundingBoxVisualHookComponent)
                 boundingBoxRenderer = boundingBoxVisualHookComponent.GetComponent<Renderer>();
 
-            Collider boundingBox = InteractableRef.InteractionColliders.FirstOrDefault(x => x.GetComponents<GenericHookComponent>().FirstOrDefault(x => x.Id == "BoundingBox"));
-            BoundingBox = boundingBox ? boundingBox : InteractableRef.InteractionColliders[0];
+            BoundingBox = InteractableRef.InteractionColliders.FirstOrDefault(x => x.GetComponents<GenericHookComponent>().FirstOrDefault(x => x.Id == "BoundingBox"));
+            if (BoundingBox == null)
+            {
+                GameObject boundingBoxGO = new GameObject("BoundingBox");
+                BoxCollider collider = boundingBoxGO.AddComponent<BoxCollider>();
+                collider.enabled = false;
+                boundingBoxGO.transform.parent = transform;
+                var renderers = GetComponentsInChildren<Renderer>();
+                var bounds = renderers.First().bounds;
+                foreach (var renderer in renderers.Skip(1))
+                {
+                    bounds.Encapsulate(renderer.bounds);
+                }
 
-            //event callbacks
+
+                Debug.Log($"bounds: {bounds.center}, {bounds.size}");
+                // offset so that the bounding box is centered in zero and apply scale
+                boundingBoxGO.transform.localPosition = Vector3.zero;
+                boundingBoxGO.transform.localScale = bounds.size;
+                BoundingBox = collider;
+                //BoundingBox = InteractableRef.InteractionColliders[0];
+
+            }
+			
+			//event callbacks
             OnGrabManipulableStart = new UnityEvent();
             OnGrabManipulableEnd = new UnityEvent();
             OnRayGrabManipulableStart = new UnityEvent();
             OnRayGrabManipulableEnd = new UnityEvent();
-
         }
 
         public override void OnHoverStateEntered()

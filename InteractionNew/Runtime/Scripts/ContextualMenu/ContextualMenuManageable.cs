@@ -48,6 +48,9 @@ namespace Reflectis.SDK.InteractionNew
             EContextualMenuOption.Duplicate |
             EContextualMenuOption.Delete;
 
+        [SerializeField]
+        private bool isNetworked = true;
+
         public EContextualMenuOption ContextualMenuOptions { get => contextualMenuOptions; set => contextualMenuOptions = value; }
 
         public EContextualMenuType ContextualMenuType = EContextualMenuType.Default;
@@ -84,6 +87,7 @@ namespace Reflectis.SDK.InteractionNew
         };
 
         public UnityAction DoDestroy { get; set; }
+        public bool IsNetworked { get => isNetworked; set => isNetworked = value; }
 
         public UnityEvent OnEnterInteractionState = new();
         public UnityEvent OnExitInteractionState = new();
@@ -107,12 +111,12 @@ namespace Reflectis.SDK.InteractionNew
         {
             if (ContextualMenuOptions.HasFlag(EContextualMenuOption.ColorPicker))
             {
-                await SM.GetSystem<IColorPickerSystem>().AssignColorPicker(gameObject);
+                await SM.GetSystem<IColorPickerSystem>().AssignColorPicker(gameObject, IsNetworked);
             }
 
             if (ContextualMenuOptions.HasFlag(EContextualMenuOption.Explodable))
             {
-                await SM.GetSystem<IModelExploderSystem>().AssignModelExploder(gameObject);
+                await SM.GetSystem<IModelExploderSystem>().AssignModelExploder(gameObject, IsNetworked);
             }
 
             OnContextualMenuButtonSelected[EContextualMenuOption.Delete] = AskForDelete;

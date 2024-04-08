@@ -1,14 +1,13 @@
-using Reflectis.SDK.Core;
 using Reflectis.SDK.CharacterController;
+using Reflectis.SDK.Core;
+using Reflectis.SDK.Utilities.Extensions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
-using Reflectis.SDK.Utilities.Extensions;
 
 namespace Reflectis.SDK.Avatars
 {
@@ -51,9 +50,9 @@ namespace Reflectis.SDK.Avatars
 
         public UnityEvent OnBeforeInstantiation { get; } = new();
         public UnityEvent<GameObject> OnAvatarIstantiated { get; } = new();
-        
+
         protected AvatarLoadersController AvatarLoadersController { get => avatarLoadersController; set => avatarLoadersController = value; }
-        
+
         #endregion
 
         #region Unity callbacks
@@ -83,12 +82,12 @@ namespace Reflectis.SDK.Avatars
             onBeforeAction?.Invoke();
 
             OnBeforeInstantiation?.Invoke();
-            
+
             AvatarLoader = Instantiate(AvatarLoadersController.GetAvatarLoader(config));
 
             AvatarLoader.onLoadingAvatarComplete.AddListenerOnce(OnAvatarLoadCompletion);
 
-            AvatarLoader.onLoadingAvatarComplete.AddListenerOnce((_,_) => { onAfterAction?.Invoke(); } );
+            AvatarLoader.onLoadingAvatarComplete.AddListenerOnce((_, _) => { onAfterAction?.Invoke(); });
 
             await AvatarLoader.LoadAvatar(config);
 
@@ -103,6 +102,11 @@ namespace Reflectis.SDK.Avatars
         public abstract void OnAvatarLoadCompletion(GameObject avatar, AvatarData avatarData);
 
         public virtual void EnableAvatarMeshes(bool enable)
+        {
+            EnableAvatarTag(enable);
+        }
+
+        public virtual void EnableAvatarTag(bool enable)
         {
             if (character.LabelReference)
             {
@@ -161,12 +165,12 @@ namespace Reflectis.SDK.Avatars
             if (transform != null)
             {
                 Renderer renderer = transform.GetComponentInChildren<Renderer>();
-                if(renderer != null)
+                if (renderer != null)
                 {
                     handsMeshes.Add(renderer);
                     //Debug.Log(renderer.gameObject.name + " renderer ", renderer.gameObject);
                 }
-                
+
             }
         }
 
@@ -175,7 +179,7 @@ namespace Reflectis.SDK.Avatars
             Renderer[] childObjects = GetComponentsInChildren<Renderer>();
             combinedBounds = new Bounds();
 
-            if(childObjects.Length == 0)
+            if (childObjects.Length == 0)
             {
                 return 2f;
             }

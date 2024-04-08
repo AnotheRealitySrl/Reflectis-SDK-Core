@@ -19,6 +19,9 @@ namespace Reflectis.SDK.Avatars
         [SerializeField, Tooltip("\"This\" character, i.e. the character (avatar) that is associated to this avatar controller")]
         protected CharacterBase characterReference;
 
+        [SerializeField, Tooltip("Reference to the voice chat audio source")] 
+        protected AudioSource voiceChatSource;
+
         #endregion
 
         #region Private variables
@@ -31,6 +34,7 @@ namespace Reflectis.SDK.Avatars
 
         public CharacterBase CharacterReference { get => characterReference; private set => characterReference = value; }
         public CharacterControllerBase SourceCharacterController { get; private set; }
+        public AudioSource VoiceChatSource { get => voiceChatSource; }
 
         #endregion
 
