@@ -6,10 +6,10 @@ namespace Reflectis.SDK.InteractionNew
 {
     public interface IManipulationSystem : ISystem
     {
-        public InteractableBehaviourBase SetupInteractableBehaviour(GameObject obj);
+        public Manipulable SetupInteractableBehaviour(GameObject obj);
 
-        public void OnManipulableHoverEnter(IInteractable interactable);
+        public void OnManipulableHoverEnter(GameObject boundingBox);
 
-        public void OnManipulableHoverExit(IInteractable interactable);
+        public void OnManipulableHoverExit(GameObject boundingBox);
     }
 }

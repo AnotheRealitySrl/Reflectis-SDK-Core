@@ -7,13 +7,8 @@ namespace Reflectis.SDK.InteractionNew
 {
     public abstract class InteractableBehaviourBase : MonoBehaviour, IInteractableBehaviour
     {
-        [SerializeField] private bool lockHoverDuringInteraction = true;
-
-        public IInteractable InteractableRef => GetComponentInParent<IInteractable>(true);
-
-        public abstract bool IsIdleState { get; }
-
-        public bool LockHoverDuringInteraction { get => lockHoverDuringInteraction; set => lockHoverDuringInteraction = value; }
+        [SerializeField]
+        private bool autoSetupAtStart;
 
         //bitmask used to know if an interactable is blocked for various reasons
         [System.Flags]
@@ -39,20 +34,16 @@ namespace Reflectis.SDK.InteractionNew
         public UnityEvent<EBlockedState> OnCurrentBlockedChanged { get; set; } = new();
 
         public abstract Task Setup();
+        public abstract void HoverEnter();
+        public abstract void HoverExit();
 
-        public abstract void OnHoverStateEntered();
-        public abstract void OnHoverStateExited();
-
-        public virtual Task EnterInteractionState()
+        public virtual void Start()
         {
-            InteractableRef.InteractionState = IInteractable.EInteractionState.Interaction;
-            return Task.CompletedTask;
+            if (autoSetupAtStart)
+            {
+                Setup();
+            }
         }
 
-        public virtual Task ExitInteractionState()
-        {
-            InteractableRef.InteractionState = IInteractable.EInteractionState.Hovered;
-            return Task.CompletedTask;
-        }
     }
 }

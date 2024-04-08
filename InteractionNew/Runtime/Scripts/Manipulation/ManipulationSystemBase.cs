@@ -11,10 +11,10 @@ namespace Reflectis.SDK.InteractionNew
 
         public GameObject ScalablePointFacePrefab => scalablePointFacePrefab;
 
-        public abstract void OnManipulableHoverEnter(IInteractable interactable);
-        public abstract void OnManipulableHoverExit(IInteractable interactable);
+        public abstract void OnManipulableHoverEnter(GameObject boundingBox);
+        public abstract void OnManipulableHoverExit(GameObject boundingBox);
 
-        public abstract InteractableBehaviourBase SetupInteractableBehaviour(GameObject obj);
+        public abstract Manipulable SetupInteractableBehaviour(GameObject obj);
 
     }
 }

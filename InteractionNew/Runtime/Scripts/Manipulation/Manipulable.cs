@@ -95,7 +95,7 @@ namespace Reflectis.SDK.InteractionNew
 
         public List<GameObject> ScalingCorners { get; } = new();
         public List<GameObject> ScalingFaces { get; } = new();
-        public Collider BoundingBox { get; set; }
+        public BoundingBox BoundingBox { get; set; }
 
 
         /// <summary>
@@ -104,13 +104,7 @@ namespace Reflectis.SDK.InteractionNew
         /// </summary>
         public bool IsSubmesh
         {
-            get
-            {
-                // Checks if this manipulable is at the root of the interactable object.
-                // If not, this is a submesh
-                GameObject rootManipulableObj = ((BaseInteractable)this.InteractableRef).gameObject;
-                return rootManipulableObj != this.gameObject;
-            }
+            get; set;
         }
 
         /// <summary>
@@ -121,11 +115,8 @@ namespace Reflectis.SDK.InteractionNew
         /// </summary>
         public Manipulable RootManipulable
         {
-            get
-            {
-                GameObject rootManipulableObj = ((BaseInteractable)this.InteractableRef).gameObject;
-                return rootManipulableObj.GetComponent<Manipulable>();
-            }
+            get;
+            set;
         }
 
         /// <summary>
@@ -198,8 +189,6 @@ namespace Reflectis.SDK.InteractionNew
             }
         }
 
-        public override bool IsIdleState => CurrentInteractionState == EManipulableState.Idle;
-
         private EManipulableState currentInteractionState;
         public EManipulableState CurrentInteractionState
         {
@@ -208,11 +197,6 @@ namespace Reflectis.SDK.InteractionNew
             {
                 currentInteractionState = value;
                 OnCurrentStateChange.Invoke(value);
-
-                if (currentInteractionState == EManipulableState.Idle)
-                {
-                    InteractableRef.InteractionState = IInteractable.EInteractionState.Hovered;
-                }
             }
         }
 
@@ -230,51 +214,34 @@ namespace Reflectis.SDK.InteractionNew
 
         #region Overrides
 
-        public override async Task Setup()
+        public override Task Setup()
         {
             if (GetComponentsInChildren<GenericHookComponent>(true).FirstOrDefault(x => x.Id == "BoundingBoxVisual") is GenericHookComponent boundingBoxVisualHookComponent)
                 boundingBoxRenderer = boundingBoxVisualHookComponent.GetComponent<Renderer>();
-
-            BoundingBox = InteractableRef.InteractionColliders.FirstOrDefault(x => x.GetComponents<GenericHookComponent>().FirstOrDefault(x => x.Id == "BoundingBox"));
-            if (BoundingBox == null)
+            BoundingBox = BoundingBox.GetOrGenerateBoundingBox(gameObject);
+            if (RootManipulable == null)
             {
-                GameObject boundingBoxGO = new GameObject("BoundingBox");
-                BoxCollider collider = boundingBoxGO.AddComponent<BoxCollider>();
-                collider.enabled = false;
-                boundingBoxGO.transform.parent = transform;
-                var renderers = GetComponentsInChildren<Renderer>();
-                var bounds = renderers.First().bounds;
-                foreach (var renderer in renderers.Skip(1))
-                {
-                    bounds.Encapsulate(renderer.bounds);
-                }
+                RootManipulable = this;
 
-
-                Debug.Log($"bounds: {bounds.center}, {bounds.size}");
-                // offset so that the bounding box is centered in zero and apply scale
-                boundingBoxGO.transform.localPosition = Vector3.zero;
-                boundingBoxGO.transform.localScale = bounds.size;
-                BoundingBox = collider;
-                //BoundingBox = InteractableRef.InteractionColliders[0];
 
             }
-
+            return Task.CompletedTask;
         }
 
-        public override void OnHoverStateEntered()
+        public override void HoverEnter()
         {
             if (CurrentBlockedState != 0)
                 return;
 
-            SM.GetSystem<IManipulationSystem>()?.OnManipulableHoverEnter(InteractableRef);
+            SM.GetSystem<IManipulationSystem>()?.OnManipulableHoverEnter(BoundingBox.gameObject);
         }
 
-        public override void OnHoverStateExited()
+        public override void HoverExit()
         {
             if (CurrentBlockedState != 0)
                 return;
 
-            SM.GetSystem<IManipulationSystem>()?.OnManipulableHoverExit(InteractableRef);
+            SM.GetSystem<IManipulationSystem>()?.OnManipulableHoverExit(BoundingBox.gameObject);
         }
 
         #endregion
