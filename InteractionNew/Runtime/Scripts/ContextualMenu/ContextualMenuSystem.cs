@@ -62,7 +62,7 @@ namespace Reflectis.SDK.InteractionNew
 
         #region Abstract methods
 
-        public abstract ContextualMenuManageable SetupInteractableBehaviour(GameObject obj);
+        public abstract InteractableBehaviourBase SetupInteractableBehaviour(GameObject obj);
 
         #endregion
 

@@ -8,7 +8,7 @@ namespace Reflectis.SDK.InteractionNew
 {
     public interface IGenericInteractionSystem : ISystem
     {
-        GenericInteractable SetupInteractableBehaviour(GameObject obj);
+        InteractableBehaviourBase SetupInteractableBehaviour(GameObject obj);
         Task UnselectCurrentInteractable(GenericInteractable interactableToDisable);
     }
 }

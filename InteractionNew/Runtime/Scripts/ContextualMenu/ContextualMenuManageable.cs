@@ -13,7 +13,7 @@ using static IPopupSystem;
 
 namespace Reflectis.SDK.InteractionNew
 {
-    [Serializable]
+    [Serializable, RequireComponent(typeof(BaseInteractable))]
     public abstract class ContextualMenuManageable : InteractableBehaviourBase
     {
         public enum EContextualMenuInteractableState
@@ -51,12 +51,11 @@ namespace Reflectis.SDK.InteractionNew
         [SerializeField]
         private bool isNetworked = true;
 
-        public BoundingBox BoundingBox { get; private set; }
         public EContextualMenuOption ContextualMenuOptions { get => contextualMenuOptions; set => contextualMenuOptions = value; }
 
         public EContextualMenuType ContextualMenuType = EContextualMenuType.Default;
 
-        //public override bool IsIdleState => CurrentInteractionState == EContextualMenuInteractableState.Idle || CurrentInteractionState == EContextualMenuInteractableState.Showing;
+        public override bool IsIdleState => CurrentInteractionState == EContextualMenuInteractableState.Idle || CurrentInteractionState == EContextualMenuInteractableState.Showing;
 
         private EContextualMenuInteractableState currentInteractionState;
         private EContextualMenuInteractableState CurrentInteractionState
@@ -65,6 +64,14 @@ namespace Reflectis.SDK.InteractionNew
             set
             {
                 currentInteractionState = value;
+                if (currentInteractionState == EContextualMenuInteractableState.Idle)
+                {
+                    InteractableRef.OnHoverExit();
+                }
+                if (currentInteractionState == EContextualMenuInteractableState.Showing)
+                {
+                    InteractableRef.InteractionState = IInteractable.EInteractionState.Hovered;
+                }
             }
         }
 
@@ -78,8 +85,6 @@ namespace Reflectis.SDK.InteractionNew
             { EContextualMenuOption.Explodable, null },
             { EContextualMenuOption.NonProportionalScale, null },
         };
-
-
 
         public UnityAction DoDestroy { get; set; }
         public bool IsNetworked { get => isNetworked; set => isNetworked = value; }
@@ -104,8 +109,6 @@ namespace Reflectis.SDK.InteractionNew
 
         public override async Task Setup()
         {
-            BoundingBox = BoundingBox.GetOrGenerateBoundingBox(gameObject);
-
             if (ContextualMenuOptions.HasFlag(EContextualMenuOption.ColorPicker))
             {
                 await SM.GetSystem<IColorPickerSystem>().AssignColorPicker(gameObject, IsNetworked);
@@ -119,36 +122,38 @@ namespace Reflectis.SDK.InteractionNew
             OnContextualMenuButtonSelected[EContextualMenuOption.Delete] = AskForDelete;
         }
 
-        public override void HoverEnter()
+        public override void OnHoverStateEntered()
         {
             if (CurrentBlockedState != 0)
                 return;
         }
 
-        public override void HoverExit()
+        public override void OnHoverStateExited()
         {
             if (CurrentBlockedState != 0)
                 return;
         }
 
-        public Task EnterInteractionState()
+        public override async Task EnterInteractionState()
         {
             if (CurrentBlockedState != 0)
-                return Task.CompletedTask;
+                return;
+
+            await base.EnterInteractionState();
 
             OnEnterInteractionState?.Invoke();
             CurrentInteractionState = EContextualMenuInteractableState.Showing;
-            return Task.CompletedTask;
         }
 
-        public Task ExitInteractionState()
+        public override async Task ExitInteractionState()
         {
             if (CurrentBlockedState != 0)
-                return Task.CompletedTask;
+                return;
+
+            await base.ExitInteractionState();
 
             OnExitInteractionState?.Invoke();
             CurrentInteractionState = EContextualMenuInteractableState.Idle;
-            return Task.CompletedTask;
         }
 
         public void OnContextualMenuButtonClicked(EContextualMenuOption option)

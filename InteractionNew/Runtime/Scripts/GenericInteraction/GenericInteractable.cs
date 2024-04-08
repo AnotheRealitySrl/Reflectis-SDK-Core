@@ -32,9 +32,6 @@ namespace Reflectis.SDK.InteractionNew
             Hovered = 4,
         }
 
-        [SerializeField] private List<Collider> interactionColliders = new();
-
-        [SerializeField] private bool lockHoverDuringInteraction = false;
 
         [SerializeField] private ScriptMachine interactionScriptMachine = null;
 
@@ -46,8 +43,6 @@ namespace Reflectis.SDK.InteractionNew
 
         public Action<GameObject> OnSelectedActionVisualScripting;
 
-        public List<Collider> InteractionColliders { get => interactionColliders; set => interactionColliders = value; }
-        public bool LockHoverDuringInteraction { get => lockHoverDuringInteraction; set => lockHoverDuringInteraction = value; }
         public ScriptMachine InteractionScriptMachine { get => interactionScriptMachine; set => interactionScriptMachine = value; }
         public ScriptMachine UnselectOnDestroyScriptMachine { get => unselectOnDestroyScriptMachine; set => unselectOnDestroyScriptMachine = value; }
 
@@ -56,6 +51,8 @@ namespace Reflectis.SDK.InteractionNew
 
         public bool SkipSelectState => skipSelectState;
 
+        public override bool IsIdleState => CurrentInteractionState == EGenericInteractableState.Idle;
+
         private EGenericInteractableState currentInteractionState;
         public EGenericInteractableState CurrentInteractionState
         {
@@ -63,6 +60,10 @@ namespace Reflectis.SDK.InteractionNew
             set
             {
                 currentInteractionState = value;
+                if (currentInteractionState == EGenericInteractableState.Idle)
+                {
+                    InteractableRef.InteractionState = IInteractable.EInteractionState.Hovered;
+                }
             }
         }
 
@@ -87,7 +88,7 @@ namespace Reflectis.SDK.InteractionNew
         private GameObject unselectOnDestroyGameobject;
         private async void OnDestroy()
         {
-            if (CurrentInteractionState == EGenericInteractableState.Selected)
+            if (!IsIdleState && CurrentInteractionState != EGenericInteractableState.SelectExiting)
             {
                 foreach (var unit in unselectOnDestroyEventUnits)
                 {
@@ -170,21 +171,10 @@ namespace Reflectis.SDK.InteractionNew
                     }
                 }
             }
-
-            if (interactionColliders == null || interactionColliders.Count == 0)
-            {
-                interactionColliders = GetComponentsInChildren<Collider>().ToList();
-            }
-
-            if (interactionColliders == null || interactionColliders.Count == 0)
-            {
-                var boundingBox = BoundingBox.GetOrGenerateBoundingBox(gameObject);
-                interactionColliders = new List<Collider>() { boundingBox.Collider };
-            }
             return Task.CompletedTask;
         }
 
-        public override async void HoverEnter()
+        public override async void OnHoverStateEntered()
         {
             //if (!CanInteract || !hasHoveredState)
             if (CurrentBlockedState != 0 || !hasHoveredState)
@@ -199,7 +189,7 @@ namespace Reflectis.SDK.InteractionNew
 
         }
 
-        public override async void HoverExit()
+        public override async void OnHoverStateExited()
         {
             //if (!CanInteract || !hasHoveredState)
             if (CurrentBlockedState != 0 || !hasHoveredState)
@@ -214,18 +204,18 @@ namespace Reflectis.SDK.InteractionNew
 
         }
 
-        public async Task EnterInteractionState()
+        public override async Task EnterInteractionState()
         {
-            Debug.Log("ENTER INTERACTION STATE " + gameObject, gameObject);
             //if (!CanInteract)
             if (CurrentBlockedState != 0)
                 return;
-
             if (!SkipSelectState)
             {
+                await base.EnterInteractionState();
+
                 CurrentInteractionState = EGenericInteractableState.SelectEntering;
 
-                Debug.Log("ENTaERACTION STATE " + gameObject, gameObject);
+
                 IEnumerable<Task> selectEnterUnitsTasks = selectEnterEventUnits.Select(async unit =>
                 {
                     await unit.AwaitableTrigger(interactionScriptMachine.GetReference().AsReference(), this);
@@ -237,16 +227,17 @@ namespace Reflectis.SDK.InteractionNew
             }
             else
             {
-                Debug.Log("iiiSTATE " + gameObject, gameObject);
                 await Interact();
             }
         }
 
-        public async Task ExitInteractionState()
+        public override async Task ExitInteractionState()
         {
             //if (!CanInteract)
             if (CurrentBlockedState != 0)
                 return;
+
+            await base.ExitInteractionState();
 
             CurrentInteractionState = EGenericInteractableState.SelectExiting;
 
