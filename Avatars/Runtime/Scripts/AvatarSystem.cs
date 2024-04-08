@@ -1,7 +1,9 @@
 
 using Reflectis.SDK.CharacterController;
 using Reflectis.SDK.Core;
+
 using System.Threading.Tasks;
+
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -69,7 +71,14 @@ namespace Reflectis.SDK.Avatars
             }
             OnPlayerAvatarConfigChanged.AddListener(UpdateAvatarInstanceCustomization);
             PlayerNickNameChanged.AddListener(UpdateAvatarInstanceNickName);
+
             await base.Init();
+        }
+
+        public override void Finish()
+        {
+            OnPlayerAvatarConfigChanged.RemoveListener(UpdateAvatarInstanceCustomization);
+            PlayerNickNameChanged.RemoveListener(UpdateAvatarInstanceNickName);
         }
 
         private async void CreateAvatarAtInit()
