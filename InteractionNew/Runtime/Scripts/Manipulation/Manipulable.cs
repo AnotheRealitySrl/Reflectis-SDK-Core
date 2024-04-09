@@ -222,8 +222,6 @@ namespace Reflectis.SDK.InteractionNew
             if (RootManipulable == null)
             {
                 RootManipulable = this;
-
-
             }
             return Task.CompletedTask;
         }

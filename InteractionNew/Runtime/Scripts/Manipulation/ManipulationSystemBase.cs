@@ -14,7 +14,11 @@ namespace Reflectis.SDK.InteractionNew
         {
             if (boundingBox)
             {
-                boundingBox.GetComponentInChildren<MeshRenderer>(true).enabled = true;
+                var meshRenderer = boundingBox.GetComponentInChildren<MeshRenderer>(true);
+                if (meshRenderer != null)
+                {
+                    meshRenderer.enabled = true;
+                }
             }
         }
 
@@ -22,7 +26,11 @@ namespace Reflectis.SDK.InteractionNew
         {
             if (boundingBox)
             {
-                boundingBox.GetComponentInChildren<MeshRenderer>(true).enabled = false;
+                var meshRenderer = boundingBox.GetComponentInChildren<MeshRenderer>(true);
+                if (meshRenderer != null)
+                {
+                    meshRenderer.enabled = false;
+                }
             }
         }
 

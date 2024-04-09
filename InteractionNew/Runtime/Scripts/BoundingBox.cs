@@ -15,7 +15,7 @@ namespace Reflectis.SDK.InteractionNew
             if (boundingBox == null)
             {
                 GameObject boundingBoxGO = new GameObject("BoundingBox");
-                boundingBoxGO.layer = LayerMask.NameToLayer("BoundingBox");
+                //boundingBoxGO.layer = LayerMask.NameToLayer("BoundingBox");
                 boundingBox = boundingBoxGO.AddComponent<BoundingBox>();
                 boundingBox._collider = rootObject.GetComponentInChildren<Collider>();
                 if (boundingBox._collider == null)

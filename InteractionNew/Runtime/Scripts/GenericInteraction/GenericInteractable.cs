@@ -14,6 +14,9 @@ namespace Reflectis.SDK.InteractionNew
     //[RequireComponent(typeof(BaseInteractable))]
     public abstract class GenericInteractable : InteractableBehaviourBase, IInteractableBehaviour
     {
+
+        private bool isHovered;
+
         [Flags]
         public enum EGenericInteractableState
         {
@@ -189,6 +192,7 @@ namespace Reflectis.SDK.InteractionNew
             //if (!CanInteract || !hasHoveredState)
             if (CurrentBlockedState != 0 || !hasHoveredState)
                 return;
+            isHovered = true;
 
             IEnumerable<Task> hoverEnterUnitsTask = hoverEnterEventUnits.Select(async unit =>
             {
@@ -204,6 +208,12 @@ namespace Reflectis.SDK.InteractionNew
             //if (!CanInteract || !hasHoveredState)
             if (CurrentBlockedState != 0 || !hasHoveredState)
                 return;
+            isHovered = false;
+
+            if (lockHoverDuringInteraction && CurrentInteractionState != EGenericInteractableState.Idle)
+            {
+                return;
+            }
 
             IEnumerable<Task> hoverExitUnitsTask = hoverExitEventUnits.Select(async unit =>
             {
@@ -216,7 +226,6 @@ namespace Reflectis.SDK.InteractionNew
 
         public async Task EnterInteractionState()
         {
-            Debug.Log("ENTER INTERACTION STATE " + gameObject, gameObject);
             //if (!CanInteract)
             if (CurrentBlockedState != 0)
                 return;
@@ -225,7 +234,6 @@ namespace Reflectis.SDK.InteractionNew
             {
                 CurrentInteractionState = EGenericInteractableState.SelectEntering;
 
-                Debug.Log("ENTaERACTION STATE " + gameObject, gameObject);
                 IEnumerable<Task> selectEnterUnitsTasks = selectEnterEventUnits.Select(async unit =>
                 {
                     await unit.AwaitableTrigger(interactionScriptMachine.GetReference().AsReference(), this);
@@ -237,7 +245,6 @@ namespace Reflectis.SDK.InteractionNew
             }
             else
             {
-                Debug.Log("iiiSTATE " + gameObject, gameObject);
                 await Interact();
             }
         }
@@ -256,6 +263,11 @@ namespace Reflectis.SDK.InteractionNew
             });
 
             await Task.WhenAll(selectExitUnitsTasks);
+
+            if (!isHovered && lockHoverDuringInteraction)
+            {
+                HoverExit();
+            }
 
             CurrentInteractionState = EGenericInteractableState.Idle;
 
