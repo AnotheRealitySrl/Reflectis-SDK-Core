@@ -130,10 +130,11 @@ namespace Reflectis.SDK.Avatars
 
             avatarInstanceConfigManager = AvatarInstance.GetComponent<IAvatarConfigController>();
 
-            //avatarInstanceConfigManager.OnAvatarIstantiated.AddListener((_)=>AvatarInstance.Setup(ccs.CharacterControllerInstance));
+            //avatarInstanceConfigManager.OnAvatarIstantiated.AddListener(async (_) => await AvatarInstance.Setup(ccs.CharacterControllerInstance));
             if (setupAvatarInstanceAutomatically)
             {
                 await AvatarInstance.CharacterReference.Setup();
+                ccs.OnCharacterControllerSetupComplete.Invoke(AvatarInstance.CharacterReference);
             }
         }
 

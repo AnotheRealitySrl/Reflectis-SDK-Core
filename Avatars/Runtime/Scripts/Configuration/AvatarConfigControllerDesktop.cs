@@ -1,6 +1,7 @@
 
 using Reflectis.SDK.CharacterController;
 using Reflectis.SDK.Core;
+
 using UnityEngine;
 
 namespace Reflectis.SDK.Avatars
@@ -67,7 +68,6 @@ namespace Reflectis.SDK.Avatars
             if (GetComponent<AvatarControllerBase>() == avatarSystem.AvatarInstance)
             {
                 SM.GetSystem<CharacterControllerSystem>().OnCharacterControllerSetupComplete.Invoke(GetComponent<AvatarControllerBase>().CharacterReference);
-
             }
 
             GetComponent<CharacterBase>().Setup();
@@ -76,8 +76,6 @@ namespace Reflectis.SDK.Avatars
             {
                 Destroy(prevRef);
             }
-
-            //onAfterAction?.Invoke();
         }
 
         public override void EnableAvatarMeshes(bool enable)
