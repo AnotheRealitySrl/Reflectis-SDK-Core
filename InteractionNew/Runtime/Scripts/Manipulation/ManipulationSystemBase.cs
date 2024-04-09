@@ -1,5 +1,4 @@
 using Reflectis.SDK.Core;
-
 using UnityEngine;
 
 namespace Reflectis.SDK.InteractionNew
@@ -11,8 +10,21 @@ namespace Reflectis.SDK.InteractionNew
 
         public GameObject ScalablePointFacePrefab => scalablePointFacePrefab;
 
-        public abstract void OnManipulableHoverEnter(GameObject boundingBox);
-        public abstract void OnManipulableHoverExit(GameObject boundingBox);
+        public virtual void OnManipulableHoverEnter(GameObject boundingBox)
+        {
+            if (boundingBox)
+            {
+                boundingBox.GetComponentInChildren<MeshRenderer>(true).enabled = true;
+            }
+        }
+
+        public virtual void OnManipulableHoverExit(GameObject boundingBox)
+        {
+            if (boundingBox)
+            {
+                boundingBox.GetComponentInChildren<MeshRenderer>(true).enabled = false;
+            }
+        }
 
         public abstract Manipulable SetupInteractableBehaviour(GameObject obj);
 
