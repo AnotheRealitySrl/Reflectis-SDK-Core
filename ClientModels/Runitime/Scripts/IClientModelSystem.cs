@@ -36,7 +36,6 @@ namespace Reflectis.SDK.ClientModels
         #region Events
 
         CMEvent CurrentEvent { get; set; }
-        CMEvent DefaultEvent { get; set; }
         List<CMEvent> StaticEvents { get; }
 
         /// <summary>
@@ -54,7 +53,7 @@ namespace Reflectis.SDK.ClientModels
         /// <summary>
         /// Returns the default event of a world
         /// </summary>
-        Task<CMEvent> GetDefaultWorldEvent(int worldId);
+        Task<CMEvent> GetDefaultWorldEvent();
 
         /// <summary>
         /// Returns the static events
