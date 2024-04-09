@@ -31,6 +31,7 @@ namespace Reflectis.SDK.ClientModels
 
         [SerializeField] private string language;
         [SerializeField] private string nickname;
+        [SerializeField][CanBeNull] private string code;
         [SerializeField] private string bio;
         [SerializeField] private string social1;
         [SerializeField] private string social2;
@@ -46,6 +47,9 @@ namespace Reflectis.SDK.ClientModels
 
         [JsonProperty("nickname")]
         public string Nickname { get => nickname; set => nickname = value; }
+
+        [JsonProperty("code")]
+        public string Code { get => code; set => code = value; }
 
         [JsonProperty("bio")]
         public string Bio { get => bio; set => bio = value; }
