@@ -216,6 +216,13 @@ namespace Reflectis.SDK.ClientModels
         /// <returns></returns>
         Task<CMUser> GetUserData(int id);
 
+        /// <summary>
+        /// Return data of the player with given id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<int> GetUserCode(int userId);
+
         Task<CMUserPreference> GetUserPreference(int userId);
         /// <summary>
         /// Update user preferences
