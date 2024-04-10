@@ -20,6 +20,7 @@ namespace Reflectis.SDK.ClientModels
     {
         #region Worlds
 
+        List<CMWorld> Worlds { get; set; }
         CMWorld CurrentWorld { get; set; }
 
         /// <summary>
