@@ -52,6 +52,8 @@ namespace Reflectis.SDK.InteractionNew
         protected EManipulationInput currentManipulationInput;
         private Renderer boundingBoxRenderer;
 
+        private ModelScaler modelScaler;
+
         #region Properties
         public override EBlockedState CurrentBlockedState
         {
@@ -75,9 +77,9 @@ namespace Reflectis.SDK.InteractionNew
 
                 if (nonProportionalScale)
                     if (value == 0)
-                        ScalingFaces.ForEach(x => x.SetActive(true));
+                        ModelScaler.ScalingFaces.ForEach(x => x.SetActive(true));
                     else
-                        ScalingFaces.ForEach(x => x.SetActive(false));
+                        ModelScaler.ScalingFaces.ForEach(x => x.SetActive(false));
             }
         }
 
@@ -94,7 +96,6 @@ namespace Reflectis.SDK.InteractionNew
         public float RealignDurationTimeInSeconds { get => realignDurationTimeInSeconds; set => realignDurationTimeInSeconds = value; }
 
         public List<GameObject> ScalingCorners { get; } = new();
-        public List<GameObject> ScalingFaces { get; } = new();
         public BoundingBox BoundingBox { get; set; }
 
 
@@ -202,12 +203,11 @@ namespace Reflectis.SDK.InteractionNew
 
         public UnityEvent<EManipulableState> OnCurrentStateChange { get; set; } = new();
         public EManipulationInput CurrentManipulationInput { get => currentManipulationInput; set => currentManipulationInput = value; }
+        public ModelScaler ModelScaler { get => modelScaler; set => modelScaler = value; }
 
         #endregion
 
         #region Abstract methods
-
-        public abstract void SetScalingPoints();
         public abstract void UpdateScalingPointsPosition();
 
         #endregion

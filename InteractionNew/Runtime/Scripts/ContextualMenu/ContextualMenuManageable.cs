@@ -1,5 +1,4 @@
 using Reflectis.SDK.Core;
-
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -50,8 +49,7 @@ namespace Reflectis.SDK.InteractionNew
 
         [SerializeField]
         private bool isNetworked = true;
-
-        public BoundingBox BoundingBox { get; private set; }
+        public BoundingBox BoundingBox { get; protected set; }
         public EContextualMenuOption ContextualMenuOptions { get => contextualMenuOptions; set => contextualMenuOptions = value; }
 
         public EContextualMenuType ContextualMenuType = EContextualMenuType.Default;
@@ -106,14 +104,14 @@ namespace Reflectis.SDK.InteractionNew
         {
             BoundingBox = BoundingBox.GetOrGenerateBoundingBox(gameObject);
 
-            if (ContextualMenuOptions.HasFlag(EContextualMenuOption.ColorPicker))
-            {
-                await SM.GetSystem<IColorPickerSystem>().AssignColorPicker(gameObject, IsNetworked);
-            }
-
             if (ContextualMenuOptions.HasFlag(EContextualMenuOption.Explodable))
             {
                 await SM.GetSystem<IModelExploderSystem>().AssignModelExploder(gameObject, IsNetworked);
+            }
+
+            if (ContextualMenuOptions.HasFlag(EContextualMenuOption.ColorPicker))
+            {
+                await SM.GetSystem<IColorPickerSystem>().AssignColorPicker(gameObject, IsNetworked);
             }
 
             OnContextualMenuButtonSelected[EContextualMenuOption.Delete] = AskForDelete;
