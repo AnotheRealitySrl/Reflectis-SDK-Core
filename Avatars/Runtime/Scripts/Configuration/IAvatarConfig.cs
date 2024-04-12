@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace Reflectis.SDK.Avatars
 {
     /// <summary>

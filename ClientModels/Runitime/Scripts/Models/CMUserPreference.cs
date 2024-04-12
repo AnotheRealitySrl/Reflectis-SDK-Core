@@ -32,6 +32,7 @@ namespace Reflectis.SDK.ClientModels
         [SerializeField] private string language;
         [SerializeField] private string nickname;
         [SerializeField] private string bio;
+        [SerializeField] private float height;
         [SerializeField] private string social1;
         [SerializeField] private string social2;
         [SerializeField] private string social3;
@@ -49,6 +50,9 @@ namespace Reflectis.SDK.ClientModels
 
         [JsonProperty("bio")]
         public string Bio { get => bio; set => bio = value; }
+
+        [JsonProperty("height")]
+        public float Height { get => height; set => height = value; }
 
         [JsonProperty("social1")]
         public string Social1 { get => social1; set => social1 = value; }
