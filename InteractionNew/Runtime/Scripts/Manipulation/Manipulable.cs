@@ -1,17 +1,11 @@
-using Reflectis.SDK.CharacterController;
-using Reflectis.SDK.Core;
-
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace Reflectis.SDK.InteractionNew
 {
-    //[RequireComponent(typeof(BaseInteractable))]
     public abstract class Manipulable : InteractableBehaviourBase
     {
         public enum EManipulableState
@@ -50,9 +44,10 @@ namespace Reflectis.SDK.InteractionNew
         [SerializeField] private EBlockedState exampleInteractionForInspector;
 
         protected EManipulationInput currentManipulationInput;
-        private Renderer boundingBoxRenderer;
 
         private ModelScaler modelScaler;
+
+        private Manipulable rootManipulable;
 
         #region Properties
         public override EBlockedState CurrentBlockedState
@@ -63,10 +58,9 @@ namespace Reflectis.SDK.InteractionNew
                 currentBlockedState = value;
                 exampleInteractionForInspector = value;
                 OnCurrentBlockedChanged.Invoke(currentBlockedState);
-
-                if (boundingBoxRenderer)
+                if (InteractableCollider.InteractionMode == EInteractionMode.BoundingBox && InteractableCollider.BoundingBox != null && InteractableCollider.BoundingBox.Renderer != null)
                 {
-                    boundingBoxRenderer.enabled = value == 0;
+                    InteractableCollider.BoundingBox.Renderer.enabled = value == 0;
                 }
 
                 if (manipulationMode.HasFlag(EManipulationMode.Scale))
@@ -96,9 +90,8 @@ namespace Reflectis.SDK.InteractionNew
         public float RealignDurationTimeInSeconds { get => realignDurationTimeInSeconds; set => realignDurationTimeInSeconds = value; }
 
         public List<GameObject> ScalingCorners { get; } = new();
-        public BoundingBox BoundingBox { get; set; }
 
-
+        public bool IsExploded { get; set; }
         /// <summary>
         /// Returns true if this manipulable is on a submesh element. Returns false 
         /// if this manipulable is at the root of an interactive object.
@@ -116,8 +109,21 @@ namespace Reflectis.SDK.InteractionNew
         /// </summary>
         public Manipulable RootManipulable
         {
-            get;
-            set;
+            get
+            {
+                if (rootManipulable == null)
+                {
+                    while (rootManipulable != null && rootManipulable.transform.parent != null && rootManipulable.IsSubmesh)
+                    {
+                        rootManipulable = rootManipulable.transform.parent.GetComponentInParent<Manipulable>();
+                    }
+                }
+                return rootManipulable;
+            }
+            set
+            {
+                rootManipulable = value;
+            }
         }
 
         /// <summary>
@@ -127,10 +133,10 @@ namespace Reflectis.SDK.InteractionNew
         {
             get
             {
-                if (!IsSubmesh)
+                if (InteractableCollider.BoundingBox != null && !IsSubmesh)
                 {
                     // This manipulable is at the root of the interactive object
-                    return Vector3.Scale(BoundingBox.transform.localScale, transform.localScale);
+                    return Vector3.Scale(InteractableCollider.BoundingBox.transform.localScale, transform.localScale);
                 }
                 else
                 {
@@ -162,12 +168,12 @@ namespace Reflectis.SDK.InteractionNew
         {
             get
             {
-                if (!IsSubmesh)
-                {
-                    // This manipulable is at the root of the interactive object
-                    return BoundingBox.transform.position;
-                }
-                else
+                //if (InteractableCollider.BoundingBox && !IsSubmesh)
+                //{
+                //    // This manipulable is at the root of the interactive object
+                //    return InteractableCollider.BoundingBox.transform.position;
+                //}
+                //else
                 {
                     // This manipulable is on a submesh of the interactive object.
                     // It will now look for a mesh or skinned mesh renderer on this gameobject
@@ -214,24 +220,19 @@ namespace Reflectis.SDK.InteractionNew
 
         #region Overrides
 
-        public override Task Setup()
-        {
-            if (GetComponentsInChildren<GenericHookComponent>(true).FirstOrDefault(x => x.Id == "BoundingBoxVisual") is GenericHookComponent boundingBoxVisualHookComponent)
-                boundingBoxRenderer = boundingBoxVisualHookComponent.GetComponent<Renderer>();
-            BoundingBox = BoundingBox.GetOrGenerateBoundingBox(gameObject);
-            if (RootManipulable == null)
-            {
-                RootManipulable = this;
-            }
-            return Task.CompletedTask;
-        }
 
         public override void HoverEnter()
         {
             if (CurrentBlockedState != 0)
                 return;
+            if (InteractableCollider.InteractionMode == EInteractionMode.BoundingBox)
+            {
+                if (InteractableCollider.BoundingBox != null && InteractableCollider.BoundingBox.Renderer != null)
+                {
+                    InteractableCollider.BoundingBox.Renderer.enabled = true;
+                }
+            }
 
-            SM.GetSystem<IManipulationSystem>()?.OnManipulableHoverEnter(BoundingBox.gameObject);
         }
 
         public override void HoverExit()
@@ -239,7 +240,22 @@ namespace Reflectis.SDK.InteractionNew
             if (CurrentBlockedState != 0)
                 return;
 
-            SM.GetSystem<IManipulationSystem>()?.OnManipulableHoverExit(BoundingBox.gameObject);
+            if (InteractableCollider.InteractionMode == EInteractionMode.BoundingBox)
+            {
+                if (InteractableCollider.BoundingBox != null && InteractableCollider.BoundingBox.Renderer != null)
+                {
+                    InteractableCollider.BoundingBox.Renderer.enabled = false;
+                }
+            }
+        }
+
+        public override async Task Setup()
+        {
+            await base.Setup();
+            if (!IsSubmesh)
+            {
+                RootManipulable = this;
+            }
         }
 
         #endregion
@@ -248,7 +264,13 @@ namespace Reflectis.SDK.InteractionNew
 
         public void ToggleBoundingBoxCollider(bool state)
         {
-            BoundingBox.GetComponent<Collider>().enabled = state;
+            if (modelScaler != null)
+            {
+                modelScaler.EnableProportionalScaling(state);
+            }
+            if (InteractableCollider.BoundingBox == null) return;
+
+            InteractableCollider.BoundingBox.Collider.enabled = state;
         }
 
         #endregion

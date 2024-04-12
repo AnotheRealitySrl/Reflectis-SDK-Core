@@ -19,5 +19,8 @@ namespace Reflectis.SDK.InteractionNew
 
         public Dictionary<EHoverInteractionController, GameObject> ControllersOverInteractableUI { get; }
 
+        public GameObject BoundingBoxGraphicPrefab { get; }
+
+        public InteractableCollider SetupInteractableCollider(GameObject gameObject, InteractableColliderContainer interactableColliderPlaceholder);
     }
 }

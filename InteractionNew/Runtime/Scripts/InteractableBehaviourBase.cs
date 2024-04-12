@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 using UnityEngine;
@@ -5,8 +7,12 @@ using UnityEngine.Events;
 
 namespace Reflectis.SDK.InteractionNew
 {
+
+    [RequireComponent(typeof(InteractableCollider))]
     public abstract class InteractableBehaviourBase : MonoBehaviour, IInteractableBehaviour
     {
+        protected InteractableCollider interactableCollider;
+
         [SerializeField]
         private bool autoSetupAtStart;
 
@@ -32,8 +38,34 @@ namespace Reflectis.SDK.InteractionNew
         }
 
         public UnityEvent<EBlockedState> OnCurrentBlockedChanged { get; set; } = new();
+        public InteractableCollider InteractableCollider { get => interactableCollider; set => interactableCollider = value; }
 
-        public abstract Task Setup();
+        public virtual Task Setup()
+        {
+            InteractableCollider = GetComponent<InteractableCollider>();
+
+            switch (InteractableCollider.InteractionMode)
+            {
+                case EInteractionMode.BoundingBox:
+
+                    if (InteractableCollider.BoundingBox == null)
+                    {
+                        InteractableCollider.BoundingBox = BoundingBox.GetOrGenerateBoundingBox(gameObject);
+                    }
+
+                    InteractableCollider.Colliders = new List<Collider>() { InteractableCollider.BoundingBox.Collider };
+
+                    break;
+                case EInteractionMode.MultipleColliders:
+                    if (InteractableCollider.Colliders == null || InteractableCollider.Colliders.Count == 0)
+                    {
+                        InteractableCollider.Colliders = GetComponentsInChildren<Collider>().ToList();
+                    }
+                    break;
+            }
+            return Task.CompletedTask;
+        }
+
         public abstract void HoverEnter();
         public abstract void HoverExit();
 

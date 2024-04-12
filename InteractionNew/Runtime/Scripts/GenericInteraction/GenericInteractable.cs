@@ -48,8 +48,6 @@ namespace Reflectis.SDK.InteractionNew
         [SerializeField] private EAllowedGenericInteractableState vrAllowedStates = EAllowedGenericInteractableState.Selected | EAllowedGenericInteractableState.Interacting;
 
         public Action<GameObject> OnSelectedActionVisualScripting;
-
-        public List<Collider> InteractionColliders { get => interactionColliders; set => interactionColliders = value; }
         public bool LockHoverDuringInteraction { get => lockHoverDuringInteraction; set => lockHoverDuringInteraction = value; }
         public ScriptMachine InteractionScriptMachine { get => interactionScriptMachine; set => interactionScriptMachine = value; }
         public ScriptMachine UnselectOnDestroyScriptMachine { get => unselectOnDestroyScriptMachine; set => unselectOnDestroyScriptMachine = value; }
@@ -106,6 +104,8 @@ namespace Reflectis.SDK.InteractionNew
 
         public override Task Setup()
         {
+            base.Setup();
+
             switch (SM.GetSystem<IPlatformSystem>().RuntimePlatform)
             {
                 case RuntimePlatform.WebGLPlayer:

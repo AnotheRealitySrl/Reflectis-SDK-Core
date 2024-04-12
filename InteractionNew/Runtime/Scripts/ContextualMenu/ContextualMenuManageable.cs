@@ -49,7 +49,6 @@ namespace Reflectis.SDK.InteractionNew
 
         [SerializeField]
         private bool isNetworked = true;
-        public BoundingBox BoundingBox { get; protected set; }
         public EContextualMenuOption ContextualMenuOptions { get => contextualMenuOptions; set => contextualMenuOptions = value; }
 
         public EContextualMenuType ContextualMenuType = EContextualMenuType.Default;
@@ -77,8 +76,6 @@ namespace Reflectis.SDK.InteractionNew
             { EContextualMenuOption.NonProportionalScale, null },
         };
 
-
-
         public UnityAction DoDestroy { get; set; }
         public bool IsNetworked { get => isNetworked; set => isNetworked = value; }
 
@@ -102,7 +99,7 @@ namespace Reflectis.SDK.InteractionNew
 
         public override async Task Setup()
         {
-            BoundingBox = BoundingBox.GetOrGenerateBoundingBox(gameObject);
+            await base.Setup();
 
             if (ContextualMenuOptions.HasFlag(EContextualMenuOption.Explodable))
             {
@@ -114,7 +111,10 @@ namespace Reflectis.SDK.InteractionNew
                 await SM.GetSystem<IColorPickerSystem>().AssignColorPicker(gameObject, IsNetworked);
             }
 
-            OnContextualMenuButtonSelected[EContextualMenuOption.Delete] = AskForDelete;
+            if (contextualMenuOptions.HasFlag(EContextualMenuOption.Delete))
+            {
+                OnContextualMenuButtonSelected[EContextualMenuOption.Delete] = AskForDelete;
+            }
         }
 
         public override void HoverEnter()

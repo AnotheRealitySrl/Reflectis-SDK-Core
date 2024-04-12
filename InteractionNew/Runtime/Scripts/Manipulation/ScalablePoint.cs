@@ -1,10 +1,12 @@
-using UnityEngine; 
+using UnityEngine;
 
 namespace Reflectis.SDK.InteractionNew
 {
     public class ScalablePoint : MonoBehaviour
     {
         [SerializeField] private MeshRenderer meshRenderer;
+
+        private ModelScaler scaler;
 
         private void Start()
         {
@@ -15,7 +17,7 @@ namespace Reflectis.SDK.InteractionNew
         }
 
         public void OnHoverEnter()
-        { 
+        {
             if (meshRenderer != null)
             {
                 meshRenderer.enabled = true;
@@ -23,7 +25,7 @@ namespace Reflectis.SDK.InteractionNew
         }
 
         public void OnHoverExit()
-        { 
+        {
             if (meshRenderer != null)
             {
                 meshRenderer.enabled = false;
