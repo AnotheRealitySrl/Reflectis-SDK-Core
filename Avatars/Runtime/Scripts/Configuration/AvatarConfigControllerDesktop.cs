@@ -15,6 +15,15 @@ namespace Reflectis.SDK.Avatars
 
         [SerializeField, Tooltip("Default animator for feminine avatars")]
         private RuntimeAnimatorController feminineAnimatorController;
+
+        [SerializeField, Tooltip("Default height for feminine players")]
+        private float defaultFeminineHeight = 1.60f;
+
+        [SerializeField, Tooltip("Default height for anonymous players")]
+        private float defaultHeight = 1.65f;
+
+        [SerializeField, Tooltip("Default height for masculine players")]
+        private float defaultMasculineHeight = 1.70f;
         #endregion
 
         public override void OnAvatarLoadCompletion(GameObject avatar, AvatarData avatarData)
@@ -70,7 +79,16 @@ namespace Reflectis.SDK.Avatars
                 SM.GetSystem<CharacterControllerSystem>().OnCharacterControllerSetupComplete.Invoke(GetComponent<AvatarControllerBase>().CharacterReference);
             }
 
-            GetComponent<CharacterBase>().Setup();
+            CharacterBase character = GetComponent<CharacterBase>();
+
+            if (AvatarConfig != null && AvatarConfig.PlayerHeight != null)
+                character.PlayerHeight = AvatarConfig.PlayerHeight ?? defaultHeight;
+            else
+                character.PlayerHeight = (avatarData.gender == AvatarGender.Masculine ? defaultMasculineHeight :
+                avatarData.gender == AvatarGender.Feminine ? defaultFeminineHeight :
+                    defaultHeight);
+
+            character.Setup();
 
             if (prevRef != avatar)
             {
