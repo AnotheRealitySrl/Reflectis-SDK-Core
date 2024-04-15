@@ -35,8 +35,6 @@ namespace Reflectis.SDK.InteractionNew
             Hovered = 4,
         }
 
-        [SerializeField] private List<Collider> interactionColliders = new();
-
         [SerializeField] private bool lockHoverDuringInteraction = false;
 
         [SerializeField] private ScriptMachine interactionScriptMachine = null;
@@ -174,16 +172,6 @@ namespace Reflectis.SDK.InteractionNew
                 }
             }
 
-            if (interactionColliders == null || interactionColliders.Count == 0)
-            {
-                interactionColliders = GetComponentsInChildren<Collider>().ToList();
-            }
-
-            if (interactionColliders == null || interactionColliders.Count == 0)
-            {
-                var boundingBox = BoundingBox.GetOrGenerateBoundingBox(gameObject);
-                interactionColliders = new List<Collider>() { boundingBox.Collider };
-            }
             return Task.CompletedTask;
         }
 
