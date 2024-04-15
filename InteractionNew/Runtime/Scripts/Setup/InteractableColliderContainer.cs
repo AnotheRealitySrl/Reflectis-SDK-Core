@@ -28,15 +28,6 @@ namespace Reflectis.SDK.InteractionNew
         private BoxCollider vrBoundingBox;
 
         [SerializeField]
-        //[DrawIf(nameof(vrInteractionMode), EInteractionMode.BoundingBox)]
-        private bool useHandSpecificColliders;
-
-        [SerializeField]
-        //[DrawIf(nameof(vrInteractionMode), EInteractionMode.BoundingBox)]
-        //[DrawIf(nameof(useHandSpecificColliders), true)]
-        private List<Collider> vrHandColliders;
-
-        [SerializeField]
         //[DrawIf(nameof(vrInteractionMode), EInteractionMode.MultipleColliders)]
         private List<Collider> vrColliders;
 
@@ -46,8 +37,6 @@ namespace Reflectis.SDK.InteractionNew
         public EInteractionMode VrInteractionMode { get => vrInteractionMode; set => vrInteractionMode = value; }
         public BoxCollider VrBoundingBox { get => vrBoundingBox; set => vrBoundingBox = value; }
         public List<Collider> VrColliders { get => vrColliders; set => vrColliders = value; }
-        public bool UseHandSpecificColliders { get => useHandSpecificColliders; set => useHandSpecificColliders = value; }
-        public List<Collider> VrHandColliders { get => vrHandColliders; set => vrHandColliders = value; }
 
     }
 }
