@@ -95,6 +95,8 @@ namespace Reflectis.SDK.Avatars
             labelPositionY = GetBounds();
             character.LabelReference.transform.localPosition = new Vector3(character.LabelReference.transform.localPosition.x, labelPositionY, character.LabelReference.transform.localPosition.z);
 
+            SM.GetSystem<AvatarSystem>().CheckAvatarActivation();
+
             onAfterAction?.Invoke();
 
         }

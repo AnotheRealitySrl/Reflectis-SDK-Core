@@ -1,7 +1,6 @@
 
 using Reflectis.SDK.CharacterController;
 using Reflectis.SDK.Core;
-
 using System.Threading.Tasks;
 
 using UnityEngine;
@@ -50,6 +49,8 @@ namespace Reflectis.SDK.Avatars
 
         public UnityEvent<IAvatarConfig> OnPlayerAvatarConfigChanged { get; } = new();
         public UnityEvent<string> PlayerNickNameChanged { get; } = new();
+
+        public UnityEvent OnMeshDisableReset { get; } = new();
         #endregion
 
         #region Private variables
@@ -153,7 +154,6 @@ namespace Reflectis.SDK.Avatars
         public void UpdateAvatarInstanceNickName(string newName) => AvatarInstanceConfigManager?.UpdateAvatarNickName(newName);
         public void EnableAvatarInstanceMeshes(bool enable)
         {
-
             if (enable)
             {
                 avatarMeshDisablerCounter--;
@@ -187,10 +187,23 @@ namespace Reflectis.SDK.Avatars
         public void ResetAvatarMeshDisabler()
         {
             avatarMeshDisablerCounter = 0;
+            OnMeshDisableReset?.Invoke();
         }
 
         public void EnableAvatarInstanceHandMeshes(bool enable) => AvatarInstanceConfigManager?.EnableHandMeshes(enable);
         public void EnableAvatarInstanceHandMesh(int id, bool enable) => AvatarInstanceConfigManager?.EnableHandMesh(id, enable);
+
+        internal void CheckAvatarActivation()
+        {
+            if (avatarMeshDisablerCounter <= 0)
+            {
+                AvatarInstanceConfigManager?.EnableAvatarMeshes(true);
+            }
+            else
+            {
+                AvatarInstanceConfigManager?.EnableAvatarMeshes(false);
+            }
+        }
 
         #endregion
     }
