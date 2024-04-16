@@ -39,6 +39,8 @@ namespace Reflectis.SDK.InteractionNew
                         {
                             bounds.Encapsulate(childRenderer.bounds);
                         }
+                        boundingBox._collider.isTrigger = true;
+
                         Debug.Log($"bounds: {bounds.center}, {bounds.size}");
                         // offset so that the bounding box is centered in zero and apply scale
                         boundingBoxGO.transform.position = bounds.center;
