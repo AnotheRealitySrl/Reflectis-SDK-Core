@@ -22,12 +22,25 @@ namespace Reflectis.SDK.Avatars
 
         [SerializeField] private GameObject fullBodyAvatarReference;
 
+        [Header("Default Values")]
+
+        [SerializeField, Tooltip("Default height for feminine players")]
+        private float defaultFeminineHeight = 1.60f;
+
+        [SerializeField, Tooltip("Default height for anonymous players")]
+        private float defaultHeight = 1.65f;
+
+        [SerializeField, Tooltip("Default height for masculine players")]
+        private float defaultMasculineHeight = 1.70f;
+
         #endregion
 
         #region Protected variables
 
         protected AvatarSystem avatarSystem;
         protected ICharacter character;
+
+        protected AvatarData cachedAvatarData;
 
         protected readonly List<Renderer> handsMeshes = new();
         protected TMP_Text avatarNameText;
@@ -99,7 +112,10 @@ namespace Reflectis.SDK.Avatars
 
         }
 
-        public abstract void OnAvatarLoadCompletion(GameObject avatar, AvatarData avatarData);
+        public virtual void OnAvatarLoadCompletion(GameObject avatar, AvatarData avatarData)
+        {
+            cachedAvatarData = avatarData;
+        }
 
         public virtual void EnableAvatarMeshes(bool enable)
         {
@@ -156,6 +172,16 @@ namespace Reflectis.SDK.Avatars
 
             return avatarCounterEnable;
         }
+
+        public virtual Vector3 CalibrateAvatar()
+        {
+            CharacterBase character = GetComponent<CharacterBase>();
+
+            character.PlayerHeight = CalculateCharacterHeight();
+
+            return character.CalibrateAvatar();
+        }
+
         #endregion
 
         #region Protected Methods
@@ -192,6 +218,19 @@ namespace Reflectis.SDK.Avatars
 
             float labelPositionY = (float)((combinedBounds.extents.y * 2) - character.LabelOffsetFromBounds);
             return labelPositionY;
+        }
+
+        protected float CalculateCharacterHeight()
+        {
+            if (AvatarConfig != null && AvatarConfig.PlayerHeight != null)
+                return AvatarConfig.PlayerHeight ?? defaultHeight;
+            else
+                return cachedAvatarData.gender switch
+                {
+                    AvatarGender.Masculine => defaultMasculineHeight,
+                    AvatarGender.Feminine => defaultFeminineHeight,
+                    _ => defaultHeight
+                };
         }
 
         #endregion

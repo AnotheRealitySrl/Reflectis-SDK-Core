@@ -1,4 +1,3 @@
-
 using Reflectis.SDK.CharacterController;
 using Reflectis.SDK.Core;
 using System.Linq;
@@ -8,20 +7,9 @@ namespace Reflectis.SDK.Avatars
 {
     public class AvatarConfigControllerVR : AvatarConfigControllerBase
     {
-        
-
         #region Inspector variables
 
         [SerializeField] private GameObject halfBodyAvatarReference;
-
-        [SerializeField, Tooltip("Default height for feminine players")]
-        private float defaultFeminineHeight = 1.60f;
-
-        [SerializeField, Tooltip("Default height for anonymous players")]
-        private float defaultHeight = 1.65f;
-
-        [SerializeField, Tooltip("Default height for masculine players")]
-        private float defaultMasculineHeight = 1.70f;
 
         #endregion
 
@@ -34,6 +22,8 @@ namespace Reflectis.SDK.Avatars
 
         public override void OnAvatarLoadCompletion(GameObject avatar, AvatarData avatarData)
         {
+            base.OnAvatarLoadCompletion(avatar, avatarData);
+
             Transform currentPivotParent = null;
             GameObject prevRef = null;
             CharacterBase character = GetComponent<CharacterBase>();
@@ -61,12 +51,8 @@ namespace Reflectis.SDK.Avatars
                         hand.enabled = false;
                     }
 
-                    if (AvatarConfig != null && AvatarConfig.PlayerHeight != null)
-                        character.PlayerHeight = AvatarConfig.PlayerHeight ?? defaultHeight;
-                    else
-                        character.PlayerHeight = (avatarData.gender == AvatarGender.Masculine ? defaultMasculineHeight :
-                        avatarData.gender == AvatarGender.Feminine ? defaultFeminineHeight :
-                            defaultHeight);
+                    character.PlayerHeight = CalculateCharacterHeight();
+
                     break;
                 case AvatarBodyType.HalfBody:
                     if (HalfBodyAvatarReference != null)
