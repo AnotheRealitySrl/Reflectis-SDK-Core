@@ -15,6 +15,8 @@ namespace Reflectis.SDK.ClientModels
         [SerializeField] private string addressableKey;
         [SerializeField] private string catalog;
         [SerializeField] private int worldId;
+        [SerializeField] private string localizationName = "localizationcsv";
+        [SerializeField] private TextAsset localizationCSV;
 
         public int ID { get => id; set => id = value; }
         public string Name { get => name; set => name = value; }
@@ -24,5 +26,7 @@ namespace Reflectis.SDK.ClientModels
         public string AddressableKey { get => addressableKey; set => addressableKey = value; }
         public string Catalog { get => catalog; set => catalog = value; }
         public int WorldId { get => worldId; set => worldId = value; }
+        public string LocalizationName { get => localizationName; set => localizationName = value; }
+        public TextAsset LocalizationCSV { get => localizationCSV; set => localizationCSV = value; }
     }
 }
