@@ -66,7 +66,7 @@ namespace Reflectis.SDK.Avatars
         /// Shows/hides avatar's hands (only for half-body avatars)
         /// </summary>
         /// <param name="enable"></param>
-        void EnableAvatarInstanceMeshes(bool enable);
+        void EnableAvatarInstanceMeshes(bool enable, bool fromCamera = false);
 
 
         /// <summary>

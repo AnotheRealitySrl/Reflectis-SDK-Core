@@ -1,7 +1,6 @@
 
 using Reflectis.SDK.CharacterController;
 using Reflectis.SDK.Core;
-
 using System.Threading.Tasks;
 
 using UnityEngine;
@@ -50,12 +49,15 @@ namespace Reflectis.SDK.Avatars
 
         public UnityEvent<IAvatarConfig> OnPlayerAvatarConfigChanged { get; } = new();
         public UnityEvent<string> PlayerNickNameChanged { get; } = new();
+
         #endregion
 
         #region Private variables
 
         // The config manager associated to the avatar instance
         private IAvatarConfigController avatarInstanceConfigManager;
+
+        private bool cameraDisable;
 
         private int avatarMeshDisablerCounter;
 
@@ -151,25 +153,24 @@ namespace Reflectis.SDK.Avatars
 
         public void UpdateAvatarInstanceCustomization(IAvatarConfig config) => AvatarInstanceConfigManager?.UpdateAvatarCustomization(config);
         public void UpdateAvatarInstanceNickName(string newName) => AvatarInstanceConfigManager?.UpdateAvatarNickName(newName);
-        public void EnableAvatarInstanceMeshes(bool enable)
+        public void EnableAvatarInstanceMeshes(bool enable, bool fromCamera = false)
         {
-
-            if (enable)
+            if (fromCamera)
             {
-                avatarMeshDisablerCounter--;
-                if (avatarMeshDisablerCounter == 0)
-                {
-                    AvatarInstanceConfigManager?.EnableAvatarMeshes(true);
-                }
+                cameraDisable = !enable;
             }
             else
             {
-                avatarMeshDisablerCounter++;
-                if (avatarMeshDisablerCounter == 1)
+                if (enable)
                 {
-                    AvatarInstanceConfigManager?.EnableAvatarMeshes(false);
+                    avatarMeshDisablerCounter--;
+                }
+                else
+                {
+                    avatarMeshDisablerCounter++;
                 }
             }
+            CheckAvatarActivation();
         }
 
         public void EnableAvatarInstanceTag(bool enable)
@@ -191,6 +192,18 @@ namespace Reflectis.SDK.Avatars
 
         public void EnableAvatarInstanceHandMeshes(bool enable) => AvatarInstanceConfigManager?.EnableHandMeshes(enable);
         public void EnableAvatarInstanceHandMesh(int id, bool enable) => AvatarInstanceConfigManager?.EnableHandMesh(id, enable);
+
+        internal void CheckAvatarActivation()
+        {
+            if (avatarMeshDisablerCounter <= 0 && !cameraDisable)
+            {
+                AvatarInstanceConfigManager?.EnableAvatarMeshes(true);
+            }
+            if (avatarMeshDisablerCounter >= 1 || cameraDisable)
+            {
+                AvatarInstanceConfigManager?.EnableAvatarMeshes(false);
+            }
+        }
 
         #endregion
     }
