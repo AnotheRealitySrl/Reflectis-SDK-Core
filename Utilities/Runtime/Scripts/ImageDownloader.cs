@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -16,7 +17,7 @@ namespace Reflectis.SDK.Utilities
             {
                 key = mediaUrl;
             }
-            
+
             if (string.IsNullOrEmpty(key))
             {
                 Debug.LogError("Trying to download an image with an empty url!");
@@ -53,10 +54,7 @@ namespace Reflectis.SDK.Utilities
             {
                 Debug.Log(request.error);
                 userIconCached.Remove(mediaUrl);
-                if (onFailedCallback != null)
-                {
-                    onFailedCallback();
-                }
+                onFailedCallback?.Invoke();
             }
             else
             {
