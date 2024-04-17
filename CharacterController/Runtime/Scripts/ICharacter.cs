@@ -46,5 +46,11 @@ namespace Reflectis.SDK.CharacterController
         /// </summary>
         /// <returns>Task</returns>
         Task Unsetup();
+
+        /// <summary>
+        /// Calibrates the avatar height based on player height
+        /// </summary>
+        /// <returns>The new local scale</returns>
+        Vector3 CalibrateAvatar();
     }
 }

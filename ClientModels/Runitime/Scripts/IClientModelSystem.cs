@@ -198,16 +198,12 @@ namespace Reflectis.SDK.ClientModels
         #region Users
 
         CMUser UserData { get; set; }
+        CMUserPreference UserPrefs { get; set; }
 
         /// <summary>
         /// Return all users that match search criteria
         /// </summary>
         Task<List<CMUser>> SearchUsersByNickname(string nicknameSubstring);
-        /// <summary>
-        /// Return the local player data
-        /// </summary>
-        /// <returns></returns>
-        Task<CMUser> GetPlayerData();
 
         /// <summary>
         /// Return data of the player with given id
@@ -215,6 +211,12 @@ namespace Reflectis.SDK.ClientModels
         /// <param name="id"></param>
         /// <returns></returns>
         Task<CMUser> GetUserData(int id);
+
+        /// <summary>
+        ///  Return the local player data
+        /// </summary>
+        /// <returns></returns>
+        Task<CMUser> GetMyUserData();
 
         /// <summary>
         /// Return data of the player with given id
@@ -297,6 +299,7 @@ namespace Reflectis.SDK.ClientModels
         #endregion
 
         #region Tags
+
         /// <summary>
         /// Get all tags avaible to users
         /// </summary>

@@ -85,5 +85,7 @@ namespace Reflectis.SDK.CharacterController
 
         public virtual Task Setup() => Task.CompletedTask;
         public virtual Task Unsetup() => Task.CompletedTask;
+
+        public virtual Vector3 CalibrateAvatar() => Vector3.zero;
     }
 }

@@ -83,6 +83,14 @@ namespace Reflectis.SDK.Avatars
         /// <param name="activate"></param>
         /// <returns></returns>
         int ManageCounterAvatarMeshEnable(bool activate);
+
+
+        /// <summary>
+        /// Calibrates the avatar height based on player height
+        /// </summary>
+        /// <returns>The new local scale</returns>
+        Vector3 CalibrateAvatar();
+
         #endregion
     }
 }
