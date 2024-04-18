@@ -55,7 +55,7 @@ namespace Reflectis.SDK.Avatars
         /// Shows/hides avatar tag
         /// </summary>
         /// <param name="enable"></param>
-        void EnableAvatarTag(bool enable);
+        void EnableAvatarLabel(bool enable);
 
         /// <summary>
         /// Shows/hides avatar's hands (only for half-body avatars)

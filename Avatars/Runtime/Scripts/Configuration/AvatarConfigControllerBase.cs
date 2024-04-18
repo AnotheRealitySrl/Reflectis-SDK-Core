@@ -1,11 +1,14 @@
 using Reflectis.SDK.CharacterController;
 using Reflectis.SDK.Core;
 using Reflectis.SDK.Utilities.Extensions;
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+
 using TMPro;
+
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -121,10 +124,10 @@ namespace Reflectis.SDK.Avatars
 
         public virtual void EnableAvatarMeshes(bool enable)
         {
-            EnableAvatarTag(enable);
+            EnableAvatarLabel(enable);
         }
 
-        public virtual void EnableAvatarTag(bool enable)
+        public virtual void EnableAvatarLabel(bool enable)
         {
             if (character.LabelReference)
             {

@@ -1,10 +1,49 @@
 # Release notes
 
+## v6.0.0
+
+### Changed
+
+- ClientModels: added `worldId` int parameter to `GetDefaultWorldEvent` signature.
+- ClientModels: change `GetPlayerData` method name to `GetMyUserData` in `IClientModelSystem`.
+
+### Added
+
+- Add new `SceneHierarchy` module for better scene objects grouping and management.
+- Avatars: added `Finish` method in `AvatarSystem` to unload the current avatar.
+- Avatars: added `EnableSpeaker` value in `EFacetGroup` enum of `CMFacet`.
+- Avatars: added `VoiceChatSource` in `AvatarControllerBase`.
+- Avatars: added `AvatarConfigBase` class.
+- Avatars: implemented height management for RPM avatars, added `CalibrateAvatar` method in `ICharacter` and `IAvatarConfigController`.
+- ClientModels: added `GetWorld` method in `IClientModelSystem`.
+- ClientModels: added `Description` and `ThumbnailUri` field to `CMWorld`.
+- ClientModels: added `UserPrefs` to `IClientModelSystem`.
+- ClientModels: added NickName property in CMUser in order to differentiate the name of a User from its DisplayName.
+- ClientModels: added `GetUserCode` method in `IClientModelSystem`.
+- ClientModels: added `Height` property in `CMUserPreference`.
+- ClientModels: added `LocalizationName` and `LocalizationCSV` to `CMEnvironment`.
+- ClientModels: Added `UserPrefs` property in `IClientModelSystem`.
+- Interaction: added `OnGrabManipulableStart`, `OnGrabManipulableEnd`, `OnRayGrabManipulableStart` and `OnRayGrabManipulableEnd` events in `Manipulable`.
+
+### Removed
+
+- ClientModels: Remove `DefaultEvent` property from `IClientModelSystem`.
+
+### Fixed
+
+- Update Addressables package dependency to version 1.21.20.
+- Fade: fixed set float method in `CanvasFadeManager` which prevented the fade to be completed.
+- Avatars: fixed issue of avatar not being attached to character controller on setup, in the case the avatar is setupped automatically.
+- Interaction: fixed search of disabled `InteractableRef`s in `InteractableBehaviourBase`.
+- Interaction: added a minimum treshold under which a `Manipulable` can be moved in WebGL.
+- Avatars: added `EnableAvatarInstanceLabel` in `IAvatarSystem` (with implementation in `AvatarSystem`) and `EnableAvatarLabel` in `IAvatarConfigController` (with implementation in `AvatarControllerBase` and `AvatarControllerDesktop`).
+- Interaction: Fixed networked contextual menu option and removed hard reference to bounding box collider renamed scene hierarchy to scene objects
+
 ## v5.0.0
 
 ### Changed
 
-- AvatarSystem: Added references to network avatar prefabs.
+- Avatars: added references to network avatar prefabs.
 - ClientModels: changed saved color in `CMTemplateObj` from Color to string, to allow for an empty/null color value.
 - ColorPicker: renamed method used to load saved model color state, from `AssignColorToPicker` to `AssignSavedColorToPicker`.
 - Core: systems initialization is now awaitable.
