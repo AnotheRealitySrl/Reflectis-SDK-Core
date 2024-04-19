@@ -74,6 +74,8 @@ namespace Reflectis.SDK.CharacterController
 
         #endregion
 
+        public float ActualMeshHeight { get; set; } = 1.7f;
+
         public Transform PivotReference => pivotReference;
         public Transform HeadReference => headReference;
         public Transform LeftInteractorReference => leftHandReference;

@@ -106,9 +106,6 @@ namespace Reflectis.SDK.Avatars
 
             await AvatarLoader.LoadAvatar(config);
 
-            // Updates label position.
-            GetBounds();
-
             SM.GetSystem<AvatarSystem>().CheckAvatarActivation();
 
             onAfterAction?.Invoke();
@@ -182,10 +179,10 @@ namespace Reflectis.SDK.Avatars
 
             character.PlayerHeight = CalculateCharacterHeight();
 
-            character.CalibrateAvatar();
-
             // Updates label position.
-            GetBounds();
+            character.ActualMeshHeight = GetBounds();
+
+            character.CalibrateAvatar();
         }
 
         #endregion
