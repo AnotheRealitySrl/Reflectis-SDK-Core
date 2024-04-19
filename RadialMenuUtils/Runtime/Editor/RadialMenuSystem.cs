@@ -21,11 +21,11 @@ namespace Reflectis.SDK.RadialMenuUtils
             else
             {
                 radialMenuNetworkPrefab.SetActive(false);
-                instantiatedRadialMenu = Instantiate(radialMenuNetworkPrefab);
+                //instantiatedRadialMenu = Instantiate(radialMenuNetworkPrefab);
+                instantiatedRadialMenu = Instantiate(radialMenuPrefab);
                 //instantiate radialRPCManager too... remember that it is a network element so maybe you have to instantiate it differently
             }
 
-            Debug.LogError("RadialMenu instantiated, have fun!");
             return instantiatedRadialMenu;
         }
     }

@@ -12,5 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 917cce70ea7809748ab5f9e1a854f737, type: 3}
   m_Name: RadialMenuSystem
   m_EditorClassIdentifier: 
+  _subSystems: []
+  autoInitAtStartup: 1
   radialMenuPrefab: {fileID: 4117030459062965122, guid: be57e633df503e04babb884cc9b26ed4,
     type: 3}
+  radialMenuNetworkPrefab: {fileID: 389439876974582595, guid: 0a05b26599262ba4f9ccea04a7fb81f8,
+    type: 3}
+  instantiatedRadialMenu: {fileID: 0}

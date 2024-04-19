@@ -11,6 +11,9 @@ namespace Reflectis.SDK.RadialMenuUtils
 
         [SerializeField] private Quaternion startRotation = new Quaternion(0f, 0f, 0f, 0f); //the start rotaton of the item, useful to place it in the correct position in the hands
 
+        [Tooltip("Whether or not you want the item to be immediately grabbed when spawned?")]
+        [SerializeField] public bool instantGrab = true;
+
         [SerializeField] private List<Collider> collidersList;
 
         private Rigidbody rb;
@@ -29,8 +32,12 @@ namespace Reflectis.SDK.RadialMenuUtils
         {
             transform.localRotation = startRotation;
             transform.localPosition = startPosition;
-            rb.isKinematic = false;
             itemObj.SetActive(true);
+        }
+
+        public void ChangeItemRB(bool value)
+        {
+            rb.isKinematic = value;
         }
 
         //Deactivate the item and reset it
