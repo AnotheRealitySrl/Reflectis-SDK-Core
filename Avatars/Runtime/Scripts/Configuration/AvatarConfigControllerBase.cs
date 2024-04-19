@@ -51,7 +51,6 @@ namespace Reflectis.SDK.Avatars
 
         protected int avatarCounterEnable = 0;
 
-        protected Bounds combinedBounds;
         #endregion
 
         #region Properties
@@ -107,9 +106,8 @@ namespace Reflectis.SDK.Avatars
 
             await AvatarLoader.LoadAvatar(config);
 
-            float labelPositionY;
-            labelPositionY = GetBounds();
-            character.LabelReference.transform.localPosition = new Vector3(character.LabelReference.transform.localPosition.x, labelPositionY, character.LabelReference.transform.localPosition.z);
+            // Updates label position.
+            GetBounds();
 
             SM.GetSystem<AvatarSystem>().CheckAvatarActivation();
 
@@ -178,13 +176,16 @@ namespace Reflectis.SDK.Avatars
             return avatarCounterEnable;
         }
 
-        public virtual Vector3 CalibrateAvatar()
+        public virtual void CalibrateAvatar()
         {
             CharacterBase character = GetComponent<CharacterBase>();
 
             character.PlayerHeight = CalculateCharacterHeight();
 
-            return character.CalibrateAvatar();
+            character.CalibrateAvatar();
+
+            // Updates label position.
+            GetBounds();
         }
 
         #endregion
@@ -208,7 +209,7 @@ namespace Reflectis.SDK.Avatars
         protected float GetBounds()
         {
             Renderer[] childObjects = GetComponentsInChildren<Renderer>();
-            combinedBounds = new Bounds();
+            Bounds combinedBounds = new Bounds();
 
             if (childObjects.Length == 0)
             {

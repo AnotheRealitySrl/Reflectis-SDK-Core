@@ -11,19 +11,22 @@ namespace Reflectis.SDK.CharacterController
     {
         //The trigger colliders of the hands. Used to know if the hand is entering a rigidbody.
         [Header("Hands Colliders")]
-        [SerializeField] protected Collider leftColliderInteractorReference;
-        [SerializeField] protected Collider rightColliderInteractorReference;
+        [SerializeField] private Collider leftColliderInteractorReference;
+        [SerializeField] private Collider rightColliderInteractorReference;
 
         [Header("Character structure")]
-        [SerializeField] protected Transform pivotReference;
-        [SerializeField] protected Transform headReference;
-        [SerializeField] protected Transform leftHandReference;
-        [SerializeField] protected Transform rightHandReference;
-        [SerializeField] protected Transform labelReference;
-        [SerializeField] protected float labelOffsetFromBounds = 0.06f;
-        [SerializeField] protected Transform tagReference;
+        [SerializeField] private Transform pivotReference;
+        [SerializeField] private Transform headReference;
+        [SerializeField] private Transform leftHandReference;
+        [SerializeField] private Transform rightHandReference;
+        [SerializeField] private Transform labelReference;
+        [SerializeField] private float labelOffsetFromBounds = 0.06f;
+        [SerializeField] private Transform tagReference;
 
+        [Header("Avatar Scale")]
         [SerializeField] private float playerHeight = 1.65f;
+        [SerializeField] private float headToTopHeadNodesOffset = 0.2f;
+        [SerializeField] private float scaleMlp = 1f;
 
         #region FingerBones References
         [Header("Fingers structure")]
@@ -82,10 +85,15 @@ namespace Reflectis.SDK.CharacterController
         public Transform TagReference => tagReference;
 
         public float PlayerHeight { get => playerHeight; set => playerHeight = value; }
+        public float HeadToTopHeadNodesOffset { get => headToTopHeadNodesOffset; set => headToTopHeadNodesOffset = value; }
+        public float ScaleMlp { get => scaleMlp; set => scaleMlp = value; }
 
         public virtual Task Setup() => Task.CompletedTask;
         public virtual Task Unsetup() => Task.CompletedTask;
 
-        public virtual Vector3 CalibrateAvatar() => Vector3.zero;
+        public virtual void CalibrateAvatar()
+        {
+            LabelReference.localPosition = new Vector3(labelReference.localPosition.x, PlayerHeight, labelReference.localPosition.z);
+        }
     }
 }

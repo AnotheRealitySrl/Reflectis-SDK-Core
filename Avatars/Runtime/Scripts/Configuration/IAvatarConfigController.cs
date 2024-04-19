@@ -88,8 +88,7 @@ namespace Reflectis.SDK.Avatars
         /// <summary>
         /// Calibrates the avatar height based on player height
         /// </summary>
-        /// <returns>The new local scale</returns>
-        Vector3 CalibrateAvatar();
+        void CalibrateAvatar();
 
         #endregion
     }
