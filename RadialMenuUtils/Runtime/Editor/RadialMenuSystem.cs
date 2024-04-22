@@ -9,7 +9,7 @@ namespace Reflectis.SDK.RadialMenuUtils
         public GameObject radialMenuPrefab;
         public GameObject radialMenuNetworkPrefab;
 
-        public GameObject instantiatedRadialMenu;
+        private GameObject instantiatedRadialMenu;
 
         public GameObject InstantiateRadialMenu(bool network)
         {
@@ -21,9 +21,7 @@ namespace Reflectis.SDK.RadialMenuUtils
             else
             {
                 radialMenuNetworkPrefab.SetActive(false);
-                //instantiatedRadialMenu = Instantiate(radialMenuNetworkPrefab);
-                instantiatedRadialMenu = Instantiate(radialMenuPrefab);
-                //instantiate radialRPCManager too... remember that it is a network element so maybe you have to instantiate it differently
+                instantiatedRadialMenu = Instantiate(radialMenuNetworkPrefab);
             }
 
             return instantiatedRadialMenu;
