@@ -16,6 +16,5 @@ MonoBehaviour:
   autoInitAtStartup: 1
   radialMenuPrefab: {fileID: 4117030459062965122, guid: 6c62c538caef2b3409c2fb4ff6402a3e,
     type: 3}
-  radialMenuNetworkPrefab: {fileID: 4117030459062965122, guid: 6c62c538caef2b3409c2fb4ff6402a3e,
+  radialMenuNetworkPrefab: {fileID: 4117030459062965122, guid: 69d0a038a86030b49b001cac7b81eb18,
     type: 3}
-  instantiatedRadialMenu: {fileID: 0}
