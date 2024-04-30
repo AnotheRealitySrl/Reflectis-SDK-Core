@@ -138,7 +138,14 @@ namespace Reflectis.SDK.InteractionNew
                 if (!IsSubmesh)
                 {
                     // This manipulable is at the root of the interactive object
-                    return Vector3.Scale(BoundingBox.transform.localScale, transform.localScale);
+                    if (BoundingBox != null)
+                    {
+                        return Vector3.Scale(BoundingBox.transform.localScale, transform.localScale);
+                    }
+                    else
+                    {
+                        return transform.localScale;
+                    }
                 }
                 else
                 {
@@ -172,8 +179,15 @@ namespace Reflectis.SDK.InteractionNew
             {
                 if (!IsSubmesh)
                 {
-                    // This manipulable is at the root of the interactive object
-                    return BoundingBox.transform.position;
+                    if (BoundingBox != null)
+                    {
+                        // This manipulable is at the root of the interactive object
+                        return BoundingBox.transform.position;
+                    }
+                    else
+                    {
+                        return transform.position;
+                    }
                 }
                 else
                 {
@@ -265,8 +279,8 @@ namespace Reflectis.SDK.InteractionNew
                 //BoundingBox = InteractableRef.InteractionColliders[0];
 
             }
-			
-			//event callbacks
+
+            //event callbacks
             OnGrabManipulableStart = new UnityEvent();
             OnGrabManipulableEnd = new UnityEvent();
             OnRayGrabManipulableStart = new UnityEvent();
