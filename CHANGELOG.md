@@ -38,6 +38,7 @@
 - Interaction: added a minimum treshold under which a `Manipulable` can be moved in WebGL.
 - Avatars: added `EnableAvatarInstanceLabel` in `IAvatarSystem` (with implementation in `AvatarSystem`) and `EnableAvatarLabel` in `IAvatarConfigController` (with implementation in `AvatarControllerBase` and `AvatarControllerDesktop`).
 - Interaction: Fixed networked contextual menu option and removed hard reference to bounding box collider renamed scene hierarchy to scene objects
+- Manipulation: Fixed missing reference on Object Center getter
 
 ## v5.0.0
 
