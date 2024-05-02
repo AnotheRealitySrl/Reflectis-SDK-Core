@@ -5,7 +5,7 @@
 ### Changed
 
 - ClientModels: added `worldId` int parameter to `GetDefaultWorldEvent` signature.
-- ClientModels: change `GetPlayerData` method name to `GetMyUserData` in `IClientModelSystem`.
+- ClientModels: changed `GetPlayerData` method name to `GetMyUserData` in `IClientModelSystem`.
 
 ### Added
 
@@ -32,13 +32,14 @@
 ### Fixed
 
 - Update Addressables package dependency to version 1.21.20.
-- Fade: fixed set float method in `CanvasFadeManager` which prevented the fade to be completed.
+- Avatars: added `EnableAvatarInstanceLabel` in `IAvatarSystem` (with implementation in `AvatarSystem`) and `EnableAvatarLabel` in `IAvatarConfigController` (with implementation in `AvatarControllerBase` and `AvatarControllerDesktop`).
 - Avatars: fixed issue of avatar not being attached to character controller on setup, in the case the avatar is setupped automatically.
+- ClientModels: changed some entries in `EFacetIdentifier` enum, added missing entries.
+- Fade: fixed set float method in `CanvasFadeManager` which prevented the fade to be completed.
 - Interaction: fixed search of disabled `InteractableRef`s in `InteractableBehaviourBase`.
 - Interaction: added a minimum treshold under which a `Manipulable` can be moved in WebGL.
-- Avatars: added `EnableAvatarInstanceLabel` in `IAvatarSystem` (with implementation in `AvatarSystem`) and `EnableAvatarLabel` in `IAvatarConfigController` (with implementation in `AvatarControllerBase` and `AvatarControllerDesktop`).
-- Interaction: Fixed networked contextual menu option and removed hard reference to bounding box collider renamed scene hierarchy to scene objects
-- Manipulation: Fixed missing reference on Object Center getter
+- Interaction: Fixed networked contextual menu option and removed hard reference to bounding box collider renamed scene hierarchy to scene objects.
+- Interaction: Fixed missing reference on `Manipulable`'s object center getter.
 
 ## v5.0.0
 
