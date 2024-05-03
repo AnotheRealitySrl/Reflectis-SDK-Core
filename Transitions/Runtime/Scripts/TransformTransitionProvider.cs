@@ -1,4 +1,4 @@
-using DG.Tweening;
+using Reflectis.SDK.Utilities;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -17,41 +17,45 @@ namespace Reflectis.SDK.Transitions
         [SerializeField]
         private AnimationCurve ease = null;
 
-        private Sequence sequence;
+        private Vector3 startScale;
+        private Vector3 startPosition;
+        private Quaternion startRotation;
 
-
+        private Interpolator interpolator;
         private void Awake()
         {
-            CreateSequence();
+            CreateInterpolator();
         }
+
+        private void CreateInterpolator()
+        {
+            startScale = transform.localScale;
+            startPosition = transform.localPosition;
+            startRotation = transform.rotation;
+            interpolator = new Interpolator(
+                duration, LerpFunction, ease);
+        }
+
+        private void LerpFunction(float value)
+        {
+            transform.localScale = Vector3.Lerp(startScale, scale, value);
+            transform.localPosition = Vector3.Lerp(startPosition, position, value);
+            transform.localRotation = Quaternion.Lerp(startRotation, Quaternion.Euler(rotation), value);
+        }
+
         public override async Task EnterTransitionAsync()
         {
             onEnterTransitionStart?.Invoke();
-            sequence.PlayForward();
-            await sequence.AsyncWaitForCompletion();
+            await interpolator.PlayForward();
             OnEnterTransitionFinish?.Invoke();
         }
 
         public override async Task ExitTransitionAsync()
         {
             OnExitTransitionStart?.Invoke();
-            sequence.PlayBackwards();
-            await sequence.AsyncWaitForCompletion();
+            await interpolator.PlayBackwards();
             onExitTransitionFinish?.Invoke();
         }
 
-        private void CreateSequence()
-        {
-            sequence = DOTween.Sequence().Pause();
-            
-            sequence.SetAutoKill(false);
-            sequence.Insert(0, transform.DOScale(scale, duration));
-            sequence.Insert(0, transform.DOLocalMove(transform.localPosition + position, duration));
-            sequence.Insert(0, transform.DOLocalRotate(transform.localRotation.eulerAngles + rotation, duration));
-            if (ease == null)
-                ease = AnimationCurve.Constant(0, duration, 1);
-
-            sequence.SetEase(ease);
-        }
     }
 }

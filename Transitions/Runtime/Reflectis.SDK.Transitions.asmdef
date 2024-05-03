@@ -2,7 +2,6 @@
     "name": "Reflectis.SDK.Transitions",
     "rootNamespace": "Reflectis.SDK.Transitions",
     "references": [
-        "DOTween.Modules",
         "Reflectis.SDK.Utilities",
         "Reflectis.SDK.Interaction"
     ],

@@ -1,4 +1,5 @@
-using DG.Tweening;
+
+using Reflectis.SDK.Utilities;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -20,7 +21,7 @@ namespace Reflectis.SDK.Transitions
 
         private Color defaultColor = Color.white;
 
-        private Tween tween;
+        private Interpolator interpolator;
         public Color Color { get => color; set => color = value; }
 
         protected virtual void Awake()
@@ -31,31 +32,16 @@ namespace Reflectis.SDK.Transitions
         {
             Init();
             onEnterTransitionStart?.Invoke();
-            if (tween != null)
-            {
-                tween.Kill();
-            }
-            tween = DOTween.To(Getter, Setter, color, duration).SetEase(ease);
-            while (tween.IsActive() && tween.IsPlaying())
-            {
-                await Task.Yield();
-            }
+            await interpolator.PlayForward();
             OnEnterTransitionFinish?.Invoke();
         }
 
         public override async Task ExitTransitionAsync()
         {
             Init();
-            if (tween != null)
-            {
-                tween.Kill();
-            }
+
             OnExitTransitionStart?.Invoke();
-            tween = DOTween.To(Getter, Setter, defaultColor, duration).SetEase(ease);
-            while (tween.IsActive() && tween.IsPlaying())
-            {
-                await Task.Yield();
-            }
+            await interpolator.PlayBackwards();
             onExitTransitionFinish?.Invoke();
         }
 
@@ -68,8 +54,15 @@ namespace Reflectis.SDK.Transitions
                 {
                     ease = AnimationCurve.Linear(0, 0, duration, 1);
                 }
+                interpolator = new Interpolator(duration, LerpFunction, ease);
+
                 isInit = true;
             }
+        }
+
+        private void LerpFunction(float value)
+        {
+            Setter(Color.Lerp(defaultColor, Color, value));
         }
 
         protected abstract Color Getter();

@@ -1,6 +1,4 @@
-using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
+using Reflectis.SDK.Utilities;
 using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -19,7 +17,8 @@ namespace Reflectis.SDK.Transitions
 
         private float defaultValue = 0f;
 
-        private Tween tween;
+        private Interpolator interpolator;
+
         protected virtual void Awake()
         {
             if (ease.keys.Count() == 0)
@@ -27,34 +26,25 @@ namespace Reflectis.SDK.Transitions
                 ease = AnimationCurve.Linear(0, 0, duration, 1);
             }
             defaultValue = Getter();
+            interpolator = new Interpolator(duration, LerpFunction, ease);
         }
+
+        private void LerpFunction(float obj)
+        {
+            Setter(defaultValue + (defaultValue - destination) * obj);
+        }
+
         public override async Task EnterTransitionAsync()
         {
             onEnterTransitionStart?.Invoke();
-            if (tween != null)
-            {
-                tween.Kill();
-            }
-            tween = DOTween.To(Getter, Setter, destination, duration).SetEase(ease);
-            while (tween.IsPlaying())
-            {
-                await Task.Yield();
-            }
+            await interpolator.PlayForward();
             OnEnterTransitionFinish?.Invoke();
         }
 
         public override async Task ExitTransitionAsync()
         {
-            if (tween != null)
-            {
-                tween.Kill();
-            }
             OnExitTransitionStart?.Invoke();
-            tween = DOTween.To(Getter, Setter, defaultValue, duration).SetEase(ease);
-            while (tween.IsPlaying())
-            {
-                await Task.Yield();
-            }
+            await interpolator.PlayForward();
             onExitTransitionFinish?.Invoke();
         }
 

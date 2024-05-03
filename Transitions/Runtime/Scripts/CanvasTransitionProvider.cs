@@ -1,5 +1,4 @@
-using DG.Tweening;
-
+using Reflectis.SDK.Utilities;
 using System.Threading.Tasks;
 
 using UnityEngine;
@@ -13,12 +12,11 @@ namespace Reflectis.SDK.Transitions
     {
         [SerializeField] private CanvasGroup canvasGroup;
         [SerializeField] private float fadeTime = 1f;
-        [SerializeField] private Ease easingFunction = Ease.InOutQuad;
+        [SerializeField] private AnimationCurve easingFunction;
         [SerializeField] private bool isActive;
         [SerializeField] private bool activateGameObject = true;
 
-
-        private Tweener transition;
+        private Interpolator interpolator;
 
         private void Awake()
         {
@@ -34,43 +32,44 @@ namespace Reflectis.SDK.Transitions
                 }
                 canvasGroup.alpha = 0;
             }
+            CreateInterpolator();
+        }
+
+        private void CreateInterpolator()
+        {
+            if (easingFunction == null || easingFunction.keys.Length == 0)
+            {
+                easingFunction = AnimationCurve.EaseInOut(0, 0, fadeTime, 1);
+            }
+            interpolator = new Interpolator(
+                fadeTime, FadeLerp, easingFunction
+                );
+        }
+
+        private void FadeLerp(float value)
+        {
+            canvasGroup.alpha = value;
+            if (activateGameObject)
+            {
+                gameObject.SetActive(value != 0);
+            }
         }
 
         public override async Task EnterTransitionAsync()
         {
-            if (activateGameObject)
-            {
-                canvasGroup.gameObject.SetActive(true);
-            }
-            KillActiveTransition();
+
             onEnterTransitionStart?.Invoke();
-            transition = canvasGroup.DOFade(1f, fadeTime).SetEase(easingFunction);
-            await transition.AsyncWaitForCompletion();
+            await interpolator.PlayForward();
             OnEnterTransitionFinish?.Invoke();
         }
 
         public override async Task ExitTransitionAsync()
         {
-            KillActiveTransition();
-            Tweener newTransition = canvasGroup.DOFade(0f, fadeTime).SetEase(easingFunction);
-            transition = newTransition;
+
             OnExitTransitionStart?.Invoke();
-            await transition.AsyncWaitForCompletion();
-            if (activateGameObject && newTransition == transition)
-            {
-                if (canvasGroup != null)
-                    canvasGroup.gameObject.SetActive(false);
-            }
-            transition = null;
+            await interpolator.PlayBackwards();
             onExitTransitionFinish?.Invoke();
         }
 
-        private void KillActiveTransition()
-        {
-            if (transition != null && ((transition.IsActive() && !transition.IsComplete()) || !transition.IsActive()))
-            {
-                transition.Kill();
-            }
-        }
     }
 }
