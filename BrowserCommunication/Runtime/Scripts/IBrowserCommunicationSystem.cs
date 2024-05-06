@@ -6,9 +6,13 @@ namespace Reflectis.SDK.BrowserCommunication
 {
     public interface IBrowserCommunicationSystem : ISystem
     {
+        #region Events
+
         public event Action<string> OnWebMessageReceived;
 
-        public bool IsWebWrapperAlive { get; set; }
+        #endregion
+
+        #region Public API
 
         /// <summary>
         /// Sends a string to JS.
@@ -27,6 +31,8 @@ namespace Reflectis.SDK.BrowserCommunication
         /// Used for DEBUG.
         /// </summary>
         /// <param name="payload">The payload to manage.</param>
-        public void fromWeb(string payload);
+        public void ReceiveMessageFromWeb(string payload);
+
+        #endregion
     }
 }
