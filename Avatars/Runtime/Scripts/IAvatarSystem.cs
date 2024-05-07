@@ -1,5 +1,7 @@
 using Reflectis.SDK.Core;
+
 using System.Threading.Tasks;
+
 using UnityEngine.Events;
 
 namespace Reflectis.SDK.Avatars
@@ -73,7 +75,7 @@ namespace Reflectis.SDK.Avatars
         /// Shows/hides avatar's hands (only for half-body avatars)
         /// </summary>
         /// <param name="enable"></param>
-        void EnableAvatarInstanceTag(bool enable);
+        void EnableAvatarInstanceLabel(bool enable);
 
         /// <summary>
         /// Reset avatar mesh disabler counter

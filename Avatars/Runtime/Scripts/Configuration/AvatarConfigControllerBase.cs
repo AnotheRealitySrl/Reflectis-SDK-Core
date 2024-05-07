@@ -1,11 +1,14 @@
 using Reflectis.SDK.CharacterController;
 using Reflectis.SDK.Core;
 using Reflectis.SDK.Utilities.Extensions;
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+
 using TMPro;
+
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -48,7 +51,6 @@ namespace Reflectis.SDK.Avatars
 
         protected int avatarCounterEnable = 0;
 
-        protected Bounds combinedBounds;
         #endregion
 
         #region Properties
@@ -104,10 +106,6 @@ namespace Reflectis.SDK.Avatars
 
             await AvatarLoader.LoadAvatar(config);
 
-            float labelPositionY;
-            labelPositionY = GetBounds();
-            character.LabelReference.transform.localPosition = new Vector3(character.LabelReference.transform.localPosition.x, labelPositionY, character.LabelReference.transform.localPosition.z);
-
             SM.GetSystem<AvatarSystem>().CheckAvatarActivation();
 
             onAfterAction?.Invoke();
@@ -121,10 +119,10 @@ namespace Reflectis.SDK.Avatars
 
         public virtual void EnableAvatarMeshes(bool enable)
         {
-            EnableAvatarTag(enable);
+            EnableAvatarLabel(enable);
         }
 
-        public virtual void EnableAvatarTag(bool enable)
+        public virtual void EnableAvatarLabel(bool enable)
         {
             if (character.LabelReference)
             {
@@ -175,13 +173,16 @@ namespace Reflectis.SDK.Avatars
             return avatarCounterEnable;
         }
 
-        public virtual Vector3 CalibrateAvatar()
+        public virtual void CalibrateAvatar()
         {
             CharacterBase character = GetComponent<CharacterBase>();
 
             character.PlayerHeight = CalculateCharacterHeight();
 
-            return character.CalibrateAvatar();
+            // Updates label position.
+            character.ActualMeshHeight = GetBounds();
+
+            character.CalibrateAvatar();
         }
 
         #endregion
@@ -205,7 +206,7 @@ namespace Reflectis.SDK.Avatars
         protected float GetBounds()
         {
             Renderer[] childObjects = GetComponentsInChildren<Renderer>();
-            combinedBounds = new Bounds();
+            Bounds combinedBounds = new Bounds();
 
             if (childObjects.Length == 0)
             {

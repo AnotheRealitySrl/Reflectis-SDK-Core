@@ -21,8 +21,9 @@ namespace Reflectis.SDK.ClientModels
         SendGlobalMessage = 12,
         SendAnnouncement = 13,
         SendShardMessage = 14,
-        EventWriterFacet = 15,
+        CreateEvent = 15,
         EnableSpeaker = 16,
+        AuthoringTool = 17,
     }
 
     public enum EFacetGroup
