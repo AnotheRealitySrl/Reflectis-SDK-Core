@@ -12,7 +12,7 @@ namespace Reflectis.SDK.RadialMenuUtils
         [SerializeField] private Quaternion startRotation = new Quaternion(0f, 0f, 0f, 0f); //the start rotaton of the item, useful to place it in the correct position in the hands
 
         [Tooltip("Whether or not you want the item to be immediately grabbed when spawned?")]
-        [SerializeField] public bool instantGrab = true;
+        [HideInInspector] public bool instantGrab = true; //we might want to make it serialized in the future so that the user can decide. The problem is that in VR the grab MUST be instant (since it's working without the photonTransformView)
 
         [SerializeField] private List<Collider> collidersList;
 
@@ -79,6 +79,11 @@ namespace Reflectis.SDK.RadialMenuUtils
         public GameObject GetModel()
         {
             return itemModel;
+        }
+
+        public Vector3 GetStartPosition()
+        {
+            return startPosition;
         }
 
         public Collider GetColliderInPosition(int index)
