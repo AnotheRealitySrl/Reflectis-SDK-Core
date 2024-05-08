@@ -33,7 +33,13 @@ namespace Reflectis.SDK.Transitions
             startPosition = transform.localPosition;
             startRotation = transform.rotation;
             interpolator = new Interpolator(
-                duration, LerpFunction, ease);
+                duration, LerpFunction, GetStartTime, ease);
+        }
+
+        private float GetStartTime()
+        {
+            float value = Vector3.Distance(transform.localPosition, position) / Vector3.Distance(startPosition, position);
+            return interpolator.InverseEase.Evaluate(value);
         }
 
         private void LerpFunction(float value)
