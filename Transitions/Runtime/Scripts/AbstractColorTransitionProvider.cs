@@ -63,9 +63,18 @@ namespace Reflectis.SDK.Transitions
         private float GetStartTime()
         {
             Color currentColor = Getter();
-            if (defaultColor.a != Color.a)//we can look at the alpha for linear interpolation
+
+            //we can look at the alpha for linear interpolation
+            if (defaultColor.a != Color.a)
             {
-                return interpolator.InverseEase.Evaluate(currentColor.a / Color.a);
+                if (Color.a == 0)
+                {
+                    return 1; //check to avoid NaN values
+                }
+                else
+                {
+                    return interpolator.InverseEase.Evaluate(currentColor.a / Color.a);
+                }
             }
             else
             {
