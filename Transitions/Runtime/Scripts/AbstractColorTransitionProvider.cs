@@ -65,7 +65,7 @@ namespace Reflectis.SDK.Transitions
             Color currentColor = Getter();
             if (defaultColor.a != Color.a)//we can look at the alpha for linear interpolation
             {
-                return interpolator.InverseEase.Evaluate(currentColor.a / Color.a);
+                return interpolator.InverseEase.Evaluate(Mathf.Abs(currentColor.a / (Color.a - defaultColor.a))) * duration;
             }
             else
             {
@@ -73,7 +73,7 @@ namespace Reflectis.SDK.Transitions
                 Vector3 colorVector = new Vector3(Color.r, Color.g, Color.b);
                 Vector3 defaultColorVector = new Vector3(defaultColor.r, defaultColor.g, defaultColor.b);
                 float currentPos = Vector3.Distance(colorVector, currentColorVector) / Vector3.Distance(colorVector, defaultColorVector);
-                return interpolator.InverseEase.Evaluate(currentPos);
+                return interpolator.InverseEase.Evaluate(currentPos) * duration;
             }
         }
 

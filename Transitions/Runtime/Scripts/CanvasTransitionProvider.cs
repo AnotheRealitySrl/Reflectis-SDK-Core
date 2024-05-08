@@ -48,7 +48,7 @@ namespace Reflectis.SDK.Transitions
 
         private float GetStartTime()
         {
-            return interpolator.InverseEase.Evaluate(canvasGroup.alpha);
+            return interpolator.InverseEase.Evaluate(canvasGroup.alpha) * fadeTime;
         }
 
         private void FadeLerp(float value)

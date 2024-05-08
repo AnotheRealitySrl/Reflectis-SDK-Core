@@ -31,7 +31,7 @@ namespace Reflectis.SDK.Transitions
 
         private float GetStartTime()
         {
-            return interpolator.InverseEase.Evaluate(Getter());
+            return interpolator.InverseEase.Evaluate(Getter()) * duration;
         }
 
         private void LerpFunction(float obj)

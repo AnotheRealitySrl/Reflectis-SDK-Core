@@ -39,7 +39,7 @@ namespace Reflectis.SDK.Transitions
         private float GetStartTime()
         {
             float value = Vector3.Distance(transform.localPosition, position) / Vector3.Distance(startPosition, position);
-            return interpolator.InverseEase.Evaluate(value);
+            return interpolator.InverseEase.Evaluate(value) * duration;
         }
 
         private void LerpFunction(float value)
