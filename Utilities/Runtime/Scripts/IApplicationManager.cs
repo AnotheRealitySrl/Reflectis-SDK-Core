@@ -8,6 +8,6 @@ namespace Reflectis.SDK.Utilities
 
         public void ErasePlayerSessionData();
 
-        public void HideEverything();
+        //public void HideEverything();
     }
 }
