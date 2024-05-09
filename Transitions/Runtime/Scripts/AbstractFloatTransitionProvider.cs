@@ -26,7 +26,12 @@ namespace Reflectis.SDK.Transitions
                 ease = AnimationCurve.Linear(0, 0, duration, 1);
             }
             defaultValue = Getter();
-            interpolator = new Interpolator(duration, LerpFunction, ease);
+            interpolator = new Interpolator(duration, LerpFunction, GetStartTime, ease);
+        }
+
+        private float GetStartTime()
+        {
+            return interpolator.InverseEase.Evaluate(Getter()) * duration;
         }
 
         private void LerpFunction(float obj)

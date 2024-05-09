@@ -1,3 +1,4 @@
+using Reflectis.SDK.Utilities.Extensions;
 using System;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -10,7 +11,11 @@ namespace Reflectis.SDK.Utilities
 
         private AnimationCurve ease;
 
-        private Action<float> lerpFunction;
+        private AnimationCurve inverseEase;
+
+        private Action<float> lerpAction;
+
+        private Func<float> getStartTimeFunction;
 
         private float currentTime = 0;
 
@@ -20,16 +25,29 @@ namespace Reflectis.SDK.Utilities
 
         private bool runningBackward = false;
 
+        public AnimationCurve InverseEase
+        {
+            get
+            {
+                if (inverseEase == null)
+                {
+                    inverseEase = ease.GetInverseCurve();
+                }
+                return inverseEase;
+            }
+        }
 
-        public Interpolator(float duration, Action<float> lerpFunction, AnimationCurve ease = null)
+        public Interpolator(float duration, Action<float> lerpAction, Func<float> getStartTimeFunction, AnimationCurve ease = null)
         {
             this.duration = duration;
-            this.lerpFunction = lerpFunction;
+            this.lerpAction = lerpAction;
             this.ease = ease;
             if (ease == null)
             {
                 this.ease = AnimationCurve.Constant(0, duration, 1);
             }
+
+            this.getStartTimeFunction = getStartTimeFunction;
         }
 
         public async Task PlayForward()
@@ -43,17 +61,17 @@ namespace Reflectis.SDK.Utilities
         {
             if (duration <= 0)
             {
-                lerpFunction(1);
+                lerpAction(1);
                 return;
             }
-            currentTime = 0;
-            lerpFunction((currentTime / duration) /** ease.Evaluate(currentTime)*/);
+            currentTime = getStartTimeFunction();
+            lerpAction((currentTime / duration) * ease.Evaluate(currentTime / duration));
             runningForward = true;
             while (currentTime < duration && runningForward)
             {
                 currentTime = Math.Min(duration, currentTime + Time.deltaTime);
                 await Task.Yield();
-                lerpFunction(currentTime / duration * ease.Evaluate(currentTime / duration));
+                lerpAction(currentTime / duration * ease.Evaluate(currentTime / duration));
             }
         }
 
@@ -68,16 +86,17 @@ namespace Reflectis.SDK.Utilities
         {
             if (duration <= 0)
             {
-                lerpFunction(0);
+                lerpAction(0);
                 return;
             }
-            lerpFunction(currentTime / duration * ease.Evaluate(currentTime));
+            currentTime = getStartTimeFunction();
+            lerpAction(currentTime / duration * ease.Evaluate(currentTime / duration));
             runningBackward = true;
             while (currentTime > 0 && runningBackward)
             {
                 currentTime = Math.Max(0, currentTime - Time.deltaTime);
                 await Task.Yield();
-                lerpFunction(currentTime / duration * ease.Evaluate(currentTime / duration));
+                lerpAction(currentTime / duration * ease.Evaluate(currentTime / duration));
             }
         }
 

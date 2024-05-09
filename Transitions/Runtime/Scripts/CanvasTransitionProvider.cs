@@ -15,7 +15,7 @@ namespace Reflectis.SDK.Transitions
         [SerializeField] private AnimationCurve easingFunction;
         [SerializeField] private bool isActive;
         [SerializeField] private bool activateGameObject = true;
-
+        [SerializeField] private AnimationCurve inverseEase;
         private Interpolator interpolator;
 
         private void Awake()
@@ -42,8 +42,13 @@ namespace Reflectis.SDK.Transitions
                 easingFunction = AnimationCurve.EaseInOut(0, 0, fadeTime, 1);
             }
             interpolator = new Interpolator(
-                fadeTime, FadeLerp, easingFunction
+                fadeTime, FadeLerp, GetStartTime, easingFunction
                 );
+        }
+
+        private float GetStartTime()
+        {
+            return interpolator.InverseEase.Evaluate(canvasGroup.alpha) * fadeTime;
         }
 
         private void FadeLerp(float value)
