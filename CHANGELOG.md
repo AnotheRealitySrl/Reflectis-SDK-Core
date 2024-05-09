@@ -41,6 +41,10 @@
 - Interaction: Fixed networked contextual menu option and removed hard reference to bounding box collider renamed scene hierarchy to scene objects.
 - Interaction: Fixed missing reference on `Manipulable`'s object center getter.
 
+### UnReleased
+
+- Fixed CMUser to get only the connected user's roles for the world
+
 ## v5.0.0
 
 ### Changed
