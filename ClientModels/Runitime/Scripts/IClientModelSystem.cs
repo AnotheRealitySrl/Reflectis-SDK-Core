@@ -307,6 +307,12 @@ namespace Reflectis.SDK.ClientModels
         Task<List<CMTag>> GetAllUsersTags();
 
         /// <summary>
+        /// Get all tags avaible to the single user
+        /// </summary>
+        /// <returns></returns>
+        Task<List<CMTag>> GetUserTags(int id);
+
+        /// <summary>
         /// Search user tag
         /// </summary>
         /// <param name="labelSubstring"></param>
