@@ -1,5 +1,3 @@
-using Reflectis.SDK.Core;
-
 using System;
 
 using UnityEngine;
@@ -9,6 +7,8 @@ namespace Reflectis.SDK.ClientModels
     [Serializable]
     public class CMShard
     {
+        public static int maxShardCapacity;
+
         [SerializeField] private int shardNumber;
         [SerializeField] private int eventId;
         [SerializeField] private int currentParticipants;
@@ -21,7 +21,7 @@ namespace Reflectis.SDK.ClientModels
         {
             get
             {
-                return Math.Clamp(maxParticipants, 0, SM.GetSystem<IClientModelSystem>().MaxShardCapacity);
+                return Math.Clamp(maxParticipants, 0, maxShardCapacity);
             }
             set => maxParticipants = value;
         }

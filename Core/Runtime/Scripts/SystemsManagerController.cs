@@ -14,12 +14,22 @@ namespace Reflectis.SDK.Core
     /// </summary>
     public class SystemsManagerController : MonoBehaviour
     {
+        [SerializeField] private bool loadOnAwake = false;
+
 #if ODIN_INSPECTOR
         [InlineEditor]
 #endif
         [SerializeField] private List<BaseSystem> systems = new();
 
         private void Awake()
+        {
+            if (loadOnAwake)
+            {
+                LoadAndSetup();
+            }
+        }
+
+        public void LoadAndSetup()
         {
             SM.LoadAndSetup(systems);
         }

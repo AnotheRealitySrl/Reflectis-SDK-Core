@@ -20,9 +20,6 @@ namespace Reflectis.SDK.ClientModels
     {
         #region Worlds
 
-        List<CMWorld> Worlds { get; set; }
-        CMWorld CurrentWorld { get; set; }
-
         /// <summary>
         /// Returns all the available worlds
         /// </summary>
@@ -35,9 +32,6 @@ namespace Reflectis.SDK.ClientModels
         #endregion
 
         #region Events
-
-        CMEvent CurrentEvent { get; set; }
-        List<CMEvent> StaticEvents { get; }
 
         /// <summary>
         /// Force refresh on cached event data
@@ -197,9 +191,6 @@ namespace Reflectis.SDK.ClientModels
 
         #region Users
 
-        CMUser UserData { get; set; }
-        CMUserPreference UserPrefs { get; set; }
-
         /// <summary>
         /// Return all users that match search criteria
         /// </summary>
@@ -244,7 +235,6 @@ namespace Reflectis.SDK.ClientModels
 
         #region Facets
 
-        public List<CMFacet> WorldFacets { get; set; }
 
         /// <summary>
         /// Get all facets of the current world
@@ -259,9 +249,6 @@ namespace Reflectis.SDK.ClientModels
         #endregion
 
         #region Permissions
-
-        List<CMPermission> MyEventPermissions { get; set; }
-        List<CMPermission> WorldPermissions { get; set; }
 
         /// <summary>
         /// Get the permission avaible to the player for the given event
@@ -349,10 +336,6 @@ namespace Reflectis.SDK.ClientModels
         #endregion
 
         #region Shards
-
-        int MaxShardCapacity { get; set; }
-        bool ShowFullNickname { get; set; }
-        CMShard CurrentShard { get; set; }
 
         /// <summary>
         /// Retrieves the current shards of an event.
