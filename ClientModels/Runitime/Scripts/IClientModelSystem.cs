@@ -18,6 +18,8 @@ namespace Reflectis.SDK.ClientModels
 
     public interface IClientModelSystem : ISystem
     {
+        void InvalidateCache();
+
         #region Worlds
 
         /// <summary>
@@ -35,12 +37,14 @@ namespace Reflectis.SDK.ClientModels
 
         /// <summary>
         /// Force refresh on cached event data
+        /// Refreshes also cached data that usually should not be refreshed (categories and environments)
         /// </summary>
         /// <returns></returns>
-        Task RefreshCachedData();
+        Task RefreshAllCachedEventsData();
 
         /// <summary>
-        /// Force refresh on cached event data
+        /// Force refresh on cached event data.
+        /// Refreshes only data that has a refresh expiring time
         /// </summary>
         /// <returns></returns>
         Task RefreshEventsData();
@@ -130,19 +134,6 @@ namespace Reflectis.SDK.ClientModels
         Task<bool> CreateEventPermissions(CMEvent _event);
 
         /// <summary>
-        /// Request to join a specific ID. Return  the Event ID if request success otherwise return -1
-        /// </summary>
-        Task<bool> JoinEventRequest(int eventId);
-
-        /// <summary>
-        /// Add all asset list to the ones usable in the given event
-        /// </summary>
-        /// <param name="eventId"></param>
-        /// <param name="assets"></param>
-        /// <returns></returns>
-        Task<bool> ShareAssetsInEvent(int eventId, List<CMResource> assets);
-
-        /// <summary>
         /// replace the asset list in the given event
         /// </summary>
         /// <param name="eventId"></param>
@@ -161,31 +152,31 @@ namespace Reflectis.SDK.ClientModels
 
         #region Categories
 
-        Task<List<CMCategoryInfo>> GetAllEventCategoriesInfo();
+        Task<List<CMCategoryInfo>> GetCategoriesInfo();
 
         /// <summary>
         /// Return list of all categories
         /// </summary>
         /// <returns></returns>
-        Task<List<CMCategory>> GetAllCategories();
+        Task<List<CMCategory>> GetCategories();
 
         /// <summary>
         /// Return list of all subcategories
         /// </summary>
         /// <returns></returns>
-        Task<List<CMCategory>> GetAllEventSubCategories();
+        Task<List<CMCategory>> GetSubCategories();
 
         /// <summary>
         /// return list of all subcategories of a category
         /// </summary>
         /// <returns></returns>
-        Task<List<CMCategory>> GetEventSubCategoriesOfCategory(CMCategory parentCategory);
+        Task<List<CMCategory>> GetSubCategories(CMCategory parentCategory);
 
         #endregion
 
         #region Environments
 
-        Task<List<CMEnvironment>> GetAllEnvironments();
+        Task<List<CMEnvironment>> GetEnvironments();
 
         #endregion
 
@@ -235,7 +226,6 @@ namespace Reflectis.SDK.ClientModels
 
         #region Facets
 
-
         /// <summary>
         /// Get all facets of the current world
         /// </summary>
@@ -243,12 +233,12 @@ namespace Reflectis.SDK.ClientModels
         /// <returns></returns>
         Task<List<CMFacet>> GetWorldFacets(int worldId);
 
-        public bool IsEventPermissionGranted(EFacetIdentifier identifier);
-        public bool IsWorldPermissionGranted(EFacetIdentifier identifier);
-
         #endregion
 
         #region Permissions
+
+        public bool IsEventPermissionGranted(EFacetIdentifier identifier);
+        public bool IsWorldPermissionGranted(EFacetIdentifier identifier);
 
         /// <summary>
         /// Get the permission avaible to the player for the given event
@@ -275,8 +265,6 @@ namespace Reflectis.SDK.ClientModels
 
         Task<CMResource> GetEventAssetById(int assetId);
 
-        Task<List<CMResource>> GetMyAssets(string searchQuery);
-
         Task<CMSearch<CMFolder>> GetEventAssetsFolders(int eventId, int pageSize, int page = 1, IEnumerable<FileTypeExt> fileTypes = null);
 
         Task<CMSearch<CMResource>> GetEventAssetsInFolder(int eventId, string path, int pageSize, int page = 1, IEnumerable<FileTypeExt> fileTypes = null);
@@ -294,7 +282,7 @@ namespace Reflectis.SDK.ClientModels
         Task<List<CMTag>> GetAllUsersTags();
 
         /// <summary>
-        /// Get all tags avaible to the single user
+        /// Get all tags avaible to the single user given the user id
         /// </summary>
         /// <returns></returns>
         Task<List<CMTag>> GetUserTags(int id);
@@ -306,31 +294,21 @@ namespace Reflectis.SDK.ClientModels
         /// <returns></returns>
         Task<List<CMTag>> SearchUserTags(string labelSubstring);
 
-        /// <summary>
-        /// Search env tag
-        /// </summary>
-        /// <param name="labelSubstring"></param>
-        /// <returns></returns>
-        Task<List<CMTag>> SearchEnvironmentTags(string labelSubstring);
-
-
-
         #endregion
 
         #region Online presence
-
-        List<CMOnlinePresence> OnlineUsersList { get; set; }
         UnityEvent OnlineUsersUpdated { get; }
-        CMOnlinePresence FindOnlineUser(int userId);
+        Task<List<CMOnlinePresence>> GetOnlineUsersAndStartAutoRefresh();
+        void StopOnlineUsersRefresh();
+        Task<List<CMOnlinePresence>> GetOnlineUsers(bool forceRefresh = false);
+        CMOnlinePresence GetOnlineUser(int userId);
         string FindOnlineUserDisplayName(int userId);
         string FindOnlineUserAvatarPng(int userId);
         int FindOnlineUserShard(int userId);
         int FindOnlineUserEvent(int userId);
         CMOnlinePresence.Platform FindOnlineUserPlatform(int userId);
         bool IsOnlineUser(int userId);
-        Task<List<CMOnlinePresence>> GetOnlineUsers(bool includeMyself = true);
         Task PingMyOnlinePresence(int? eventId, int? shardId);
-
         Task<List<CMOnlinePresence>> GetUsersInEvent(int eventId, bool forceRefresh = true);
 
         #endregion
