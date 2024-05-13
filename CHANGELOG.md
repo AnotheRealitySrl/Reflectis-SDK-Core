@@ -1,5 +1,11 @@
 # Release notes
 
+## v6.1.0
+
+### Added
+
+- ClientModels: add method `GetUserTags` in `IClientModelsSystem` to retrieve user's tags.
+
 ## v6.0.0
 
 ### Changed
