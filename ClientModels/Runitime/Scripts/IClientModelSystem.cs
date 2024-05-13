@@ -261,6 +261,18 @@ namespace Reflectis.SDK.ClientModels
 
         #endregion
 
+        #region Keys
+
+        Task<bool> CheckMyKeys();
+
+        #endregion
+
+        #region Schedule
+
+        Task<bool> CheckScheduleAccessibilityForToday();
+
+        #endregion
+
         #region Assets
 
         Task<CMResource> GetEventAssetById(int assetId);
@@ -302,11 +314,11 @@ namespace Reflectis.SDK.ClientModels
         void StopOnlineUsersRefresh();
         Task<List<CMOnlinePresence>> GetOnlineUsers(bool forceRefresh = false);
         CMOnlinePresence GetOnlineUser(int userId);
-        string FindOnlineUserDisplayName(int userId);
-        string FindOnlineUserAvatarPng(int userId);
-        int FindOnlineUserShard(int userId);
-        int FindOnlineUserEvent(int userId);
-        CMOnlinePresence.Platform FindOnlineUserPlatform(int userId);
+        string GetOnlineUserDisplayName(int userId);
+        string GetOnlineUserAvatarPng(int userId);
+        int GetOnlineUserShard(int userId);
+        int GetOnlineUserEvent(int userId);
+        CMOnlinePresence.Platform GetOnlineUserPlatform(int userId);
         bool IsOnlineUser(int userId);
         Task PingMyOnlinePresence(int? eventId, int? shardId);
         Task<List<CMOnlinePresence>> GetUsersInEvent(int eventId, bool forceRefresh = true);
