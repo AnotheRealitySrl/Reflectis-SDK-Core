@@ -109,7 +109,7 @@ namespace Reflectis.SDK.ClientModels
         /// </summary>
         /// <param name="e"></param>
         /// <returns></returns>
-        Task<string> DeleteEvent(int eventId);
+        Task<long> DeleteEvent(int eventId);
 
         /// <summary>
         /// Update an event with given e data.
