@@ -37,6 +37,13 @@ namespace Reflectis.SDK.ApplicationManagement
         CMUser UserData { get; }
         #endregion
 
+        #region OnlinePresence
+
+        float UsersRefreshRateSeconds { get; }
+
+        float PlayerPingRateSeconds { get; }
+        #endregion
+
         public Task CalculateShard();
     }
 
