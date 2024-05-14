@@ -30,7 +30,11 @@ namespace Reflectis.SDK.Transitions
 
         private float GetStartTime()
         {
-            return interpolator.InverseEase.Evaluate((defaultValue + (Getter() - defaultValue)) / destination) * duration;
+            if (destination == defaultValue)
+            {
+                return duration;
+            }
+            return interpolator.InverseEase.Evaluate((Getter() - defaultValue) / (destination - defaultValue)) * duration;
         }
 
         private void LerpFunction(float obj)

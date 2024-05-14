@@ -15,7 +15,6 @@ namespace Reflectis.SDK.Transitions
         [SerializeField] private AnimationCurve easingFunction;
         [SerializeField] private bool isActive;
         [SerializeField] private bool activateGameObject = true;
-        [SerializeField] private AnimationCurve inverseEase;
         private Interpolator interpolator;
 
         private void Awake()
