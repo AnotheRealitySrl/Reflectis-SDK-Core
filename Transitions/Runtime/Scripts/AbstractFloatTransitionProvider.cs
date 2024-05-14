@@ -14,7 +14,6 @@ namespace Reflectis.SDK.Transitions
         private float duration;
         [SerializeField]
         private AnimationCurve ease;
-
         private float defaultValue = 0f;
 
         private Interpolator interpolator;
@@ -31,12 +30,12 @@ namespace Reflectis.SDK.Transitions
 
         private float GetStartTime()
         {
-            return interpolator.InverseEase.Evaluate(Getter()) * duration;
+            return interpolator.InverseEase.Evaluate((defaultValue + (Getter() - defaultValue)) / destination) * duration;
         }
 
         private void LerpFunction(float obj)
         {
-            Setter(defaultValue + (defaultValue - destination) * obj);
+            Setter(defaultValue + (destination - defaultValue) * obj);
         }
 
         public override async Task EnterTransitionAsync()
@@ -49,7 +48,7 @@ namespace Reflectis.SDK.Transitions
         public override async Task ExitTransitionAsync()
         {
             OnExitTransitionStart?.Invoke();
-            await interpolator.PlayForward();
+            await interpolator.PlayBackwards();
             onExitTransitionFinish?.Invoke();
         }
 
