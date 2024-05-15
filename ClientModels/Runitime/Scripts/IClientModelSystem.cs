@@ -50,6 +50,13 @@ namespace Reflectis.SDK.ClientModels
         Task RefreshEventsData();
 
         /// <summary>
+        /// If value the cache variables that have to be auto refreshed will start their refresh
+        /// otherwise they will stop refreshing
+        /// </summary>
+        /// <param name="value"></param>
+        Task EnableCacheAutoRefresh(bool value);
+
+        /// <summary>
         /// Returns the default event of a world
         /// </summary>
         Task<CMEvent> GetDefaultWorldEvent();
@@ -124,7 +131,7 @@ namespace Reflectis.SDK.ClientModels
         /// </summary>
         /// <param name="cMEvent"></param>
         /// <returns></returns>
-        Task<bool> InviteUsersToEvent(CMEvent cMEvent);
+        Task<bool> InviteUsersToEvent(CMEvent cMEvent, string eventInvitationMessage);
 
         /// <summary>
         /// Create all event permission for the given event
@@ -214,7 +221,7 @@ namespace Reflectis.SDK.ClientModels
         /// </summary>
         /// <param name=""></param>
         /// <returns></returns>
-        Task<string> UpdateUserPreference(CMUserPreference newPreferences);
+        Task UpdateUserPreference(CMUserPreference newPreferences);
 
         /// <summary>
         /// Get all the users with given tag id
