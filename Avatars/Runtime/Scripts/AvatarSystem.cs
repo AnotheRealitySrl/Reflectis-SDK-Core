@@ -1,6 +1,7 @@
 
 using Reflectis.SDK.CharacterController;
 using Reflectis.SDK.Core;
+
 using System.Threading.Tasks;
 
 using UnityEngine;
@@ -153,6 +154,12 @@ namespace Reflectis.SDK.Avatars
 
         public void UpdateAvatarInstanceCustomization(IAvatarConfig config) => AvatarInstanceConfigManager?.UpdateAvatarCustomization(config);
         public void UpdateAvatarInstanceNickName(string newName) => AvatarInstanceConfigManager?.UpdateAvatarNickName(newName);
+
+        public void EnableAvatarInstance(bool enable)
+        {
+            AvatarInstance.gameObject.SetActive(enable);
+        }
+
         public void EnableAvatarInstanceMeshes(bool enable, bool fromCamera = false)
         {
             if (fromCamera)
