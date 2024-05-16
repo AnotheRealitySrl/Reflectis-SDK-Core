@@ -64,6 +64,8 @@ namespace Reflectis.SDK.Avatars
 
         #region Utility methods
 
+        void EnableAvatarInstance(bool enable);
+
         /// <summary>
         /// Shows/hides avatar's hands (only for half-body avatars)
         /// </summary>
