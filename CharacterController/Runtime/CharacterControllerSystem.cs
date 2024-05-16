@@ -133,6 +133,8 @@ namespace Reflectis.SDK.CharacterController
 
         public virtual Task GoToSetMovementState() => Task.CompletedTask;
 
+        public virtual void EnableCharacterGravity(bool enable) { }
+
         public virtual int ManageCounterCharacterInteraction(bool activate)
         {
             if (activate)

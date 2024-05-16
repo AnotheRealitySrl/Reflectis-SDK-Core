@@ -92,6 +92,11 @@ namespace Reflectis.SDK.CharacterController
         /// </summary>
         public Task GoToSetMovementState();
 
+        /// <summary>
+        /// Enables character gravity (Desktop only)
+        /// </summary>
+        public void EnableCharacterGravity(bool enable);
+
         #endregion
     }
 }
