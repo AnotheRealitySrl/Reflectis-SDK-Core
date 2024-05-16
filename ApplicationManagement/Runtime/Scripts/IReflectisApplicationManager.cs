@@ -1,12 +1,13 @@
 using Reflectis.SDK.ClientModels;
+using Reflectis.SDK.Utilities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Reflectis.SDK.ApplicationManagement
 {
-    public interface IReflectisApplicationManager
+    public interface IReflectisApplicationManager : IApplicationManager
     {
-        public static IReflectisApplicationManager Instance;
+        public static new IReflectisApplicationManager Instance;
 
         #region Events
         public CMEvent CurrentEvent { get; }
