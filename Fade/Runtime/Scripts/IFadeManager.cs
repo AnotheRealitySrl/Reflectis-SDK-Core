@@ -1,3 +1,4 @@
+using UnityEngine;
 using UnityEngine.Events;
 
 namespace Reflectis.SDK.Fade
@@ -24,5 +25,6 @@ namespace Reflectis.SDK.Fade
         void FadeToDesaturated(System.Action onEnd = null);
         void FadeFromDesaturated(System.Action onEnd = null);
         void InterruptFade();
+        void SetTargetCamera(Camera camera);
     }
 }
