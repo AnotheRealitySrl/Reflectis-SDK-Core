@@ -157,7 +157,10 @@ namespace Reflectis.SDK.Avatars
 
         public void EnableAvatarInstance(bool enable)
         {
-            AvatarInstance.gameObject.SetActive(enable);
+            if (AvatarInstance)
+            {
+                AvatarInstance.gameObject.SetActive(enable);
+            }
         }
 
         public void EnableAvatarInstanceMeshes(bool enable, bool fromCamera = false)
