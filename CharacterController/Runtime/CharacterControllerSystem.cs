@@ -116,7 +116,25 @@ namespace Reflectis.SDK.CharacterController
 
         public virtual void MoveCharacter(Pose newPose)
         {
-            CharacterControllerInstance.transform.SetPositionAndRotation(newPose.position, newPose.rotation);
+            //CharacterControllerInstance.transform.SetPositionAndRotation(newPose.position, newPose.rotation); //---> this was working with the oculus sdk but doesn't work well with OpenXR
+
+            //position
+            //Because of the OpenXR Plugin the main camera gets an offset at the start of the scene, so we can handle that offset by "removing" it from the character instance
+            Vector3 offset = Camera.main.transform.position - CharacterControllerInstance.transform.position;
+            offset.y = 0;
+            CharacterControllerInstance.transform.position = newPose.position - offset;
+
+            //rotation
+            //Because of the OpenXRPlugin The camera also rotates, so we handle this by rotating our character by the angle offset
+            Vector3 targetForward = newPose.forward;
+            Vector3 cameraForward = Camera.main.transform.forward;
+
+            //we don't care about up and down, so set the y to 0
+            targetForward.y = 0;
+            cameraForward.y = 0;
+
+            float angle = Vector3.SignedAngle(cameraForward, targetForward, Vector3.up);
+            CharacterControllerInstance.transform.RotateAround(Camera.main.transform.position, Vector3.up, angle);
         }
 
         public virtual void ActivateReactionAnimation(string reactionName) { }

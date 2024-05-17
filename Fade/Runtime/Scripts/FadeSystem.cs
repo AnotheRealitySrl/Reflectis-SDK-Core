@@ -72,7 +72,7 @@ namespace Reflectis.SDK.Fade
         public void ResetObjsUnaffectedByFade() => fadeManager.LayerManager?.ResetObjsUnaffectedByFade();
 
         public void InterruptFade() => fadeManager.InterruptFade();
-
+        public void SetTargetCamera(Camera camera) => fadeManager.SetTargetCamera(camera);
         #endregion
     }
 }
