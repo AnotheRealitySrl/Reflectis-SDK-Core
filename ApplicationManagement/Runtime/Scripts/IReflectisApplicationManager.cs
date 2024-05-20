@@ -1,7 +1,7 @@
 using Reflectis.SDK.ClientModels;
 using Reflectis.SDK.Utilities;
+
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Reflectis.SDK.ApplicationManagement
 {
@@ -32,6 +32,7 @@ namespace Reflectis.SDK.ApplicationManagement
         #region Facets
         public List<CMFacet> WorldFacets { get; }
         #endregion
+
         public bool ShowFullNickname { get; }
 
         #region Users
@@ -44,8 +45,6 @@ namespace Reflectis.SDK.ApplicationManagement
 
         float PlayerPingRateSeconds { get; }
         #endregion
-
-        public Task CalculateShard();
     }
 
 }
