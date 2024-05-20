@@ -1,5 +1,11 @@
 # Release notes
 
+## v7.0.0
+
+## Removed
+
+- ClientModels: Remove `ISShardFull` method from `IClientModelSystem`.
+
 ## v6.1.0
 
 ### Added

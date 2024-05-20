@@ -332,13 +332,6 @@ namespace Reflectis.SDK.ClientModels
         /// </summary>
         Task<List<CMShard>> GetEventShards(int eventId);
 
-        /// <summary>
-        /// Wheter or not the shard is full
-        /// </summary>
-        /// <param name="shard"></param>
-        /// <returns></returns>
-        Task<bool> IsShardFull(CMShard shard);
-
         #endregion
     }
 }
