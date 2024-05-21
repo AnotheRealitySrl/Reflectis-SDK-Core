@@ -38,7 +38,17 @@ namespace Reflectis.SDK.Transitions
 
         private float GetStartTime()
         {
-            float value = Vector3.Distance(transform.localPosition, position) / Vector3.Distance(startPosition, position);
+            float currentPosValue = startPosition != position ?
+                Vector3.Distance(transform.localPosition, startPosition) / Vector3.Distance(startPosition, position)
+                : 0;
+            float currentRotValue = startRotation.eulerAngles != rotation ?
+                Vector3.Distance(transform.rotation.eulerAngles, startRotation.eulerAngles) / Vector3.Distance(startRotation.eulerAngles, rotation)
+                : 0;
+            float currentScaleValue = startScale != scale ?
+                Vector3.Distance(transform.localScale, startScale) / Vector3.Distance(startScale, scale)
+                : 0;
+            float value = Mathf.Max(currentPosValue, currentRotValue, currentScaleValue);
+
             return interpolator.InverseEase.Evaluate(value) * duration;
         }
 
