@@ -18,7 +18,41 @@ namespace Reflectis.SDK.ClientModels
 
     public interface IClientModelSystem : ISystem
     {
-        void InvalidateCache();
+
+        #region Current Client Data
+        #region Events
+        public CMEvent CurrentEvent { get; }
+        #endregion
+
+        #region Shards
+        public CMShard CurrentShard { get; }
+        #endregion
+
+        #region Worlds
+
+        List<CMWorld> Worlds { get; }
+        CMWorld CurrentWorld { get; }
+
+        #endregion
+
+        #region Permissions
+        List<CMPermission> CurrentEventPermissions { get; }
+        List<CMPermission> WorldPermissions { get; }
+
+        bool IsEventPermissionGranted(EFacetIdentifier identifier);
+        bool IsWorldPermissionGranted(EFacetIdentifier identifier);
+        #endregion
+
+        #region Facets
+        public List<CMFacet> Facets { get; }
+        #endregion
+
+        #region Users
+        CMUser UserData { get; }
+        #endregion
+        #endregion
+
+        float PlayerPingRateSeconds { get; }
 
         #region Worlds
 
@@ -35,6 +69,7 @@ namespace Reflectis.SDK.ClientModels
 
         #region Events
 
+        void InvalidateEventCache();
         /// <summary>
         /// Force refresh on cached event data
         /// Refreshes also cached data that usually should not be refreshed (categories and environments)
@@ -49,12 +84,6 @@ namespace Reflectis.SDK.ClientModels
         /// <returns></returns>
         Task RefreshEventsData();
 
-        /// <summary>
-        /// If value the cache variables that have to be auto refreshed will start their refresh
-        /// otherwise they will stop refreshing
-        /// </summary>
-        /// <param name="value"></param>
-        Task EnableCacheAutoRefresh(bool value);
 
         /// <summary>
         /// Returns the default event of a world
@@ -202,10 +231,12 @@ namespace Reflectis.SDK.ClientModels
         Task<CMUser> GetUserData(int id);
 
         /// <summary>
-        ///  Return the local player data
+        ///  Return the local player data contextualized to the world we are in (with users tags) if are in a world,
+        ///  otherwise returns the user data decontextualized
         /// </summary>
         /// <returns></returns>
         Task<CMUser> GetMyUserData();
+
 
         /// <summary>
         /// Return data of the player with given id
@@ -214,14 +245,27 @@ namespace Reflectis.SDK.ClientModels
         /// <returns></returns>
         Task<int> GetUserCode(int userId);
 
-        Task<CMUserPreference> GetUserPreference(int userId);
         /// <summary>
-        /// Update user preferences
-        /// if fails returns error string, null if successfull
+        /// Return my user preferences
         /// </summary>
-        /// <param name=""></param>
         /// <returns></returns>
-        Task UpdateUserPreference(CMUserPreference newPreferences);
+        Task<CMUserPreference> GetMyUserPreference(int myUserId); //TODO: remove user id once API is ready
+
+        /// <summary>
+        /// Get user preferences of given user id
+        /// </summary>
+        /// <param name="worldId"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        Task<CMUserPreference> GetUserPreference(int userId);
+
+
+        /// <summary>
+        /// Update my user preferences outside of world context
+        /// </summary>
+        /// <param name="newPreferences"></param>
+        /// <returns></returns>
+        Task UpdateMyUserPreference(CMUserPreference newPreferences);
 
         /// <summary>
         /// Get all the users with given tag id
@@ -238,14 +282,11 @@ namespace Reflectis.SDK.ClientModels
         /// </summary>
         /// <param name="worldId"></param>
         /// <returns></returns>
-        Task<List<CMFacet>> GetWorldFacets(int worldId);
+        Task<List<CMFacet>> GetFacets();
 
         #endregion
 
         #region Permissions
-
-        public bool IsEventPermissionGranted(EFacetIdentifier identifier);
-        public bool IsWorldPermissionGranted(EFacetIdentifier identifier);
 
         /// <summary>
         /// Get the permission avaible to the player for the given event
@@ -263,7 +304,7 @@ namespace Reflectis.SDK.ClientModels
         /// Get all permission for the current world
         /// </summary>
         /// <returns></returns>
-        Task<List<CMPermission>> GetWorldPermissions(int worldId);
+        Task<List<CMPermission>> GetWorldPermissions();
 
 
         #endregion
@@ -323,6 +364,12 @@ namespace Reflectis.SDK.ClientModels
         Task PingMyOnlinePresence(int? worldId, int? eventId, int? shardId);
         Task<List<CMOnlinePresence>> GetUsersInEvent(int eventId, bool forceRefresh = true);
 
+        /// <summary>
+        /// If value the cache variables that have to be auto refreshed will start their refresh
+        /// otherwise they will stop refreshing
+        /// </summary>
+        /// <param name="value"></param>
+        Task EnableCacheAutoRefresh(bool value);
         #endregion
 
         #region Shards

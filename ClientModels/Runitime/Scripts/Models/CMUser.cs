@@ -8,6 +8,8 @@ namespace Reflectis.SDK.ClientModels
     [Serializable]
     public class CMUser
     {
+        public static bool showFullNickname;
+
         [SerializeField] private int id;
         [SerializeField] private string nickname;
         [SerializeField] private int code;
