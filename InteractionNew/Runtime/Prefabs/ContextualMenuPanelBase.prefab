@@ -1342,60 +1342,14 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8395977666322759265, guid: 2f2915478e54f084eb1dec75f685433f,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 8082268457931402634}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f2915478e54f084eb1dec75f685433f, type: 3}
---- !u!114 &2917780657328093800 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8196986432852568487, guid: 2f2915478e54f084eb1dec75f685433f,
-    type: 3}
-  m_PrefabInstance: {fileID: 6467030214287578063}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3259199319937625518}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0804cf8589422724d8468a0fb8a63ca9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3259199319937625518 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8395977666322759265, guid: 2f2915478e54f084eb1dec75f685433f,
     type: 3}
   m_PrefabInstance: {fileID: 6467030214287578063}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8082268457931402634
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3259199319937625518}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ab08553dfb779942ab4ddd3191b5088, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  checkPermissionOnSetup: 1
-  actionToDo:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2917780657328093800}
-        m_TargetAssemblyTypeName: Reflectis.SDK.NovaExtensions.Button, Reflectis.SDK.NovaExtensions
-        m_MethodName: Enable
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  facetIdentifier: 19
-  permissionType: 0
 --- !u!4 &4250759195485004681 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7152344307818541126, guid: 2f2915478e54f084eb1dec75f685433f,
