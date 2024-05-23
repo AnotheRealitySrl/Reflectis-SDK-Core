@@ -342,7 +342,7 @@ namespace Reflectis.SDK.ClientModels
         CMOnlinePresence.Platform FindOnlineUserPlatform(int userId);
         bool IsOnlineUser(int userId);
         Task<List<CMOnlinePresence>> GetOnlineUsers(bool includeMyself = true);
-        Task PingMyOnlinePresence(int? eventId, int? shardId);
+        Task PingMyOnlinePresence(int? worldId, int? eventId, int? shardId);
 
         Task<List<CMOnlinePresence>> GetUsersInEvent(int eventId, bool forceRefresh = true);
 
