@@ -1,10 +1,3 @@
-using Reflectis.SDK.Core;
-
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-using UnityEngine.Events;
-
 namespace Reflectis.SDK.ClientModels
 {
     public enum FileTypeExt
@@ -361,7 +354,6 @@ namespace Reflectis.SDK.ClientModels
         Task<List<CMOnlinePresence>> GetOnlineUsers(bool forceRefresh = false);
         CMOnlinePresence GetOnlineUser(int userId);
         bool IsOnlineUser(int userId);
-        Task<List<CMOnlinePresence>> GetOnlineUsers(bool includeMyself = true);
         Task PingMyOnlinePresence(int? worldId, int? eventId, int? shardId);
 
         Task<List<CMOnlinePresence>> GetUsersInEvent(int eventId, bool forceRefresh = true);
