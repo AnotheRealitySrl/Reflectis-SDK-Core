@@ -158,7 +158,7 @@ namespace Reflectis.SDK.InteractionNew
 
         public void OnContextualMenuButtonClicked(EContextualMenuOption option)
         {
-            OnContextualMenuButtonSelected[option].Invoke();
+            OnContextualMenuButtonSelected[option]?.Invoke();
         }
 
         public void AskForDelete()
