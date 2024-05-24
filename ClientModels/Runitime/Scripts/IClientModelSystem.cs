@@ -1,3 +1,10 @@
+using Reflectis.SDK.Core;
+
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+using UnityEngine.Events;
+
 namespace Reflectis.SDK.ClientModels
 {
     public enum FileTypeExt
