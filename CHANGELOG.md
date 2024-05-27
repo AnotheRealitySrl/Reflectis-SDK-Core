@@ -10,14 +10,17 @@
 
 ### Added
 
-- ClientModels: add method `GetUserTags` in `IClientModelsSystem` to retrieve user's tags.
+- ClientModels: added optional `worldId` parameter to `PingMyOnlinePresence` method in `IClientModelSystem`.
+- ClientModels: added `GetUserTags` method in `IClientModelSystem`.
+- ClientModels: added `AssetControlManager` facets in `EFacetGroup`.
+- Interaction: added asset managemement permission check in `Manipulable` and Contextual menu manageable prefab.
 
 ## v6.0.0
 
 ### Changed
 
-- ClientModels: added `worldId` int parameter to `GetDefaultWorldEvent` signature.
 - ClientModels: changed `GetPlayerData` method name to `GetMyUserData` in `IClientModelSystem`.
+- ClientModels: added `worldId` int parameter to `GetDefaultWorldEvent` signature.
 
 ### Added
 
