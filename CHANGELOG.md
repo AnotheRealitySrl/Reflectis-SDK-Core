@@ -7,7 +7,7 @@
 - ClientModels: added optional `worldId` parameter to `PingMyOnlinePresence` method in `IClientModelSystem`.
 - ClientModels: added `GetUserTags` method in `IClientModelSystem`.
 - ClientModels: added `AssetControlManager` facets in `EFacetGroup`.
-- Interaction: added asset managemement permission check in `Manipulable` and Contextual menu manageable prefab.
+- Interaction: added asset managemement permission check in `Manipulable` and Contextual menu prefab.
 
 ## v6.0.0
 
