@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Reflectis.SDK.Transitions
 {
-    public abstract class AbstractFloatTransitionProvider : AbstractTransitionProvider
+    public abstract class AbstractInterpolatorFloatTransitionProvider : AbstractTransitionProvider
     {
         [Header("Transition parameters")]
         [SerializeField, Tooltip("Destination")]

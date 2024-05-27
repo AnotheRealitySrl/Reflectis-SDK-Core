@@ -1,4 +1,3 @@
-
 using Reflectis.SDK.Utilities;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,7 +6,7 @@ using UnityEngine;
 
 namespace Reflectis.SDK.Transitions
 {
-    public abstract class AbstractColorTransitionProvider : AbstractTransitionProvider
+    public abstract class AbstractInterpolatorColorTransitionProvider : AbstractTransitionProvider
     {
         [Header("Transition parameters")]
         [SerializeField, Tooltip("The color to change it into")]

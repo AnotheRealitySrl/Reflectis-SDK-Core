@@ -2,9 +2,23 @@
 
 ## v7.0.0
 
+### Added
+
+- Avatar: Added `EnableAvatarIstance` method to `IAvatarSystem`.
+- CharacterController: Added `EnableCharacterGravity` method to `ICharacterControllerSystem`.
+- Fade: Added `SetTargetCamera` method to `FadeManager`.
+- Utilities: added `Interpolator` wrapeprs to implement animations and interpolations.
+- ClientModels: Added worldId to online presence.
+- ClientModels: Added `IReflectisApplicationManager`.
+- ClientModels: Added `EnableCacheAutorefresh` to `IClientModelSystem` (Start refreshing all the variables that refreshes automatically, online user presence).
+- ClientModels: Added `eventInvitationMessage` to `InviteUsersToEvent`.
+- Transition Providers: Added `CanvasInterpolatorTransitionProvider`, `TransformInterpolatorTransitionProvider`, `AbstractInterpolatorColorTransitionProvider` and `AbstractInterpolatorFloatTransitionProvider`.
+
 ## Removed
 
+- Transition Providers: Removed dependency to DOTween, removed `CanvasTransitionProvider`, `TransformTransitionProvider`, `AbstractColorTransitionProvider` and `AbstractFloatTransitionProvider`.
 - ClientModels: Remove `ISShardFull` method from `IClientModelSystem`.
+- ClientModels: Remove `CalculateShard` method from `IClientModelSystem`.
 
 ## v6.1.0
 

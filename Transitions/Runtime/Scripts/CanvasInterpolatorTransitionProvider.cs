@@ -8,7 +8,7 @@ namespace Reflectis.SDK.Transitions
     /// <summary>
     /// Transition provider that operates on the alpha value of a canvas group
     /// </summary>
-    public class CanvasTransitionProvider : AbstractTransitionProvider
+    public class CanvasInterpolatorTransitionProvider : AbstractTransitionProvider
     {
         [SerializeField] private CanvasGroup canvasGroup;
         [SerializeField] private float fadeTime = 1f;

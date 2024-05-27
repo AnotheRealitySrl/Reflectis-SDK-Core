@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Reflectis.SDK.Transitions
 {
-    public class TransformTransitionProvider : AbstractTransitionProvider
+    public class TransformInterpolatorTransitionProvider : AbstractTransitionProvider
     {
         [SerializeField, Tooltip("Duration of the transition in seconds")]
         private float duration = 0.1f;
