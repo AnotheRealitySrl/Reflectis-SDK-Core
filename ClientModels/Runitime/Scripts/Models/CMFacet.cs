@@ -24,6 +24,7 @@ namespace Reflectis.SDK.ClientModels
         CreateEvent = 15,
         EnableSpeaker = 16,
         AuthoringTool = 17,
+        AssetControlManager = 18,
     }
 
     public enum EFacetGroup

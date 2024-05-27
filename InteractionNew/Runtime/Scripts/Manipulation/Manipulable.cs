@@ -307,6 +307,13 @@ namespace Reflectis.SDK.InteractionNew
 
         #region Public methods
 
+        public void SetBlockByPermission(bool permissionGranted)
+        {
+            if (!permissionGranted)
+            {
+                CurrentBlockedState = EBlockedState.BlockedByPermissions;
+            }
+        }
         public void ToggleBoundingBoxCollider(bool state)
         {
             BoundingBox.GetComponent<Collider>().enabled = state;
