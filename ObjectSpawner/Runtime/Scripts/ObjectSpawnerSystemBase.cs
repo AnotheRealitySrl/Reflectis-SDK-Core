@@ -1,13 +1,14 @@
 using Reflectis.SDK.CharacterController;
 using Reflectis.SDK.Core;
+
 using System.Threading.Tasks;
+
 using UnityEngine;
 
 namespace Reflectis.SDK.ObjectSpawner
 {
     [CreateAssetMenu(menuName = "Reflectis/SDK-ObjectSpawner/ObjectSpawnerSystemConfig", fileName = "ObjectSpawnerSystemConfig")]
-
-    public class ObjectSpawnerSystem : BaseSystem
+    public abstract class ObjectSpawnerSystemBase : BaseSystem, IObjectSpawnerSystem
     {
         private Transform origin;
 
@@ -77,6 +78,8 @@ namespace Reflectis.SDK.ObjectSpawner
             float angleRad = angle * (Mathf.PI / 180f);
             return new Vector3(Mathf.Cos(angleRad), 0, Mathf.Sin(angleRad));
         }
+
+        public abstract Task<GameObject> InstantiateSceneObj(string label, string objectKey, int assetId, Vector3? position, Quaternion? rotation);
     }
 
 }
