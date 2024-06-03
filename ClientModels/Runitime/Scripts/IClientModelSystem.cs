@@ -249,7 +249,7 @@ namespace Reflectis.SDK.ClientModels
         /// Return my user preferences
         /// </summary>
         /// <returns></returns>
-        Task<CMUserPreference> GetMyUserPreference(int myUserId); //TODO: remove user id once API is ready
+        Task<CMUserPreference> GetMyUserPreferences();
 
         /// <summary>
         /// Get user preferences of given user id
