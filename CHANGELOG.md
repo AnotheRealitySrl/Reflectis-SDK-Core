@@ -15,19 +15,19 @@
 - Fade: added `SetTargetCamera` method to `FadeManager`.
 - Transitions: added `CanvasInterpolatorTransitionProvider`, `TransformInterpolatorTransitionProvider`, `AbstractInterpolatorColorTransitionProvider` and `AbstractInterpolatorFloatTransitionProvider`.
 - Utilities: added `AnimationCurveExtensions` utility class with `GetInverseCurve` and `GetAngularCoefficient` static methods.
-- Utilities: added `Interpolator` wrapeprs to implement animations and interpolations.
+- Utilities: added `Interpolator` wrappers to implement animations and interpolations.
 - Utilities: added `RemoveSpaces` extension method in `StringExtensions`.
 - Utilities: added `CacheVariable` class for caching CM entities.
 - VoiceChat: added `enableMicrophoneByDefault` inspector variable in `VoiceChatSystemBase`.
 
 ### Changed
 
+- Moved `IApplicationManager` interface from Utilities module to its own new ApplicationManagement module.
 - ClientModels: refactored online users presence methods in `IClientModelSystem`.
 - ClientModels: added `eventInvitationMessage` parameter to `InviteUsersToEvent` method in `IClientModelSystem`.
 - ClientModels: renamed `GetMyUserPreference` method to `GetMyUserPreferences`, remove `myUserId` parameter.
 - ClientModels: changed `DeleteEvent` method return type to `long`.
 - ClientModels: removed return type from `UpdateUserPreference` method of `IClientModelSystem`.
-- Move `IApplicationManager` interface from Utilities moodule to its own new ApplicationManagement module.
 - Transitions: added "Interpolator" to some transition provider class names.
 
 ### Removed
@@ -35,7 +35,7 @@
 - CharacterController: removed AvatarPlaceholder prefab.
 - Transitions: removed dependency to DOTween, removed `CanvasTransitionProvider`, `TransformTransitionProvider`, `AbstractColorTransitionProvider` and `AbstractFloatTransitionProvider`.
 - ObjectSpawner: removed dependency to CreatorKit logic from `ObjectSpawnerSystem`.
-- ClientModels: removed `ISShardFull` method from `IClientModelSystem`.
+- ClientModels: removed `IsShardFull` method from `IClientModelSystem`.
 - ClientModels: removed `CalculateShard` method from `IClientModelSystem`.
 - ClientModels: removed `GetOnlineUsers` duplicate method from `IClientModelSystem`.
 
