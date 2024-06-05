@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 namespace Reflectis.SDK.Utilities.Extensions
@@ -31,6 +32,13 @@ namespace Reflectis.SDK.Utilities.Extensions
             }
             return sb.ToString();
         }
+
+        public static string RemoveSpaces(this string str)
+        {
+            str = Regex.Replace(str, @"\s", string.Empty);
+            return str;
+        }
+
 
         public static string ConcatenateStrings(this IEnumerable<string> list, char separator)
         {
