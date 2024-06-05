@@ -4,21 +4,45 @@
 
 ### Added
 
-- Avatar: Added `EnableAvatarIstance` method to `IAvatarSystem`.
-- CharacterController: Added `EnableCharacterGravity` method to `ICharacterControllerSystem`.
-- Fade: Added `SetTargetCamera` method to `FadeManager`.
+- New BrowserCommunicationSystem module, for exchanging messages between Unity client and JavaScript container application.
+- New RadialMenuUtils module, which is a menu to spawn `Manipulable` objects in VR.
+- New ApplicationManagement module, with interfaces useful to manage the application flow in an agnostic way.
+- Avatars: added `EnableAvatarIstance` method to `IAvatarSystem`, with base implementation in `AvatarSystem`.
+- CharacterController: added `EnableCharacterGravity` method to `ICharacterControllerSystem`.
+- ClientModels: added `IReflectisApplicationManager`.
+- ClientModels: added `EnableCacheAutorefresh` to `IClientModelSystem` (Start refreshing all the variables that refreshes automatically, online user presence).
+- ClientModels: added `CheckMyKeys` and `CheckScheduleAccessibilityForToday` methods in `IClientModelSystem`.
+- Fade: added `SetTargetCamera` method to `FadeManager`.
+- Transitions: added `CanvasInterpolatorTransitionProvider`, `TransformInterpolatorTransitionProvider`, `AbstractInterpolatorColorTransitionProvider` and `AbstractInterpolatorFloatTransitionProvider`.
+- Utilities: added `AnimationCurveExtensions` utility class with `GetInverseCurve` and `GetAngularCoefficient` static methods.
 - Utilities: added `Interpolator` wrapeprs to implement animations and interpolations.
-- ClientModels: Added worldId to online presence.
-- ClientModels: Added `IReflectisApplicationManager`.
-- ClientModels: Added `EnableCacheAutorefresh` to `IClientModelSystem` (Start refreshing all the variables that refreshes automatically, online user presence).
-- ClientModels: Added `eventInvitationMessage` to `InviteUsersToEvent`.
-- Transition Providers: Added `CanvasInterpolatorTransitionProvider`, `TransformInterpolatorTransitionProvider`, `AbstractInterpolatorColorTransitionProvider` and `AbstractInterpolatorFloatTransitionProvider`.
+- Utilities: added `RemoveSpaces` extension method in `StringExtensions`.
+- Utilities: added `CacheVariable` class for caching CM entities.
+- VoiceChat: added `enableMicrophoneByDefault` inspector variable in `VoiceChatSystemBase`.
 
-## Removed
+### Changed
 
-- Transition Providers: Removed dependency to DOTween, removed `CanvasTransitionProvider`, `TransformTransitionProvider`, `AbstractColorTransitionProvider` and `AbstractFloatTransitionProvider`.
-- ClientModels: Remove `ISShardFull` method from `IClientModelSystem`.
-- ClientModels: Remove `CalculateShard` method from `IClientModelSystem`.
+- ClientModels: refactored online users presence methods in `IClientModelSystem`.
+- ClientModels: added `eventInvitationMessage` parameter to `InviteUsersToEvent` method in `IClientModelSystem`.
+- ClientModels: renamed `GetMyUserPreference` method to `GetMyUserPreferences`, remove `myUserId` parameter.
+- ClientModels: changed `DeleteEvent` method return type to `long`.
+- ClientModels: removed return type from `UpdateUserPreference` method of `IClientModelSystem`.
+- Move `IApplicationManager` interface from Utilities moodule to its own new ApplicationManagement module.
+- Transitions: added "Interpolator" to some transition provider class names.
+
+### Removed
+
+- CharacterController: removed AvatarPlaceholder prefab.
+- Transitions: removed dependency to DOTween, removed `CanvasTransitionProvider`, `TransformTransitionProvider`, `AbstractColorTransitionProvider` and `AbstractFloatTransitionProvider`.
+- ObjectSpawner: removed dependency to CreatorKit logic from `ObjectSpawnerSystem`.
+- ClientModels: removed `ISShardFull` method from `IClientModelSystem`.
+- ClientModels: removed `CalculateShard` method from `IClientModelSystem`.
+- ClientModels: removed `GetOnlineUsers` duplicate method from `IClientModelSystem`.
+
+### Fixed
+
+- Avatars: add null check in `EnableAvatarInstance` method of `AvatarSystem`.
+- Transitions: fixed `GetStartTime` method in transition providers, other fixes.
 
 ## v6.1.0
 
