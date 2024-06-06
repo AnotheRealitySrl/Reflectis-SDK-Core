@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+
 namespace Reflectis.SDK.Utilities
 {
     public interface IApplicationManager
@@ -6,5 +8,6 @@ namespace Reflectis.SDK.Utilities
 
         void QuitApplication();
         void ErasePlayerSessionData();
+        Task<bool> CheckInternetConnection();
     }
 }

@@ -1,8 +1,4 @@
-using Reflectis.SDK.Utilities.Extensions;
-
 using System.Threading.Tasks;
-
-using UnityEngine.Networking;
 #if !UNITY_WEBGL
 using UnityEngine;
 #endif
@@ -15,11 +11,21 @@ namespace Reflectis.SDK.Utilities
 
         public static async Task<bool> CheckUserInternetConnection()
         {
-            using var request = UnityWebRequest.Head("8.8.8.8");
-            request.timeout = PING_MAX_SECONDS_DELAY;
-            await request.SendWebRequest();
+#if !UNITY_WEBGL
+            var googlePing = new Ping("8.8.8.8");
 
-            return request.result == UnityWebRequest.Result.Success;
+            var cloudFlarePing = new Ping("1.1.1.1"); // CloudFlare DNS
+
+            float timePassed = 0;
+            while (!googlePing.isDone && !cloudFlarePing.isDone && timePassed < PING_MAX_SECONDS_DELAY)
+            {
+                await Task.Yield();
+                timePassed = timePassed + Time.deltaTime;
+            }
+            return googlePing.isDone || cloudFlarePing.isDone;
+#else
+            return await IApplicationManager.Instance.CheckInternetConnection();
+#endif
         }
 
     }
