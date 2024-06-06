@@ -10,14 +10,17 @@
 - Avatars: added `EnableAvatarIstance` method to `IAvatarSystem`, with base implementation in `AvatarSystem`.
 - CharacterController: added `EnableCharacterGravity` method to `ICharacterControllerSystem`.
 - ClientModels: added `IReflectisApplicationManager`.
-- ClientModels: added `EnableCacheAutorefresh` to `IClientModelSystem` (Start refreshing all the variables that refreshes automatically, online user presence).
+- ClientModels: added `EnableCacheAutorefresh` to `IClientModelSystem` (starts refreshing all the variables that refresh automatically, like online user presence).
 - ClientModels: added `CheckMyKeys` and `CheckScheduleAccessibilityForToday` methods in `IClientModelSystem`.
+- ClientModels: added return value to `PingMyOnlinePresence` method in `IClientModelSystem`.
+- ClientModels: added `avatarId` field to `CMOnlinePresence` class.
 - Fade: added `SetTargetCamera` method to `FadeManager`.
 - Transitions: added `CanvasInterpolatorTransitionProvider`, `TransformInterpolatorTransitionProvider`, `AbstractInterpolatorColorTransitionProvider` and `AbstractInterpolatorFloatTransitionProvider`.
 - Utilities: added `AnimationCurveExtensions` utility class with `GetInverseCurve` and `GetAngularCoefficient` static methods.
 - Utilities: added `Interpolator` wrappers to implement animations and interpolations.
 - Utilities: added `RemoveSpaces` extension method in `StringExtensions`.
 - Utilities: added `CacheVariable` class for caching CM entities.
+
 - VoiceChat: added `enableMicrophoneByDefault` inspector variable in `VoiceChatSystemBase`.
 
 ### Changed
@@ -29,6 +32,7 @@
 - ClientModels: changed `DeleteEvent` method return type to `long`.
 - ClientModels: removed return type from `UpdateUserPreference` method of `IClientModelSystem`.
 - Transitions: added "Interpolator" to some transition provider class names.
+- Utilities: `CheckUserInternetConnection` method of `NetworkUtilities` class now calls a method of the `IApplicationManager` interface in WebGL, allowing a custom implementation in absence of an implementation of a ping.
 
 ### Removed
 
