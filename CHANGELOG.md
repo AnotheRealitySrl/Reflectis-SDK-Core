@@ -20,7 +20,6 @@
 - Utilities: added `Interpolator` wrappers to implement animations and interpolations.
 - Utilities: added `RemoveSpaces` extension method in `StringExtensions`.
 - Utilities: added `CacheVariable` class for caching CM entities.
-
 - VoiceChat: added `enableMicrophoneByDefault` inspector variable in `VoiceChatSystemBase`.
 
 ### Changed
