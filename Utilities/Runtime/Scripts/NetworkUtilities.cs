@@ -24,9 +24,8 @@ namespace Reflectis.SDK.Utilities
             }
             return googlePing.isDone || cloudFlarePing.isDone;
 #else
-            return true;
+            return await IApplicationManager.Instance.CheckInternetConnection();
 #endif
-
         }
 
     }

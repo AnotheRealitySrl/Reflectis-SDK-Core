@@ -4,21 +4,48 @@
 
 ### Added
 
-- Avatar: Added `EnableAvatarIstance` method to `IAvatarSystem`.
-- CharacterController: Added `EnableCharacterGravity` method to `ICharacterControllerSystem`.
-- Fade: Added `SetTargetCamera` method to `FadeManager`.
-- Utilities: added `Interpolator` wrapeprs to implement animations and interpolations.
-- ClientModels: Added worldId to online presence.
-- ClientModels: Added `IReflectisApplicationManager`.
-- ClientModels: Added `EnableCacheAutorefresh` to `IClientModelSystem` (Start refreshing all the variables that refreshes automatically, online user presence).
-- ClientModels: Added `eventInvitationMessage` to `InviteUsersToEvent`.
-- Transition Providers: Added `CanvasInterpolatorTransitionProvider`, `TransformInterpolatorTransitionProvider`, `AbstractInterpolatorColorTransitionProvider` and `AbstractInterpolatorFloatTransitionProvider`.
+- New BrowserCommunicationSystem module, for exchanging messages between Unity client and JavaScript container application.
+- New RadialMenuUtils module, which is a menu to spawn `Manipulable` objects in VR.
+- New ApplicationManagement module, with interfaces useful to manage the application flow in an agnostic way.
+- Avatars: added `EnableAvatarIstance` method to `IAvatarSystem`, with base implementation in `AvatarSystem`.
+- CharacterController: added `EnableCharacterGravity` method to `ICharacterControllerSystem`.
+- ClientModels: added `IReflectisApplicationManager`.
+- ClientModels: added `EnableCacheAutorefresh` to `IClientModelSystem` (starts refreshing all the variables that refresh automatically, like online user presence).
+- ClientModels: added `CheckMyKeys` and `CheckScheduleAccessibilityForToday` methods in `IClientModelSystem`.
+- ClientModels: added return value to `PingMyOnlinePresence` method in `IClientModelSystem`.
+- ClientModels: added `avatarId` field to `CMOnlinePresence` class.
+- Fade: added `SetTargetCamera` method to `FadeManager`.
+- Transitions: added `CanvasInterpolatorTransitionProvider`, `TransformInterpolatorTransitionProvider`, `AbstractInterpolatorColorTransitionProvider` and `AbstractInterpolatorFloatTransitionProvider`.
+- Utilities: added `AnimationCurveExtensions` utility class with `GetInverseCurve` and `GetAngularCoefficient` static methods.
+- Utilities: added `Interpolator` wrappers to implement animations and interpolations.
+- Utilities: added `RemoveSpaces` extension method in `StringExtensions`.
+- Utilities: added `CacheVariable` class for caching CM entities.
+- VoiceChat: added `enableMicrophoneByDefault` inspector variable in `VoiceChatSystemBase`.
 
-## Removed
+### Changed
 
-- Transition Providers: Removed dependency to DOTween, removed `CanvasTransitionProvider`, `TransformTransitionProvider`, `AbstractColorTransitionProvider` and `AbstractFloatTransitionProvider`.
-- ClientModels: Remove `ISShardFull` method from `IClientModelSystem`.
-- ClientModels: Remove `CalculateShard` method from `IClientModelSystem`.
+- Moved `IApplicationManager` interface from Utilities module to its own new ApplicationManagement module.
+- ClientModels: refactored online users presence methods in `IClientModelSystem`.
+- ClientModels: added `eventInvitationMessage` parameter to `InviteUsersToEvent` method in `IClientModelSystem`.
+- ClientModels: renamed `GetMyUserPreference` method to `GetMyUserPreferences`, remove `myUserId` parameter.
+- ClientModels: changed `DeleteEvent` method return type to `long`.
+- ClientModels: removed return type from `UpdateUserPreference` method of `IClientModelSystem`.
+- Transitions: added "Interpolator" to some transition provider class names.
+- Utilities: `CheckUserInternetConnection` method of `NetworkUtilities` class now calls a method of the `IApplicationManager` interface in WebGL, allowing a custom implementation in absence of an implementation of a ping.
+
+### Removed
+
+- CharacterController: removed AvatarPlaceholder prefab.
+- Transitions: removed dependency to DOTween, removed `CanvasTransitionProvider`, `TransformTransitionProvider`, `AbstractColorTransitionProvider` and `AbstractFloatTransitionProvider`.
+- ObjectSpawner: removed dependency to CreatorKit logic from `ObjectSpawnerSystem`.
+- ClientModels: removed `IsShardFull` method from `IClientModelSystem`.
+- ClientModels: removed `CalculateShard` method from `IClientModelSystem`.
+- ClientModels: removed `GetOnlineUsers` duplicate method from `IClientModelSystem`.
+
+### Fixed
+
+- Avatars: add null check in `EnableAvatarInstance` method of `AvatarSystem`.
+- Transitions: fixed `GetStartTime` method in transition providers, other fixes.
 
 ## v6.1.0
 
