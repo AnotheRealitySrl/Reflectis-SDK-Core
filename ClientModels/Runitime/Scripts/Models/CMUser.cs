@@ -15,7 +15,6 @@ namespace Reflectis.SDK.ClientModels
         [SerializeField] private int code;
         [SerializeField] private string email;
         [SerializeField] private List<CMTag> tags;
-        [SerializeField] private string playerImageUrl;
         [SerializeField] private CMUserPreference preferences;
 
         public int ID { get => id; set => id = value; }
@@ -34,22 +33,6 @@ namespace Reflectis.SDK.ClientModels
         public string Email { get => email; set => email = value; }
         public List<CMTag> Tags { get => tags; set => tags = value; }
         public CMUserPreference Preferences { get => preferences; set => preferences = value; }
-        public string PlayerImageUrl
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(playerImageUrl))
-                {
-                    return preferences?.AvatarConfig?.AvatarPng;
-                }
-                else
-                {
-                    return playerImageUrl;
-                }
-            }
-            set => playerImageUrl = value;
-        }
-
         public string DisplayName { get; set; } // Use this property for user interfaces!
     }
 
