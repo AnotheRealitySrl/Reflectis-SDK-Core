@@ -1,5 +1,3 @@
-using Reflectis.SDK.Core;
-
 using System;
 using System.Collections.Generic;
 
@@ -76,7 +74,7 @@ namespace Reflectis.SDK.ClientModels
         public bool StaticEvent { get => staticEvent; set => staticEvent = value; }
         public List<CMPermission> Permissions { get => permissions; set => permissions = value; }
 
-        public bool IsLimited { get => maxParticipants != -1 && maxParticipants <= SM.GetSystem<IClientModelSystem>().MaxShardCapacity; }
+        public bool IsLimited { get => maxParticipants != -1 && maxParticipants <= CMShard.maxShardCapacity; }
 
     }
 

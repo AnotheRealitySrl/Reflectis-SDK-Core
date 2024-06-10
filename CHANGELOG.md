@@ -1,5 +1,52 @@
 # Release notes
 
+## v7.0.0
+
+### Added
+
+- New BrowserCommunicationSystem module, for exchanging messages between Unity client and JavaScript container application.
+- New RadialMenuUtils module, which is a menu to spawn `Manipulable` objects in VR.
+- New ApplicationManagement module, with interfaces useful to manage the application flow in an agnostic way.
+- Avatars: added `EnableAvatarIstance` method to `IAvatarSystem`, with base implementation in `AvatarSystem`.
+- CharacterController: added `EnableCharacterGravity` method to `ICharacterControllerSystem`.
+- ClientModels: added `IReflectisApplicationManager`.
+- ClientModels: added `EnableCacheAutorefresh` to `IClientModelSystem` (starts refreshing all the variables that refresh automatically, like online user presence).
+- ClientModels: added `CheckMyKeys` and `CheckScheduleAccessibilityForToday` methods in `IClientModelSystem`.
+- ClientModels: added return value to `PingMyOnlinePresence` method in `IClientModelSystem`.
+- ClientModels: added `avatarId` field to `CMOnlinePresence` class.
+- Fade: added `SetTargetCamera` method to `FadeManager`.
+- Transitions: added `CanvasInterpolatorTransitionProvider`, `TransformInterpolatorTransitionProvider`, `AbstractInterpolatorColorTransitionProvider` and `AbstractInterpolatorFloatTransitionProvider`.
+- Utilities: added `AnimationCurveExtensions` utility class with `GetInverseCurve` and `GetAngularCoefficient` static methods.
+- Utilities: added `Interpolator` wrappers to implement animations and interpolations.
+- Utilities: added `RemoveSpaces` extension method in `StringExtensions`.
+- Utilities: added `CacheVariable` class for caching CM entities.
+- VoiceChat: added `enableMicrophoneByDefault` inspector variable in `VoiceChatSystemBase`.
+
+### Changed
+
+- Moved `IApplicationManager` interface from Utilities module to its own new ApplicationManagement module.
+- ClientModels: refactored online users presence methods in `IClientModelSystem`.
+- ClientModels: added `eventInvitationMessage` parameter to `InviteUsersToEvent` method in `IClientModelSystem`.
+- ClientModels: renamed `GetMyUserPreference` method to `GetMyUserPreferences`, remove `myUserId` parameter.
+- ClientModels: changed `DeleteEvent` method return type to `long`.
+- ClientModels: removed return type from `UpdateUserPreference` method of `IClientModelSystem`.
+- Transitions: added "Interpolator" to some transition provider class names.
+- Utilities: `CheckUserInternetConnection` method of `NetworkUtilities` class now calls a method of the `IApplicationManager` interface in WebGL, allowing a custom implementation in absence of an implementation of a ping.
+
+### Removed
+
+- CharacterController: removed AvatarPlaceholder prefab.
+- Transitions: removed dependency to DOTween, removed `CanvasTransitionProvider`, `TransformTransitionProvider`, `AbstractColorTransitionProvider` and `AbstractFloatTransitionProvider`.
+- ObjectSpawner: removed dependency to CreatorKit logic from `ObjectSpawnerSystem`.
+- ClientModels: removed `IsShardFull` method from `IClientModelSystem`.
+- ClientModels: removed `CalculateShard` method from `IClientModelSystem`.
+- ClientModels: removed `GetOnlineUsers` duplicate method from `IClientModelSystem`.
+
+### Fixed
+
+- Avatars: add null check in `EnableAvatarInstance` method of `AvatarSystem`.
+- Transitions: fixed `GetStartTime` method in transition providers, other fixes.
+
 ## v6.1.0
 
 ### Added

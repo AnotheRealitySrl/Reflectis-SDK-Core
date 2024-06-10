@@ -18,10 +18,43 @@ namespace Reflectis.SDK.ClientModels
 
     public interface IClientModelSystem : ISystem
     {
+
+        #region Current Client Data
+        #region Events
+        public CMEvent CurrentEvent { get; }
+        #endregion
+
+        #region Shards
+        public CMShard CurrentShard { get; }
+        #endregion
+
         #region Worlds
 
-        List<CMWorld> Worlds { get; set; }
-        CMWorld CurrentWorld { get; set; }
+        List<CMWorld> Worlds { get; }
+        CMWorld CurrentWorld { get; }
+
+        #endregion
+
+        #region Permissions
+        List<CMPermission> CurrentEventPermissions { get; }
+        List<CMPermission> WorldPermissions { get; }
+
+        bool IsEventPermissionGranted(EFacetIdentifier identifier);
+        bool IsWorldPermissionGranted(EFacetIdentifier identifier);
+        #endregion
+
+        #region Facets
+        public List<CMFacet> Facets { get; }
+        #endregion
+
+        #region Users
+        CMUser UserData { get; }
+        #endregion
+        #endregion
+
+        float PlayerPingRateSeconds { get; }
+
+        #region Worlds
 
         /// <summary>
         /// Returns all the available worlds
@@ -36,20 +69,21 @@ namespace Reflectis.SDK.ClientModels
 
         #region Events
 
-        CMEvent CurrentEvent { get; set; }
-        List<CMEvent> StaticEvents { get; }
-
+        void InvalidateEventCache();
         /// <summary>
         /// Force refresh on cached event data
+        /// Refreshes also cached data that usually should not be refreshed (categories and environments)
         /// </summary>
         /// <returns></returns>
-        Task RefreshCachedData();
+        Task RefreshAllCachedEventsData();
 
         /// <summary>
-        /// Force refresh on cached event data
+        /// Force refresh on cached event data.
+        /// Refreshes only data that has a refresh expiring time
         /// </summary>
         /// <returns></returns>
         Task RefreshEventsData();
+
 
         /// <summary>
         /// Returns the default event of a world
@@ -111,7 +145,7 @@ namespace Reflectis.SDK.ClientModels
         /// </summary>
         /// <param name="e"></param>
         /// <returns></returns>
-        Task<string> DeleteEvent(int eventId);
+        Task<long> DeleteEvent(int eventId);
 
         /// <summary>
         /// Update an event with given e data.
@@ -126,7 +160,7 @@ namespace Reflectis.SDK.ClientModels
         /// </summary>
         /// <param name="cMEvent"></param>
         /// <returns></returns>
-        Task<bool> InviteUsersToEvent(CMEvent cMEvent);
+        Task<bool> InviteUsersToEvent(CMEvent cMEvent, string eventInvitationMessage);
 
         /// <summary>
         /// Create all event permission for the given event
@@ -134,19 +168,6 @@ namespace Reflectis.SDK.ClientModels
         /// <param name="_event"></param>
         /// <returns></returns>
         Task<bool> CreateEventPermissions(CMEvent _event);
-
-        /// <summary>
-        /// Request to join a specific ID. Return  the Event ID if request success otherwise return -1
-        /// </summary>
-        Task<bool> JoinEventRequest(int eventId);
-
-        /// <summary>
-        /// Add all asset list to the ones usable in the given event
-        /// </summary>
-        /// <param name="eventId"></param>
-        /// <param name="assets"></param>
-        /// <returns></returns>
-        Task<bool> ShareAssetsInEvent(int eventId, List<CMResource> assets);
 
         /// <summary>
         /// replace the asset list in the given event
@@ -167,38 +188,35 @@ namespace Reflectis.SDK.ClientModels
 
         #region Categories
 
-        Task<List<CMCategoryInfo>> GetAllEventCategoriesInfo();
+        Task<List<CMCategoryInfo>> GetCategoriesInfo();
 
         /// <summary>
         /// Return list of all categories
         /// </summary>
         /// <returns></returns>
-        Task<List<CMCategory>> GetAllCategories();
+        Task<List<CMCategory>> GetCategories();
 
         /// <summary>
         /// Return list of all subcategories
         /// </summary>
         /// <returns></returns>
-        Task<List<CMCategory>> GetAllEventSubCategories();
+        Task<List<CMCategory>> GetSubCategories();
 
         /// <summary>
         /// return list of all subcategories of a category
         /// </summary>
         /// <returns></returns>
-        Task<List<CMCategory>> GetEventSubCategoriesOfCategory(CMCategory parentCategory);
+        Task<List<CMCategory>> GetSubCategories(CMCategory parentCategory);
 
         #endregion
 
         #region Environments
 
-        Task<List<CMEnvironment>> GetAllEnvironments();
+        Task<List<CMEnvironment>> GetEnvironments();
 
         #endregion
 
         #region Users
-
-        CMUser UserData { get; set; }
-        CMUserPreference UserPrefs { get; set; }
 
         /// <summary>
         /// Return all users that match search criteria
@@ -213,10 +231,12 @@ namespace Reflectis.SDK.ClientModels
         Task<CMUser> GetUserData(int id);
 
         /// <summary>
-        ///  Return the local player data
+        ///  Return the local player data contextualized to the world we are in (with users tags) if are in a world,
+        ///  otherwise returns the user data decontextualized
         /// </summary>
         /// <returns></returns>
         Task<CMUser> GetMyUserData();
+
 
         /// <summary>
         /// Return data of the player with given id
@@ -225,14 +245,27 @@ namespace Reflectis.SDK.ClientModels
         /// <returns></returns>
         Task<int> GetUserCode(int userId);
 
-        Task<CMUserPreference> GetUserPreference(int userId);
         /// <summary>
-        /// Update user preferences
-        /// if fails returns error string, null if successfull
+        /// Return my user preferences
         /// </summary>
-        /// <param name=""></param>
         /// <returns></returns>
-        Task<string> UpdateUserPreference(CMUserPreference newPreferences);
+        Task<CMUserPreference> GetMyUserPreferences();
+
+        /// <summary>
+        /// Get user preferences of given user id
+        /// </summary>
+        /// <param name="worldId"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        Task<CMUserPreference> GetUserPreference(int userId);
+
+
+        /// <summary>
+        /// Update my user preferences outside of world context
+        /// </summary>
+        /// <param name="newPreferences"></param>
+        /// <returns></returns>
+        Task UpdateMyUserPreference(CMUserPreference newPreferences);
 
         /// <summary>
         /// Get all the users with given tag id
@@ -244,24 +277,16 @@ namespace Reflectis.SDK.ClientModels
 
         #region Facets
 
-        public List<CMFacet> WorldFacets { get; set; }
-
         /// <summary>
         /// Get all facets of the current world
         /// </summary>
         /// <param name="worldId"></param>
         /// <returns></returns>
-        Task<List<CMFacet>> GetWorldFacets(int worldId);
-
-        public bool IsEventPermissionGranted(EFacetIdentifier identifier);
-        public bool IsWorldPermissionGranted(EFacetIdentifier identifier);
+        Task<List<CMFacet>> GetFacets();
 
         #endregion
 
         #region Permissions
-
-        List<CMPermission> MyEventPermissions { get; set; }
-        List<CMPermission> WorldPermissions { get; set; }
 
         /// <summary>
         /// Get the permission avaible to the player for the given event
@@ -279,16 +304,26 @@ namespace Reflectis.SDK.ClientModels
         /// Get all permission for the current world
         /// </summary>
         /// <returns></returns>
-        Task<List<CMPermission>> GetWorldPermissions(int worldId);
+        Task<List<CMPermission>> GetWorldPermissions();
 
+
+        #endregion
+
+        #region Keys
+
+        Task<bool> CheckMyKeys();
+
+        #endregion
+
+        #region Schedule
+
+        Task<bool> CheckScheduleAccessibilityForToday();
 
         #endregion
 
         #region Assets
 
         Task<CMResource> GetEventAssetById(int assetId);
-
-        Task<List<CMResource>> GetMyAssets(string searchQuery);
 
         Task<CMSearch<CMFolder>> GetEventAssetsFolders(int eventId, int pageSize, int page = 1, IEnumerable<FileTypeExt> fileTypes = null);
 
@@ -307,7 +342,7 @@ namespace Reflectis.SDK.ClientModels
         Task<List<CMTag>> GetAllUsersTags();
 
         /// <summary>
-        /// Get all tags avaible to the single user
+        /// Get all tags avaible to the single user given the user id
         /// </summary>
         /// <returns></returns>
         Task<List<CMTag>> GetUserTags(int id);
@@ -319,52 +354,31 @@ namespace Reflectis.SDK.ClientModels
         /// <returns></returns>
         Task<List<CMTag>> SearchUserTags(string labelSubstring);
 
-        /// <summary>
-        /// Search env tag
-        /// </summary>
-        /// <param name="labelSubstring"></param>
-        /// <returns></returns>
-        Task<List<CMTag>> SearchEnvironmentTags(string labelSubstring);
-
-
-
         #endregion
 
         #region Online presence
-
-        List<CMOnlinePresence> OnlineUsersList { get; set; }
         UnityEvent OnlineUsersUpdated { get; }
-        CMOnlinePresence FindOnlineUser(int userId);
-        string FindOnlineUserDisplayName(int userId);
-        string FindOnlineUserAvatarPng(int userId);
-        int FindOnlineUserShard(int userId);
-        int FindOnlineUserEvent(int userId);
-        CMOnlinePresence.Platform FindOnlineUserPlatform(int userId);
+        Task<List<CMOnlinePresence>> GetOnlineUsers(bool forceRefresh = false);
+        CMOnlinePresence GetOnlineUser(int userId);
         bool IsOnlineUser(int userId);
-        Task<List<CMOnlinePresence>> GetOnlineUsers(bool includeMyself = true);
-        Task PingMyOnlinePresence(int? worldId, int? eventId, int? shardId);
+        Task<bool> PingMyOnlinePresence(int? worldId, int? eventId, int? shardId);
 
         Task<List<CMOnlinePresence>> GetUsersInEvent(int eventId, bool forceRefresh = true);
 
+        /// <summary>
+        /// If value the cache variables that have to be auto refreshed will start their refresh
+        /// otherwise they will stop refreshing
+        /// </summary>
+        /// <param name="value"></param>
+        Task EnableCacheAutoRefresh(bool value);
         #endregion
 
         #region Shards
-
-        int MaxShardCapacity { get; set; }
-        bool ShowFullNickname { get; set; }
-        CMShard CurrentShard { get; set; }
 
         /// <summary>
         /// Retrieves the current shards of an event.
         /// </summary>
         Task<List<CMShard>> GetEventShards(int eventId);
-
-        /// <summary>
-        /// Wheter or not the shard is full
-        /// </summary>
-        /// <param name="shard"></param>
-        /// <returns></returns>
-        Task<bool> IsShardFull(CMShard shard);
 
         #endregion
     }

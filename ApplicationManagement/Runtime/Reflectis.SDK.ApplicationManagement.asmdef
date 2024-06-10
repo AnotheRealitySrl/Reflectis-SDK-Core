@@ -1,0 +1,16 @@
+{
+    "name": "Reflectis.SDK.ApplicationManagement",
+    "rootNamespace": "",
+    "references": [
+        "Reflectis.SDK.Utilities"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _subSystems: []
   autoInitAtStartup: 1
-  fadeManagerPrefab: {fileID: 5360559746602165678, guid: c2a15683e35e629498b4c53c9b2b3aa0,
+  fadeManagerPrefab: {fileID: 5360559746602165678, guid: 8afd18eaab56ce9478a177f1c78ce8e2,
     type: 3}
   fadeTime: 1
   fadeOnStart: 0

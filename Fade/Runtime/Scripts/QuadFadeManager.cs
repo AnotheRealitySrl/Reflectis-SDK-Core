@@ -181,6 +181,11 @@ namespace Reflectis.SDK.Fade
             onEnd?.Invoke();
             yield return null;
         }
+
+        public void SetTargetCamera(Camera camera)
+        {
+
+        }
         #endregion
     }
 }

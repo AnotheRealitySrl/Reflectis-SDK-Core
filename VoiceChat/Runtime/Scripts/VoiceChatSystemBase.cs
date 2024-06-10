@@ -17,6 +17,9 @@ namespace Reflectis.SDK.VoiceChat
         [SerializeField, Min(1)]
         protected byte photonGlobalChannel = 1;
 
+        [Header("Settings")]
+        [SerializeField] protected bool enableMicrophoneByDefault = false;
+
         public virtual event Action<string> OnJoinChannelSuccess;
         public virtual event Action<string> OnRejoinChannelSuccess;
         public virtual event Action OnLeaveChannel;
