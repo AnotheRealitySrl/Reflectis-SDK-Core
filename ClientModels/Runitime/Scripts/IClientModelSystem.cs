@@ -218,6 +218,8 @@ namespace Reflectis.SDK.ClientModels
 
         #region Users
 
+        void InvalidateUsersCache();
+
         /// <summary>
         /// Return all users that match search criteria
         /// </summary>
