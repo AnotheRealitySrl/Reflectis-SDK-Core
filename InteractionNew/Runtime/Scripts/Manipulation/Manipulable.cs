@@ -311,7 +311,7 @@ namespace Reflectis.SDK.InteractionNew
         {
             if (!permissionGranted)
             {
-                CurrentBlockedState = EBlockedState.BlockedByPermissions;
+                CurrentBlockedState |= EBlockedState.BlockedByPermissions;
             }
         }
         public void ToggleBoundingBoxCollider(bool state)
