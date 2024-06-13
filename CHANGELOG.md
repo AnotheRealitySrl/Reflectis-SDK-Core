@@ -1,5 +1,20 @@
 # Release notes
 
+## v8.0.0
+
+### Added
+
+- ClientModels: added `InvalidateCache` method to `IClientModelSsytem`.
+- ClientModels: added "System" value to `EFacetGroup` enum in `CMFacet`.
+
+### Removed
+
+- ClientModels: removed `PlayerImageUrl` from `CMUser`.
+
+### Fixed
+
+- Interaction: fixed wrong calculation of `CurrentBlockedState` of `Manipulable` which happens in `SetBlockByPermission` method.
+
 ## v7.0.0
 
 ### Added
