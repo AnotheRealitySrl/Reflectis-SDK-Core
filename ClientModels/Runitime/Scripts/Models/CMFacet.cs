@@ -32,7 +32,8 @@ namespace Reflectis.SDK.ClientModels
         Unknown = 0,
         Management = 1,
         Actions = 2,
-        Tools = 3
+        Tools = 3,
+        System = 4,
     }
 
     public enum EFacetStatus
