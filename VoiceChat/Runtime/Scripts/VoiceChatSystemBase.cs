@@ -11,6 +11,7 @@ namespace Reflectis.SDK.VoiceChat
     /// </summary>
     public abstract class VoiceChatSystemBase : BaseSystem, IVoiceChatSystem
     {
+        // TODO: unused, since it's configured in Photon server settings
         [Header("Id of Agora subscription")]
         [SerializeField] protected string appId;
 

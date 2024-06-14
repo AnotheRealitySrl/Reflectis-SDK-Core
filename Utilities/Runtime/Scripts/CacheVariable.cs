@@ -156,10 +156,16 @@ namespace Reflectis.SDK.Utilities
             await GetCacheVariable(input).ForceRefresh();
         }
 
+        public void InvalidateCache()
+        {
+            foreach (var cache in cachesVariableCollection.Values)
+            {
+                cache.InvalidateCache();
+            }
+        }
         public void InvalidateCache(T input)
         {
             GetCacheVariable(input).InvalidateCache();
-
         }
         public bool NeedsRefresh(T input)
         {
