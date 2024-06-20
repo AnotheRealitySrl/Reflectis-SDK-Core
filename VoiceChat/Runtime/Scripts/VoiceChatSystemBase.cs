@@ -29,6 +29,7 @@ namespace Reflectis.SDK.VoiceChat
         public virtual event Action<int> OnUserLeave;
         public virtual event Action<int, bool> OnRemoteAudioStateChanged;
         public virtual event Action<int, bool> OnRemoteVideoStateChanged;
+        public Action<string> OnDisconnected;
 
         protected CommunicationChannel currentChannel;
         public CommunicationChannel CurrentChannel { get => currentChannel; set => currentChannel = value; }
