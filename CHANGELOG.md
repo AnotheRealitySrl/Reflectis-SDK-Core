@@ -1,5 +1,12 @@
 # Release notes
 
+## v8.1.0
+
+### Added
+
+- ClientModels: added `GetCachedEventShards` method to `IClientModelSystem` to retrieved cached shards data.
+- VoiceChat: added `OnDisconnected` callback to `VoiceChatSystemBase`.
+
 ## v8.0.0
 
 ### Added

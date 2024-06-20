@@ -382,6 +382,11 @@ namespace Reflectis.SDK.ClientModels
         /// </summary>
         Task<List<CMShard>> GetEventShards(int eventId);
 
+        /// <summary>
+        /// Retrieves the current shards of an event.
+        /// </summary>
+        List<CMShard> GetCachedEventShards(int eventId);
+
         #endregion
     }
 }
