@@ -42,7 +42,7 @@ namespace Reflectis.SDK.VoiceChat
         public abstract void ConnectToChannel(CommunicationChannel channel);
         public abstract void DestroyVideoView(uint uid);
         public abstract void DisconnectFromChannel();
-        public virtual void DisposeEngine() => DisconnectFromChannel();
+        public abstract void DisposeEngine();
         public abstract string GetChannelName();
         public abstract float GetSystemVolume();
         public abstract bool GetVoiceDetection();
