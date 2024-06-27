@@ -32,6 +32,7 @@ namespace Reflectis.SDK.InteractionNew
         [Flags]
         public enum EContextualMenuOption
         {
+            None = 0,
             LockTransform = 1,
             ResetTransform = 2,
             Duplicate = 4,
