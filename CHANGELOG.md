@@ -1,5 +1,11 @@
 # Release notes
 
+## v8.1.1
+
+### Fixed
+
+- VoiceChat: fixed redundant disconnection from a voice channel in the base implementation of `DisposeEngine` method of `VoiceChatSystemBase`.
+
 ## v8.1.0
 
 ### Added
