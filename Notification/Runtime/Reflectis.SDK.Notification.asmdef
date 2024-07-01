@@ -1,7 +1,9 @@
 {
     "name": "Reflectis.SDK.Notification",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+        "GUID:ab59f74e483e1ee4595bfefea56493f2"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

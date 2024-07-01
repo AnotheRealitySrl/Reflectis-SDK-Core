@@ -1,5 +1,4 @@
 using Reflectis.SDK.Core;
-using Reflectis.SDK.TextChat.Enums;
 using System;
 using System.Collections.Generic;
 
@@ -10,10 +9,9 @@ namespace Reflectis.SDK.TextChat
     /// </summary>
     public interface ITextChatSystem : ISystem
     {
-        string[] Channels { get; }
+        string[] ActiveChatChannels { get; }
 
-        bool IsConnected { get; set; }
-        bool IgnoreNotifications { get; set; }
+        bool IsConnected { get; }
 
         #region Events
 
@@ -32,46 +30,21 @@ namespace Reflectis.SDK.TextChat
         #endregion
 
         #region Message events
-        /// <summary>
-        /// Event invoked when a message is sent.
-        /// It will pass the name of the person/channel who
-        /// send it and the content of the message
-        /// </summary>
-        event Action<string, string> OnTxtMsgSent;
 
         /// <summary>
         /// Event invoked when a message is received. 
-        /// It will pass the name of the person/channel who
-        /// sent it, the content of the message and for who it is
+        /// It will pass the message and the channel in which the message was sent
         /// </summary>
-        event Action<string, string, string> OnTxtMsgReceived;
+        event Action<ChatMessage, string> OnTxtMsgReceived;
 
-
-        /// <summary>
-        /// Event invoked when the history messages are fetched.
-        /// It will pass a list with all the ChatMessages sent.
-        /// </summary>
-        event Action<List<ChatMessage>> OnTxtMsgFetched;
         #endregion
 
         #region Channel events
 
         /// <summary>
-        /// Event invoked when all the public channels are fetched from the server.
-        /// It will pass a list containing all the chat rooms
-        /// </summary>
-        event Action<List<ChatRoom>> OnAllChannelsFetched;
-
-        /// <summary>
         /// Event invoked when a user joins a channel
         /// </summary>
         event Action<string> OnJoinedChannel;
-
-        /// <summary>
-        /// Event invoked when a public channel is fetched from the server.
-        /// It will pass the channel
-        /// </summary>
-        event Action<ChatRoom> OnChannelFetched;
 
         #endregion
 
@@ -79,23 +52,20 @@ namespace Reflectis.SDK.TextChat
 
         #region Methods
         /// <summary>
-        /// Connect the current user to the text chat.
+        /// Wheter the user can chat or not
         /// </summary>
-        /// <param name="userId">Id of the user to connect to the text chat</param>
-        /// <param name="token">A token use to authorize the connection if needed</param>
-        void ConnectUserToTextChat(string userId, string token = "");
-
-        /// <summary>
-        /// Keep the connection alive so a user can get incoming messages continuously
-        /// </summary>
-        void KeepConnectionAlive();
+        /// <returns></returns>
         bool CanChat();
+        /// <summary>
+        /// Wheter the user can chat or not in the given channel
+        /// </summary>
+        /// <returns></returns>
         bool CanChatInChannel(string channelId);
 
         /// <summary>
         /// Disconnect the current user to the text chat
         /// </summary>
-        void DisconnectCurrentUser();
+        void Disconnect();
 
         /// <summary>
         /// Sends a new message to a specific user
@@ -112,33 +82,14 @@ namespace Reflectis.SDK.TextChat
         void SendMessageToChannel(string channelId, ChatMessage msg);
 
         /// <summary>
-        /// Get all the history messages sent through a specific channel
+        /// Get all the public chat rooms
         /// </summary>
-        /// <param name="channelId">Id of the channel to fetch all the messages</param>
-        /// <param name="type">The type of the channel</param>
-        void FetchHistoryMessages(string channelId, EChatMessageType type);
-
-        /// <summary>
-        /// Get the current messages count from a specific channel.
-        /// </summary>
-        /// <param name="channelId">Id of the channel to fetch all the messages</param>
-        /// <param name="type">The type of the channel</param>
-        int GetCurrentMessagesCount(string channelId, EChatMessageType type);
-
-        /// <summary>
-        /// Get all the public channels
-        /// </summary>
-        void FetchAllChannels();
+        List<ChatRoom> GetPublicRooms();
 
         /// <summary>
         /// Get all the private channels ids
         /// </summary>
         List<string> GetPrivateChannelIds();
-
-        /// <summary>
-        /// Joins the default channels
-        /// </summary>
-        void JoinTextChannel();
 
         /// <summary>
         /// Joins a text channel
@@ -148,10 +99,10 @@ namespace Reflectis.SDK.TextChat
 
 
         /// <summary>
-        /// Get info from a specific channel
+        /// Get info from a specific room
         /// </summary>
         /// <param name="channelId"></param>
-        void FetchChannelInfo(string channelId);
+        public ChatRoom GetRoomInfo(string channelId);
 
         /// <summary>
         /// Leave a text channel
@@ -165,7 +116,7 @@ namespace Reflectis.SDK.TextChat
         /// </summary>
         /// <param name="conversationId"></param>
         /// <param name="type"></param>
-        void DeleteConversationFromServer(string conversationId, EChatMessageType type);
+        //void DeleteConversationFromServer(string conversationId, EChatMessageType type);
 
         #endregion
     }
