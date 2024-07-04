@@ -19,7 +19,7 @@ namespace Reflectis.SDK.Utilities.Editor
         {
             public GameObject prefabInstance;
             public GameObject prefabAsset;
-            public Dictionary<PropertyModification, SerializedProperty> modifications;
+            public List<(PropertyModification, SerializedProperty)> modifications;
         }
 
         #region Inspector variables
@@ -33,10 +33,9 @@ namespace Reflectis.SDK.Utilities.Editor
         private List<PrefabWithInstances> prefabsWithInstances = new();
         private List<PrefabWithInstances> prefabsWithModifications = new();
 
-        private bool update;
-
         Dictionary<int, bool> prefabsFoldouts = new();
         Dictionary<int, bool> prefabInstancesFoldouts = new();
+        Dictionary<int, bool> prefabModificationsFoldouts = new();
         private Vector2 scrollPosition = Vector2.zero;
 
         #endregion
@@ -84,7 +83,7 @@ namespace Reflectis.SDK.Utilities.Editor
             {
                 int prefabIndex = prefabsWithInstances.IndexOf(prefab);
                 prefabsFoldouts.TryAdd(prefabIndex, false);
-                prefabsFoldouts[prefabIndex] = EditorGUILayout.Foldout(prefabsFoldouts[prefabIndex], prefab.prefab.name);
+                prefabsFoldouts[prefabIndex] = EditorGUILayout.Foldout(prefabsFoldouts[prefabIndex], $"[{prefab.prefabInstances.Count}] {prefab.prefab.name}");
                 if (prefabsFoldouts[prefabIndex])
                 {
                     foreach (var prefabInstance in prefab.prefabInstances)
@@ -94,14 +93,23 @@ namespace Reflectis.SDK.Utilities.Editor
                         prefabInstancesFoldouts[instanceIndex] = EditorGUILayout.Foldout(prefabInstancesFoldouts[instanceIndex], prefabInstance.prefabInstance.name);
 
                         EditorGUILayout.BeginVertical();
-                        EditorGUILayout.LabelField($"{prefabInstance.prefabInstance} {prefabInstance.prefabAsset}");
+                        EditorGUILayout.LabelField($"<b>Root asset</b>: {prefabInstance.prefabAsset.name}", style);
                         EditorGUILayout.EndVertical();
 
                         if (prefabInstancesFoldouts[instanceIndex])
                         {
                             foreach (var modification in prefabInstance.modifications)
                             {
+                                int modificationIndex = prefabInstance.modifications.IndexOf(modification);
+                                prefabModificationsFoldouts.TryAdd(modificationIndex, false);
+                                prefabModificationsFoldouts[modificationIndex] = EditorGUILayout.Foldout(prefabModificationsFoldouts[modificationIndex], "Modifications");
 
+                                if (prefabInstancesFoldouts[instanceIndex])
+                                {
+                                    EditorGUILayout.BeginVertical();
+                                    EditorGUILayout.LabelField($"<b>Modifications</b>: {modification.Item1.propertyPath} {modification.Item1.objectReference} {modification.Item2}", style);
+                                    EditorGUILayout.EndVertical();
+                                }
                             }
                         }
                     }
@@ -137,7 +145,7 @@ namespace Reflectis.SDK.Utilities.Editor
                     string prefabPath = PrefabUtility.GetPrefabAssetPathOfNearestInstanceRoot(prefab);
                     GameObject prefabAsset = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
 
-                    Dictionary<PropertyModification, SerializedProperty> modifications = new();
+                    List<(PropertyModification, SerializedProperty)> modifications = new();
 
                     PropertyModification[] overrides = PrefabUtility.GetPropertyModifications(prefabInstance);
                     foreach (PropertyModification over in overrides)
@@ -156,7 +164,7 @@ namespace Reflectis.SDK.Utilities.Editor
                         string propertyValue = over.value;
                         Object objectReference = over.objectReference;
 
-                        modifications.Add(over, serializedProperty);
+                        modifications.Add((over, serializedProperty));
                     }
 
                     PrefabInstancesWithModifications prefabInstanceWithModifications = new() { prefabInstance = prefabInstance, prefabAsset = prefabAsset, modifications = modifications };
@@ -177,12 +185,12 @@ namespace Reflectis.SDK.Utilities.Editor
                 {
                     foreach (var modification in prefabInstance.modifications)
                     {
-                        if (modification.Value != null && modification.Value.boxedValue != null)
+                        if (modification.Item2 != null && modification.Item2.boxedValue != null)
                         {
-                            string boxedValueToString = modification.Value.boxedValue.ToString();
-                            if (boxedValueToString == modification.Key.value)
+                            string boxedValueToString = modification.Item2.boxedValue.ToString();
+                            if (boxedValueToString == modification.Item1.value)
                             {
-                                PrefabUtility.SetPropertyModifications(prefab.prefab, new PropertyModification[] { modification.Key });
+                                PrefabUtility.SetPropertyModifications(prefab.prefab, new PropertyModification[] { modification.Item1 });
                             }
                         }
                     }
