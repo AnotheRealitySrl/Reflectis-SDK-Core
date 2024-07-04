@@ -1,6 +1,5 @@
 using Reflectis.SDK.Core;
 using System;
-using System.Collections.Generic;
 
 namespace Reflectis.SDK.TextChat
 {
@@ -9,7 +8,7 @@ namespace Reflectis.SDK.TextChat
     /// </summary>
     public interface ITextChatSystem : ISystem
     {
-        string[] ActiveChatChannels { get; }
+        ChatRoom[] ActiveChatChannels { get; }
 
         bool IsConnected { get; }
 
@@ -35,7 +34,7 @@ namespace Reflectis.SDK.TextChat
         /// Event invoked when a message is received. 
         /// It will pass the message and the channel in which the message was sent
         /// </summary>
-        event Action<ChatMessage, string> OnTxtMsgReceived;
+        event Action<ChatRoom> OnTxtMsgReceived;
 
         #endregion
 
@@ -44,13 +43,18 @@ namespace Reflectis.SDK.TextChat
         /// <summary>
         /// Event invoked when a user joins a channel
         /// </summary>
-        event Action<string> OnJoinedChannel;
+        event Action<ChatRoom> OnPublicRoomJoin;
 
         #endregion
 
         #endregion
 
         #region Methods
+        /// <summary>
+        /// Connect to text chat 
+        /// </summary>
+        void Connect();
+
         /// <summary>
         /// Wheter the user can chat or not
         /// </summary>
@@ -60,7 +64,7 @@ namespace Reflectis.SDK.TextChat
         /// Wheter the user can chat or not in the given channel
         /// </summary>
         /// <returns></returns>
-        bool CanChatInChannel(string channelId);
+        bool CanChatInRoom(string channelId);
 
         /// <summary>
         /// Disconnect the current user to the text chat
@@ -81,15 +85,6 @@ namespace Reflectis.SDK.TextChat
         /// <param name="msg">A message</param>
         void SendMessageToChannel(string channelId, ChatMessage msg);
 
-        /// <summary>
-        /// Get all the public chat rooms
-        /// </summary>
-        List<ChatRoom> GetPublicRooms();
-
-        /// <summary>
-        /// Get all the private channels ids
-        /// </summary>
-        List<string> GetPrivateChannelIds();
 
         /// <summary>
         /// Joins a text channel
@@ -97,18 +92,17 @@ namespace Reflectis.SDK.TextChat
         /// <param name="channelId">Id of the channel</param>
         void JoinTextChannel(string channelId);
 
-
         /// <summary>
         /// Get info from a specific room
         /// </summary>
         /// <param name="channelId"></param>
-        public ChatRoom GetRoomInfo(string channelId);
+        public ChatRoom GetPublicRoom(string channelId);
 
         /// <summary>
         /// Leave a text channel
         /// </summary>
         /// <param name="channelId">Id of the channel</param>
-        void LeaveTextChannel(string channelId);
+        void LeavePublicRoom(string channelId);
 
         /// <summary>
         /// Delete all messages from a specific conversation.

@@ -10,12 +10,7 @@ namespace Reflectis.SDK.TextChat
         /// <summary>
         /// The use ID of the message sender.
         /// </summary>
-        public string From { get; set; }
-
-        /// <summary>
-        /// The user ID of the message recipient.
-        /// </summary>
-        public string To { get; set; }
+        public int From { get; set; }
 
         /// <summary>
         /// The local Unix timestamp for creating the message. The unit is millisecond.
@@ -31,10 +26,9 @@ namespace Reflectis.SDK.TextChat
         {
         }
 
-        public ChatMessage(string from, string to, long localTime, string text)
+        public ChatMessage(int from, long localTime, string text)
         {
             From = from;
-            To = to;
             LocalTime = localTime;
             Text = text;
         }
