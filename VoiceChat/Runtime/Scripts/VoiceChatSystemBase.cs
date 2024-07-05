@@ -52,6 +52,7 @@ namespace Reflectis.SDK.VoiceChat
         public abstract void MuteLocalUser(bool muteAudio);
         public abstract void MuteLocalUser(bool muteAudio, bool muteVideo);
         public abstract void MuteUser(RemoteUser user);
+        public abstract void EnableUserMic(int userId, bool value);
         public abstract void SetVolume(int volume);
     }
 }

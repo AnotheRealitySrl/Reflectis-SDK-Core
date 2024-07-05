@@ -34,6 +34,18 @@ namespace Reflectis.SDK.ClientModels
         public List<CMTag> Tags { get => tags; set => tags = value; }
         public CMUserPreference Preferences { get => preferences; set => preferences = value; }
         public string DisplayName { get; set; } // Use this property for user interfaces!
+        public Color UserColor
+        {
+            get
+            {
+                Color color = new Color(1, 1, 1, 0);
+                if (Tags != null && Tags.Count > 0)
+                {
+                    color = Tags[0].Color;
+                }
+                return color;
+            }
+        }
     }
 
 }
