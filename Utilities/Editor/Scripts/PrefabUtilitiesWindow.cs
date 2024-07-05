@@ -35,7 +35,6 @@ namespace Reflectis.SDK.Utilities.Editor
 
         Dictionary<int, bool> prefabsFoldouts = new();
         Dictionary<int, bool> prefabInstancesFoldouts = new();
-        Dictionary<int, bool> prefabModificationsFoldouts = new();
         private Vector2 scrollPosition = Vector2.zero;
 
         #endregion
@@ -90,27 +89,27 @@ namespace Reflectis.SDK.Utilities.Editor
                     {
                         int instanceIndex = prefab.prefabInstances.IndexOf(prefabInstance);
                         prefabInstancesFoldouts.TryAdd(instanceIndex, false);
-                        prefabInstancesFoldouts[instanceIndex] = EditorGUILayout.Foldout(prefabInstancesFoldouts[instanceIndex], prefabInstance.prefabInstance.name);
-
-                        EditorGUILayout.BeginVertical();
-                        EditorGUILayout.LabelField($"<b>Root asset</b>: {prefabInstance.prefabAsset.name}", style);
-                        EditorGUILayout.EndVertical();
+                        prefabInstancesFoldouts[instanceIndex] = EditorGUILayout.Foldout(prefabInstancesFoldouts[instanceIndex], $"Root asset: {prefabInstance.prefabInstance.name}");
 
                         if (prefabInstancesFoldouts[instanceIndex])
                         {
+                            EditorGUILayout.BeginVertical();
+
+                            EditorGUILayout.BeginHorizontal();
+                            EditorGUILayout.LabelField($"<b>Property path</b>", style);
+                            EditorGUILayout.LabelField($"<b>Property value</b>", style);
+                            EditorGUILayout.LabelField($"<b>Original property value</b>:", style);
+                            EditorGUILayout.EndHorizontal();
+
                             foreach (var modification in prefabInstance.modifications)
                             {
-                                int modificationIndex = prefabInstance.modifications.IndexOf(modification);
-                                prefabModificationsFoldouts.TryAdd(modificationIndex, false);
-                                prefabModificationsFoldouts[modificationIndex] = EditorGUILayout.Foldout(prefabModificationsFoldouts[modificationIndex], "Modifications");
-
-                                if (prefabInstancesFoldouts[instanceIndex])
-                                {
-                                    EditorGUILayout.BeginVertical();
-                                    EditorGUILayout.LabelField($"<b>Modifications</b>: {modification.Item1.propertyPath} {modification.Item1.objectReference} {modification.Item2}", style);
-                                    EditorGUILayout.EndVertical();
-                                }
+                                EditorGUILayout.BeginHorizontal();
+                                EditorGUILayout.LabelField($"{modification.Item1.propertyPath}", style);
+                                EditorGUILayout.LabelField($"{modification.Item1.value} {modification.Item1.objectReference}", style);
+                                EditorGUILayout.LabelField($"{modification.Item2.boxedValue}", style);
+                                EditorGUILayout.EndHorizontal();
                             }
+                            EditorGUILayout.EndVertical();
                         }
                     }
                 }
@@ -136,7 +135,6 @@ namespace Reflectis.SDK.Utilities.Editor
                     .Where(x => x != prefab)
                     .Where(x => PrefabUtility.IsAnyPrefabInstanceRoot(x))
                     .ToList();
-
 
                 List<PrefabInstancesWithModifications> prefabInstancesWithModifications = new();
 
