@@ -82,6 +82,16 @@ namespace Reflectis.SDK.CharacterController
         void EnableCameraZoom(bool value);
 
         /// <summary>
+        /// Switches camera to first person view (Desktop only)
+        /// </summary>
+        void SetFirstPersonCameraMode();
+
+        /// <summary>
+        /// Switches camera to third person view (Desktop only)
+        /// </summary>
+        void SetThirdPersonCameraMode();
+
+        /// <summary>
         /// Sends the character to intract state (Desktop only)
         /// </summary>
         /// <param name="interactingItem"></param>
