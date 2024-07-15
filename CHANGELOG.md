@@ -7,6 +7,13 @@
 - Interaction: added `OnSelectedInteractableChange` event to `IGenericInteractionSystem`. This method is fired whenever the current selected generic interactable changes, and its argument is a reference to the new selected item. The event is also fired when the user clicks on an empty area, in which case the reference is null.
 - CharacterController: added `SetFirstPersonCameraMode` and `SetThirdPersonCameraMode` methods to `ICharacterControllerSystem`. They can be called to switch the character controller to first person or third person view respectively. Note that when entering a Reflectis event the view will be reset to third person mode.
 
+## v8.1.2
+
+### Fixed
+
+- ClientModels: fixed `CacheVariable`'s auto-refresh coroutine not being stopped properly, causing multiple coroutines to be active simoultanously.
+- Interaction: fixed `EContextualMenuOption` enum values by adding `None`.
+
 ## v8.1.1
 
 ### Fixed
