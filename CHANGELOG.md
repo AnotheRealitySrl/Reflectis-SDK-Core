@@ -1,5 +1,12 @@
 # Release notes
 
+## v8.1.2
+
+### Fixed
+
+- ClientModels: fixed `CacheVariable`'s auto-refresh coroutine not being stopped properly, causing multiple coroutines to be active simoultanously.
+- Interaction: fixed `EContextualMenuOption` enum values by adding `None`.
+
 ## v8.1.1
 
 ### Fixed
