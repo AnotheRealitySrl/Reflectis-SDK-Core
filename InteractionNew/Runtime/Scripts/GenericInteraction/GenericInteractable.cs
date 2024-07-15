@@ -73,15 +73,15 @@ namespace Reflectis.SDK.InteractionNew
         private bool skipSelectState = false;
         private bool hasInteractState = false;
 
-        private List<HoverEnterEventUnit> hoverEnterEventUnits = new List<HoverEnterEventUnit>();
+        public List<HoverEnterEventUnit> hoverEnterEventUnits = new List<HoverEnterEventUnit>();
 
-        private List<HoverExitEventUnit> hoverExitEventUnits = new List<HoverExitEventUnit>();
+        public List<HoverExitEventUnit> hoverExitEventUnits = new List<HoverExitEventUnit>();
 
-        private List<SelectEnterEventUnit> selectEnterEventUnits = new List<SelectEnterEventUnit>();
+        public List<SelectEnterEventUnit> selectEnterEventUnits = new List<SelectEnterEventUnit>();
 
-        private List<SelectExitEventUnit> selectExitEventUnits = new List<SelectExitEventUnit>();
+        public List<SelectExitEventUnit> selectExitEventUnits = new List<SelectExitEventUnit>();
 
-        private List<InteractEventUnit> interactEventUnits = new List<InteractEventUnit>();
+        public List<InteractEventUnit> interactEventUnits = new List<InteractEventUnit>();
 
         private List<UnselectOnDestroyUnit> unselectOnDestroyEventUnits = new List<UnselectOnDestroyUnit>();
 
