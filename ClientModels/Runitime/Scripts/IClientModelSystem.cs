@@ -303,7 +303,7 @@ namespace Reflectis.SDK.ClientModels
         /// Get all permission for the current world
         /// </summary>
         /// <returns></returns>
-        Task<List<CMPermission>> GetWorldPermissions();
+        Task<List<CMPermission>> GetMyWorldPermissions();
 
 
         #endregion
