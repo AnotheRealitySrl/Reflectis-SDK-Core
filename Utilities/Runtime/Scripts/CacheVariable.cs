@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+
 using UnityEngine;
 
 namespace Reflectis.SDK.Utilities
@@ -20,6 +21,9 @@ namespace Reflectis.SDK.Utilities
         private Func<Task<T>> getFunc;
         private bool autoRefresh;
         private Action onValueChanged;
+
+        private Coroutine autoRefreshCoroutine;
+
         public bool NeedsRefresh
         {
             get
@@ -99,11 +103,11 @@ namespace Reflectis.SDK.Utilities
             if (value && !autoRefresh)
             {
                 await ForceRefresh();
-                CoroutineRunner.Instance.StartCoroutine(AutoRefreshCoroutine());
+                autoRefreshCoroutine = CoroutineRunner.Instance.StartCoroutine(AutoRefreshCoroutine());
             }
             if (!value && autoRefresh)
             {
-                CoroutineRunner.Instance.StopCoroutine(AutoRefreshCoroutine());
+                CoroutineRunner.Instance.StopCoroutine(autoRefreshCoroutine);
             }
             autoRefresh = value;
         }
@@ -113,7 +117,7 @@ namespace Reflectis.SDK.Utilities
             while (true)
             {
                 yield return new WaitForSecondsRealtime(refreshSeconds);
-                ForceRefresh();
+                _ = ForceRefresh();
             }
         }
     }

@@ -3,6 +3,7 @@ using Reflectis.SDK.Core;
 using System.Threading.Tasks;
 
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Reflectis.SDK.InteractionNew
 {
@@ -10,5 +11,6 @@ namespace Reflectis.SDK.InteractionNew
     {
         InteractableBehaviourBase SetupInteractableBehaviour(GameObject obj);
         Task UnselectCurrentInteractable(GenericInteractable interactableToDisable);
+        public UnityEvent<GenericInteractable> OnSelectedInteractableChange { get; set; }
     }
 }
