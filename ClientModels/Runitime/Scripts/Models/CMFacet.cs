@@ -15,7 +15,7 @@ namespace Reflectis.SDK.ClientModels
         SendAnnouncementMessages = 14,
         ManageMyEvents = 15,
         EnableSpeaker = 16,
-        AuthoringTool = 17,
+        UseAuthoringTool = 17,
         InteractWithAllObjects = 18,
         UseVoiceChat = 19,
     }
