@@ -35,14 +35,6 @@ namespace Reflectis.SDK.ClientModels
 
         #endregion
 
-        #region Permissions
-        List<CMPermission> CurrentEventPermissions { get; }
-        List<CMPermission> WorldPermissions { get; }
-
-        bool IsEventPermissionGranted(EFacetIdentifier identifier);
-        bool IsWorldPermissionGranted(EFacetIdentifier identifier);
-        #endregion
-
         #region Facets
         public List<CMFacet> Facets { get; }
         #endregion
@@ -290,6 +282,11 @@ namespace Reflectis.SDK.ClientModels
 
         #region Permissions
 
+        List<CMPermission> CurrentEventPermissions { get; }
+        List<CMPermission> WorldPermissions { get; }
+
+        bool IsPermissionGranted(EFacetIdentifier identifier);
+
         /// <summary>
         /// Get the permission avaible to the player for the given event
         /// </summary>
@@ -306,7 +303,7 @@ namespace Reflectis.SDK.ClientModels
         /// Get all permission for the current world
         /// </summary>
         /// <returns></returns>
-        Task<List<CMPermission>> GetWorldPermissions();
+        Task<List<CMPermission>> GetMyWorldPermissions();
 
 
         #endregion
