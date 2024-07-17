@@ -7,6 +7,23 @@ namespace Reflectis.SDK.ClientModels
     [Serializable]
     public class CMPermission
     {
+        public enum EFacetIdentifier
+        {
+            Unknown = 0,
+            MuteOthers = 1,
+            KickOthers = 2,
+            UseTools = 3,
+            SpawnFiles = 7,
+            SendGlobalAndShardMessages = 12,
+            SendAnnouncementMessages = 14,
+            ManageMyEvents = 15,
+            EnableSpeaker = 16,
+            UseAuthoringTool = 17,
+            InteractWithAllObjects = 18,
+            UseVoiceChat = 19,
+        }
+
+
         [SerializeField] private int tagId;
         [SerializeField] private int facetId;
         [SerializeField] private string facetLabel;

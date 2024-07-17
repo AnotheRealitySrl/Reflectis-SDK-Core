@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 
 using UnityEngine.Events;
 
+using static Reflectis.SDK.ClientModels.CMPermission;
+
 namespace Reflectis.SDK.ClientModels
 {
     public enum FileTypeExt
@@ -35,9 +37,9 @@ namespace Reflectis.SDK.ClientModels
 
         #endregion
 
-        #region Facets
-        public List<CMFacet> Facets { get; }
-        #endregion
+        //#region Facets
+        //public List<CMFacet> Facets { get; }
+        //#endregion
 
         #region Users
         CMUser UserData { get; }
@@ -269,17 +271,6 @@ namespace Reflectis.SDK.ClientModels
         Task<List<CMUser>> GetUsersWithTag(int id);
         #endregion
 
-        #region Facets
-
-        /// <summary>
-        /// Get all facets of the current world
-        /// </summary>
-        /// <param name="worldId"></param>
-        /// <returns></returns>
-        Task<List<CMFacet>> GetFacets();
-
-        #endregion
-
         #region Permissions
 
         List<CMPermission> CurrentEventPermissions { get; }
@@ -288,16 +279,22 @@ namespace Reflectis.SDK.ClientModels
         bool IsPermissionGranted(EFacetIdentifier identifier);
 
         /// <summary>
-        /// Get the permission avaible to the player for the given event
+        /// Get the permission available to the player for the given event
         /// </summary>
         /// <returns></returns>
         Task<List<CMPermission>> GetMyEventPermissions(int eventId);
 
         /// <summary>
-        /// Get the permission avaible in the current event
+        /// Get the permission available in the current event for a given tag
         /// </summary>
         /// <returns></returns>
-        Task<List<CMPermission>> GetEventPermissions(int eventId);
+        Task<List<CMPermission>> GetEventPermissionsByTag(int eventId, int tagId);
+
+        /// <summary>
+        /// Get the permission available for a given tag
+        /// </summary>
+        /// <returns></returns>
+        Task<List<CMPermission>> GetAllPermissionsByTag(int tagId);
 
         /// <summary>
         /// Get all permission for the current world
