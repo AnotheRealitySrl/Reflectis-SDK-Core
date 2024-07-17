@@ -58,5 +58,10 @@ namespace Reflectis.SDK.TextChat
 
             return ms.ToArray();
         }
+
+        public DateTime GetMessageLocalTime()
+        {
+            return new DateTime(LocalTime, DateTimeKind.Unspecified).ToLocalTime();
+        }
     }
 }
