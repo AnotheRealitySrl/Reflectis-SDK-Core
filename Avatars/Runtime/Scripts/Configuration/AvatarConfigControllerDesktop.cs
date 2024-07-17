@@ -43,7 +43,6 @@ namespace Reflectis.SDK.Avatars
                 parentAnimator = FullBodyAvatarReference?.transform.parent?.gameObject.AddComponent<Animator>();
             }
 
-            parentAnimator.Rebind();
 
             RuntimeAnimatorController animatorControllerReference;
 
@@ -58,6 +57,8 @@ namespace Reflectis.SDK.Avatars
 
             if (parentAnimator != null)
             {
+                parentAnimator.Rebind();
+
                 parentAnimator.runtimeAnimatorController = animatorControllerReference;
 
                 parentAnimator.avatar = avatarData.animatorAvatar;
