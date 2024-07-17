@@ -1,6 +1,7 @@
 using UnityEditor;
 
 using UnityEngine;
+using static Reflectis.SDK.Utilities.WaypointPositioner;
 
 namespace Reflectis.SDK.Utilities.Editor
 {
@@ -22,10 +23,21 @@ namespace Reflectis.SDK.Utilities.Editor
         /// <summary>
         /// Write the custom inspector
         /// </summary>
-        public override void OnInspectorGUI()
+        public override async void OnInspectorGUI()
         {
             EditorGUI.BeginChangeCheck();
             EditorGUILayout.PropertyField(serializedObject.FindProperty("objectToMove"));
+
+            SerializedProperty lerpMovement = serializedObject.FindProperty("lerpMovement");
+            EditorGUILayout.PropertyField(lerpMovement);
+            if (lerpMovement.boolValue)
+            {
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("lerpRotationSpeed"));
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("lerpTranslationSpeed"));
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("lerpMovementType"));
+            }
+
+            EditorGUILayout.Space();
             EditorGUILayout.PropertyField(serializedObject.FindProperty("waypoints"));
             EditorGUILayout.Space();
             EditorGUILayout.LabelField("Editor");
@@ -38,6 +50,55 @@ namespace Reflectis.SDK.Utilities.Editor
 
                 EditorUtility.SetDirty(waypointPositioner);
                 PrefabUtility.RecordPrefabInstancePropertyModifications(waypointPositioner);
+            }
+
+            // Runtime buttons.
+            if (Application.isPlaying)
+            {
+                EditorGUILayout.Space();
+                EditorGUILayout.LabelField("Runtime");
+                EditorGUILayout.Space();
+                if (!waypointPositioner.Initialized)
+                {
+                    if (GUILayout.Button("Press to init!"))
+                    {
+                        await waypointPositioner.MoveToFirstWaypoint();
+                    }
+                }
+                else
+                {
+                    EditorGUILayout.LabelField("Current Waypoint", waypointPositioner.LastWaypointIndex.ToString());
+                    EditorGUILayout.Space();
+
+                    EditorGUILayout.BeginHorizontal();
+
+                    GUI.enabled = waypointPositioner.LastWaypointIndex > 0;
+                    if (GUILayout.Button("First <<"))
+                    {
+                       await waypointPositioner.MoveToFirstWaypoint();
+                    }
+                    if (GUILayout.Button("Previous <"))
+                    {
+                        await waypointPositioner.MoveToPreviousWaypoint();
+                    }
+                    GUI.enabled = waypointPositioner.LastWaypointIndex < waypointPositioner.waypoints.Length - 1;
+                    if (GUILayout.Button("> Next"))
+                    {
+                        await waypointPositioner.MoveToNextWaypoint();
+                    }
+                    if (GUILayout.Button(">> Last"))
+                    {
+                        await waypointPositioner.MoveToLastWaypoint();
+                    }
+                    GUI.enabled = true;
+
+                    EditorGUILayout.EndHorizontal();
+
+                    if (GUILayout.Button("Do Full Trip"))
+                    {
+                        await waypointPositioner.DoFullTrip();
+                    }
+                }
             }
         }
 
@@ -53,10 +114,8 @@ namespace Reflectis.SDK.Utilities.Editor
             for (int i = 0; i < waypointPositioner.waypoints.Length; ++i)
             {
                 //Choose the correct color
-                if (i == 0) Handles.color = waypointPositioner.editorParameters.firstHandleColor;
-                else Handles.color = waypointPositioner.editorParameters.handleColor;
-
-                EditorGUI.BeginChangeCheck();
+                if (i == 0) Handles.color = waypointPositioner.editorParameters.firstWaypointColor;
+                else Handles.color = waypointPositioner.editorParameters.waypointColor;
 
                 //Draw a line to connect handles
                 if (i < waypointPositioner.waypoints.Length - 1 && waypointPositioner.editorParameters.linkWaypoints)
@@ -65,15 +124,21 @@ namespace Reflectis.SDK.Utilities.Editor
                 }
 
                 //Move the handle and apply the position to the waypoint
-                Handles.ConeHandleCap(1, waypointPositioner.waypoints[i].pos, Quaternion.Euler(waypointPositioner.waypoints[i].rot), waypointPositioner.editorParameters.handleSize, EventType.Repaint);
-                Vector3 newTargetPosition = Handles.PositionHandle(waypointPositioner.waypoints[i].pos, Quaternion.Euler(waypointPositioner.waypoints[i].rot));
-                Quaternion newTargetRotation = Handles.RotationHandle(Quaternion.Euler(waypointPositioner.waypoints[i].rot), waypointPositioner.waypoints[i].pos);
-                if (EditorGUI.EndChangeCheck())
+                Handles.ConeHandleCap(1, waypointPositioner.waypoints[i].pos, Quaternion.Euler(waypointPositioner.waypoints[i].rot), waypointPositioner.editorParameters.waypointIconSize, EventType.Repaint);
+
+                if (waypointPositioner.editorParameters.showHandles)
                 {
-                    waypointPositioner.waypoints[i].pos = newTargetPosition;
-                    waypointPositioner.waypoints[i].rot = newTargetRotation.eulerAngles;
-                    EditorUtility.SetDirty(waypointPositioner);
-                    PrefabUtility.RecordPrefabInstancePropertyModifications(waypointPositioner);
+                    EditorGUI.BeginChangeCheck();
+
+                    Vector3 newTargetPosition = Handles.PositionHandle(waypointPositioner.waypoints[i].pos, Quaternion.Euler(waypointPositioner.waypoints[i].rot));
+                    Quaternion newTargetRotation = Handles.RotationHandle(Quaternion.Euler(waypointPositioner.waypoints[i].rot), waypointPositioner.waypoints[i].pos);
+                    if (EditorGUI.EndChangeCheck())
+                    {
+                        waypointPositioner.waypoints[i].pos = newTargetPosition;
+                        waypointPositioner.waypoints[i].rot = newTargetRotation.eulerAngles;
+                        EditorUtility.SetDirty(waypointPositioner);
+                        PrefabUtility.RecordPrefabInstancePropertyModifications(waypointPositioner);
+                    }
                 }
             }
         }
