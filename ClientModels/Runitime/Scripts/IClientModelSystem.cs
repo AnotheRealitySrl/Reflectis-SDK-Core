@@ -273,8 +273,8 @@ namespace Reflectis.SDK.ClientModels
 
         #region Permissions
 
-        List<CMPermission> CurrentEventPermissions { get; }
-        List<CMPermission> WorldPermissions { get; }
+        List<EFacetIdentifier> CurrentEventPermissions { get; }
+        List<EFacetIdentifier> WorldPermissions { get; }
 
         bool IsPermissionGranted(EFacetIdentifier identifier);
 
@@ -282,7 +282,7 @@ namespace Reflectis.SDK.ClientModels
         /// Get the permission available to the player for the given event
         /// </summary>
         /// <returns></returns>
-        Task<List<CMPermission>> GetMyEventPermissions(int eventId);
+        Task<List<EFacetIdentifier>> GetMyEventPermissions(int eventId);
 
         /// <summary>
         /// Get the permission available in the current event for a given tag
@@ -300,7 +300,7 @@ namespace Reflectis.SDK.ClientModels
         /// Get all permission for the current world
         /// </summary>
         /// <returns></returns>
-        Task<List<CMPermission>> GetMyWorldPermissions();
+        Task<List<EFacetIdentifier>> GetMyWorldPermissions();
 
 
         #endregion
