@@ -1,11 +1,30 @@
 # Release notes
 
-## Unreleased
+## v9.0.0
 
 ### Added
 
+- ClientModels: add method `GetEventPermissionsByTag` in `IClientModelSystem`.
+- CharacterController: added `SetFirstPersonCameraMode` and `SetThirdPersonCameraMode` methods to `ICharacterControllerSystem`, they can be called to switch the character controller to first person or third person view respectively.
 - Interaction: added `OnSelectedInteractableChange` event to `IGenericInteractionSystem`. This method is fired whenever the current selected generic interactable changes, and its argument is a reference to the new selected item. The event is also fired when the user clicks on an empty area, in which case the reference is null.
-- CharacterController: added `SetFirstPersonCameraMode` and `SetThirdPersonCameraMode` methods to `ICharacterControllerSystem`. They can be called to switch the character controller to first person or third person view respectively. Note that when entering a Reflectis event the view will be reset to third person mode.
+- TextChat: added `GetMessageLocalTime` utility method in `ChatMessage`.
+- Utilities: extended features of `WaypointPositioner` to add movement lerp and more editor scripting.
+
+### Changed
+
+- ClientModels: refactored `CMPermission` entity.
+- ClientModels: merged `IsEventPermissionGranted` and `IsWorldPermissionGranted` methods of `IClientModelSystem` into a single method`IsPermissionGranted`.
+- ClientModels: changed `GetWorldPermissions` method name into `GetMyWorldPermissions`.
+- ClientModels: changed `GetEventPermissions` method name into `GetAllPermissionsByTag`.
+- ClientModels: `GetMyWorldPermissions` and `GetMyEventPermissions` methods of return a list of `EfacetIdentifier` instead of a list of `CMPermission`, same for properties `CurrentEventPermissions` and `WorldPermissions` which are now a list of `EfacetIdentifier`.
+
+### Removed
+
+- ClientModels: removed `CMFacet` entity and `GetFacets` method from `IClientModelSystem`.
+
+### Fixed
+
+- Avatars: fixed parent animator null check during rebind operation in `AvatarConfigControllerDesktop`.
 
 ## v8.1.2
 
