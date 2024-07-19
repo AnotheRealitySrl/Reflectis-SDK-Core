@@ -177,7 +177,7 @@ namespace Reflectis.SDK.ClientModels
         /// <param name="eventId"></param>
         /// <param name="assets"></param>
         /// <returns></returns>
-        Task<bool> UpdateSavedAssets(int eventId, List<CMTemplateObj> assets);
+        Task<bool> UpdateSavedAssets(int eventId, string assets);
         #endregion
 
         #region Categories
