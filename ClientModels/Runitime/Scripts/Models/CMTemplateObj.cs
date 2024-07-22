@@ -34,7 +34,7 @@ namespace Reflectis.SDK.ClientModels
             public int modelExplosionType;
 
             // SceneObj: Downloaded3DPickables
-            public string addressableString;
+            //public string addressableString;
 
             // SceneObj: Drawing
             public float width;
