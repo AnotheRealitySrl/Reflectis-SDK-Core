@@ -8,6 +8,6 @@ namespace Reflectis.SDK.VideoChat
 
         void JoinChannel(string channelName);
         void LeaveChannel();
-        void CreateVideoView(IVideoChatController videoChatController, int userId);
+        void CreateVideoView(IVideoChatController videoChatController, uint userId);
     }
 }
