@@ -22,6 +22,7 @@
 ### Removed
 
 - ClientModels: removed `CMFacet` entity and `GetFacets` method from `IClientModelSystem`.
+- VoiceChat: removed `MuteUser` method from `IVoiceChatSystem`.
 
 ### Fixed
 
