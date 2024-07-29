@@ -17,14 +17,17 @@
 - ClientModels: changed `GetWorldPermissions` method name into `GetMyWorldPermissions`.
 - ClientModels: changed `GetEventPermissions` method name into `GetAllPermissionsByTag`.
 - ClientModels: `GetMyWorldPermissions` and `GetMyEventPermissions` methods of return a list of `EfacetIdentifier` instead of a list of `CMPermission`, same for properties `CurrentEventPermissions` and `WorldPermissions` which are now a list of `EfacetIdentifier`.
+- ClientModels: changed `CanRead` field of CMEvent to `CanVisualize`.
 
 ### Removed
 
 - ClientModels: removed `CMFacet` entity and `GetFacets` method from `IClientModelSystem`.
+- VoiceChat: removed `MuteUser` method from `IVoiceChatSystem`.
 
 ### Fixed
 
 - Avatars: fixed parent animator null check during rebind operation in `AvatarConfigControllerDesktop`.
+- Interaction: fixed hover issue with `Manipulable`.
 
 ## v8.1.2
 

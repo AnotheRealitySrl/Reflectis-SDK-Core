@@ -64,7 +64,8 @@ namespace Reflectis.SDK.InteractionNew
 
                 if (boundingBoxRenderer)
                 {
-                    boundingBoxRenderer.enabled = value == 0;
+                    boundingBoxRenderer.enabled = value == 0
+                        && InteractableRef.InteractionState == IInteractable.EInteractionState.Hovered;
                 }
 
                 if (manipulationMode.HasFlag(EManipulationMode.Scale))
