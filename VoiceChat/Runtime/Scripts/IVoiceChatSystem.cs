@@ -38,9 +38,7 @@ namespace Reflectis.SDK.VoiceChat
         void DisconnectFromChannel();
 
         void MuteAllRemoteStream(bool muteAudio, bool muteVideo);
-
-        void MuteUser(RemoteUser user);
-
+        void EnableUserMic(int actorNumber, bool value);
         void MuteLocalUser(bool muteAudio, bool muteVideo);
 
         void DestroyVideoView(uint uid);

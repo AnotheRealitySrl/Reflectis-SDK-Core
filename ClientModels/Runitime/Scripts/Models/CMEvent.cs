@@ -32,7 +32,7 @@ namespace Reflectis.SDK.ClientModels
         [SerializeField] private List<CMTemplateObj> template;
         [SerializeField] private bool isFavorite;
         [SerializeField] private bool canJoin;
-        [SerializeField] private bool canRead;
+        [SerializeField] private bool canVisualize;
         [SerializeField] private bool startingPoint;
         [SerializeField] private bool staticEvent;
 
@@ -69,7 +69,7 @@ namespace Reflectis.SDK.ClientModels
             set => canJoin = value;
         }
 
-        public bool CanRead { get => canRead; set => canRead = value; }
+        public bool CanVisualize { get => canVisualize; set => canVisualize = value; }
         public bool StartingPoint { get => startingPoint; set => startingPoint = value; }
         public bool StaticEvent { get => staticEvent; set => staticEvent = value; }
         public List<CMPermission> Permissions { get => permissions; set => permissions = value; }

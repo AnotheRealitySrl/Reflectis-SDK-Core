@@ -129,6 +129,10 @@ namespace Reflectis.SDK.CharacterController
 
         public virtual void EnableCameraZoom(bool value) { }
 
+        public virtual void SetFirstPersonCameraMode() { }
+
+        public virtual void SetThirdPersonCameraMode() { }
+
         public virtual Task GoToInteractState(Transform targetTransform) => Task.CompletedTask;
 
         public virtual Task GoToSetMovementState() => Task.CompletedTask;

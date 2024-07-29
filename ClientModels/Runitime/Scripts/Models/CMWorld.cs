@@ -12,11 +12,13 @@ namespace Reflectis.SDK.ClientModels
         [SerializeField] private string description;
         [SerializeField] private string thumbnailUri;
         [SerializeField] private bool enabled;
+        [SerializeField] private bool multiplayer;
 
         public int Id { get => id; set => id = value; }
         public string Label { get => label; set => label = value; }
         public string Description { get => description; set => description = value; }
         public string ThumbnailUri { get => thumbnailUri; set => thumbnailUri = value; }
         public bool Enabled { get => enabled; set => enabled = value; }
+        public bool Multiplayer { get => multiplayer; set => multiplayer = value; }
     }
 }
