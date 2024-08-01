@@ -1,5 +1,7 @@
 using Reflectis.SDK.Core;
 
+using System.Threading.Tasks;
+
 using UnityEngine.Events;
 
 namespace Reflectis.SDK.VideoChat
@@ -19,7 +21,8 @@ namespace Reflectis.SDK.VideoChat
         }
 
         string AppId { get; set; }
-        bool IsStreaming { get; }
+        bool IsScreenSharing { get; }
+        bool InChannel { get; }
 
         UnityEvent<string, uint> OnChannelJoined { get; }
         UnityEvent OnChannelLeft { get; }
@@ -32,8 +35,11 @@ namespace Reflectis.SDK.VideoChat
         UnityEvent<uint, int, int, int> OnVideoSizeChanged { get; }
 
         void JoinChannel(string channelName);
+        Task JoinChannelAsync(string channelName);
         void LeaveChannel();
-        void AddVideoView(int videoViewId, StreamingClientData videoViewData);
-        void RemoveVideoView(int videoViewId);
+        Task LeaveChannelAsync();
+        void AddVideoView(IVideoChatController videoChatController);
+        void RemoveVideoView(IVideoChatController videoChatController);
+        Task DestroyActiveVideoViewsAsync();
     }
 }
