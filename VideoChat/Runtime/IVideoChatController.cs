@@ -10,5 +10,4 @@ public interface IVideoChatController
     public EVideoChatType VideoChatType { get; }
     uint ScreenShareId { get; }
     bool AmStreamer { get; }
-    void Resize(float ratio);
 }
