@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Reflectis.SDK.InteractionNew
 {
@@ -100,6 +101,28 @@ namespace Reflectis.SDK.InteractionNew
                 Destroy(unselectOnDestroyGameobject);
             }
         }
+
+        /////
+        [Flags]
+        public enum EVRGenericInteraction
+        {
+            RayInteraction = 1,
+            Hands = 2
+        }
+
+        [SerializeField] private EVRGenericInteraction vrGenericInteraction = (EVRGenericInteraction)~0;
+
+        public EVRGenericInteraction VrGenericInteraction { get => vrGenericInteraction; set => vrGenericInteraction = value; }
+
+        #region UnityEvents Callbacks
+        [HideInInspector] public UnityEvent OnHoverGrabEnter = default;
+        [HideInInspector] public UnityEvent OnHoverGrabExit = default;
+        [HideInInspector] public UnityEvent OnHoverRayEnter = default;
+        [HideInInspector] public UnityEvent OnHoverRayExit = default;
+        [HideInInspector] public UnityEvent OnHoverMouseEnter = default;
+        [HideInInspector] public UnityEvent OnHoverMouseExit = default;
+        /////
+        #endregion
 
 
         public override Task Setup()
