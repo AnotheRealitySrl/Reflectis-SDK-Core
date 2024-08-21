@@ -33,6 +33,13 @@ namespace Reflectis.SDK.InteractionNew
             Hovered = 4,
         }
 
+        [Flags]
+        public enum EVRGenericInteraction
+        {
+            RayInteraction = 1,
+            Hands = 2
+        }
+
 
         [SerializeField] private ScriptMachine interactionScriptMachine = null;
 
@@ -41,6 +48,7 @@ namespace Reflectis.SDK.InteractionNew
         [Header("Allowed states")]
         [SerializeField] private EAllowedGenericInteractableState desktopAllowedStates = EAllowedGenericInteractableState.Selected | EAllowedGenericInteractableState.Interacting;
         [SerializeField] private EAllowedGenericInteractableState vrAllowedStates = EAllowedGenericInteractableState.Selected | EAllowedGenericInteractableState.Interacting;
+        [SerializeField] private EVRGenericInteraction vrGenericInteraction = (EVRGenericInteraction)~0;
 
         public Action<GameObject> OnSelectedActionVisualScripting;
 
@@ -49,6 +57,7 @@ namespace Reflectis.SDK.InteractionNew
 
         public EAllowedGenericInteractableState DesktopAllowedStates { get => desktopAllowedStates; set => desktopAllowedStates = value; }
         public EAllowedGenericInteractableState VRAllowedStates { get => vrAllowedStates; set => vrAllowedStates = value; }
+        public EVRGenericInteraction VrGenericInteraction { get => vrGenericInteraction; set => vrGenericInteraction = value; }
 
         public bool SkipSelectState => skipSelectState;
 
@@ -102,17 +111,6 @@ namespace Reflectis.SDK.InteractionNew
             }
         }
 
-        /////
-        [Flags]
-        public enum EVRGenericInteraction
-        {
-            RayInteraction = 1,
-            Hands = 2
-        }
-
-        [SerializeField] private EVRGenericInteraction vrGenericInteraction = (EVRGenericInteraction)~0;
-
-        public EVRGenericInteraction VrGenericInteraction { get => vrGenericInteraction; set => vrGenericInteraction = value; }
 
         #region UnityEvents Callbacks
         [HideInInspector] public UnityEvent OnHoverGrabEnter = new UnityEvent();
@@ -121,7 +119,6 @@ namespace Reflectis.SDK.InteractionNew
         [HideInInspector] public UnityEvent OnHoverRayExit = new UnityEvent();
         [HideInInspector] public UnityEvent OnHoverMouseEnter = new UnityEvent();
         [HideInInspector] public UnityEvent OnHoverMouseExit = new UnityEvent();
-        /////
         #endregion
 
 
