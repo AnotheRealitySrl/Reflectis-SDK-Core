@@ -115,12 +115,12 @@ namespace Reflectis.SDK.InteractionNew
         public EVRGenericInteraction VrGenericInteraction { get => vrGenericInteraction; set => vrGenericInteraction = value; }
 
         #region UnityEvents Callbacks
-        [HideInInspector] public UnityEvent OnHoverGrabEnter = default;
-        [HideInInspector] public UnityEvent OnHoverGrabExit = default;
-        [HideInInspector] public UnityEvent OnHoverRayEnter = default;
-        [HideInInspector] public UnityEvent OnHoverRayExit = default;
-        [HideInInspector] public UnityEvent OnHoverMouseEnter = default;
-        [HideInInspector] public UnityEvent OnHoverMouseExit = default;
+        [HideInInspector] public UnityEvent OnHoverGrabEnter = new UnityEvent();
+        [HideInInspector] public UnityEvent OnHoverGrabExit = new UnityEvent();
+        [HideInInspector] public UnityEvent OnHoverRayEnter = new UnityEvent();
+        [HideInInspector] public UnityEvent OnHoverRayExit = new UnityEvent();
+        [HideInInspector] public UnityEvent OnHoverMouseEnter = new UnityEvent();
+        [HideInInspector] public UnityEvent OnHoverMouseExit = new UnityEvent();
         /////
         #endregion
 
