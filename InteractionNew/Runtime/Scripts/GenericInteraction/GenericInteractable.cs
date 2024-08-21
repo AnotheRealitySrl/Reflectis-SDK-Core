@@ -79,7 +79,7 @@ namespace Reflectis.SDK.InteractionNew
 
 
 
-        private bool hasHoveredState = false;
+        protected bool hasHoveredState = false;
         private bool skipSelectState = false;
         private bool hasInteractState = false;
 
