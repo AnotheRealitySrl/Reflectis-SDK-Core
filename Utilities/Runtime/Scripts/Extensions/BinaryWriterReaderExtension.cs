@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Numerics;
 
 namespace Reflectis.SDK.Utilities
 {
@@ -32,7 +33,32 @@ namespace Reflectis.SDK.Utilities
         }
         #endregion
 
+        #region Vector2
+        public static void Write(BinaryWriter binaryWriter, Vector2 vector2)
+        {
+            binaryWriter.Write(vector2.X);
+            binaryWriter.Write(vector2.Y);
+        }
 
+        public static Vector2 ReadVector2(this BinaryReader binaryReader)
+        {
+            return new Vector2(binaryReader.ReadSingle(), binaryReader.ReadSingle());
+        }
+        #endregion
+
+        #region Vector3
+        public static void Write(BinaryWriter binaryWriter, Vector3 vector3)
+        {
+            binaryWriter.Write(vector3.X);
+            binaryWriter.Write(vector3.Y);
+            binaryWriter.Write(vector3.Z);
+        }
+
+        public static Vector3 ReadVector3(this BinaryReader binaryReader)
+        {
+            return new Vector3(binaryReader.ReadSingle(), binaryReader.ReadSingle(), binaryReader.ReadSingle());
+        }
+        #endregion
 
         public enum SupportedType
         {
@@ -50,9 +76,10 @@ namespace Reflectis.SDK.Utilities
             Double = 11,
             Decimal = 12,
             String = 13,
-            //Max supported types for current implementation
-            //Custom1 = 14,  
-            Unsupported = 15
+            Vector2 = 14,
+            Vector3 = 15
+            // the current implementation only allows for 16 types since we are using 1 byte to encode 
+            // 2 object types for bandwidth reasons
         }
 
         public static void Write(this BinaryWriter writer, object[] values)
@@ -74,7 +101,7 @@ namespace Reflectis.SDK.Utilities
                 // Get the next 2 types
                 SupportedType type1 = GetSupportedType(values[i]);
                 // Type 2 is present only if we do not exceed the array count
-                SupportedType type2 = (i + 1 < values.Length) ? GetSupportedType(values[i + 1]) : SupportedType.Unsupported;
+                SupportedType type2 = (i + 1 < values.Length) ? GetSupportedType(values[i + 1]) : SupportedType.Bool;
 
                 WriteTypes(writer, type1, type2);
             }
@@ -108,7 +135,10 @@ namespace Reflectis.SDK.Utilities
                 double => SupportedType.Double,
                 decimal => SupportedType.Decimal,
                 string => SupportedType.String,
-                _ => SupportedType.Unsupported
+                Vector2 => SupportedType.Vector2,
+                Vector3 => SupportedType.Vector3,
+                _ => SupportedType.Bool
+
             };
         }
 
@@ -186,6 +216,10 @@ namespace Reflectis.SDK.Utilities
                     return binaryReader.ReadDecimal();
                 case SupportedType.String:
                     return binaryReader.ReadString();
+                case SupportedType.Vector2:
+                    return binaryReader.ReadVector2();
+                case SupportedType.Vector3:
+                    return binaryReader.ReadVector3();
                 default:
                     UnityEngine.Debug.LogError("Found unsupported type " + type);
                     return null;
@@ -257,6 +291,14 @@ namespace Reflectis.SDK.Utilities
             {
                 writer.Write(typedValueString);
             }
+            else if (value is Vector2 typedValueVector2)
+            {
+                writer.Write(typedValueVector2);
+            }
+            else if (value is Vector3 typedValueVector3)
+            {
+                writer.Write(typedValueVector3);
+            }
             else
             {
                 UnityEngine.Debug.LogError("Trying to write an unsupported value");
@@ -280,12 +322,14 @@ namespace Reflectis.SDK.Utilities
                     binaryWriter.WriteTypes(type1, type2);
                     binaryWriter.Write(dictionary[keys[i]]);
                     binaryWriter.Write(dictionary[keys[i + 1]]);
+                    UnityEngine.Debug.LogError("Serialized values " + dictionary[keys[i]] + " | " + dictionary[keys[i + 1]]);
                 }
                 else
                 {
                     binaryWriter.Write(keys[i]);
-                    binaryWriter.WriteTypes(type1, SupportedType.Unsupported);
+                    binaryWriter.WriteTypes(type1, SupportedType.Bool);
                     binaryWriter.Write(dictionary[keys[i]]);
+                    UnityEngine.Debug.LogError("Serialized value " + dictionary[keys[i]]);
                 }
             }
         }
