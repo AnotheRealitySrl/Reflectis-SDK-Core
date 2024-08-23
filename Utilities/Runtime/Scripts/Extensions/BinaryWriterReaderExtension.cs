@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Numerics;
+using UnityEngine;
 
 namespace Reflectis.SDK.Utilities
 {
@@ -34,10 +34,10 @@ namespace Reflectis.SDK.Utilities
         #endregion
 
         #region Vector2
-        public static void Write(BinaryWriter binaryWriter, Vector2 vector2)
+        public static void Write(this BinaryWriter binaryWriter, Vector2 vector2)
         {
-            binaryWriter.Write(vector2.X);
-            binaryWriter.Write(vector2.Y);
+            binaryWriter.Write(vector2.x);
+            binaryWriter.Write(vector2.y);
         }
 
         public static Vector2 ReadVector2(this BinaryReader binaryReader)
@@ -47,11 +47,11 @@ namespace Reflectis.SDK.Utilities
         #endregion
 
         #region Vector3
-        public static void Write(BinaryWriter binaryWriter, Vector3 vector3)
+        public static void Write(this BinaryWriter binaryWriter, Vector3 vector3)
         {
-            binaryWriter.Write(vector3.X);
-            binaryWriter.Write(vector3.Y);
-            binaryWriter.Write(vector3.Z);
+            binaryWriter.Write(vector3.x);
+            binaryWriter.Write(vector3.y);
+            binaryWriter.Write(vector3.z);
         }
 
         public static Vector3 ReadVector3(this BinaryReader binaryReader)
@@ -301,10 +301,36 @@ namespace Reflectis.SDK.Utilities
             }
             else
             {
-                UnityEngine.Debug.LogError("Trying to write an unsupported value");
+                Debug.LogError("Unable to write values of type: " + value.GetType());
             }
         }
 
+        public static void Write(this BinaryWriter binaryWriter, Dictionary<byte, object> dictionary)
+        {
+            //we can only read dictionary with a max number of elements of 255
+            binaryWriter.Write((byte)dictionary.Count);
+            var keys = dictionary.Keys.ToArray();
+            for (int i = 0; i < keys.Length; i += 2)
+            {
+                SupportedType type1 = GetSupportedType(dictionary[keys[i]]);
+                if ((i + 1 < keys.Length))
+                {
+                    // Type 2 is present only if we do not exceed the array count
+                    binaryWriter.Write(keys[i]);
+                    binaryWriter.Write(keys[i + 1]);
+                    SupportedType type2 = GetSupportedType(dictionary[keys[i + 1]]);
+                    binaryWriter.WriteTypes(type1, type2);
+                    binaryWriter.Write(dictionary[keys[i]]);
+                    binaryWriter.Write(dictionary[keys[i + 1]]);
+                }
+                else
+                {
+                    binaryWriter.Write(keys[i]);
+                    binaryWriter.WriteTypes(type1, SupportedType.Bool);
+                    binaryWriter.Write(dictionary[keys[i]]);
+                }
+            }
+        }
 
         public static void Write(this BinaryWriter binaryWriter, Dictionary<int, object> dictionary)
         {
@@ -353,6 +379,34 @@ namespace Reflectis.SDK.Utilities
                 else
                 {
                     int key = binaryReader.ReadInt32();
+                    SupportedType[] types = binaryReader.ReadTypes(1);
+                    dictionary[key] = binaryReader.ReadObject(types[0]);
+                }
+            }
+            return dictionary;
+
+        }
+
+        public static Dictionary<byte, object> ReadDictionaryByteObject(this BinaryReader binaryReader)
+        {
+            //we can only read dictionary with a max number of elements of 255
+            byte count = binaryReader.ReadByte();
+
+            Dictionary<byte, object> dictionary = new Dictionary<byte, object>();
+
+            for (int i = 0; i < count; i += 2)
+            {
+                if ((i + 1 < count))
+                {
+                    byte key1 = binaryReader.ReadByte();
+                    byte key2 = binaryReader.ReadByte();
+                    SupportedType[] types = binaryReader.ReadTypes(2);
+                    dictionary[key1] = binaryReader.ReadObject(types[0]);
+                    dictionary[key2] = binaryReader.ReadObject(types[1]);
+                }
+                else
+                {
+                    byte key = binaryReader.ReadByte();
                     SupportedType[] types = binaryReader.ReadTypes(1);
                     dictionary[key] = binaryReader.ReadObject(types[0]);
                 }
