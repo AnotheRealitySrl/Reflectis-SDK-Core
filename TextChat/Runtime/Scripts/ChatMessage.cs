@@ -1,6 +1,5 @@
 using System;
-using System.IO;
-using System.Xml.Serialization;
+using System.Text;
 
 namespace Reflectis.SDK.TextChat
 {
@@ -33,31 +32,32 @@ namespace Reflectis.SDK.TextChat
             Text = text;
         }
 
-        //public static object Deserialize(byte[] data)
-        //{
-        //    return Newtonsoft.Json.JsonConvert.DeserializeObject<ChatMessage>(Encoding.ASCII.GetString(data));
-        //}
-
-        //public static byte[] Serialize(object chatMessage)
-        //{
-        //    return Encoding.ASCII.GetBytes(Newtonsoft.Json.JsonConvert.SerializeObject(chatMessage));
-        //}
         public static object Deserialize(byte[] data)
         {
-            using MemoryStream ms = new MemoryStream(data);
-            XmlSerializer bf = new XmlSerializer(typeof(ChatMessage));
-
-            return bf.Deserialize(ms);
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<ChatMessage>(Encoding.ASCII.GetString(data));
         }
 
         public static byte[] Serialize(object chatMessage)
         {
-            using MemoryStream ms = new MemoryStream();
-            XmlSerializer bf = new XmlSerializer(typeof(ChatMessage));
-            bf.Serialize(ms, chatMessage);
-
-            return ms.ToArray();
+            return Encoding.ASCII.GetBytes(Newtonsoft.Json.JsonConvert.SerializeObject(chatMessage));
         }
+
+        //public static object Deserialize(byte[] data)
+        //{
+        //    using MemoryStream ms = new MemoryStream(data);
+        //    XmlSerializer bf = new XmlSerializer(typeof(ChatMessage));
+
+        //    return bf.Deserialize(ms);
+        //}
+
+        //public static byte[] Serialize(object chatMessage)
+        //{
+        //    using MemoryStream ms = new MemoryStream();
+        //    XmlSerializer bf = new XmlSerializer(typeof(ChatMessage));
+        //    bf.Serialize(ms, chatMessage);
+
+        //    return ms.ToArray();
+        //}
 
         public DateTime GetMessageLocalTime()
         {
