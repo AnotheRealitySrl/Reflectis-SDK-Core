@@ -20,7 +20,7 @@ namespace Reflectis.SDK.VideoChat
             }
         }
 
-        string AppId { get; set; }
+        string AppId { get; }
         bool IsScreenSharing { get; }
         bool InChannel { get; }
 
