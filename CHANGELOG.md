@@ -1,5 +1,16 @@
 # Release notes
 
+## v9.1.0
+
+### Added
+
+- BinaryWriterReaderExtension: added extension class for `BinaryWriter` and `BinaryReader` to allow reading and writing of custom types such as vector2, vector3, objects ...
+- ComponentExtensions: added extension class for `Component` and implemented the method GetComponentInactive that allows to do a GetComponent on inactive objects.
+
+### Changed
+
+- TextChat: changed `ChatMessage` serialization method from XML convertion to JSON conversion.
+
 ## v9.0.0
 
 ### Added
