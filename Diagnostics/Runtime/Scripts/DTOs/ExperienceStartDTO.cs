@@ -4,7 +4,7 @@ namespace Reflectis.SDK.Diagnostics
     {
 
         [SettableFieldExperience]
-        protected string context;
+        public string context;
 
     }
 }

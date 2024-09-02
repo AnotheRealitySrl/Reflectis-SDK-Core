@@ -1,6 +1,6 @@
 namespace Reflectis.SDK.Diagnostics
 {
-    public class ExperienceCompleteDTO : ExperienceDataDTO
+    public class ExperienceStepCompleteDTO : ExperienceStepDTO
     {
         [SettableFieldExperience]
         public string outcome;
