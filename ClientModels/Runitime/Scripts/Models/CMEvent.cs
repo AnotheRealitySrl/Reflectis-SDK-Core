@@ -33,6 +33,7 @@ namespace Reflectis.SDK.ClientModels
         [SerializeField] private bool isFavorite;
         [SerializeField] private bool canJoin;
         [SerializeField] private bool canVisualize;
+        [SerializeField] private bool canWrite;
         [SerializeField] private bool startingPoint;
         [SerializeField] private bool staticEvent;
 
@@ -62,7 +63,7 @@ namespace Reflectis.SDK.ClientModels
         {
             get
             {
-                bool onTime = (isOwner || DateTime.UtcNow > StartDateTime.ToUniversalTime()) && DateTime.UtcNow < EndDateTime.ToUniversalTime();
+                bool onTime = (isOwner || (DateTime.UtcNow > StartDateTime.ToUniversalTime() && DateTime.UtcNow < EndDateTime.ToUniversalTime()));
                 return staticEvent || (canJoin && onTime);
             }
 
@@ -70,12 +71,12 @@ namespace Reflectis.SDK.ClientModels
         }
 
         public bool CanVisualize { get => canVisualize; set => canVisualize = value; }
+        public bool CanWrite { get => canWrite; set => canWrite = value; }
         public bool StartingPoint { get => startingPoint; set => startingPoint = value; }
         public bool StaticEvent { get => staticEvent; set => staticEvent = value; }
         public List<CMPermission> Permissions { get => permissions; set => permissions = value; }
 
         public bool IsLimited { get => maxParticipants != -1 && maxParticipants <= CMShard.maxShardCapacity; }
-
     }
 
 }
