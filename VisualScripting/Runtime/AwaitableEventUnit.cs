@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public abstract class AwaitableEventNode<T> : EventUnit<T>
+public abstract class AwaitableEventUnit<T> : EventUnit<T>
 {
     protected override bool register => true;
 

@@ -2,7 +2,7 @@ using Unity.VisualScripting;
 
 namespace Reflectis.SDK.InteractionNew
 {
-    public abstract class GenericInteractableEventUnit : AwaitableEventNode<GenericInteractable>
+    public abstract class GenericInteractableEventUnit : AwaitableEventUnit<GenericInteractable>
     {
         [DoNotSerialize]
         public ValueOutput Interactable { get; private set; }

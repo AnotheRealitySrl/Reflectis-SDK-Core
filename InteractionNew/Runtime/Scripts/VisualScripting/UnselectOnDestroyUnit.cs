@@ -6,7 +6,7 @@ namespace Reflectis.SDK.InteractionNew
     [UnitSurtitle("Generic Interactable")]
     [UnitShortTitle("Unselect OnDestroy")]
     [UnitCategory("Events\\Reflectis")]
-    public class UnselectOnDestroyUnit : AwaitableEventNode<GenericInteractable>
+    public class UnselectOnDestroyUnit : AwaitableEventUnit<GenericInteractable>
     {
         public override EventHook GetHook(GraphReference reference)
         {

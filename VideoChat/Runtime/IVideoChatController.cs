@@ -10,6 +10,7 @@ public interface IVideoChatController
     public EVideoChatType VideoChatType { get; }
     uint ScreenShareId { get; }
     bool AmStreamer { get; }
+    int StreamerId { get; }
 
     void Destroy();
 }
