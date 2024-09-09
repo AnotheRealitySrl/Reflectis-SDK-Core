@@ -3,7 +3,8 @@
     "rootNamespace": "Reflectis.SDK.Diagnostics",
     "references": [
         "GUID:ab59f74e483e1ee4595bfefea56493f2",
-        "GUID:969ab0c2463a0904c812133d9bc4cd6c"
+        "GUID:969ab0c2463a0904c812133d9bc4cd6c",
+        "GUID:6621723ab2f3cff4a8be0e8c1642af94"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
