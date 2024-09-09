@@ -1,5 +1,12 @@
 # Release notes
 
+## Unreleased
+
+### Added
+
+- Application manager: added new method `InitializeObject` in `IReflectisApplicationManager`. This can be called to initialize a placeholder on an object that wasn't part of the environment and was instantiated dynamically.
+
+
 ## v9.1.0
 
 ### Added
