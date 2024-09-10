@@ -1,28 +1,23 @@
 using Reflectis.SDK.Core;
 
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using UnityEngine.Events;
+
+using static IVideoChatController;
 
 namespace Reflectis.SDK.VideoChat
 {
     public interface IVideoChatSystem : ISystem
     {
-        public class StreamingClientData
-        {
-            public uint userId;
-            public uint screenShareId;
-
-            public StreamingClientData(uint userId, uint screenShareId)
-            {
-                this.userId = userId;
-                this.screenShareId = screenShareId;
-            }
-        }
-
-        string AppId { get; }
+        string AppId { get; set; }
         bool IsScreenSharing { get; }
         bool InChannel { get; }
+        bool Initialized { get; }
+
+        List<uint> ActiveWebcams { get; }
+        Dictionary<uint, uint> ActiveScreenshares { get; }
 
         UnityEvent<string, uint> OnChannelJoined { get; }
         UnityEvent OnChannelLeft { get; }
@@ -34,6 +29,7 @@ namespace Reflectis.SDK.VideoChat
         UnityEvent<string, uint> OnScreenShareCanceled { get; }
         UnityEvent<uint, int, int, int> OnVideoSizeChanged { get; }
 
+        void InitEngine();
         void JoinChannel(string channelName);
         Task JoinChannelAsync(string channelName);
         void LeaveChannel();
@@ -41,5 +37,6 @@ namespace Reflectis.SDK.VideoChat
         void AddVideoView(IVideoChatController videoChatController);
         void RemoveVideoView(IVideoChatController videoChatController);
         Task DestroyActiveVideoViewsAsync();
+        (bool, int) CanSpawn(EVideoChatType videoChatType);
     }
 }
