@@ -2,10 +2,11 @@ namespace Reflectis.SDK.Diagnostics
 {
     public enum EDiagnosticVerb
     {
-
-        ExpStart = 1,
+        ExpJoin = 1,
+        ExpStart,
         ExpComplete,
         StepStart,
         StepComplete,
+        ExpTranscript
     }
 }

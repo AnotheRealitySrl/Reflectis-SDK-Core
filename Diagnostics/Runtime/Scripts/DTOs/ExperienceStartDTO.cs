@@ -1,10 +1,7 @@
 namespace Reflectis.SDK.Diagnostics
 {
-    public class ExperienceStartDTO : ExperienceStatusDTO
+    public class ExperienceStartDTO : ExperienceDiagnosticDTO
     {
-
-        [SettableFieldExperience]
-        public string context;
 
     }
 }

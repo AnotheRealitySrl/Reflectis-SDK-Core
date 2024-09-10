@@ -28,6 +28,10 @@ namespace Reflectis.SDK.Diagnostics
             new Dictionary<EDiagnosticVerb, Type>
             {
                 {
+                    EDiagnosticVerb.ExpJoin,
+                    typeof(ExperienceStartDTO)
+                },
+                {
                     EDiagnosticVerb.ExpStart,
                     typeof(ExperienceStartDTO)
                 },
@@ -42,6 +46,10 @@ namespace Reflectis.SDK.Diagnostics
                 {
                     EDiagnosticVerb.StepComplete,
                     typeof(ExperienceStepCompleteDTO)
+                },
+                {
+                    EDiagnosticVerb.ExpTranscript,
+                    typeof(ExperienceTranscriptDTO)
                 },
             };
         Task GenerateExperienceGUID(string key);
