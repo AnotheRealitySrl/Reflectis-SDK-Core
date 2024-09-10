@@ -31,7 +31,7 @@ namespace Reflectis.SDK.Diagnostics
             {
                 {
                     EDiagnosticVerb.ExpJoin,
-                    typeof(ExperienceStartDTO)
+                    typeof(ExperienceJoinDTO)
                 },
                 {
                     EDiagnosticVerb.ExpStart,
