@@ -23,6 +23,7 @@ namespace Reflectis.SDK.VideoChat
         UnityEvent<string, uint> OnScreenShareCanceled { get; }
         UnityEvent<uint, int, int, int> OnVideoSizeChanged { get; }
 
+        void InitEngine();
         void JoinChannel(string channelName);
         Task JoinChannelAsync(string channelName);
         void LeaveChannel();
