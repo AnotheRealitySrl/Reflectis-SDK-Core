@@ -8,21 +8,10 @@ namespace Reflectis.SDK.VideoChat
 {
     public interface IVideoChatSystem : ISystem
     {
-        public class StreamingClientData
-        {
-            public uint userId;
-            public uint screenShareId;
-
-            public StreamingClientData(uint userId, uint screenShareId)
-            {
-                this.userId = userId;
-                this.screenShareId = screenShareId;
-            }
-        }
-
-        string AppId { get; }
+        string AppId { get; set; }
         bool IsScreenSharing { get; }
         bool InChannel { get; }
+        bool Initialized { get; }
 
         UnityEvent<string, uint> OnChannelJoined { get; }
         UnityEvent OnChannelLeft { get; }
