@@ -16,10 +16,12 @@ namespace Reflectis.SDK.Diagnostics
                     EDiagnosticType.Experience,
                     new List<EDiagnosticVerb>
                     {
+                        EDiagnosticVerb.ExpJoin,
                         EDiagnosticVerb.ExpStart,
                         EDiagnosticVerb.ExpComplete,
                         EDiagnosticVerb.StepStart,
                         EDiagnosticVerb.StepComplete,
+                        EDiagnosticVerb.ExpTranscript
                     }
                 }
             };
