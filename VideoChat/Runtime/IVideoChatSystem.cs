@@ -1,8 +1,11 @@
 using Reflectis.SDK.Core;
 
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using UnityEngine.Events;
+
+using static IVideoChatController;
 
 namespace Reflectis.SDK.VideoChat
 {
@@ -12,6 +15,9 @@ namespace Reflectis.SDK.VideoChat
         bool IsScreenSharing { get; }
         bool InChannel { get; }
         bool Initialized { get; }
+
+        List<uint> ActiveWebcams { get; }
+        Dictionary<uint, uint> ActiveScreenshares { get; }
 
         UnityEvent<string, uint> OnChannelJoined { get; }
         UnityEvent OnChannelLeft { get; }
@@ -31,5 +37,6 @@ namespace Reflectis.SDK.VideoChat
         void AddVideoView(IVideoChatController videoChatController);
         void RemoveVideoView(IVideoChatController videoChatController);
         Task DestroyActiveVideoViewsAsync();
+        (bool, int) CanSpawn(EVideoChatType videoChatType);
     }
 }
