@@ -1,7 +1,7 @@
 
 using Reflectis.SDK.CharacterController;
 using Reflectis.SDK.Core;
-
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using UnityEngine;
@@ -57,10 +57,22 @@ namespace Reflectis.SDK.Avatars
 
         // The config manager associated to the avatar instance
         private IAvatarConfigController avatarInstanceConfigManager;
+        // List of config managers associated to other players' avatars, indicized
+        // by actor number of their respective creator.
+        private Dictionary<int, IAvatarConfigController> otherAvatarsConfigControllers = new Dictionary<int, IAvatarConfigController>();
 
         private bool cameraDisable;
 
         private int avatarMeshDisablerCounter;
+        /// <summary>
+        /// Counter that is increased each time a Reflectis component needs to hide
+        /// non-local-player avatars. When the counter value is higher than 0, the 
+        /// avatars are hidden (they become invisible to the local player but they
+        /// are still in the scene).
+        /// This counter gets reset to zero when the local player leaves the current
+        /// event.
+        /// </summary>
+        private int otherAvatarsMeshDisablerCounter;
 
         #endregion
 
@@ -183,6 +195,27 @@ namespace Reflectis.SDK.Avatars
             CheckAvatarActivation();
         }
 
+        /// <summary>
+        /// Update visibility state for non-local-player avatars.
+        /// </summary>
+        /// <param name="enable"></param>
+        public void EnableOtherAvatarsMeshes(bool enable)
+        {
+            if (enable)
+            {
+                otherAvatarsMeshDisablerCounter--;
+            }
+            else
+            {
+                otherAvatarsMeshDisablerCounter++;
+            }
+
+            foreach (KeyValuePair<int, IAvatarConfigController> pair in otherAvatarsConfigControllers)
+            {
+                CheckOtherAvatarActivation(pair.Value);
+            }
+        }
+
         public void EnableAvatarInstanceLabel(bool enable)
         {
 
@@ -200,6 +233,21 @@ namespace Reflectis.SDK.Avatars
             avatarMeshDisablerCounter = 0;
         }
 
+        public void ResetOtherAvatarsMeshDisabler()
+        {
+            otherAvatarsMeshDisablerCounter = 0;
+        }
+
+        public void AddOtherAvatarReference(int creatorNumber, IAvatarConfigController controller)
+        {
+            otherAvatarsConfigControllers.Add(creatorNumber, controller);
+        }
+
+        public void RemoveOtherAvatarReference(int creatorNumber)
+        {
+            otherAvatarsConfigControllers.Remove(creatorNumber);
+        }
+
         public void EnableAvatarInstanceHandMeshes(bool enable) => AvatarInstanceConfigManager?.EnableHandMeshes(enable);
         public void EnableAvatarInstanceHandMesh(int id, bool enable) => AvatarInstanceConfigManager?.EnableHandMesh(id, enable);
 
@@ -212,6 +260,19 @@ namespace Reflectis.SDK.Avatars
             if (avatarMeshDisablerCounter >= 1 || cameraDisable)
             {
                 AvatarInstanceConfigManager?.EnableAvatarMeshes(false);
+            }
+        }
+
+
+        public void CheckOtherAvatarActivation(IAvatarConfigController avatarConfigController)
+        {
+            if (otherAvatarsMeshDisablerCounter <= 0)
+            {
+                avatarConfigController.EnableAvatarMeshes(true);
+            }
+            else
+            {
+                avatarConfigController.EnableAvatarMeshes(false);
             }
         }
 
