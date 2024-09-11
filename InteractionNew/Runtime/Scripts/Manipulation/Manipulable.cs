@@ -226,7 +226,7 @@ namespace Reflectis.SDK.InteractionNew
 
                 if (currentInteractionState == EManipulableState.Idle)
                 {
-                    InteractableRef.InteractionState = IInteractable.EInteractionState.Hovered;
+                    InteractableRef.InteractionState = IInteractable.EInteractionState.Idle;
                 }
             }
         }

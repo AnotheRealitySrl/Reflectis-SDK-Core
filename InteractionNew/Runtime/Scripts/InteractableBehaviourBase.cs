@@ -52,7 +52,7 @@ namespace Reflectis.SDK.InteractionNew
 
         public virtual Task ExitInteractionState()
         {
-            InteractableRef.InteractionState = IInteractable.EInteractionState.Hovered;
+            InteractableRef.InteractionState = IInteractable.EInteractionState.Idle;
             return Task.CompletedTask;
         }
     }

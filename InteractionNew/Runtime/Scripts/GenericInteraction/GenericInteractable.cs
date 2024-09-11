@@ -212,7 +212,8 @@ namespace Reflectis.SDK.InteractionNew
         public override async void OnHoverStateExited()
         {
             //if (!CanInteract || !hasHoveredState)
-            if (CurrentBlockedState != 0 || !hasHoveredState)
+            if (CurrentBlockedState != 0 || !hasHoveredState ||
+                (LockHoverDuringInteraction && currentInteractionState != EGenericInteractableState.Idle))
                 return;
 
             IEnumerable<Task> hoverExitUnitsTask = hoverExitEventUnits.Select(async unit =>

@@ -15,7 +15,23 @@ namespace Reflectis.SDK.InteractionNew
         [SerializeField] private List<InteractableBehaviourBase> interactableBehaviours = new();
         [SerializeField] private List<Collider> interactionColliders = new();
 
-        public EInteractionState InteractionState { get; set; } = EInteractionState.Idle;
+        private bool isHovered;
+
+        private EInteractionState interactionState = EInteractionState.Idle;
+
+        public EInteractionState InteractionState
+        {
+            get => interactionState;
+            set
+            {
+                if (value == EInteractionState.Idle)
+                {
+                    value = isHovered ? EInteractionState.Hovered : EInteractionState.Idle;
+                }
+                interactionState = value;
+
+            }
+        }
         public List<IInteractableBehaviour> InteractableBehaviours { get; private set; } = new();
 
         public GameObject GameObjectRef => gameObject;
@@ -25,7 +41,6 @@ namespace Reflectis.SDK.InteractionNew
 
         [HideInInspector]
         public bool setupCompleted = false;
-
 
         private void Awake()
         {
@@ -64,14 +79,31 @@ namespace Reflectis.SDK.InteractionNew
 
         public void OnHoverEnter()
         {
+            isHovered = true;
             InteractionState = EInteractionState.Hovered;
             InteractableBehaviours.ForEach(x => x.OnHoverStateEntered());
+
         }
 
         public void OnHoverExit()
         {
-            InteractionState = EInteractionState.Idle;
-            InteractableBehaviours.ForEach(x => x.OnHoverStateExited());
+            isHovered = false;
+
+            if (InteractableBehaviours.TrueForAll(x => (!x.LockHoverDuringInteraction && x is GenericInteractable) || x.IsIdleState))
+            {
+                InteractionState = EInteractionState.Idle;
+            }
+
+            InteractableBehaviours
+                .ForEach(x =>
+                {
+                    if ((!x.LockHoverDuringInteraction && x is GenericInteractable) || x.IsIdleState)
+                    {
+                        x.OnHoverStateExited();
+                    }
+                }
+            );
+
         }
     }
 
