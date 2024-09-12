@@ -2,8 +2,7 @@ namespace Reflectis.SDK.Diagnostics
 {
     public class ExperienceJoinDTO : ExperienceDiagnosticDTO
     {
-
-        [SettableField]
+        [SettableField(isRequired = true)]
         public string context;
 
     }

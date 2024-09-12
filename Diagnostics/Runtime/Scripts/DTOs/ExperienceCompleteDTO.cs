@@ -8,10 +8,10 @@ namespace Reflectis.SDK.Diagnostics
         public int? maxScore;
         [SettableField]
         public int? passingScore;
-        [SettableField]
-        public EExperienceOutcome? outcome;
-        [SettableField]
-        public EExperienceScoringType? scoringType;
+        [SettableField(isRequired = true)]
+        public EExperienceOutcome outcome;
+        [SettableField(isRequired = true)]
+        public EExperienceScoringType scoringType;
         [SettableField]
         public string notes;
     }
