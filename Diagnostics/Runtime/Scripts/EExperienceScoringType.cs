@@ -4,7 +4,7 @@ namespace Reflectis.SDK.Diagnostics
     {
         None = 0,
         Numeric,
-        Star,
+        Stars,
         Percentage
     }
 }
