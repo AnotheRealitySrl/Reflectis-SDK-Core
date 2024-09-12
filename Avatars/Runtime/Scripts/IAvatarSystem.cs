@@ -13,6 +13,10 @@ namespace Reflectis.SDK.Avatars
     {
         #region Properties
 
+        /// <summary>
+        /// Reference to the avatar associated with the character controller (local 
+        /// player's avatar).
+        /// </summary>
         AvatarControllerBase AvatarInstance { get; }
         public IAvatarConfigController AvatarInstanceConfigManager
         {
@@ -72,6 +76,11 @@ namespace Reflectis.SDK.Avatars
         /// <param name="enable"></param>
         void EnableAvatarInstanceMeshes(bool enable, bool fromCamera = false);
 
+        /// <summary>
+        /// Show/hides avatars that aren't controlled by local player.
+        /// </summary>
+        /// <param name="enable"></param>
+        public void EnableOtherAvatarsMeshes(bool enable);
 
         /// <summary>
         /// Shows/hides avatar's hands (only for half-body avatars)
@@ -84,6 +93,34 @@ namespace Reflectis.SDK.Avatars
         /// </summary>
         /// <param name="enable"></param>
         void ResetAvatarMeshDisabler();
+
+        /// <summary>
+        /// Reset mesh disabler counter used for other players' avatars
+        /// </summary>
+        /// <param name="enable"></param>
+        void ResetOtherAvatarsMeshDisabler();
+
+        /// <summary>
+        /// Adds a entry to the list of istantiated avatars that are not related to 
+        /// the local player.
+        /// </summary>
+        /// <param name="creatorNumber">Actor number of the avatar's controller</param>
+        /// <param name="controller">Reference to the IAvatarConfigController component 
+        /// on the avatar</param>
+        public void AddOtherAvatarReference(int creatorNumber, IAvatarConfigController controller);
+
+        /// <summary>
+        /// Removes as entry from the list of istantiated avatars that are not related 
+        /// to the local player.
+        /// </summary>
+        /// <param name="creatorNumber">Actor number of the avatar's controller</param>
+        public void RemoveOtherAvatarReference(int creatorNumber);
+
+        /// <summary>
+        /// Updates the visibility of the non-local-player avatar.
+        /// </summary>
+        /// <param name="avatarConfigController"></param>
+        public void CheckOtherAvatarActivation(IAvatarConfigController avatarConfigController);
 
         /// <summary>
         /// Shows/hides a specific hand mesh (only for half-body avatars)
