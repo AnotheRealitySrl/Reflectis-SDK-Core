@@ -3,7 +3,7 @@ namespace Reflectis.SDK.Diagnostics
     public class ExperienceJoinDTO : ExperienceDiagnosticDTO
     {
 
-        [SettableFieldExperience]
+        [SettableField]
         public string context;
 
     }

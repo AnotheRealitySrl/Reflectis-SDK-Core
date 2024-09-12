@@ -56,6 +56,6 @@ namespace Reflectis.SDK.Diagnostics
             };
         Task GenerateExperienceGUID(string key);
 
-        void SendDiagnostic(EDiagnosticVerb verb, List<Property> detailFields);
+        void SendDiagnostic(EDiagnosticVerb verb, DiagnosticDTO diagnosticDTO, IEnumerable<Property> customProperties);
     }
 }

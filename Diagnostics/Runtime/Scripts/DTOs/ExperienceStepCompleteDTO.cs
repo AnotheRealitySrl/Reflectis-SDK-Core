@@ -2,17 +2,17 @@ namespace Reflectis.SDK.Diagnostics
 {
     public class ExperienceStepCompleteDTO : ExperienceStepDTO
     {
-        [SettableFieldExperience]
+        [SettableField]
         public int? score;
-        [SettableFieldExperience]
+        [SettableField]
         public int? maxScore;
-        [SettableFieldExperience]
+        [SettableField]
         public int? passingScore;
-        [SettableFieldExperience]
+        [SettableField]
         public EExperienceOutcome? outcome;
-        [SettableFieldExperience]
+        [SettableField]
         public EExperienceScoringType? scoringType;
-        [SettableFieldExperience]
+        [SettableField]
         public string notes;
     }
 }

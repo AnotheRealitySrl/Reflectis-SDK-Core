@@ -2,7 +2,7 @@ namespace Reflectis.SDK.Diagnostics
 {
     public abstract class ExperienceStepDTO : ExperienceDiagnosticDTO
     {
-        [SettableFieldExperience]
+        [SettableField]
         public string stepId;
     }
 }

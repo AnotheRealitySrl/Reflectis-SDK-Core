@@ -1,9 +1,15 @@
 namespace Reflectis.SDK.Diagnostics
 {
-    public abstract class ExperienceDiagnosticDTO : DiagnosticDetailDTO
+    public abstract class ExperienceDiagnosticDTO : DiagnosticDTO
     {
-        public const string KEY_FIELD_NAME = "key";
+        [SettableField(isRequired = true)]
+        protected string key;
 
-        public const string DTO_FIELD_NAME = "uniqueID";
+        public string uniqueId;
+
+        public string GetKey()
+        {
+            return key;
+        }
     }
 }
