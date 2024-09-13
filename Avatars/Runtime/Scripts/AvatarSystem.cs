@@ -41,6 +41,7 @@ namespace Reflectis.SDK.Avatars
         public AvatarControllerBase AvatarInstance { get; private set; }
         public string LayerNameHiddenToPlayer => layerNameHiddenToPlayer;
         public IAvatarConfigController AvatarInstanceConfigManager { get => avatarInstanceConfigManager; }
+        public Dictionary<int, IAvatarConfigController> OtherAvatarsConfigControllers { get => otherAvatarsConfigControllers; }
 
         public AvatarControllerBase AvatarPrefab { get => avatarPrefab; }
         public AvatarControllerBase AvatarNetworkPrefab { get => networkAvatarPrefab; }
