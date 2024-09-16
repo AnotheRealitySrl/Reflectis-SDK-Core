@@ -12,12 +12,11 @@ namespace Reflectis.SDK.VideoChat
     public interface IVideoChatSystem : ISystem
     {
         string AppId { get; set; }
-        bool IsScreenSharing { get; }
         bool InChannel { get; }
         bool Initialized { get; }
 
-        List<uint> ActiveWebcams { get; }
-        Dictionary<uint, uint> ActiveScreenshares { get; }
+        List<uint> AllWebcamControllers { get; }
+        Dictionary<uint, uint> AllScreenShareControllers { get; }
 
         UnityEvent<string, uint> OnChannelJoined { get; }
         UnityEvent OnChannelLeft { get; }
@@ -34,9 +33,7 @@ namespace Reflectis.SDK.VideoChat
         Task JoinChannelAsync(string channelName);
         void LeaveChannel();
         Task LeaveChannelAsync();
-        void AddVideoView(IVideoChatController videoChatController);
-        void RemoveVideoView(IVideoChatController videoChatController);
-        Task DestroyActiveVideoViewsAsync();
+        Task DestroyAllLocalVideoControllersAsync();
         (bool, int) CanSpawn(EVideoChatType videoChatType);
     }
 }
