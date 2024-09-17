@@ -218,8 +218,14 @@ namespace Reflectis.SDK.InteractionNew
 
             IEnumerable<Task> hoverExitUnitsTask = hoverExitEventUnits.Select(async unit =>
             {
+                if (unit == null || interactionScriptMachine == null)
+                {
+                    return;
+                }
                 await unit.AwaitableTrigger(interactionScriptMachine.GetReference().AsReference(), this);
             });
+
+
 
             await Task.WhenAll(hoverExitUnitsTask);
 

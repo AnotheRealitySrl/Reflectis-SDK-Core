@@ -302,7 +302,7 @@ namespace Reflectis.SDK.InteractionNew
 
         public override void OnHoverStateExited()
         {
-            if (CurrentBlockedState != 0)
+            if (CurrentBlockedState != 0 || this == null)
                 return;
 
             SM.GetSystem<IManipulationSystem>()?.OnManipulableHoverExit(InteractableRef);

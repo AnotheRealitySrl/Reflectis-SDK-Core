@@ -97,7 +97,7 @@ namespace Reflectis.SDK.InteractionNew
             InteractableBehaviours
                 .ForEach(x =>
                 {
-                    if ((!x.LockHoverDuringInteraction && x is GenericInteractable) || x.IsIdleState)
+                    if (x != null && ((!x.LockHoverDuringInteraction && x is GenericInteractable) || x.IsIdleState))
                     {
                         x.OnHoverStateExited();
                     }
