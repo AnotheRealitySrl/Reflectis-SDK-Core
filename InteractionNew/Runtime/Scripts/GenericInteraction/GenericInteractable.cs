@@ -72,7 +72,7 @@ namespace Reflectis.SDK.InteractionNew
                 currentInteractionState = value;
                 if (currentInteractionState == EGenericInteractableState.Idle)
                 {
-                    InteractableRef.InteractionState = IInteractable.EInteractionState.Hovered;
+                    InteractableRef.InteractionState = IInteractable.EInteractionState.Idle;
                 }
             }
         }

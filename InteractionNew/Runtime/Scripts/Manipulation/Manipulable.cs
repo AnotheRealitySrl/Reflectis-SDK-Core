@@ -223,7 +223,6 @@ namespace Reflectis.SDK.InteractionNew
             {
                 currentInteractionState = value;
                 OnCurrentStateChange.Invoke(value);
-
                 if (currentInteractionState == EManipulableState.Idle)
                 {
                     InteractableRef.InteractionState = IInteractable.EInteractionState.Idle;

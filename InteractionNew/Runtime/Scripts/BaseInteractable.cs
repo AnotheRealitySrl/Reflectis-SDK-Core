@@ -28,7 +28,16 @@ namespace Reflectis.SDK.InteractionNew
                 {
                     value = isHovered ? EInteractionState.Hovered : EInteractionState.Idle;
                 }
+                var oldValue = interactionState;
                 interactionState = value;
+                if (value == EInteractionState.Idle && oldValue != EInteractionState.Idle)
+                {
+                    PropagateHoverExit();
+                }
+                if (value == EInteractionState.Hovered && oldValue != EInteractionState.Hovered)
+                {
+                    PropagateHoverEnter();
+                }
 
             }
         }
@@ -81,8 +90,6 @@ namespace Reflectis.SDK.InteractionNew
         {
             isHovered = true;
             InteractionState = EInteractionState.Hovered;
-            InteractableBehaviours.ForEach(x => x.OnHoverStateEntered());
-
         }
 
         public void OnHoverExit()
@@ -93,7 +100,15 @@ namespace Reflectis.SDK.InteractionNew
             {
                 InteractionState = EInteractionState.Idle;
             }
+        }
 
+        private void PropagateHoverEnter()
+        {
+            InteractableBehaviours.ForEach(x => x.OnHoverStateEntered());
+        }
+
+        private void PropagateHoverExit()
+        {
             InteractableBehaviours
                 .ForEach(x =>
                 {
@@ -103,7 +118,6 @@ namespace Reflectis.SDK.InteractionNew
                     }
                 }
             );
-
         }
     }
 
