@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-
+using System.Linq;
 using UnityEngine;
 
 namespace Reflectis.SDK.ClientModels
@@ -39,9 +39,10 @@ namespace Reflectis.SDK.ClientModels
             get
             {
                 Color color = new Color(1, 1, 1, 0);
-                if (Tags != null && Tags.Count > 0)
+                var visibleTags = Tags?.Where(x => x.Visible).ToList();
+                if (visibleTags != null && visibleTags.Count > 0)
                 {
-                    color = Tags[0].Color;
+                    color = visibleTags[0].Color;
                 }
                 return color;
             }
