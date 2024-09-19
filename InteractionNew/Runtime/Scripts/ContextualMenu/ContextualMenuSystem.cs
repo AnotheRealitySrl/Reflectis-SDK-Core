@@ -1,5 +1,4 @@
 using Reflectis.SDK.Core;
-
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -127,7 +126,6 @@ namespace Reflectis.SDK.InteractionNew
                 contextualMenu.Unsetup();
             }
         }
-
         #endregion
     }
 }

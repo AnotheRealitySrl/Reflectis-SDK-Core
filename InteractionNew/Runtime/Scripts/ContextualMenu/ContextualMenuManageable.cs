@@ -52,6 +52,8 @@ namespace Reflectis.SDK.InteractionNew
         [SerializeField]
         private bool isNetworked = true;
 
+        private bool isLocked = false;
+
         public EContextualMenuOption ContextualMenuOptions { get => contextualMenuOptions; set => contextualMenuOptions = value; }
 
         public EContextualMenuType ContextualMenuType = EContextualMenuType.Default;
@@ -88,7 +90,21 @@ namespace Reflectis.SDK.InteractionNew
         };
 
         public UnityAction DoDestroy { get; set; }
+
+        public UnityAction DoLock { get; set; }
         public bool IsNetworked { get => isNetworked; set => isNetworked = value; }
+        public bool IsLocked
+        {
+            get => isLocked;
+            set
+            {
+                isLocked = value;
+                if (isLocked)
+                {
+                    SM.GetSystem<ILockObjectSystem>().LockObject(gameObject);
+                }
+            }
+        }
 
         public UnityEvent OnEnterInteractionState = new();
         public UnityEvent OnExitInteractionState = new();
@@ -97,7 +113,9 @@ namespace Reflectis.SDK.InteractionNew
         private void Awake()
         {
             DoDestroy ??= LocalDestroy;
+            DoLock ??= LocalLock;
         }
+
 
         private async void OnDestroy()
         {
@@ -118,6 +136,11 @@ namespace Reflectis.SDK.InteractionNew
             if (ContextualMenuOptions.HasFlag(EContextualMenuOption.Explodable))
             {
                 await SM.GetSystem<IModelExploderSystem>().AssignModelExploder(gameObject, IsNetworked);
+            }
+
+            if (ContextualMenuOptions.HasFlag(EContextualMenuOption.LockTransform))
+            {
+                OnContextualMenuButtonSelected[EContextualMenuOption.LockTransform] = DoLock;
             }
 
             OnContextualMenuButtonSelected[EContextualMenuOption.Delete] = AskForDelete;
@@ -177,6 +200,10 @@ namespace Reflectis.SDK.InteractionNew
         public void LocalDestroy()
         {
             Destroy(gameObject);
+        }
+        public void LocalLock()
+        {
+            IsLocked = true;
         }
 
 #if UNITY_EDITOR
