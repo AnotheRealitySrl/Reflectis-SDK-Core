@@ -16,6 +16,8 @@ namespace Reflectis.SDK.InteractionNew
     [Serializable, RequireComponent(typeof(BaseInteractable))]
     public abstract class ContextualMenuManageable : InteractableBehaviourBase
     {
+        public UnityEvent OnSetup = new UnityEvent();
+
         public enum EContextualMenuInteractableState
         {
             Idle,
@@ -44,17 +46,23 @@ namespace Reflectis.SDK.InteractionNew
 
         [SerializeField]
         private EContextualMenuOption contextualMenuOptions =
-            EContextualMenuOption.LockTransform |
-            EContextualMenuOption.ResetTransform |
-            EContextualMenuOption.Duplicate |
-            EContextualMenuOption.Delete;
+            EContextualMenuOption.None;
 
         [SerializeField]
         private bool isNetworked = true;
 
-        private bool isLocked = false;
-
-        public EContextualMenuOption ContextualMenuOptions { get => contextualMenuOptions; set => contextualMenuOptions = value; }
+        public EContextualMenuOption ContextualMenuOptions
+        {
+            get
+            {
+                if (currentBlockedState.HasFlag(EBlockedState.BlockedByLockObject))
+                {
+                    return contextualMenuOptions & EContextualMenuOption.LockTransform;
+                }
+                return contextualMenuOptions;
+            }
+            set => contextualMenuOptions = value;
+        }
 
         public EContextualMenuType ContextualMenuType = EContextualMenuType.Default;
 
@@ -90,21 +98,8 @@ namespace Reflectis.SDK.InteractionNew
         };
 
         public UnityAction DoDestroy { get; set; }
-
-        public UnityAction DoLock { get; set; }
         public bool IsNetworked { get => isNetworked; set => isNetworked = value; }
-        public bool IsLocked
-        {
-            get => isLocked;
-            set
-            {
-                isLocked = value;
-                if (isLocked)
-                {
-                    SM.GetSystem<ILockObjectSystem>().LockObject(gameObject);
-                }
-            }
-        }
+
 
         public UnityEvent OnEnterInteractionState = new();
         public UnityEvent OnExitInteractionState = new();
@@ -113,7 +108,6 @@ namespace Reflectis.SDK.InteractionNew
         private void Awake()
         {
             DoDestroy ??= LocalDestroy;
-            DoLock ??= LocalLock;
         }
 
 
@@ -130,21 +124,26 @@ namespace Reflectis.SDK.InteractionNew
         {
             if (ContextualMenuOptions.HasFlag(EContextualMenuOption.ColorPicker))
             {
+                //I am not sure that setting this up now is correct since the interactable setup network is not initialized yet
                 await SM.GetSystem<IColorPickerSystem>().AssignColorPicker(gameObject, IsNetworked);
             }
 
             if (ContextualMenuOptions.HasFlag(EContextualMenuOption.Explodable))
             {
+                //I am not sure that setting this up now is correct since the interactable setup network is not initialized yet
                 await SM.GetSystem<IModelExploderSystem>().AssignModelExploder(gameObject, IsNetworked);
             }
 
             if (ContextualMenuOptions.HasFlag(EContextualMenuOption.LockTransform))
             {
-                OnContextualMenuButtonSelected[EContextualMenuOption.LockTransform] = DoLock;
+                await SM.GetSystem<ILockObjectSystem>().SetupLockObject(gameObject, false);
             }
 
             OnContextualMenuButtonSelected[EContextualMenuOption.Delete] = AskForDelete;
+
+            OnSetup?.Invoke();
         }
+
 
         public override void OnHoverStateEntered()
         {
@@ -200,10 +199,6 @@ namespace Reflectis.SDK.InteractionNew
         public void LocalDestroy()
         {
             Destroy(gameObject);
-        }
-        public void LocalLock()
-        {
-            IsLocked = true;
         }
 
 #if UNITY_EDITOR

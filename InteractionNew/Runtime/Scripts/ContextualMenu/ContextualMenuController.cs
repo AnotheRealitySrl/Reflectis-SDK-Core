@@ -27,6 +27,7 @@ namespace Reflectis.SDK.InteractionNew
 
         protected AbstractTransitionProvider transitionProvider;
 
+        ContextualMenuManageable manageable;
 
         protected virtual void Awake()
         {
@@ -35,17 +36,29 @@ namespace Reflectis.SDK.InteractionNew
             Hide();
         }
 
-        public virtual void Setup(EContextualMenuOption options)
+        public virtual void Setup(ContextualMenuManageable contextualMenuManageable)
+        {
+            manageable = contextualMenuManageable;
+            manageable.OnCurrentBlockedChanged.AddListener(UpdateMenuButtons);
+            UpdateMenuButtons();
+        }
+
+        private void UpdateMenuButtons(InteractableBehaviourBase.EBlockedState _)
+        {
+            UpdateMenuButtons();
+        }
+        private void UpdateMenuButtons()
         {
             contextualMenuItems.ForEach(x =>
             {
                 if (x.value)
-                    x.value.SetActive(options.HasFlag(x.key));
+                    x.value.SetActive(manageable.ContextualMenuOptions.HasFlag(x.key));
             });
         }
 
         public virtual void Unsetup()
         {
+            manageable?.OnCurrentBlockedChanged.RemoveListener(UpdateMenuButtons);
             contextualMenuItems.ForEach(x =>
             {
                 if (x.value)

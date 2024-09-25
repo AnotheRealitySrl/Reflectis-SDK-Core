@@ -4,6 +4,6 @@ using UnityEngine;
 
 public interface ILockObjectSystem : ISystem
 {
-    Task LockObject(GameObject obj, bool networkedContext = true);
-
+    void AssignSavedLockState(GameObject go, bool v);
+    Task SetupLockObject(GameObject lockObject, bool isNetworked);
 }

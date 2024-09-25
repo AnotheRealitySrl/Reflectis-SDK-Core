@@ -105,7 +105,7 @@ namespace Reflectis.SDK.InteractionNew
                     await HideContextualMenu(oldContextualMenu);
 
                 }
-                contextualMenu.Setup(manageable.ContextualMenuOptions);
+                contextualMenu.Setup(manageable);
                 await contextualMenu.Show();
             }
         }
