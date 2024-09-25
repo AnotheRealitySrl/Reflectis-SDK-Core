@@ -1,6 +1,8 @@
 using Reflectis.SDK.Core;
+
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.Events;
 
 namespace Reflectis.SDK.Audio
 {
@@ -13,6 +15,8 @@ namespace Reflectis.SDK.Audio
 
         public AudioMixerGroup MusicMixerGroup { get => musicMixerGroup; }
         public AudioMixerGroup VoiceChatMixerGroup { get => voiceChatMixerGroup; }
+
+        public UnityEvent<float> OnVoiceChatVolumeChanged { get; } = new();
 
         #region Public Methods
 
@@ -47,6 +51,8 @@ namespace Reflectis.SDK.Audio
             var volumeVal = Mathf.Log10(volume / 100) * 20;
 
             VoiceChatMixerGroup.audioMixer.SetFloat(VoiceChatMixerGroup.name, volumeVal);
+
+            OnVoiceChatVolumeChanged.Invoke(DecibelToLinear(volumeVal));
         }
 
         #endregion

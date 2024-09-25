@@ -106,7 +106,17 @@ namespace Reflectis.SDK.Avatars
 
             await AvatarLoader.LoadAvatar(config);
 
-            SM.GetSystem<AvatarSystem>().CheckAvatarActivation();
+            // If this avatar is the one controlled by the local player, checks its
+            // visibility as local player avatar. Else, it checks the visibility as
+            // a non-local-player avatar.
+            if (this.gameObject == avatarSystem.AvatarInstance.gameObject)
+            {
+                SM.GetSystem<AvatarSystem>().CheckAvatarActivation();
+            }
+            else
+            {
+                SM.GetSystem<AvatarSystem>().CheckOtherAvatarActivation(this);
+            }
 
             onAfterAction?.Invoke();
 

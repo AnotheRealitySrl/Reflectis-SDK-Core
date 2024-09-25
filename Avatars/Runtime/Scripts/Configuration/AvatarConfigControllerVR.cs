@@ -121,9 +121,25 @@ namespace Reflectis.SDK.Avatars
 
         public override void EnableAvatarMeshes(bool enable)
         {
-            foreach (Renderer rend in handsMeshes.Concat(HalfBodyAvatarReference.GetComponentsInChildren<Renderer>()))
+            // If this avatar is the one controlled by the local player, updates hands
+            // visibility. Else, it updates visibility of full body elements.
+            if (this.gameObject == avatarSystem.AvatarInstance.gameObject)
             {
-                rend.enabled = enable;
+                foreach (Renderer rend in handsMeshes.Concat(HalfBodyAvatarReference.GetComponentsInChildren<Renderer>()))
+                {
+                    rend.enabled = enable;
+                }
+            }
+            else
+            {
+                if (FullBodyAvatarReference != null)
+                {
+                    foreach (Renderer rend in FullBodyAvatarReference?.GetComponentsInChildren<Renderer>())
+                    {
+                        //rend.enabled = enable;
+                        rend.gameObject.layer = enable ? LayerMask.NameToLayer("AvatarWelcomeRoom") : LayerMask.NameToLayer("HiddenToPlayer");
+                    }
+                }
             }
 
             base.EnableAvatarMeshes(enable);

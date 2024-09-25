@@ -34,12 +34,12 @@ namespace Reflectis.SDK.TextChat
 
         public static object Deserialize(byte[] data)
         {
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<ChatMessage>(Encoding.ASCII.GetString(data));
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<ChatMessage>(Encoding.UTF8.GetString(data));
         }
 
         public static byte[] Serialize(object chatMessage)
         {
-            return Encoding.ASCII.GetBytes(Newtonsoft.Json.JsonConvert.SerializeObject(chatMessage));
+            return Encoding.UTF8.GetBytes(Newtonsoft.Json.JsonConvert.SerializeObject(chatMessage));
         }
 
         //public static object Deserialize(byte[] data)

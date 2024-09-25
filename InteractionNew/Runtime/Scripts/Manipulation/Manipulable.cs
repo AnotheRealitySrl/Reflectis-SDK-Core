@@ -223,10 +223,9 @@ namespace Reflectis.SDK.InteractionNew
             {
                 currentInteractionState = value;
                 OnCurrentStateChange.Invoke(value);
-
                 if (currentInteractionState == EManipulableState.Idle)
                 {
-                    InteractableRef.InteractionState = IInteractable.EInteractionState.Hovered;
+                    InteractableRef.InteractionState = IInteractable.EInteractionState.Idle;
                 }
             }
         }
@@ -275,7 +274,11 @@ namespace Reflectis.SDK.InteractionNew
                 Debug.Log($"bounds: {bounds.center}, {bounds.size}");
                 // offset so that the bounding box is centered in zero and apply scale
                 boundingBoxGO.transform.localPosition = Vector3.zero;
-                boundingBoxGO.transform.localScale = bounds.size;
+
+                boundingBoxGO.transform.localScale =
+                    new Vector3(bounds.size.x / transform.lossyScale.x,
+                    bounds.size.y / transform.lossyScale.y,
+                    bounds.size.z / transform.lossyScale.z);
                 BoundingBox = collider;
                 //BoundingBox = InteractableRef.InteractionColliders[0];
 
@@ -298,7 +301,7 @@ namespace Reflectis.SDK.InteractionNew
 
         public override void OnHoverStateExited()
         {
-            if (CurrentBlockedState != 0)
+            if (CurrentBlockedState != 0 || this == null)
                 return;
 
             SM.GetSystem<IManipulationSystem>()?.OnManipulableHoverExit(InteractableRef);

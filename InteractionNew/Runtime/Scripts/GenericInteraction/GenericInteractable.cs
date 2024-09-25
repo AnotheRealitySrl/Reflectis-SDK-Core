@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Reflectis.SDK.InteractionNew
 {
@@ -32,6 +33,13 @@ namespace Reflectis.SDK.InteractionNew
             Hovered = 4,
         }
 
+        [Flags]
+        public enum EVRGenericInteraction
+        {
+            RayInteraction = 1,
+            Hands = 2
+        }
+
 
         [SerializeField] private ScriptMachine interactionScriptMachine = null;
 
@@ -40,6 +48,7 @@ namespace Reflectis.SDK.InteractionNew
         [Header("Allowed states")]
         [SerializeField] private EAllowedGenericInteractableState desktopAllowedStates = EAllowedGenericInteractableState.Selected | EAllowedGenericInteractableState.Interacting;
         [SerializeField] private EAllowedGenericInteractableState vrAllowedStates = EAllowedGenericInteractableState.Selected | EAllowedGenericInteractableState.Interacting;
+        [SerializeField] private EVRGenericInteraction vrGenericInteraction = (EVRGenericInteraction)~0;
 
         public Action<GameObject> OnSelectedActionVisualScripting;
 
@@ -48,6 +57,7 @@ namespace Reflectis.SDK.InteractionNew
 
         public EAllowedGenericInteractableState DesktopAllowedStates { get => desktopAllowedStates; set => desktopAllowedStates = value; }
         public EAllowedGenericInteractableState VRAllowedStates { get => vrAllowedStates; set => vrAllowedStates = value; }
+        public EVRGenericInteraction VrGenericInteraction { get => vrGenericInteraction; set => vrGenericInteraction = value; }
 
         public bool SkipSelectState => skipSelectState;
 
@@ -62,14 +72,14 @@ namespace Reflectis.SDK.InteractionNew
                 currentInteractionState = value;
                 if (currentInteractionState == EGenericInteractableState.Idle)
                 {
-                    InteractableRef.InteractionState = IInteractable.EInteractionState.Hovered;
+                    InteractableRef.InteractionState = IInteractable.EInteractionState.Idle;
                 }
             }
         }
 
 
 
-        private bool hasHoveredState = false;
+        protected bool hasHoveredState = false;
         private bool skipSelectState = false;
         private bool hasInteractState = false;
 
@@ -100,6 +110,16 @@ namespace Reflectis.SDK.InteractionNew
                 Destroy(unselectOnDestroyGameobject);
             }
         }
+
+
+        #region UnityEvents Callbacks
+        [HideInInspector] public UnityEvent OnHoverGrabEnter = new UnityEvent();
+        [HideInInspector] public UnityEvent OnHoverGrabExit = new UnityEvent();
+        [HideInInspector] public UnityEvent OnHoverRayEnter = new UnityEvent();
+        [HideInInspector] public UnityEvent OnHoverRayExit = new UnityEvent();
+        [HideInInspector] public UnityEvent OnHoverMouseEnter = new UnityEvent();
+        [HideInInspector] public UnityEvent OnHoverMouseExit = new UnityEvent();
+        #endregion
 
 
         public override Task Setup()
@@ -192,13 +212,20 @@ namespace Reflectis.SDK.InteractionNew
         public override async void OnHoverStateExited()
         {
             //if (!CanInteract || !hasHoveredState)
-            if (CurrentBlockedState != 0 || !hasHoveredState)
+            if (CurrentBlockedState != 0 || !hasHoveredState ||
+                (LockHoverDuringInteraction && currentInteractionState != EGenericInteractableState.Idle))
                 return;
 
             IEnumerable<Task> hoverExitUnitsTask = hoverExitEventUnits.Select(async unit =>
             {
+                if (unit == null || interactionScriptMachine == null)
+                {
+                    return;
+                }
                 await unit.AwaitableTrigger(interactionScriptMachine.GetReference().AsReference(), this);
             });
+
+
 
             await Task.WhenAll(hoverExitUnitsTask);
 

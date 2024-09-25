@@ -37,6 +37,10 @@ namespace Reflectis.SDK.ClientModels
 
         #endregion
 
+        #region Session
+        public int SessionId { get; }
+        #endregion
+
         //#region Facets
         //public List<CMFacet> Facets { get; }
         //#endregion
