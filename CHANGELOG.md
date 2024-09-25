@@ -1,13 +1,12 @@
 # Release notes
 
-## Unreleased
+## v10.0.0
 
 ### Added
 
 - Application manager: added new method `InitializeObject` in `IReflectisApplicationManager`. This can be called to initialize a placeholder on an object that wasn't part of the environment and was instantiated dynamically.
 - AvatarSystem: added new method `EnableOtherAvatarsMeshes`. It can be used to hide/show other player's avatars.
 - AvatarSystem: added new public variable `OtherAvatarsConfigControllers`. It's a dictionary containing a collection of references to the IAvatarConfigController components on each of the non-local player's avatars present in the current event (updated in real time). The key for each entry in the dictionary is the actor number of the player controlling the related avatar.
-
 
 ## v9.1.0
 
