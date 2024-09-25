@@ -55,10 +55,6 @@ namespace Reflectis.SDK.InteractionNew
         {
             get
             {
-                if (currentBlockedState.HasFlag(EBlockedState.BlockedByLockObject))
-                {
-                    return contextualMenuOptions & EContextualMenuOption.LockTransform;
-                }
                 return contextualMenuOptions;
             }
             set => contextualMenuOptions = value;

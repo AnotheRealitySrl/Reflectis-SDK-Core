@@ -13,6 +13,9 @@ namespace Reflectis.SDK.InteractionNew
 {
     public class ContextualMenuController : MonoBehaviour
     {
+        [SerializeField]
+        private GameObject unlockButton;
+
         [Serializable]
         private class ContextualMenuItem
         {
@@ -40,20 +43,25 @@ namespace Reflectis.SDK.InteractionNew
         {
             manageable = contextualMenuManageable;
             manageable.OnCurrentBlockedChanged.AddListener(UpdateMenuButtons);
-            UpdateMenuButtons();
+            UpdateMenuButtons(manageable.CurrentBlockedState);
         }
 
-        private void UpdateMenuButtons(InteractableBehaviourBase.EBlockedState _)
+        private void UpdateMenuButtons(InteractableBehaviourBase.EBlockedState blockedState)
         {
-            UpdateMenuButtons();
-        }
-        private void UpdateMenuButtons()
-        {
-            contextualMenuItems.ForEach(x =>
+            if (blockedState.HasFlag(InteractableBehaviourBase.EBlockedState.BlockedByLockObject))
             {
-                if (x.value)
-                    x.value.SetActive(manageable.ContextualMenuOptions.HasFlag(x.key));
-            });
+                contextualMenuItems.ForEach(x => x.value.gameObject.SetActive(false));
+                unlockButton.SetActive(true);
+            }
+            else
+            {
+                contextualMenuItems.ForEach(x =>
+                {
+                    if (x.value)
+                        x.value.SetActive(manageable.ContextualMenuOptions.HasFlag(x.key));
+                });
+                unlockButton.SetActive(false);
+            }
         }
 
         public virtual void Unsetup()
