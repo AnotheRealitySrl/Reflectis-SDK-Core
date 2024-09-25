@@ -72,7 +72,7 @@ namespace Reflectis.SDK.InteractionNew
                 currentInteractionState = value;
                 if (currentInteractionState == EGenericInteractableState.Idle)
                 {
-                    InteractableRef.InteractionState = IInteractable.EInteractionState.Hovered;
+                    InteractableRef.InteractionState = IInteractable.EInteractionState.Idle;
                 }
             }
         }
@@ -218,8 +218,14 @@ namespace Reflectis.SDK.InteractionNew
 
             IEnumerable<Task> hoverExitUnitsTask = hoverExitEventUnits.Select(async unit =>
             {
+                if (unit == null || interactionScriptMachine == null)
+                {
+                    return;
+                }
                 await unit.AwaitableTrigger(interactionScriptMachine.GetReference().AsReference(), this);
             });
+
+
 
             await Task.WhenAll(hoverExitUnitsTask);
 
