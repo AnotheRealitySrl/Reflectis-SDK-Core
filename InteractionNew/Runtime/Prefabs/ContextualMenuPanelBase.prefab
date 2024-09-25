@@ -681,6 +681,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 3042881646281643769, guid: 2f2915478e54f084eb1dec75f685433f,
+        type: 3}
+      propertyPath: localizedTip.mTerm
+      value: Gameplay/Tooltips/ContextualMenu/Blocca
+      objectReference: {fileID: 0}
     - target: {fileID: 4451587295362060336, guid: 2f2915478e54f084eb1dec75f685433f,
         type: 3}
       propertyPath: m_Layer
@@ -832,6 +837,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 3042881646281643769, guid: 2f2915478e54f084eb1dec75f685433f,
+        type: 3}
+      propertyPath: localizedTip.mTerm
+      value: Gameplay/Tooltips/ContextualMenu/Reset
+      objectReference: {fileID: 0}
     - target: {fileID: 4451587295362060336, guid: 2f2915478e54f084eb1dec75f685433f,
         type: 3}
       propertyPath: m_Layer
@@ -957,6 +967,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3042881646281643769, guid: 2f2915478e54f084eb1dec75f685433f,
+        type: 3}
+      propertyPath: localizedTip.mTerm
+      value: Gameplay/Tooltips/ContextualMenu/ColorPicker
       objectReference: {fileID: 0}
     - target: {fileID: 4451587295362060336, guid: 2f2915478e54f084eb1dec75f685433f,
         type: 3}
@@ -1275,6 +1290,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 3042881646281643769, guid: 2f2915478e54f084eb1dec75f685433f,
+        type: 3}
+      propertyPath: localizedTip.mTerm
+      value: Gameplay/Tooltips/ContextualMenu/Sblocca
+      objectReference: {fileID: 0}
     - target: {fileID: 4451587295362060336, guid: 2f2915478e54f084eb1dec75f685433f,
         type: 3}
       propertyPath: m_Layer
@@ -1425,6 +1445,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3042881646281643769, guid: 2f2915478e54f084eb1dec75f685433f,
+        type: 3}
+      propertyPath: localizedTip.mTerm
+      value: Gameplay/Tooltips/ContextualMenu/Elimina
       objectReference: {fileID: 0}
     - target: {fileID: 4451587295362060336, guid: 2f2915478e54f084eb1dec75f685433f,
         type: 3}
@@ -1592,6 +1617,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 3042881646281643769, guid: 2f2915478e54f084eb1dec75f685433f,
+        type: 3}
+      propertyPath: localizedTip.mTerm
+      value: Gameplay/Tooltips/ContextualMenu/Duplica
+      objectReference: {fileID: 0}
     - target: {fileID: 4451587295362060336, guid: 2f2915478e54f084eb1dec75f685433f,
         type: 3}
       propertyPath: m_Layer
@@ -1717,6 +1747,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3042881646281643769, guid: 2f2915478e54f084eb1dec75f685433f,
+        type: 3}
+      propertyPath: localizedTip.mTerm
+      value: Gameplay/Tooltips/ContextualMenu/Esploso
       objectReference: {fileID: 0}
     - target: {fileID: 4451587295362060336, guid: 2f2915478e54f084eb1dec75f685433f,
         type: 3}
