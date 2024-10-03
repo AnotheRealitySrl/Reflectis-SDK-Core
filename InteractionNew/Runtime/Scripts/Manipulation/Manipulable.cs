@@ -253,9 +253,6 @@ namespace Reflectis.SDK.InteractionNew
 
         public override async Task Setup()
         {
-            if (GetComponentsInChildren<GenericHookComponent>(true).FirstOrDefault(x => x.Id == "BoundingBoxVisual") is GenericHookComponent boundingBoxVisualHookComponent)
-                boundingBoxRenderer = boundingBoxVisualHookComponent.GetComponent<Renderer>();
-
             BoundingBox = InteractableRef.InteractionColliders.FirstOrDefault(x => x.GetComponents<GenericHookComponent>().FirstOrDefault(x => x.Id == "BoundingBox"));
             if (BoundingBox == null)
             {
