@@ -41,12 +41,16 @@ namespace Reflectis.SDK.InteractionNew
 
         public virtual void Setup(ContextualMenuManageable contextualMenuManageable)
         {
+            if (manageable != null)
+            {
+                manageable.OnCurrentBlockedChanged.RemoveListener(UpdateMenuButtons);
+            }
             manageable = contextualMenuManageable;
             manageable.OnCurrentBlockedChanged.AddListener(UpdateMenuButtons);
             UpdateMenuButtons(manageable.CurrentBlockedState);
         }
 
-        private void UpdateMenuButtons(InteractableBehaviourBase.EBlockedState blockedState)
+        protected virtual void UpdateMenuButtons(InteractableBehaviourBase.EBlockedState blockedState)
         {
             if (blockedState.HasFlag(InteractableBehaviourBase.EBlockedState.BlockedByLockObject))
             {
