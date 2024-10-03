@@ -50,7 +50,7 @@ namespace Reflectis.SDK.InteractionNew
         [SerializeField] private EBlockedState exampleInteractionForInspector;
 
         protected EManipulationInput currentManipulationInput;
-        private Renderer boundingBoxRenderer;
+        protected Renderer boundingBoxRenderer;
 
         #region Properties
         public override EBlockedState CurrentBlockedState
