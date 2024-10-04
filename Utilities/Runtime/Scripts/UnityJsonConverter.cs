@@ -23,7 +23,8 @@ namespace Reflectis.SDK.Utilities
                     new Vector3Converter(),
                     new QuaternionConverter(),
                     new ColorConverter(),
-                    new StringEnumConverter()
+                    new StringEnumConverter(),
+                    new PropertyConverter(),
                 }
             };
         }
@@ -187,5 +188,37 @@ namespace Reflectis.SDK.Utilities
         }
     }
 
+    public class PropertyConverter : JsonConverter<Property>
+    {
+        public override void WriteJson(JsonWriter writer, Property value, JsonSerializer serializer)
+        {
+            writer.WriteStartObject();
+            writer.WritePropertyName(value.name);
+            writer.WriteValue(value.value);
+            writer.WriteEndObject();
+        }
 
+        public override Property ReadJson(JsonReader reader, Type objectType, Property existingValue, bool hasExistingValue, JsonSerializer serializer)
+        {
+            var property = new Property(existingValue?.name, existingValue?.value);
+
+            while (reader.Read())
+            {
+                if (reader.TokenType == JsonToken.PropertyName)
+                {
+                    property.name = reader.Value.ToString();
+
+                    reader.Read();
+                    property.value = reader.Value;
+
+                }
+                else if (reader.TokenType == JsonToken.EndObject)
+                {
+                    break;
+                }
+            }
+
+            return property;
+        }
+    }
 }
