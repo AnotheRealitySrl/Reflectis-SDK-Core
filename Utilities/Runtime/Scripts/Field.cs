@@ -1,12 +1,16 @@
 namespace Reflectis.SDK.Utilities
 {
-    public class Property
+    public class Field
     {
         public string name;
 
         public object value;
 
-        public Property(string name, object value)
+        public Field()
+        {
+        }
+
+        public Field(string name, object value)
         {
             this.name = name;
             this.value = value;

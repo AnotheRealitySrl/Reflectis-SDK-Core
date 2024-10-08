@@ -1,3 +1,4 @@
+using Reflectis.SDK.Utilities;
 using UnityEngine;
 
 namespace Reflectis.SDK.Diagnostics
@@ -6,10 +7,10 @@ namespace Reflectis.SDK.Diagnostics
     {
         [SerializeField] private EDiagnosticVerb verb;
         [SerializeField] private int eventId;
-        [SerializeField] private string customAttributes;
+        [SerializeField] private CustomType[] customAttributes;
 
         public EDiagnosticVerb Verb { get => verb; set => verb = value; }
         public int EventId { get => eventId; set => eventId = value; }
-        public string CustomAttributes { get => customAttributes; set => customAttributes = value; }
+        public CustomType[] CustomAttributes { get => customAttributes; set => customAttributes = value; }
     }
 }
