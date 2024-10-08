@@ -16,6 +16,8 @@ namespace Reflectis.SDK.InteractionNew
     [Serializable, RequireComponent(typeof(BaseInteractable))]
     public abstract class ContextualMenuManageable : InteractableBehaviourBase
     {
+        public UnityEvent OnSetup = new UnityEvent();
+
         public enum EContextualMenuInteractableState
         {
             Idle,
@@ -44,15 +46,19 @@ namespace Reflectis.SDK.InteractionNew
 
         [SerializeField]
         private EContextualMenuOption contextualMenuOptions =
-            EContextualMenuOption.LockTransform |
-            EContextualMenuOption.ResetTransform |
-            EContextualMenuOption.Duplicate |
-            EContextualMenuOption.Delete;
+            EContextualMenuOption.None;
 
         [SerializeField]
         private bool isNetworked = true;
 
-        public EContextualMenuOption ContextualMenuOptions { get => contextualMenuOptions; set => contextualMenuOptions = value; }
+        public EContextualMenuOption ContextualMenuOptions
+        {
+            get
+            {
+                return contextualMenuOptions;
+            }
+            set => contextualMenuOptions = value;
+        }
 
         public EContextualMenuType ContextualMenuType = EContextualMenuType.Default;
 
@@ -90,6 +96,7 @@ namespace Reflectis.SDK.InteractionNew
         public UnityAction DoDestroy { get; set; }
         public bool IsNetworked { get => isNetworked; set => isNetworked = value; }
 
+
         public UnityEvent OnEnterInteractionState = new();
         public UnityEvent OnExitInteractionState = new();
 
@@ -98,6 +105,7 @@ namespace Reflectis.SDK.InteractionNew
         {
             DoDestroy ??= LocalDestroy;
         }
+
 
         private async void OnDestroy()
         {
@@ -112,16 +120,26 @@ namespace Reflectis.SDK.InteractionNew
         {
             if (ContextualMenuOptions.HasFlag(EContextualMenuOption.ColorPicker))
             {
+                //I am not sure that setting this up now is correct since the interactable setup network is not initialized yet
                 await SM.GetSystem<IColorPickerSystem>().AssignColorPicker(gameObject, IsNetworked);
             }
 
             if (ContextualMenuOptions.HasFlag(EContextualMenuOption.Explodable))
             {
+                //I am not sure that setting this up now is correct since the interactable setup network is not initialized yet
                 await SM.GetSystem<IModelExploderSystem>().AssignModelExploder(gameObject, IsNetworked);
             }
 
+            if (ContextualMenuOptions.HasFlag(EContextualMenuOption.LockTransform))
+            {
+                await SM.GetSystem<ILockObjectSystem>().SetupLockObject(gameObject, false);
+            }
+
             OnContextualMenuButtonSelected[EContextualMenuOption.Delete] = AskForDelete;
+
+            OnSetup?.Invoke();
         }
+
 
         public override void OnHoverStateEntered()
         {

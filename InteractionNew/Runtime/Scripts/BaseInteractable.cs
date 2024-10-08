@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using UnityEditor;
 
@@ -66,11 +67,10 @@ namespace Reflectis.SDK.InteractionNew
                 interactableBehaviours.AddRange(GetComponentsInChildren<InteractableBehaviourBase>());
             }
 
-            if (interactionColliders.Count == 0)
+            if (interactionColliders == null || interactionColliders.Count == 0)
             {
-                interactionColliders.AddRange(GetComponentsInChildren<Collider>());
+                interactionColliders = GetComponentsInChildren<Collider>().ToList();
             }
-
             foreach (var behaviour in interactableBehaviours)
             {
                 if (!InteractableBehaviours.Contains(behaviour))
