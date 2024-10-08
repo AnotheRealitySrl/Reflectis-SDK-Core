@@ -14,5 +14,7 @@ namespace Reflectis.SDK.Diagnostics
         public EExperienceScoringType scoringType;
         [SettableField]
         public string notes;
+        [SettableField]
+        public AnalyticsDisplayableData displayableData;
     }
 }

@@ -24,7 +24,7 @@ namespace Reflectis.SDK.Utilities
                     new QuaternionConverter(),
                     new ColorConverter(),
                     new StringEnumConverter(),
-                    new PropertyConverter(),
+                    new CustomTypeConverter(),
                 }
             };
         }
@@ -188,29 +188,36 @@ namespace Reflectis.SDK.Utilities
         }
     }
 
-    public class PropertyConverter : JsonConverter<Property>
+    public class CustomTypeConverter : JsonConverter<CustomType>
     {
-        public override void WriteJson(JsonWriter writer, Property value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, CustomType value, JsonSerializer serializer)
         {
             writer.WriteStartObject();
-            writer.WritePropertyName(value.name);
-            writer.WriteValue(value.value);
+            foreach (var field in value.fields)
+            {
+                writer.WritePropertyName(field.name);
+                serializer.Serialize(writer, field.value);
+            }
             writer.WriteEndObject();
         }
 
-        public override Property ReadJson(JsonReader reader, Type objectType, Property existingValue, bool hasExistingValue, JsonSerializer serializer)
+        public override CustomType ReadJson(JsonReader reader, Type objectType, CustomType existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
-            var property = new Property(existingValue?.name, existingValue?.value);
+            var customType = new CustomType();
+            var fields = new List<Field>();
 
             while (reader.Read())
             {
                 if (reader.TokenType == JsonToken.PropertyName)
                 {
-                    property.name = reader.Value.ToString();
+
+                    var field = new Field();
+                    field.name = reader.Value.ToString();
 
                     reader.Read();
-                    property.value = reader.Value;
+                    field.value = reader.Value;
 
+                    fields.Add(field);
                 }
                 else if (reader.TokenType == JsonToken.EndObject)
                 {
@@ -218,7 +225,9 @@ namespace Reflectis.SDK.Utilities
                 }
             }
 
-            return property;
+            customType.fields = fields.ToArray();
+
+            return customType;
         }
     }
 }
