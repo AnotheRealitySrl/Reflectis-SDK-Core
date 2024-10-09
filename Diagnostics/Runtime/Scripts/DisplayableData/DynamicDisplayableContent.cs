@@ -3,7 +3,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 namespace Reflectis.SDK.Diagnostics
 {
@@ -54,7 +53,7 @@ namespace Reflectis.SDK.Diagnostics
             if (recordField != null)
             {
                 List<object> recordsValue = recordField.value as List<object>;
-                Debug.LogError("type " + recordField.value.GetType() + "| " + Newtonsoft.Json.JsonConvert.SerializeObject(recordField.value));
+
                 Records = recordsValue.Select((x, i) =>
                 {
                     if (x is ArrayList aotList)
