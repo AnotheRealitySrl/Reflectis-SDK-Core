@@ -56,6 +56,15 @@ namespace Reflectis.SDK.Diagnostics
                 },
             };
 
+        public static Dictionary<EAnalyticsDisplayableType, Type> DisplayableDataTypes =
+            new Dictionary<EAnalyticsDisplayableType, Type>
+            {
+                {
+                    EAnalyticsDisplayableType.Dynamic,
+                    typeof(DynamicDisplayableContent)
+                }
+            };
+
         Task GenerateExperienceGUID(string key);
 
         void SendDiagnostic(EDiagnosticVerb verb, DiagnosticDTO diagnosticDTO);

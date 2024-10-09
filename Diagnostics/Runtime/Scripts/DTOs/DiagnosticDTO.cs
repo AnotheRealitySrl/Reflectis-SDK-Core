@@ -7,7 +7,7 @@ namespace Reflectis.SDK.Diagnostics
         [SerializeField] private EDiagnosticVerb verb;
         [SerializeField] private int eventId;
 
-        [SerializeField][SettableField] public AnalyticsDisplayableData customAttributes;
+        [SerializeField][SettableField] public object customAttributes;
 
         public EDiagnosticVerb Verb { get => verb; set => verb = value; }
         public int EventId { get => eventId; set => eventId = value; }
