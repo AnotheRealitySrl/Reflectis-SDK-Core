@@ -1,4 +1,6 @@
+using Reflectis.SDK.ClientModels;
 using Reflectis.SDK.Utilities;
+using System.Threading.Tasks;
 
 namespace Reflectis.SDK.ApplicationManagement
 {
@@ -9,6 +11,7 @@ namespace Reflectis.SDK.ApplicationManagement
         bool IsNetworkMaster { get; }
 
         void InitializeObject(UnityEngine.Object reflectisObject);
+        Task LoadEvent(CMEvent ev, CMShard shard = null, bool updateHistory = true, bool recoverFromDisconnection = false);
     }
 
 }

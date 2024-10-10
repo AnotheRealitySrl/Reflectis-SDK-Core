@@ -2,7 +2,8 @@
     "name": "Reflectis.SDK.ApplicationManagement",
     "rootNamespace": "",
     "references": [
-        "Reflectis.SDK.Utilities"
+        "Reflectis.SDK.Utilities",
+        "Reflectis.SDK.ClientModels"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
