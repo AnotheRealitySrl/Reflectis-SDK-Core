@@ -1,5 +1,13 @@
 # Release notes
 
+## Unreleased
+
+### Added
+
+- Networking: new `Networking System` module. This will be used to expose events and behaviours related to Photon's networking in the Reflectis context. This system is currently hosting the events `OtherPlayerJoinedRoom` and `OtherPlayerLeftRoom`, that can be used to detect players entering/leaving the Reflectis event where the local player is currently staying.
+
+- Added signature for the `LoadEvent` method in `IReflectisApplicationManager` interface. This will allow accessing the implemented method via `Reflectis.SDK.ApplicationManagement` module.
+
 ## v10.0.0
 
 ### Changed
