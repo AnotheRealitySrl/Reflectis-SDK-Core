@@ -121,7 +121,7 @@ namespace Reflectis.SDK.InteractionNew
 
             }
 
-            Debug.Log($"Mesh divided into {subMeshes.Count} submeshes.");
+            //Debug.Log($"Mesh divided into {subMeshes.Count} submeshes.");
 
             return colliders;
         }
