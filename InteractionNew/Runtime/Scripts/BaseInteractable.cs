@@ -3,6 +3,7 @@ using Reflectis.SDK.Utilities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEditor;
 
 using UnityEngine;
@@ -122,11 +123,11 @@ namespace Reflectis.SDK.InteractionNew
             );
         }
 
-        public async Task<List<InteractableSubmesh>> SetupSubmeshes(int polygonThreshold)
+        public List<InteractableSubmesh> SetupSubmesh()
         {
             List<InteractableSubmesh> submeshes = new List<InteractableSubmesh>();
 
-            List<MeshRenderer> rendererList = new List<MeshRenderer>(GetComponentsInChildren<MeshRenderer>(true));
+            MeshRenderer[] rendererList = GetComponentsInChildren<MeshRenderer>(true);
 
             List<GameObject> objectsToExclude = new List<GameObject>();
             // Excludes bounding box and scaling gizmos
@@ -155,25 +156,14 @@ namespace Reflectis.SDK.InteractionNew
             // Cycle to find objects that should be excluded
             foreach (var objectToExclude in objectsToExclude)
             {
-                rendererList = rendererList.Where(x => x.gameObject != objectToExclude).ToList();
+                rendererList = rendererList.Where(x => x.gameObject != objectToExclude).ToArray();
             }
             foreach (MeshRenderer renderer in rendererList)
             {
                 //check if there is already an interactable submesh
                 if (!renderer.TryGetComponent<InteractableSubmesh>(out var interactableSubmesh))
                 {
-                    if (!renderer.TryGetComponent(out Collider existingCollider))
-                    {
-                        var colliders = await SplitMeshAndCreateColliders(renderer, polygonThreshold);
-                        interactableSubmesh.Colliders = colliders;
-                        interactableSubmesh.Renderer = renderer;
-                        submeshes.Add(interactableSubmesh);
-                        interactableSubmesh.Colliders = colliders;
-                    }
-                    else
-                    {
-                        interactableSubmesh.Colliders = new List<Collider>() { existingCollider };
-                    }
+                    interactableSubmesh = renderer.AddComponent<InteractableSubmesh>();
                     interactableSubmesh.Renderer = renderer;
                 }
                 submeshes.Add(interactableSubmesh);
@@ -182,77 +172,6 @@ namespace Reflectis.SDK.InteractionNew
         }
 
 
-        // Function that splits the mesh and generates the colliders for each submesh
-        private async Task<List<Collider>> SplitMeshAndCreateColliders(MeshRenderer meshRenderer, int maxTrianglesPerSubmesh)
-        {
-            Mesh originalMesh = meshRenderer.GetComponent<MeshFilter>().sharedMesh;
-            int[] triangles = originalMesh.triangles;
-            Vector3[] vertices = originalMesh.vertices;
-            Vector3[] normals = originalMesh.normals;
-            Vector2[] uvs = originalMesh.uv;
-
-            int triangleCount = triangles.Length / 3; // Total number of triangles in the mesh
-
-            // List to hold all submeshes
-            var subMeshes = new List<Mesh>();
-
-            // Temporary variables to construct the submeshes
-            List<int> submeshTriangles = new List<int>();
-            List<Vector3> submeshVertices = new List<Vector3>();
-            List<Vector3> submeshNormals = new List<Vector3>();
-            List<Vector2> submeshUVs = new List<Vector2>();
-
-            int currentTriangleIndex = 0;
-
-            List<Collider> colliders = new List<Collider>();
-
-            while (currentTriangleIndex < triangleCount)
-            {
-                submeshTriangles.Clear();
-                submeshVertices.Clear();
-                submeshNormals.Clear();
-                submeshUVs.Clear();
-
-                // Construct the submesh until the triangle threshold is reached
-                int trianglesAdded = 0;
-                while (trianglesAdded < maxTrianglesPerSubmesh && currentTriangleIndex < triangleCount)
-                {
-                    for (int j = 0; j < 3; j++) // Adds the 3 indices of the current triangle
-                    {
-                        int triangleVertexIndex = triangles[currentTriangleIndex * 3 + j];
-                        submeshTriangles.Add(submeshVertices.Count); // New index for the submesh
-                        submeshVertices.Add(vertices[triangleVertexIndex]);
-                        submeshNormals.Add(normals[triangleVertexIndex]);
-                        submeshUVs.Add(uvs[triangleVertexIndex]);
-                    }
-
-                    trianglesAdded++;
-                    currentTriangleIndex++;
-                }
-
-                // Create the mesh for the submesh
-                Mesh submesh = new Mesh();
-                submesh.SetVertices(submeshVertices);
-                submesh.SetTriangles(submeshTriangles, 0);
-                submesh.SetNormals(submeshNormals);
-                submesh.SetUVs(0, submeshUVs);
-
-                // Add the submesh to the list
-                subMeshes.Add(submesh);
-
-                // Create the collider for the submesh (back to the main thread to interact with Unity)
-                MeshCollider submeshCollider = meshRenderer.gameObject.AddComponent<MeshCollider>();
-                submeshCollider.convex = false;  // If required, it can be set to true to simplify collisions
-                submeshCollider.sharedMesh = submesh;
-                colliders.Add(submeshCollider);
-                await Task.Yield();
-
-            }
-
-            Debug.Log($"Mesh divided into {subMeshes.Count} submeshes.");
-
-            return colliders;
-        }
     }
 
 #if UNITY_EDITOR
