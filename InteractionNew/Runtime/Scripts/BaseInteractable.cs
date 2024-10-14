@@ -1,6 +1,9 @@
+using Reflectis.SDK.CharacterController;
+using Reflectis.SDK.Utilities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEditor;
 
 using UnityEngine;
@@ -119,6 +122,56 @@ namespace Reflectis.SDK.InteractionNew
                 }
             );
         }
+
+        public List<InteractableSubmesh> SetupSubmesh()
+        {
+            List<InteractableSubmesh> submeshes = new List<InteractableSubmesh>();
+
+            MeshRenderer[] rendererList = GetComponentsInChildren<MeshRenderer>(true);
+
+            List<GameObject> objectsToExclude = new List<GameObject>();
+            // Excludes bounding box and scaling gizmos
+            Manipulable modelManipulable = this.GetComponentInactive<Manipulable>();
+            if (modelManipulable != null)
+            {
+                objectsToExclude.AddRange(modelManipulable.BoundingBox.gameObject.transform.GetComponentsInChildren<Transform>(true).Select(x => x.gameObject));
+
+                foreach (GameObject gObject in modelManipulable.ScalingCorners)
+                {
+                    objectsToExclude.Add(gObject);
+                }
+                foreach (GameObject gObject in modelManipulable.ScalingFaces)
+                {
+                    objectsToExclude.Add(gObject);
+                }
+            }
+
+            // Excludes placeholder object (which is used during asset download)
+            GameObject placeholder = GetComponentsInChildren<GenericHookComponent>().FirstOrDefault(x => x.Id == "Placeholder")?.gameObject;
+            if (placeholder != null)
+            {
+                objectsToExclude.Add(placeholder);
+            }
+
+            // Cycle to find objects that should be excluded
+            foreach (var objectToExclude in objectsToExclude)
+            {
+                rendererList = rendererList.Where(x => x.gameObject != objectToExclude).ToArray();
+            }
+            foreach (MeshRenderer renderer in rendererList)
+            {
+                //check if there is already an interactable submesh
+                if (!renderer.TryGetComponent<InteractableSubmesh>(out var interactableSubmesh))
+                {
+                    interactableSubmesh = renderer.AddComponent<InteractableSubmesh>();
+                    interactableSubmesh.Renderer = renderer;
+                }
+                submeshes.Add(interactableSubmesh);
+            }
+            return submeshes;
+        }
+
+
     }
 
 #if UNITY_EDITOR
