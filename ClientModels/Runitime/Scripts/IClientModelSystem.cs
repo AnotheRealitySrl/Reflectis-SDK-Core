@@ -378,6 +378,8 @@ namespace Reflectis.SDK.ClientModels
         /// </summary>
         /// <param name="value"></param>
         Task EnableCacheAutoRefresh(bool value);
+
+        Task<bool> CheckMaxCCU(int worldId);
         #endregion
 
         #region Shards
