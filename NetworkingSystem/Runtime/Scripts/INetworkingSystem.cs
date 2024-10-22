@@ -15,6 +15,11 @@ namespace Reflectis.SDK.NetworkingSystem
         /// </summary>
         public UnityEvent<int, int> OtherPlayerLeftShard { get; }
 
+        /// <summary>
+        /// Returns true if the shard where the local user currently is is open. 
+        /// </summary>
+        public bool IsCurrentShardOpen { get; }
+        
         public void Setup();
 
         /// <summary>
