@@ -9,11 +9,11 @@ namespace Reflectis.SDK.NetworkingSystem
         /// <summary>
         /// int userID, int actorNumber
         /// </summary>
-        public UnityEvent<int, int> OtherPlayerJoinedRoom { get; }
+        public UnityEvent<int, int> OtherPlayerJoinedShard { get; }
         /// <summary>
         /// int userID, int actorNumber
         /// </summary>
-        public UnityEvent<int, int> OtherPlayerLeftRoom { get; }
+        public UnityEvent<int, int> OtherPlayerLeftShard { get; }
 
         public void Setup();
 
