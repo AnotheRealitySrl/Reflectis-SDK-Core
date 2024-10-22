@@ -368,7 +368,7 @@ namespace Reflectis.SDK.ClientModels
         Task<List<CMOnlinePresence>> GetOnlineUsers(bool forceRefresh = false);
         CMOnlinePresence GetOnlineUser(int userId);
         bool IsOnlineUser(int userId);
-        Task<EPingStatus> PingMyOnlinePresence(int? worldId, int? eventId, int? shardId);
+        Task<EPingStatus> PingMyOnlinePresence(int? worldId, int? eventId, int? shardId, bool? isShardClosed);
 
         Task<List<CMOnlinePresence>> GetUsersInEvent(int eventId, bool forceRefresh = true);
 

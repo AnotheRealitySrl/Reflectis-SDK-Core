@@ -13,6 +13,7 @@ namespace Reflectis.SDK.ClientModels
         [SerializeField] private int eventId;
         [SerializeField] private int currentParticipants;
         [SerializeField] private int maxParticipants;
+        [SerializeField] private bool isClosed;
 
         public int ShardNumber => shardNumber;
         public int EventId => eventId;
@@ -25,13 +26,15 @@ namespace Reflectis.SDK.ClientModels
             }
             set => maxParticipants = value;
         }
+        public bool IsClosed => isClosed;
 
-        public CMShard(int shardNumber, int eventId, int currentParticipants, int maxParticipants)
+        public CMShard(int shardNumber, int eventId, int currentParticipants, int maxParticipants, bool isClosed)
         {
             this.shardNumber = shardNumber;
             this.eventId = eventId;
             this.currentParticipants = currentParticipants;
             this.maxParticipants = maxParticipants;
+            this.isClosed = isClosed;
         }
     }
 }
