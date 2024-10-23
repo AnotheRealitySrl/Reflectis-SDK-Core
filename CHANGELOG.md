@@ -8,7 +8,7 @@
 
 - Networking: new `Networking System` module. This will be used to expose events and behaviours related to Photon's networking in the Reflectis context.
 
-- Networking: the `Networking System` is hosting the events `OtherPlayerJoinedShard` and `OtherPlayerLeftShard`, that can be used to detect players entering/leaving the Reflectis event where the local player is currently staying.
+- Networking: the `Networking System` is hosting the events `OtherPlayerJoinedShard` and `OtherPlayerLeftShard`, that can be used to detect players entering/leaving the Reflectis event where the local player is currently staying. These events have two integer parameters, respectively the User ID (from the Reflectis profile) and the actor number of the user that just entered/left the shard.
 
 - Networking: the `Networking System` is exposing the methods `OpenCurrentShard` and `CloseCurrentShard`. These can be used to respectively open or close the shard where the local player is. A closed shard will prevent other player from joining it, like if the shard has reached max capacity. In case the shard event is set as "unlimited", player entering after the shard has been closed will just land in a new shard.
 
