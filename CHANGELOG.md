@@ -4,7 +4,15 @@
 
 ### Added
 
-- Networking: new `Networking System` module. This will be used to expose events and behaviours related to Photon's networking in the Reflectis context. This system is currently hosting the events `OtherPlayerJoinedRoom` and `OtherPlayerLeftRoom`, that can be used to detect players entering/leaving the Reflectis event where the local player is currently staying.
+- Networking: added a new bool field `isShardClosed` to ping method data (`IClientModelSystem.PingMyOnlinePresence`), online user presence classes (`CMOnlinePresence` and `OnlinePresenceDTO`)and shard data class (`CMShard`). These fields are used to implement shard closing: the flag is checked when Reflectis client has to detect if an event shard is joinable or a new one should be created and joined.
+
+- Networking: new `Networking System` module. This will be used to expose events and behaviours related to Photon's networking in the Reflectis context.
+
+- Networking: the `Networking System` is hosting the events `OtherPlayerJoinedShard` and `OtherPlayerLeftShard`, that can be used to detect players entering/leaving the Reflectis event where the local player is currently staying.
+
+- Networking: the `Networking System` is exposing the methods `OpenCurrentShard` and `CloseCurrentShard`. These can be used to respectively open or close the shard where the local player is. A closed shard will prevent other player from joining it, like if the shard has reached max capacity. In case the shard event is set as "unlimited", player entering after the shard has been closed will just land in a new shard.
+
+- Networking: the `Networking System` is exposing the boolean property `IsCurrentShardOpen`. This read-only property returns true if the current shard is open, false if the current shard is closed.
 
 - Added signature for the `LoadEvent` method in `IReflectisApplicationManager` interface. This will allow accessing the implemented method via `Reflectis.SDK.ApplicationManagement` module.
 
