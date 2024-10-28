@@ -23,7 +23,8 @@ namespace Reflectis.SDK.Utilities
                     new Vector3Converter(),
                     new QuaternionConverter(),
                     new ColorConverter(),
-                    new StringEnumConverter()
+                    new StringEnumConverter(),
+                    new CustomTypeConverter(),
                 }
             };
         }
@@ -187,5 +188,46 @@ namespace Reflectis.SDK.Utilities
         }
     }
 
+    public class CustomTypeConverter : JsonConverter<CustomType>
+    {
+        public override void WriteJson(JsonWriter writer, CustomType value, JsonSerializer serializer)
+        {
+            writer.WriteStartObject();
+            foreach (var field in value.fields)
+            {
+                writer.WritePropertyName(field.name);
+                serializer.Serialize(writer, field.value);
+            }
+            writer.WriteEndObject();
+        }
 
+        public override CustomType ReadJson(JsonReader reader, Type objectType, CustomType existingValue, bool hasExistingValue, JsonSerializer serializer)
+        {
+            var customType = new CustomType();
+            var fields = new List<Field>();
+
+            while (reader.Read())
+            {
+                if (reader.TokenType == JsonToken.PropertyName)
+                {
+
+                    var field = new Field();
+                    field.name = reader.Value.ToString();
+
+                    reader.Read();
+                    field.value = reader.Value;
+
+                    fields.Add(field);
+                }
+                else if (reader.TokenType == JsonToken.EndObject)
+                {
+                    break;
+                }
+            }
+
+            customType.fields = fields.ToArray();
+
+            return customType;
+        }
+    }
 }

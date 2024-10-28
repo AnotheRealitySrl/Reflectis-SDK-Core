@@ -1,23 +1,54 @@
 # Release notes
 
-## v10.0.0
+## v10.1.0
 
 ### Added
 
-- Application manager: added new method `InitializeObject` in `IReflectisApplicationManager`. This can be called to initialize a placeholder on an object that wasn't part of the environment and was instantiated dynamically.
-- AvatarSystem: added new method `EnableOtherAvatarsMeshes`. It can be used to hide/show other player's avatars.
-- AvatarSystem: added new public variable `OtherAvatarsConfigControllers`. It's a dictionary containing a collection of references to the IAvatarConfigController components on each of the non-local player's avatars present in the current event (updated in real time). The key for each entry in the dictionary is the actor number of the player controlling the related avatar.
+- Networking: added a new bool field `isShardClosed` to ping method data (`IClientModelSystem.PingMyOnlinePresence`), online user presence classes (`CMOnlinePresence` and `OnlinePresenceDTO`)and shard data class (`CMShard`). These fields are used to implement shard closing: the flag is checked when Reflectis client has to detect if an event shard is joinable or a new one should be created and joined.
+- Networking: new `Networking System` module. This will be used to expose events and behaviours related to Photon's networking in the Reflectis context.
+- Networking: the `Networking System` is hosting the events `OtherPlayerJoinedShard` and `OtherPlayerLeftShard`, that can be used to detect players entering/leaving the Reflectis event where the local player is currently staying. These events have two integer parameters, respectively the User ID (from the Reflectis profile) and the actor number of the user that just entered/left the shard.
+- Networking: the `Networking System` is exposing the methods `OpenCurrentShard` and `CloseCurrentShard`. These can be used to respectively open or close the shard where the local player is. A closed shard will prevent other player from joining it, like if the shard has reached max capacity. In case the shard event is set as "unlimited", player entering after the shard has been closed will just land in a new shard.
+- Networking: the `Networking System` is exposing the boolean property `IsCurrentShardOpen`. This read-only property returns true if the current shard is open, false if the current shard is closed.
+- Added signature for the `LoadEvent` method in `IReflectisApplicationManager` interface. This will allow accessing the implemented method via `Reflectis.SDK.ApplicationManagement` module.
+
+## v10.0.0
+
+### Changed
+
+- Interaction: changed the `hasHoveredState` variable of `GenericInteractable` from private to protected.
+- VisualScripting: renamed `AwaitableEventNode` class into `AwaitableEventUnit`.
+
+### Added
+
+- Added new VideoChat module, providing the interfaces needed to implement video/audio RTC communications.
+- Added new Diagnostics module to collect data within events and more specifically trainings inside events.
+- ApplicationManagement: added new method `InitializeObject` in `IReflectisApplicationManager`. This can be called to initialize a placeholder on an object that wasn't part of the environment and was instantiated dynamically.
+- ApplicationManagement: added `IsNetworkMaster` property to `IReflectisApplicationManager` interface.
+- Avatars: added new method `EnableOtherAvatarsMeshes`. It can be used to hide/show other player's avatars.
+- Avatars: added new public variable `OtherAvatarsConfigControllers`. It's a dictionary containing a collection of references to the `IAvatarConfigController` components on each of the non-local player's avatars present in the current event (updated in real time). The key for each entry in the dictionary is the actor number of the player controlling the related avatar.
+- ClientModels: added `CanWrite` property to `CMEvent`.
+- Interaction: added different types of hover events in GenericInteractable
+- Utilities: added `InspectorButton` property drawer.
+- Utilities: added `GuidGenerator` utility class.
+- Utilities: added compression and encryption methods to `StringUtilities`.
+- VisualScripting: added `AwaitableUnit` class.
+
+### Fixed
+
+- Avatars: fixed VR avatar's show/hide logic in `AvatarConfigControllerVR`.
+- Interaction: fixed some issues regarding hover on interactable behaviours.
+- TextChat: changed the encoding of chat messages from ASCII to UTF8.
 
 ## v9.1.0
 
 ### Added
 
-- BinaryWriterReaderExtension: added extension class for `BinaryWriter` and `BinaryReader` to allow reading and writing of custom types such as vector2, vector3, objects ...
-- ComponentExtensions: added extension class for `Component` and implemented the method GetComponentInactive that allows to do a GetComponent on inactive objects.
+- Utilities: added extension class for `BinaryWriter` and `BinaryReader` to allow reading and writing of custom types such as Vector2, Vector3, objects ...
+- Utilities: added extension class for `Component` and implemented the method `GetComponentInactive` that allows to do a GetComponent on inactive objects.
 
-### Changed
+### Fixed
 
-- TextChat: changed `ChatMessage` serialization method from XML convertion to JSON conversion.
+- TextChat: changed `ChatMessage` serialization method from XML to JSON, to improve readability and performance.
 
 ## v9.0.0
 
@@ -32,7 +63,7 @@
 ### Changed
 
 - ClientModels: refactored `CMPermission` entity.
-- ClientModels: merged `IsEventPermissionGranted` and `IsWorldPermissionGranted` methods of `IClientModelSystem` into a single method`IsPermissionGranted`.
+- ClientModels: merged `IsEventPermissionGranted` and `IsWorldPermissionGranted` methods of `IClientModelSystem` into a single method `IsPermissionGranted`.
 - ClientModels: changed `GetWorldPermissions` method name into `GetMyWorldPermissions`.
 - ClientModels: changed `GetEventPermissions` method name into `GetAllPermissionsByTag`.
 - ClientModels: `GetMyWorldPermissions` and `GetMyEventPermissions` methods of return a list of `EfacetIdentifier` instead of a list of `CMPermission`, same for properties `CurrentEventPermissions` and `WorldPermissions` which are now a list of `EfacetIdentifier`.

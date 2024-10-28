@@ -1,9 +1,8 @@
 {
-    "name": "Reflectis.SDK.ApplicationManagement",
+    "name": "NewAssembly",
     "rootNamespace": "",
     "references": [
-        "Reflectis.SDK.Utilities",
-        "Reflectis.SDK.ClientModels"
+        "GUID:ab59f74e483e1ee4595bfefea56493f2"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

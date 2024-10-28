@@ -1,13 +1,14 @@
 
 using Reflectis.SDK.Core;
-using Reflectis.SDK.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Reflectis.SDK.Diagnostics
 {
-    public interface IDiagnosticsSystem : ISystem
+    public interface
+
+        IDiagnosticsSystem : ISystem
     {
         public static Dictionary<EDiagnosticType, List<EDiagnosticVerb>> VerbsTypes =
             new Dictionary<EDiagnosticType, List<EDiagnosticVerb>>
@@ -54,8 +55,18 @@ namespace Reflectis.SDK.Diagnostics
                     typeof(ExperienceTranscriptDTO)
                 },
             };
+
+        public static Dictionary<EAnalyticsDisplayableType, Type> DisplayableDataTypes =
+            new Dictionary<EAnalyticsDisplayableType, Type>
+            {
+                {
+                    EAnalyticsDisplayableType.Dynamic,
+                    typeof(DynamicDisplayableContent)
+                }
+            };
+
         Task GenerateExperienceGUID(string key);
 
-        void SendDiagnostic(EDiagnosticVerb verb, DiagnosticDTO diagnosticDTO, IEnumerable<Property> customProperties);
+        void SendDiagnostic(EDiagnosticVerb verb, DiagnosticDTO diagnosticDTO);
     }
 }

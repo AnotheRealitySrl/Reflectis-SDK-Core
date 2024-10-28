@@ -13,6 +13,9 @@ namespace Reflectis.SDK.InteractionNew
 {
     public class ContextualMenuController : MonoBehaviour
     {
+        [SerializeField]
+        private GameObject unlockButton;
+
         [Serializable]
         private class ContextualMenuItem
         {
@@ -27,6 +30,7 @@ namespace Reflectis.SDK.InteractionNew
 
         protected AbstractTransitionProvider transitionProvider;
 
+        ContextualMenuManageable manageable;
 
         protected virtual void Awake()
         {
@@ -35,17 +39,38 @@ namespace Reflectis.SDK.InteractionNew
             Hide();
         }
 
-        public virtual void Setup(EContextualMenuOption options)
+        public virtual void Setup(ContextualMenuManageable contextualMenuManageable)
         {
-            contextualMenuItems.ForEach(x =>
+            if (manageable != null)
             {
-                if (x.value)
-                    x.value.SetActive(options.HasFlag(x.key));
-            });
+                manageable.OnCurrentBlockedChanged.RemoveListener(UpdateMenuButtons);
+            }
+            manageable = contextualMenuManageable;
+            manageable.OnCurrentBlockedChanged.AddListener(UpdateMenuButtons);
+            UpdateMenuButtons(manageable.CurrentBlockedState);
+        }
+
+        protected virtual void UpdateMenuButtons(InteractableBehaviourBase.EBlockedState blockedState)
+        {
+            if (blockedState.HasFlag(InteractableBehaviourBase.EBlockedState.BlockedByLockObject))
+            {
+                contextualMenuItems.ForEach(x => x.value.gameObject.SetActive(false));
+                unlockButton.SetActive(true);
+            }
+            else
+            {
+                contextualMenuItems.ForEach(x =>
+                {
+                    if (x.value)
+                        x.value.SetActive(manageable.ContextualMenuOptions.HasFlag(x.key));
+                });
+                unlockButton.SetActive(false);
+            }
         }
 
         public virtual void Unsetup()
         {
+            manageable?.OnCurrentBlockedChanged.RemoveListener(UpdateMenuButtons);
             contextualMenuItems.ForEach(x =>
             {
                 if (x.value)

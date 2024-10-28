@@ -22,6 +22,7 @@ namespace Reflectis.SDK.ClientModels
         [SerializeField] private string avatarPng;
         [SerializeField] private string avatarId;
         [SerializeField] private int shard;
+        [SerializeField] private bool isShardClosed;
         [SerializeField] private int eventId;
         [SerializeField] private List<CMTag> tags;
 
@@ -43,6 +44,7 @@ namespace Reflectis.SDK.ClientModels
         public string AvatarPng { get => avatarPng; set => avatarPng = value; }
         public string AvatarId { get => avatarId; set => avatarId = value; }
         public int Shard { get => shard; set => shard = value; }
+        public bool IsShardClosed { get => isShardClosed; set => isShardClosed = value; }
         public int EventId { get => eventId; set => eventId = value; }
         public List<CMTag> Tags { get => tags; set => tags = value; }
 

@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 
 using System;
-
 using UnityEngine;
 
 namespace Reflectis.SDK.Utilities.API
@@ -27,7 +26,7 @@ namespace Reflectis.SDK.Utilities.API
     }
 
     [Serializable]
-    public class ApiResponse<T> where T : class
+    public class ApiResponse<T>
     {
         [SerializeField] private int statusCode;
         [SerializeField] private string reasonPhrase;
@@ -48,17 +47,17 @@ namespace Reflectis.SDK.Utilities.API
             ReasonPhrase = reasonPhrase;
             if (typeof(T) == typeof(string))
             {
-                Content = IsSuccess ? (T)(object)content : null;
+                Content = IsSuccess ? (T)(object)content : default;
             }
             else
             {
-                Content = IsSuccess ? JsonConvert.DeserializeObject<T>(content) : null;
+                Content = IsSuccess ? JsonConvert.DeserializeObject<T>(content) : default;
             }
         }
     }
 
     [Serializable]
-    public class ApiResponseArray<T> where T : class
+    public class ApiResponseArray<T>
     {
         [SerializeField] private int statusCode;
         [SerializeField] private string reasonPhrase;
@@ -86,7 +85,7 @@ namespace Reflectis.SDK.Utilities.API
         }
     }
     [Serializable]
-    public class ApiResponseSearch<T> where T : class
+    public class ApiResponseSearch<T>
     {
         [SerializeField] private int statusCode;
         [SerializeField] private string reasonPhrase;

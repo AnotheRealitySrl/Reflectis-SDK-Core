@@ -2,7 +2,7 @@ namespace Reflectis.SDK.Diagnostics
 {
     public class ExperienceStepStartDTO : ExperienceStepDTO
     {
-        [SettableField]
+        [SettableField(isRequired = true)]
         public string description;
     }
 }

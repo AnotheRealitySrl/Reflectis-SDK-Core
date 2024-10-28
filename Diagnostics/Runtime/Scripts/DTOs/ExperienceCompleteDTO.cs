@@ -3,7 +3,7 @@ namespace Reflectis.SDK.Diagnostics
     public class ExperienceCompleteDTO : ExperienceDiagnosticDTO
     {
         [SettableField]
-        public int? score;
+        public int score;
         [SettableField]
         public int? maxScore;
         [SettableField]

@@ -6,10 +6,10 @@ namespace Reflectis.SDK.Diagnostics
     {
         [SerializeField] private EDiagnosticVerb verb;
         [SerializeField] private int eventId;
-        [SerializeField] private string customAttributes;
+
+        [SerializeField][SettableField] public object customAttributes;
 
         public EDiagnosticVerb Verb { get => verb; set => verb = value; }
         public int EventId { get => eventId; set => eventId = value; }
-        public string CustomAttributes { get => customAttributes; set => customAttributes = value; }
     }
 }

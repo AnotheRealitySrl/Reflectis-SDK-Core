@@ -6,5 +6,7 @@ namespace Reflectis.SDK.Diagnostics
     public class SettableFieldAttribute : Attribute
     {
         public bool isRequired = false;
+
+        public Type entryType = null;
     }
 }

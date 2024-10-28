@@ -599,6 +599,7 @@ GameObject:
   - component: {fileID: 1960462920069615024}
   - component: {fileID: 8196986432852568487}
   - component: {fileID: 3015132576942892909}
+  - component: {fileID: 3042881646281643769}
   m_Layer: 0
   m_Name: ContextualMenuButton
   m_TagString: Untagged
@@ -991,3 +992,24 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   content: {fileID: 4451587295362060336}
+--- !u!114 &3042881646281643769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8395977666322759265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d75aaa41df6566c489bd138659aae535, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tip: Scale
+  localizedTip:
+    mTerm: Gameplay/Tooltips/ContextualMenu/NonProportionalScaling
+    mRTL_IgnoreArabicFix: 0
+    mRTL_MaxLineLength: 0
+    mRTL_ConvertNumbers: 0
+    m_DontLocalizeParameters: 0
+  sprite: {fileID: 0}
+  desiredPosition: 0

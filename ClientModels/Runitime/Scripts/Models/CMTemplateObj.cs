@@ -46,6 +46,9 @@ namespace Reflectis.SDK.ClientModels
             public int mediaType;
             public float pauseTime;
             public int slideIndex;
+
+            // SceneObj: Downloaded3DModel---ObjctLocker
+            public bool? isLocked;
         }
 
         public string Label { get => label; set => label = value; }

@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Reflectis.SDK.Utilities
@@ -12,6 +14,13 @@ namespace Reflectis.SDK.Utilities
                 return componentToGet;
             }
             return null;
+        }
+
+        public static IEnumerable<T> GetComponentsInactive<T>(this Component component) where T : Component
+        {
+            T[] componentToGet = component.GetComponentsInChildren<T>(true);
+
+            return componentToGet.Where((x) => x.gameObject == component.gameObject);
         }
     }
 }
