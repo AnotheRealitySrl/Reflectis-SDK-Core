@@ -22,7 +22,7 @@ namespace Reflectis.SDK.ObjectSpawner
         GameObject InstantiateLocalObject(GameObject gameObject, Vector3 position, Quaternion rotation, object[] data = null);
 
         Task<GameObject> InstantiateObject(string objectKey, bool onNetwork = false, object[] data = null, SpawnPosition spawnableData = null, bool lookAtPlayer = true);
-        Task<GameObject> InstantiateObject(string objectKey, Vector3 position, Quaternion rotation, bool onNetwork = false, object[] data = null);
+        Task<GameObject> InstantiateObject(string objectKey, Vector3 position, Quaternion rotation, bool onNetwork = true, object[] data = null);
         /// <summary>
         /// Instantiate an object in front of the player checking the first empty space
         /// </summary>
@@ -30,7 +30,7 @@ namespace Reflectis.SDK.ObjectSpawner
         /// <param name="onNetwork"></param>
         /// <param name="data"></param>
         /// <returns></returns>
-        Task<GameObject> InstantiateObject(EPrefabIdentifier prefabId, bool onNetwork = false, object[] data = null, SpawnPosition spawnableData = null);
-        Task<GameObject> InstantiateObject(EPrefabIdentifier prefabId, Vector3 position, Quaternion rotation, bool onNetwork = false, object[] data = null);
+        Task<GameObject> InstantiateObject(EPrefabIdentifier prefabId, bool onNetwork = true, object[] data = null, SpawnPosition spawnableData = null);
+        Task<GameObject> InstantiateObject(EPrefabIdentifier prefabId, Vector3 position, Quaternion rotation, bool onNetwork = true, object[] data = null);
     }
 }
