@@ -11,7 +11,7 @@ namespace Reflectis.SDK.ApplicationManagement
         //TO DO: Move this logic inside network system
         bool IsNetworkMaster { get; }
 
-        void InitializeObject(GameObject gameObject, bool initializeChildrens = false);
+        Task InitializeObject(GameObject gameObject, bool initializeChildren = false);
         Task LoadEvent(CMEvent ev, CMShard shard = null, bool updateHistory = true, bool recoverFromDisconnection = false);
     }
 

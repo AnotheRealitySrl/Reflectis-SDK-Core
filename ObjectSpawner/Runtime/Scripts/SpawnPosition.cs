@@ -4,10 +4,8 @@ using UnityEngine;
 namespace Reflectis.SDK.ObjectSpawner
 {
     [Serializable]
-    public class SpawnableData
+    public class SpawnPosition
     {
-        [SerializeField]
-        private GameObject objPrefab;
         [SerializeField]
         private int fovAngle = 90;
         [SerializeField]
@@ -21,8 +19,6 @@ namespace Reflectis.SDK.ObjectSpawner
         [SerializeField]
         private LayerMask layerMask;
 
-
-        public GameObject ObjPrefab { get => objPrefab; }
         public int FovAngle { get => fovAngle; }
         public int RayCount { get => rayCount; }
         public float ViewDistance { get => viewDistance; }
