@@ -16,8 +16,6 @@ namespace Reflectis.SDK.InteractionNew
     [Serializable, RequireComponent(typeof(BaseInteractable))]
     public abstract class ContextualMenuManageable : InteractableBehaviourBase
     {
-        public UnityEvent OnSetup = new UnityEvent();
-
         public enum EContextualMenuInteractableState
         {
             Idle,
@@ -132,12 +130,11 @@ namespace Reflectis.SDK.InteractionNew
 
             if (ContextualMenuOptions.HasFlag(EContextualMenuOption.LockTransform))
             {
-                await SM.GetSystem<ILockObjectSystem>().SetupLockObject(gameObject, false);
+                await SM.GetSystem<ILockObjectSystem>().SetupLockObject(gameObject, IsNetworked);
             }
 
             OnContextualMenuButtonSelected[EContextualMenuOption.Delete] = AskForDelete;
 
-            OnSetup?.Invoke();
         }
 
 
