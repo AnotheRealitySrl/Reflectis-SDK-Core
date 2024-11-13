@@ -8,9 +8,6 @@ namespace Reflectis.SDK.ApplicationManagement
     public interface IReflectisApplicationManager : IApplicationManager
     {
         static new IReflectisApplicationManager Instance { get; protected set; }
-        //TO DO: Move this logic inside network system
-        bool IsNetworkMaster { get; }
-
         Task InitializeObject(GameObject gameObject, bool initializeChildren = false);
         Task LoadEvent(CMEvent ev, CMShard shard = null, bool updateHistory = true, bool recoverFromDisconnection = false);
     }
