@@ -53,7 +53,7 @@ namespace Reflectis.SDK.TextChat
         /// <summary>
         /// Connect to text chat 
         /// </summary>
-        void Connect();
+        void ConnectToService(string textChatAppId);
 
         /// <summary>
         /// Wheter the user can chat or not

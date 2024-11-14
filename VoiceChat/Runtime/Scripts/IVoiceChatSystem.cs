@@ -16,15 +16,7 @@ namespace Reflectis.SDK.VoiceChat
 
         void AskPermissions();
 
-        /// <summary>
-        /// Must be called BEFORE joining a channel
-        /// </summary>
-        void InitEngine();
-
-        /// <summary>
-        /// Must be called AFTER leaving a channel
-        /// </summary>
-        void DisposeEngine();
+        void ConnectToService(string key);
 
         /// <summary>
         /// Connects to a communication channel channel

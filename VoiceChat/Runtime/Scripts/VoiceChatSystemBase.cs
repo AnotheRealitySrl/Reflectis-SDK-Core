@@ -38,15 +38,14 @@ namespace Reflectis.SDK.VoiceChat
 
         public byte PHOTON_GLOBAL_CHANNEL => photonGlobalChannel;
 
+        public abstract void ConnectToService(string id);
         public abstract void AskPermissions();
         public abstract void ConnectToChannel(CommunicationChannel channel);
         public abstract void DestroyVideoView(uint uid);
         public abstract void DisconnectFromChannel();
-        public abstract void DisposeEngine();
         public abstract string GetChannelName();
         public abstract float GetSystemVolume();
         public abstract bool GetVoiceDetection();
-        public abstract void InitEngine();
         public abstract GameObject MakeVideoView(string parentName, GameObject videoView, uint uid = 0, string channelId = "");
         public abstract void MuteAllRemoteStream(bool muteAudio, bool muteVideo);
         public abstract void MuteLocalUser(bool muteAudio);

@@ -33,7 +33,7 @@ namespace Reflectis.SDK.Notification
         /// <summary>
         /// Request to connect the user to the API
         /// </summary>
-        void Connect();
+        void ConnectToService(string key);
         /// <summary>
         /// Get all the history messages sent through a specific channel
         /// </summary>

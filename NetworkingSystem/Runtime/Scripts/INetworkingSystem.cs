@@ -68,6 +68,13 @@ namespace Reflectis.SDK.NetworkingSystem
         Task<bool> WritePlayerData(GameObject avatarGameObject);
 
         /// <summary>
+        /// Connect to networking service using key
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public Task<bool> ConnectToService(string key);
+
+        /// <summary>
         /// Connect to networking server
         /// </summary>
         /// <returns></returns>
