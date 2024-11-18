@@ -1,10 +1,17 @@
 using Reflectis.SDK.Core;
-using UnityEngine;
+using System;
 
 namespace Reflectis.SDK.Platform
 {
+    [Flags]
+    public enum ESupportedPlatform
+    {
+        VR = 1,
+        WebGL = 2
+    }
+
     public interface IPlatformSystem : ISystem
     {
-        RuntimePlatform RuntimePlatform { get; }
+        ESupportedPlatform RuntimePlatform { get; }
     }
 }

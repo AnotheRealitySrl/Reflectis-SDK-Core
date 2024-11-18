@@ -126,12 +126,12 @@ namespace Reflectis.SDK.InteractionNew
         {
             switch (SM.GetSystem<IPlatformSystem>().RuntimePlatform)
             {
-                case RuntimePlatform.WebGLPlayer:
+                case ESupportedPlatform.WebGL:
                     skipSelectState = !DesktopAllowedStates.HasFlag(EAllowedGenericInteractableState.Selected);
                     hasInteractState = DesktopAllowedStates.HasFlag(EAllowedGenericInteractableState.Interacting);
                     hasHoveredState = DesktopAllowedStates.HasFlag(EAllowedGenericInteractableState.Hovered);
                     break;
-                case RuntimePlatform.Android:
+                case ESupportedPlatform.VR:
                     skipSelectState = !VRAllowedStates.HasFlag(EAllowedGenericInteractableState.Selected);
                     hasInteractState = VRAllowedStates.HasFlag(EAllowedGenericInteractableState.Interacting);
                     hasHoveredState = VRAllowedStates.HasFlag(EAllowedGenericInteractableState.Hovered);
