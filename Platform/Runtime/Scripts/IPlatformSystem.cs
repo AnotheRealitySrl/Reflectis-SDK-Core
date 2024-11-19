@@ -1,5 +1,6 @@
 using Reflectis.SDK.Core;
 using System;
+using UnityEngine;
 
 namespace Reflectis.SDK.Platform
 {
@@ -13,5 +14,7 @@ namespace Reflectis.SDK.Platform
     public interface IPlatformSystem : ISystem
     {
         ESupportedPlatform RuntimePlatform { get; }
+
+        public Sprite GetSprite(ESupportedPlatform platform);
     }
 }
