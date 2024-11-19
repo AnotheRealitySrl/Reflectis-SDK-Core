@@ -63,7 +63,6 @@ namespace Reflectis.SDK.Avatars
 
         #region Unity events
 
-        public UnityEvent OnBeforeInstantiation { get; } = new();
         public UnityEvent<GameObject> OnAvatarIstantiated { get; } = new();
 
         protected AvatarLoadersController AvatarLoadersController { get => avatarLoadersController; set => avatarLoadersController = value; }
@@ -96,13 +95,9 @@ namespace Reflectis.SDK.Avatars
 
             onBeforeAction?.Invoke();
 
-            OnBeforeInstantiation?.Invoke();
-
             AvatarLoader = Instantiate(AvatarLoadersController.GetAvatarLoader(config));
 
             AvatarLoader.onLoadingAvatarComplete.AddListenerOnce(OnAvatarLoadCompletion);
-
-            AvatarLoader.onLoadingAvatarComplete.AddListenerOnce((_, _) => { onAfterAction?.Invoke(); });
 
             await AvatarLoader.LoadAvatar(config);
 

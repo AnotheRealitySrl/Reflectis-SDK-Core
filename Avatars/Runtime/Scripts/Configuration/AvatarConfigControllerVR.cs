@@ -22,6 +22,12 @@ namespace Reflectis.SDK.Avatars
 
         public override void OnAvatarLoadCompletion(GameObject avatar, AvatarData avatarData)
         {
+            //the avatar loading took too long, now the controller has been destroyed (the player has left the room)
+            if (this == null || this.gameObject == null)
+            {
+                Destroy(avatar);
+                return;
+            }
             base.OnAvatarLoadCompletion(avatar, avatarData);
 
             Transform currentPivotParent = null;
@@ -70,7 +76,7 @@ namespace Reflectis.SDK.Avatars
                     {
                         hand.enabled = true;
                     }
-                    if(FullBodyAvatarReference != null)
+                    if (FullBodyAvatarReference != null)
                     {
                         FullBodyAvatarReference.SetActive(false);
                     }
@@ -109,7 +115,7 @@ namespace Reflectis.SDK.Avatars
         {
             string layerHidden = SM.GetSystem<AvatarSystem>().LayerNameHiddenToPlayer;
 
-            foreach(Renderer renderer in FullBodyAvatarReference.GetComponentsInChildren<Renderer>())
+            foreach (Renderer renderer in FullBodyAvatarReference.GetComponentsInChildren<Renderer>())
             {
                 if (enable)
                     renderer.gameObject.layer = LayerMask.NameToLayer("Default");
