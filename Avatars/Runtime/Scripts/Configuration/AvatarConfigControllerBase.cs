@@ -114,10 +114,9 @@ namespace Reflectis.SDK.Avatars
             }
 
             onAfterAction?.Invoke();
-
         }
 
-        public virtual void OnAvatarLoadCompletion(GameObject avatar, AvatarData avatarData)
+        public virtual void OnAvatarLoadCompletion(AvatarData avatarData)
         {
             cachedAvatarData = avatarData;
         }

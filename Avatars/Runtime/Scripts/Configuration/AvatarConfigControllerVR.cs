@@ -20,16 +20,16 @@ namespace Reflectis.SDK.Avatars
         #endregion
 
 
-        public override void OnAvatarLoadCompletion(GameObject avatar, AvatarData avatarData)
+        public override void OnAvatarLoadCompletion(AvatarData avatarData)
         {
             //the avatar loading took too long, now the controller has been destroyed (the player has left the room)
             if (this == null || this.gameObject == null)
             {
-                Destroy(avatar);
                 return;
             }
-            base.OnAvatarLoadCompletion(avatar, avatarData);
+            base.OnAvatarLoadCompletion(avatarData);
 
+            GameObject avatar = Instantiate(avatarData.avatarPrefab);
             Transform currentPivotParent = null;
             GameObject prevRef = null;
             CharacterBase character = GetComponent<CharacterBase>();

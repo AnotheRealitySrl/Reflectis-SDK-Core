@@ -17,6 +17,8 @@ namespace Reflectis.SDK.Avatars
 
     public struct AvatarData
     {
+        public GameObject avatarPrefab;
+
         public AvatarGender gender;
 
         public AvatarBodyType bodyType;

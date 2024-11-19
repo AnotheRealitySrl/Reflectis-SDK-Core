@@ -20,7 +20,7 @@ namespace Reflectis.SDK.Avatars
         /// Called when the avatar loading has been completed.
         /// The gameobject will be an avatar and AvatarData will be the avatar data necessary for the configuration
         /// </summary>
-        public UnityEvent<GameObject,AvatarData> onLoadingAvatarComplete;
+        public UnityEvent<AvatarData> onLoadingAvatarComplete;
         #endregion
 
         #region Public methods
