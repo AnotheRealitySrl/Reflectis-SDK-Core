@@ -23,7 +23,7 @@ namespace Reflectis.SDK.ClientModels
         public int ID { get => id; set => id = value; }
         public string Name { get => name; set => name = value; }
         public string Description { get => description; set => description = value; }
-        public string ImageUrl { get => imageUrl; set => imageUrl = value; }
+        public string AddressableImageName { get => imageUrl; set => imageUrl = value; }
         public Texture ImageTexture { get => imageTexture; set => imageTexture = value; }
         public string AddressableKey { get => addressableKey; set => addressableKey = value; }
         public string Catalog { get => catalog; set => catalog = value; }
