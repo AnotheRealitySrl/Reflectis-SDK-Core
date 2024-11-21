@@ -61,7 +61,7 @@ namespace Reflectis.SDK.ClientModels
                 return $"{SizeBytes} bytes";
             }
         }
-        
+
         public object Metadata { get => metadata; set => metadata = value; }
 
         public CMResource() { }
