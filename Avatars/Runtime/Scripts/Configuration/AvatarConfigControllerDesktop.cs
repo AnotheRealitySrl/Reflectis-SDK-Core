@@ -26,6 +26,10 @@ namespace Reflectis.SDK.Avatars
             base.OnAvatarLoadCompletion(avatarData);
 
             GameObject avatar = Instantiate(avatarData.avatarPrefab);
+            if (avatar.TryGetComponent<Animator>(out var animator))
+            {
+                Destroy(animator);
+            }
             Transform currentPivotParent = null;
             GameObject prevRef = null;
             if (FullBodyAvatarReference != null)
