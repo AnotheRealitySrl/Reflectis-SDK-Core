@@ -1,5 +1,11 @@
 # Release notes
 
+## Unreleased
+
+### Added
+
+- Networking: the `Networking System` is exposing the boolean property `LocalPlayerId`. This read-only property returns the player ID (i.e. Photon's actor number) of the local player. Player ID is a unique identifier for the user in the current shard context.
+
 ## v10.1.0
 
 ### Added
