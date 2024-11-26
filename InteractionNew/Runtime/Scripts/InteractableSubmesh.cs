@@ -50,77 +50,115 @@ namespace Reflectis.SDK.InteractionNew
         private async Task<List<Collider>> SplitMeshAndCreateColliders(MeshRenderer meshRenderer)
         {
             Mesh originalMesh = meshRenderer.GetComponent<MeshFilter>().sharedMesh;
-            int[] triangles = originalMesh.triangles;
-            Vector3[] vertices = originalMesh.vertices;
-            Vector3[] normals = originalMesh.normals;
-            Vector2[] uvs = originalMesh.uv;
 
-            int triangleCount = triangles.Length / 3; // Total number of triangles in the mesh
-
-            // List to hold all submeshes
-            var subMeshes = new List<Mesh>();
-
-            // Temporary variables to construct the submeshes
-            List<int> submeshTriangles = new List<int>();
-            List<Vector3> submeshVertices = new List<Vector3>();
-            List<Vector3> submeshNormals = new List<Vector3>();
-            List<Vector2> submeshUVs = new List<Vector2>();
-
-            int currentTriangleIndex = 0;
 
             List<Collider> colliders = new List<Collider>();
 
-            while (currentTriangleIndex < triangleCount)
+            Debug.LogError("Original mesh triangles: " + originalMesh.triangles.Length);
+            if (originalMesh.triangles.Length <= MAX_TRIANGLES_PER_SUBMESH)
             {
-                submeshTriangles.Clear();
-                submeshVertices.Clear();
-                submeshNormals.Clear();
-                submeshUVs.Clear();
-
-                // Construct the submesh until the triangle threshold is reached
-                int trianglesAdded = 0;
-                while (trianglesAdded < MAX_TRIANGLES_PER_SUBMESH && currentTriangleIndex < triangleCount)
-                {
-                    for (int j = 0; j < 3; j++) // Adds the 3 indices of the current triangle
-                    {
-                        int triangleVertexIndex = triangles[currentTriangleIndex * 3 + j];
-                        submeshTriangles.Add(submeshVertices.Count); // New index for the submesh
-                        submeshVertices.Add(vertices[triangleVertexIndex]);
-                        submeshNormals.Add(normals[triangleVertexIndex]);
-                        // Check if the UV array exists and has enough entries
-                        if (uvs.Length > 0 && triangleVertexIndex < uvs.Length)
-                        {
-                            submeshUVs.Add(uvs[triangleVertexIndex]);
-                        }
-                        else
-                        {
-                            // Add a default UV coordinate if UVs are not present or are out of range
-                            submeshUVs.Add(Vector2.zero);
-                        }
-                    }
-
-                    trianglesAdded++;
-                    currentTriangleIndex++;
-                }
-
-                // Create the mesh for the submesh
-                Mesh submesh = new Mesh();
-                submesh.SetVertices(submeshVertices);
-                submesh.SetTriangles(submeshTriangles, 0);
-                submesh.SetNormals(submeshNormals);
-                submesh.SetUVs(0, submeshUVs);
-
-                // Add the submesh to the list
-                subMeshes.Add(submesh);
-
-                // Create the collider for the submesh (back to the main thread to interact with Unity)
                 MeshCollider submeshCollider = meshRenderer.gameObject.AddComponent<MeshCollider>();
                 submeshCollider.convex = false;  // If required, it can be set to true to simplify collisions
-                submeshCollider.sharedMesh = submesh;
+                submeshCollider.sharedMesh = originalMesh;
                 colliders.Add(submeshCollider);
                 await Task.Yield();
-
             }
+            else
+            {
+
+                var meshSimplifier = new UnityMeshSimplifier.MeshSimplifier();
+                meshSimplifier.Initialize(originalMesh);
+
+                // This is where the magic happens, lets simplify!
+                await meshSimplifier.SimplifyMesh((float)MAX_TRIANGLES_PER_SUBMESH / (float)originalMesh.triangles.Length);
+
+                Mesh simplifiedMesh = meshSimplifier.ToMesh();
+                Debug.LogError("Simplified mesh triangles: " + simplifiedMesh.triangles.Length, meshRenderer.gameObject);
+
+                meshRenderer.GetComponent<MeshFilter>().sharedMesh = simplifiedMesh;
+                //take into account max module for triangles = 2
+                if (simplifiedMesh.triangles.Length <= MAX_TRIANGLES_PER_SUBMESH + 2)
+                {
+                    MeshCollider submeshCollider = meshRenderer.gameObject.AddComponent<MeshCollider>();
+                    submeshCollider.convex = false;  // If required, it can be set to true to simplify collisions
+                    submeshCollider.sharedMesh = simplifiedMesh;
+                    colliders.Add(submeshCollider);
+                    await Task.Yield();
+                }
+                else
+                {
+                    int[] triangles = simplifiedMesh.triangles;
+                    Vector3[] vertices = simplifiedMesh.vertices;
+                    Vector3[] normals = simplifiedMesh.normals;
+                    Vector2[] uvs = simplifiedMesh.uv;
+
+                    int triangleCount = triangles.Length / 3; // Total number of triangles in the mesh
+
+
+                    // Temporary variables to construct the submeshes
+                    List<int> submeshTriangles = new List<int>();
+                    List<Vector3> submeshVertices = new List<Vector3>();
+                    List<Vector3> submeshNormals = new List<Vector3>();
+                    List<Vector2> submeshUVs = new List<Vector2>();
+
+                    int currentTriangleIndex = 0;
+
+                    // List to hold all submeshes
+                    var subMeshes = new List<Mesh>();
+                    while (currentTriangleIndex < triangleCount)
+                    {
+                        submeshTriangles.Clear();
+                        submeshVertices.Clear();
+                        submeshNormals.Clear();
+                        submeshUVs.Clear();
+
+                        // Construct the submesh until the triangle threshold is reached
+                        int trianglesAdded = 0;
+                        while (trianglesAdded < MAX_TRIANGLES_PER_SUBMESH && currentTriangleIndex < triangleCount)
+                        {
+                            for (int j = 0; j < 3; j++) // Adds the 3 indices of the current triangle
+                            {
+                                int triangleVertexIndex = triangles[currentTriangleIndex * 3 + j];
+                                submeshTriangles.Add(submeshVertices.Count); // New index for the submesh
+                                submeshVertices.Add(vertices[triangleVertexIndex]);
+                                submeshNormals.Add(normals[triangleVertexIndex]);
+                                // Check if the UV array exists and has enough entries
+                                if (uvs.Length > 0 && triangleVertexIndex < uvs.Length)
+                                {
+                                    submeshUVs.Add(uvs[triangleVertexIndex]);
+                                }
+                                else
+                                {
+                                    // Add a default UV coordinate if UVs are not present or are out of range
+                                    submeshUVs.Add(Vector2.zero);
+                                }
+                            }
+
+                            trianglesAdded++;
+                            currentTriangleIndex++;
+                        }
+
+                        // Create the mesh for the submesh
+                        Mesh submesh = new Mesh();
+                        submesh.SetVertices(submeshVertices);
+                        submesh.SetTriangles(submeshTriangles, 0);
+                        submesh.SetNormals(submeshNormals);
+                        submesh.SetUVs(0, submeshUVs);
+
+                        // Add the submesh to the list
+                        subMeshes.Add(submesh);
+
+                        // Create the collider for the submesh (back to the main thread to interact with Unity)
+                        MeshCollider submeshCollider = meshRenderer.gameObject.AddComponent<MeshCollider>();
+                        submeshCollider.convex = false;  // If required, it can be set to true to simplify collisions
+                        submeshCollider.sharedMesh = submesh;
+                        colliders.Add(submeshCollider);
+                        await Task.Yield();
+                    }
+                    Debug.LogError("Submeshes count: " + subMeshes.Count);
+                }
+            }
+
 
             //Debug.Log($"Mesh divided into {subMeshes.Count} submeshes.");
 
