@@ -4,6 +4,8 @@
 
 ### Added
 
+- New WebSocket module, with an interface system that allows to implement a custom socket communication.
+- New ChatBot module, with an interface system that allows to implement communication with AI services and implement a chatbot.
 - Networking: added a new bool field `isShardClosed` to ping method data (`IClientModelSystem.PingMyOnlinePresence`), online user presence classes (`CMOnlinePresence` and `OnlinePresenceDTO`)and shard data class (`CMShard`). These fields are used to implement shard closing: the flag is checked when Reflectis client has to detect if an event shard is joinable or a new one should be created and joined.
 - Networking: new `Networking System` module. This will be used to expose events and behaviours related to Photon's networking in the Reflectis context.
 - Networking: the `Networking System` is hosting the events `OtherPlayerJoinedShard` and `OtherPlayerLeftShard`, that can be used to detect players entering/leaving the Reflectis event where the local player is currently staying. These events have two integer parameters, respectively the User ID (from the Reflectis profile) and the actor number of the user that just entered/left the shard.
