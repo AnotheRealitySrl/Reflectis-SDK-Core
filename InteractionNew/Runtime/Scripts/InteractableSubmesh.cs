@@ -4,30 +4,31 @@ using UnityEngine;
 
 namespace Reflectis.SDK.InteractionNew
 {
+    [RequireComponent(typeof(MeshRenderer))]
     public class InteractableSubmesh : MonoBehaviour
     {
+        public const int MAX_TRIANGLES_PER_SUBMESH = 20000;
+
         private bool isSettingUpColliders = false;
 
         [SerializeField]
         private List<Collider> colliders;
         [SerializeField]
-        private MeshRenderer renderer;
-
+        private MeshRenderer meshRenderer;
         public List<Collider> Colliders { get => colliders; set => colliders = value; }
-        public MeshRenderer Renderer { get => renderer; set => renderer = value; }
+        public MeshRenderer MeshRenderer { get => meshRenderer; set => meshRenderer = value; }
 
-        public async Task SetupSubmeshColliders(int polygonThreshold)
+        public async Task SetupSubmeshColliders()
         {
             if (!isSettingUpColliders) // we have not setup the colliders yet
             {
                 isSettingUpColliders = true;
                 colliders = new List<Collider>();
-                var existingColliders = renderer.GetComponents<Collider>();
+                var existingColliders = meshRenderer.GetComponents<Collider>();
                 if (existingColliders == null || existingColliders.Length == 0)
                 {
-                    var colliders = await SplitMeshAndCreateColliders(renderer, polygonThreshold);
+                    var colliders = await SplitMeshAndCreateColliders(meshRenderer);
                     Colliders.AddRange(colliders);
-                    Renderer = renderer;
                 }
                 else
                 {
@@ -46,7 +47,7 @@ namespace Reflectis.SDK.InteractionNew
 
 
         // Function that splits the mesh and generates the colliders for each submesh
-        private async Task<List<Collider>> SplitMeshAndCreateColliders(MeshRenderer meshRenderer, int maxTrianglesPerSubmesh)
+        private async Task<List<Collider>> SplitMeshAndCreateColliders(MeshRenderer meshRenderer)
         {
             Mesh originalMesh = meshRenderer.GetComponent<MeshFilter>().sharedMesh;
             int[] triangles = originalMesh.triangles;
@@ -78,7 +79,7 @@ namespace Reflectis.SDK.InteractionNew
 
                 // Construct the submesh until the triangle threshold is reached
                 int trianglesAdded = 0;
-                while (trianglesAdded < maxTrianglesPerSubmesh && currentTriangleIndex < triangleCount)
+                while (trianglesAdded < MAX_TRIANGLES_PER_SUBMESH && currentTriangleIndex < triangleCount)
                 {
                     for (int j = 0; j < 3; j++) // Adds the 3 indices of the current triangle
                     {

@@ -1,9 +1,8 @@
 {
-    "name": "Reflectis.SDK.ClientModels",
-    "rootNamespace": "Reflectis.SDK.ClientModels",
+    "name": "Reflectis.SDK.WebSocket",
+    "rootNamespace": "Reflectis.SDK.WebSocket",
     "references": [
-        "GUID:ab59f74e483e1ee4595bfefea56493f2",
-        "GUID:a502502db8c019c4aaa00ebc94c89276"
+        "Reflectis.SDK.Core"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

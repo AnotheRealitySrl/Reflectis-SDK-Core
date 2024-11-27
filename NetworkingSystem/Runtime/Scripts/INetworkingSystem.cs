@@ -19,6 +19,11 @@ namespace Reflectis.SDK.NetworkingSystem
         /// Returns true if the shard where the local user currently is is open. 
         /// </summary>
         public bool IsCurrentShardOpen { get; }
+
+        /// <summary>
+        /// Returns the actor number of the local player.
+        /// </summary>
+        public int LocalPlayerId { get; }
         
         public void Setup();
 

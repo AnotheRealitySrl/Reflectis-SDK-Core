@@ -1,7 +1,7 @@
+using Reflectis.SDK.Utilities.Extensions;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -9,9 +9,23 @@ namespace Reflectis.SDK.Utilities
 {
     public static class ImageDownloader
     {
-        public static Dictionary<string, Texture2D> userIconCached = new Dictionary<string, Texture2D>();
+        private static Dictionary<string, Texture2D> imageCache = new Dictionary<string, Texture2D>();
 
-        public static void DownloadImage(string mediaUrl, Action<Texture2D> onCompletionCallback, Action onFailedCallback = null, string key = null)
+        public static async void DownloadImage(string mediaUrl, Action<Texture2D> onCompletionCallback, Action onFailedCallback = null, string key = null)
+        {
+            try
+            {
+                Texture2D texture = await DownloadImageAsync(mediaUrl, key);
+                onCompletionCallback(texture);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e.Message);
+                onFailedCallback();
+            }
+        }
+
+        public static async Task<Texture2D> DownloadImageAsync(string mediaUrl, string key = null)
         {
             if (string.IsNullOrEmpty(key))
             {
@@ -20,68 +34,49 @@ namespace Reflectis.SDK.Utilities
 
             if (string.IsNullOrEmpty(key))
             {
-                Debug.LogError("Trying to download an image with an empty url!");
-                return;
+                throw new Exception("Trying to download an image with an empty url!");
             }
-            if (userIconCached.TryGetValue(key, out Texture2D texture))
+            if (imageCache.TryGetValue(key, out Texture2D texture))
             {
+                //The image key is present in the dictionary return the value
                 if (texture != null)
                 {
-                    onCompletionCallback(texture);
+                    return texture;
+                }
+                // the image key is present but the download is not not completed yet
+                // wait for download completion
+                else
+                {
+                    while (!(!imageCache.ContainsKey(key) || (imageCache.TryGetValue(key, out texture) && texture != null)))
+                    {
+                        await Task.Yield();
+                    }
+                    if (!imageCache.ContainsKey(key))
+                    {
+                        throw new Exception("Failed to download image: " + key + ".");
+                    }
+                    return texture;
+                }
+            }
+            else
+            {
+                //Add image key to cache and start download
+                imageCache.Add(key, null);
+                UnityWebRequest request = UnityWebRequestTexture.GetTexture(mediaUrl);
+                await request.SendWebRequest();
+                if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
+                {
+                    imageCache.Remove(mediaUrl);
+                    throw new Exception("Failed to download image: " + mediaUrl + ". " + request.error);
                 }
                 else
                 {
-                    CoroutineRunner.Instance.StartCoroutine(WaitForTextureDownload(mediaUrl, onCompletionCallback, onFailedCallback, key));
+                    texture = ((DownloadHandlerTexture)request.downloadHandler).texture;
+                    imageCache[key] = texture;
+                    return texture;
                 }
             }
-            else
-            {
-                CoroutineRunner.Instance.StartCoroutine(DownloadImageCoroutine(mediaUrl, onCompletionCallback, onFailedCallback, key));
-            }
         }
 
-        public static IEnumerator DownloadImageCoroutine(string mediaUrl, Action<Texture2D> onCompletionCallback, Action onFailedCallback, string key)
-        {
-            if (string.IsNullOrEmpty(key))
-            {
-                key = mediaUrl;
-            }
-
-            userIconCached.Add(key, null);
-            UnityWebRequest request = UnityWebRequestTexture.GetTexture(mediaUrl);
-            yield return request.SendWebRequest();
-            if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
-            {
-                Debug.Log(request.error);
-                userIconCached.Remove(mediaUrl);
-                onFailedCallback?.Invoke();
-            }
-            else
-            {
-                onCompletionCallback(((DownloadHandlerTexture)request.downloadHandler).texture);
-                userIconCached[key] = ((DownloadHandlerTexture)request.downloadHandler).texture;
-            }
-        }
-
-        public static IEnumerator WaitForTextureDownload(string mediaUrl, Action<Texture2D> onCompletionCallback, Action onFailedCallback, string key)
-        {
-            if (string.IsNullOrEmpty(key))
-            {
-                key = mediaUrl;
-            }
-            Texture2D texture = null;
-            yield return new WaitUntil(() => !userIconCached.ContainsKey(key) || (userIconCached.TryGetValue(key, out texture) && texture != null));
-            if (!userIconCached.ContainsKey(key))
-            {
-                if (onFailedCallback != null)
-                {
-                    onFailedCallback();
-                }
-            }
-            else
-            {
-                onCompletionCallback(texture);
-            }
-        }
     }
 }

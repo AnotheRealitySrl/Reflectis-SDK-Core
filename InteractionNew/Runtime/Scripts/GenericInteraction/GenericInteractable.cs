@@ -5,8 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 using Unity.VisualScripting;
+
 using UnityEditor;
+
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -126,12 +129,12 @@ namespace Reflectis.SDK.InteractionNew
         {
             switch (SM.GetSystem<IPlatformSystem>().RuntimePlatform)
             {
-                case RuntimePlatform.WebGLPlayer:
+                case ESupportedPlatform.WebGL:
                     skipSelectState = !DesktopAllowedStates.HasFlag(EAllowedGenericInteractableState.Selected);
                     hasInteractState = DesktopAllowedStates.HasFlag(EAllowedGenericInteractableState.Interacting);
                     hasHoveredState = DesktopAllowedStates.HasFlag(EAllowedGenericInteractableState.Hovered);
                     break;
-                case RuntimePlatform.Android:
+                case ESupportedPlatform.VR:
                     skipSelectState = !VRAllowedStates.HasFlag(EAllowedGenericInteractableState.Selected);
                     hasInteractState = VRAllowedStates.HasFlag(EAllowedGenericInteractableState.Interacting);
                     hasHoveredState = VRAllowedStates.HasFlag(EAllowedGenericInteractableState.Hovered);
@@ -266,14 +269,17 @@ namespace Reflectis.SDK.InteractionNew
 
             await base.ExitInteractionState();
 
-            CurrentInteractionState = EGenericInteractableState.SelectExiting;
-
-            IEnumerable<Task> selectExitUnitsTasks = selectExitEventUnits.Select(async unit =>
+            if (!SkipSelectState)
             {
-                await unit.AwaitableTrigger(interactionScriptMachine.GetReference().AsReference(), this);
-            });
+                CurrentInteractionState = EGenericInteractableState.SelectExiting;
 
-            await Task.WhenAll(selectExitUnitsTasks);
+                IEnumerable<Task> selectExitUnitsTasks = selectExitEventUnits.Select(async unit =>
+                {
+                    await unit.AwaitableTrigger(interactionScriptMachine.GetReference().AsReference(), this);
+                });
+
+                await Task.WhenAll(selectExitUnitsTasks);
+            }
 
             CurrentInteractionState = EGenericInteractableState.Idle;
 

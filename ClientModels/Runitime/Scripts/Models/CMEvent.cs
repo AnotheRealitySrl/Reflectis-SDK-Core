@@ -43,7 +43,15 @@ namespace Reflectis.SDK.ClientModels
         public int WorldId { get => worldId; set => worldId = value; }
         public CMCategory? Category { get => category; set => category = value; }
         public CMCategory? SubCategory { get => subCategory; set => subCategory = value; }
+
+        /// <summary>
+        /// This DateTime is in local time
+        /// </summary>
         public DateTime StartDateTime { get => startDateTime; set => startDateTime = value; }
+
+        /// <summary>
+        /// This DateTime is in local time
+        /// </summary>
         public DateTime EndDateTime { get => endDateTime; set => endDateTime = value; }
         public List<CMUser> Participants { get => participants; set => participants = value; }
         public int MaxParticipants { get => maxParticipants; set => maxParticipants = value; }
@@ -63,7 +71,7 @@ namespace Reflectis.SDK.ClientModels
         {
             get
             {
-                bool onTime = (isOwner || (DateTime.UtcNow > StartDateTime.ToUniversalTime() && DateTime.UtcNow < EndDateTime.ToUniversalTime()));
+                bool onTime = isOwner || (DateTime.Now > StartDateTime && DateTime.Now < EndDateTime);
                 return staticEvent || (canJoin && onTime);
             }
 
