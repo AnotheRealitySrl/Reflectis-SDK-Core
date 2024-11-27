@@ -4,21 +4,21 @@
 
 ### Changed
 
-- Changed `RuntimePlatform` enum into `ESupportedPlatform` and specified android in VR
+- Changed `RuntimePlatform` enum into `ESupportedPlatform` and specified Android in VR.
 
 ### Added
 
-- Networking: the `Networking System` is exposing the boolean property `LocalPlayerId`. This read-only property returns the player ID (i.e. Photon's actor number) of the local player. Player ID is a unique identifier for the user in the current shard context.
 - New WebSocket module, with an interface system that allows to implement a custom socket communication.
 - New ChatBot module, with an interface system that allows to implement communication with AI services and implement a chatbot.
-- Added supported platform data to `CMEnvironment`
-- Submesh generation is now cached
-- Added `RenameAttribute` which can be used to rename inspector fields
-- Added awaitable `ImageDownloader` method
+- Networking: the `Networking System` is exposing the boolean property `LocalPlayerId`. This read-only property returns the player ID (i.e. Photon's actor number) of the local player. Player ID is a unique identifier for the user in the current shard context.
+- ClientModels: added supported platform data to `CMEnvironment`
+- Interaction: Submesh generation in explodable objects is now cached, to reduce computational load.
+- Utilities: added `RenameAttribute` which can be used to rename inspector fields.
+- Utilities: added awaitable `DownloadImageAsync` method in `ImageDownlaoder` utility script.
 
 ### Removed
 
-- Avatar: removed `OnBeforeIstantiation` callback, changed AvatarData structure to include prefab.
+- Avatar: removed `OnBeforeIstantiation` callback, changed `AvatarData` structure to include prefab.
 
 ## v10.1.0
 
