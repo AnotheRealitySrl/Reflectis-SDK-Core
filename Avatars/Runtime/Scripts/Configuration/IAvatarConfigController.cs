@@ -23,11 +23,6 @@ namespace Reflectis.SDK.Avatars
         public IAvatarConfig AvatarConfig { get; }
 
         /// <summary>
-        /// Event called before istantiating the avatar
-        /// </summary>
-        public UnityEvent OnBeforeInstantiation { get; }
-
-        /// <summary>
         /// Event called after istantiating the avatar with the new avatar as parameter
         /// </summary>
         public UnityEvent<GameObject> OnAvatarIstantiated { get; }
