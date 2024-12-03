@@ -11,6 +11,7 @@ namespace Reflectis.SDK.ApplicationManagement
         bool IsNetworkMaster { get; }
 
         void InitializeObject(UnityEngine.Object reflectisObject);
+        Task LoadDefaultEvent();
         Task LoadEvent(CMEvent ev, CMShard shard = null, bool updateHistory = true, bool recoverFromDisconnection = false);
     }
 
