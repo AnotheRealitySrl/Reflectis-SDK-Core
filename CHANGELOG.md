@@ -1,5 +1,11 @@
 # Release notes
 
+## v11.1.0
+
+###Added
+
+- Platform: added signature for `LoadDefaultEvent` method in `IReflectisApplicationManager`.
+
 ## v11.0.0
 
 ### Changed
