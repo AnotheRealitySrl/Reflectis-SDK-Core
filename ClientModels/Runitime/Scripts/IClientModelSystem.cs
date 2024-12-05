@@ -68,6 +68,8 @@ namespace Reflectis.SDK.ClientModels
 
         Task<CMWorld> GetWorld(int worldId);
 
+        Task<CMWorldConfig> GetWorldConfig(int id);
+
         Task<List<CMCatalog>> GetWorldCatalogs(int worldId);
 
         #endregion

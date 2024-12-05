@@ -13,12 +13,17 @@ namespace Reflectis.SDK.ClientModels
         [SerializeField] private string thumbnailUri;
         [SerializeField] private bool enabled;
         [SerializeField] private bool multiplayer;
+        [SerializeField] private CMWorldConfig config;
+
+        private bool ccuReached = false;
 
         public int Id { get => id; set => id = value; }
         public string Label { get => label; set => label = value; }
         public string Description { get => description; set => description = value; }
         public string ThumbnailUri { get => thumbnailUri; set => thumbnailUri = value; }
         public bool Enabled { get => enabled; set => enabled = value; }
-        public bool Multiplayer { get => multiplayer; set => multiplayer = value; }
+        public bool Multiplayer { get => multiplayer && !CcuReached; set => multiplayer = value; }
+        public CMWorldConfig Config { get => config; set => config = value; }
+        public bool CcuReached { get => ccuReached; set => ccuReached = value; }
     }
 }
