@@ -367,7 +367,8 @@ namespace Reflectis.SDK.ClientModels
 
         #region Online presence
         UnityEvent OnlineUsersUpdated { get; }
-        Task<List<CMOnlinePresence>> GetOnlineUsers(bool forceRefresh = false);
+        Task<List<CMOnlinePresence>> ForceOnlineUsersRefresh();
+        List<CMOnlinePresence> GetOnlineUsers();
         CMOnlinePresence GetOnlineUser(int userId);
         bool IsOnlineUser(int userId);
         Task<EPingStatus> PingMyOnlinePresence(int? worldId, int? eventId, int? shardId, bool? isShardClosed);
