@@ -1,5 +1,5 @@
 using Reflectis.SDK.Core;
-
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -61,6 +61,8 @@ namespace Reflectis.SDK.ClientModels
 
         #region Worlds
 
+        public Action onWorldListUpdate { get; set; }
+
         /// <summary>
         /// Returns all the available worlds
         /// </summary>
@@ -72,6 +74,9 @@ namespace Reflectis.SDK.ClientModels
 
         Task<List<CMCatalog>> GetWorldCatalogs(int worldId);
 
+        Task<List<CMWorld>> RefreshWorldCCUs(bool startRefreshing);
+
+        Task<List<CMWorld>> GetWorldCCUs(bool forceRefresh);
         #endregion
 
         #region Events
