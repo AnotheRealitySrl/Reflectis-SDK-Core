@@ -15,7 +15,9 @@ namespace Reflectis.SDK.ObjectSpawner
             BigScreen,
             DrawableBoard,
             Drawing,
-            VideoChat
+            VideoChat,
+            POI_ImageTextHorizontal,
+            POI_ImageMultiple,
         }
 
         GameObject InstantiateLocalObject(GameObject gameObject, object[] data = null, SpawnPosition spawnableData = null);
