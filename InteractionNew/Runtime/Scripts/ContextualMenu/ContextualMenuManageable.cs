@@ -116,25 +116,48 @@ namespace Reflectis.SDK.InteractionNew
 
         public override async Task Setup()
         {
+            OnContextualMenuButtonSelected[EContextualMenuOption.Delete] = AskForDelete;
+
             if (ContextualMenuOptions.HasFlag(EContextualMenuOption.ColorPicker))
             {
-                //I am not sure that setting this up now is correct since the interactable setup network is not initialized yet
-                await SM.GetSystem<IColorPickerSystem>().AssignColorPicker(gameObject, IsNetworked);
+                if (TryGetComponent(out IColorPicker colorPicker))
+                {
+                    await colorPicker.Setup();
+                }
+                else
+                {
+                    Debug.LogError("Trying to setup color picker on object with no color picker!", gameObject);
+                }
             }
 
             if (ContextualMenuOptions.HasFlag(EContextualMenuOption.Explodable))
             {
-                //I am not sure that setting this up now is correct since the interactable setup network is not initialized yet
-                await SM.GetSystem<IModelExploderSystem>().AssignModelExploder(gameObject, IsNetworked);
+
+                if (TryGetComponent(out IModelExploder modelExploder))
+                {
+                    await modelExploder.Setup();
+                }
+                else
+                {
+                    Debug.LogError("Trying to setup model exploder on object with no model exploder!", gameObject);
+                }
             }
 
             if (ContextualMenuOptions.HasFlag(EContextualMenuOption.LockTransform))
             {
-                await SM.GetSystem<ILockObjectSystem>().SetupLockObject(gameObject, IsNetworked);
+                if (TryGetComponent(out ILockObject objectLocker))
+                {
+                    objectLocker.Setup();
+                    if (TryGetComponent(out ILockObjectNetwork networkLock))
+                    {
+                        await networkLock.Setup();
+                    }
+                }
+                else
+                {
+                    Debug.LogError("Trying to setup object locker on object with no objectLocker!", gameObject);
+                }
             }
-
-            OnContextualMenuButtonSelected[EContextualMenuOption.Delete] = AskForDelete;
-
         }
 
 
