@@ -126,7 +126,7 @@ namespace Reflectis.SDK.InteractionNew
                 }
                 else
                 {
-                    Debug.LogError("Trying to setup color picker on object with no color picker!", gameObject);
+                    await SM.GetSystem<IColorPickerSystem>().AssignColorPicker(gameObject, IsNetworked);
                 }
             }
 
@@ -139,7 +139,7 @@ namespace Reflectis.SDK.InteractionNew
                 }
                 else
                 {
-                    Debug.LogError("Trying to setup model exploder on object with no model exploder!", gameObject);
+                    await SM.GetSystem<IModelExploderSystem>().AssignModelExploder(gameObject, IsNetworked);
                 }
             }
 
@@ -155,7 +155,7 @@ namespace Reflectis.SDK.InteractionNew
                 }
                 else
                 {
-                    Debug.LogError("Trying to setup object locker on object with no objectLocker!", gameObject);
+                    await SM.GetSystem<ILockObjectSystem>().SetupLockObject(gameObject, IsNetworked);
                 }
             }
         }
