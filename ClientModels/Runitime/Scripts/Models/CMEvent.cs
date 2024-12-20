@@ -29,7 +29,7 @@ namespace Reflectis.SDK.ClientModels
         [SerializeField] private List<CMResource> resources;
         [SerializeField] private string shortLink;
         [SerializeField] private bool multiplayer;
-        [SerializeField] private string template;
+        [SerializeField] private object template;
         [SerializeField] private bool isFavorite;
         [SerializeField] private bool canJoin;
         [SerializeField] private bool canVisualize;
@@ -65,7 +65,7 @@ namespace Reflectis.SDK.ClientModels
         public List<CMResource> Resources { get => resources; set => resources = value; }
         public string ShortLink { get => shortLink; set => shortLink = value; }
         public bool Multiplayer { get => multiplayer; set => multiplayer = value; }
-        public string Template { get => template; set => template = value; }
+        public object Template { get => template; set => template = value; }
         public bool IsFavorite { get => isFavorite; set => isFavorite = value; }
         public bool CanJoin
         {
