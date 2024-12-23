@@ -8,5 +8,4 @@ public interface IModelExploderSystem : ISystem
 {
     Task AssignModelExploder(GameObject obj, bool networkedContext = true);
 
-    void AssignSavedExplosionToModelExploder(float explosionValue, int explosionType, GameObject obj);
 }
