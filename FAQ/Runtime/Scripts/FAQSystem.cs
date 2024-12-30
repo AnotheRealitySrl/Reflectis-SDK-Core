@@ -1,7 +1,9 @@
 using Reflectis.SDK.Core;
-using Reflectis.SDK.Utilities.API;
+using Reflectis.SDK.Http;
+
 using System.Linq;
 using System.Threading.Tasks;
+
 using UnityEngine;
 
 namespace Reflectis.SDK.FAQ
