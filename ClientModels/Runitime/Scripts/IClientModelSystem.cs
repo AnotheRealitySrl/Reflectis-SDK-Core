@@ -61,7 +61,7 @@ namespace Reflectis.SDK.ClientModels
 
         #region Worlds
 
-        public Action onWorldListUpdate { get; set; }
+        public Action<List<CMWorldCCU>> onWorldListUpdate { get; set; }
 
         /// <summary>
         /// Returns all the available worlds
@@ -74,9 +74,7 @@ namespace Reflectis.SDK.ClientModels
 
         Task<List<CMCatalog>> GetWorldCatalogs(int worldId);
 
-        Task<List<CMWorld>> RefreshWorldCCUs(bool startRefreshing);
-
-        Task<List<CMWorld>> GetWorldCCUs(bool forceRefresh);
+        Task ConnectToWorldCCU();
         #endregion
 
         #region Events
@@ -401,6 +399,7 @@ namespace Reflectis.SDK.ClientModels
         /// Retrieves the current shards of an event.
         /// </summary>
         List<CMShard> GetCachedEventShards(int eventId);
+
 
         #endregion
     }

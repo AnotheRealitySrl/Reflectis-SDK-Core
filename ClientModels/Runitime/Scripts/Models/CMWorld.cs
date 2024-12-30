@@ -13,7 +13,6 @@ namespace Reflectis.SDK.ClientModels
         [SerializeField] private string thumbnailUri;
         [SerializeField] private bool enabled;
         [SerializeField] private bool multiplayer;
-        [SerializeField] private int currentCCUCount;
         [SerializeField] private int maxCCU;
         [SerializeField] private CMWorldConfig config;
 
@@ -23,7 +22,6 @@ namespace Reflectis.SDK.ClientModels
         public string ThumbnailUri { get => thumbnailUri; set => thumbnailUri = value; }
         public bool Enabled { get => enabled; set => enabled = value; }
         public bool Multiplayer { get => multiplayer; set => multiplayer = value; }
-        public int CurrentCCUCount { get => currentCCUCount; set => currentCCUCount = value; }
         public CMWorldConfig Config { get => config; set => config = value; }
         public int MaxCCU { get => maxCCU; set => maxCCU = value; }
     }

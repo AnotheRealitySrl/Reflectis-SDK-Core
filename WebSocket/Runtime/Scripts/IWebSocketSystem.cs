@@ -11,5 +11,7 @@ namespace Reflectis.SDK.WebSocket
     {
         Task ConnectAsync(string url, Dictionary<string, string> queryParams, IWebSocketListener webSocketListener);
         Task DisconnectAsync(string url);
+        public Task SendMessageAsync(string url, string message);
+
     }
 }
