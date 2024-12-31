@@ -1,6 +1,6 @@
 {
-    "name": "Reflectis.SDK.ClientModels",
-    "rootNamespace": "Reflectis.SDK.ClientModels",
+    "name": "Reflectis.ClientModels",
+    "rootNamespace": "Reflectis.ClientModels",
     "references": [
         "GUID:ab59f74e483e1ee4595bfefea56493f2",
         "GUID:a502502db8c019c4aaa00ebc94c89276"

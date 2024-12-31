@@ -3,7 +3,7 @@
     "rootNamespace": "",
     "references": [
         "Reflectis.SDK.Utilities",
-        "Reflectis.SDK.ClientModels"
+        "Reflectis.ClientModels"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

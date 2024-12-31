@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 using UnityEngine.Events;
 
-using static Reflectis.SDK.ClientModels.CMPermission;
+using static Reflectis.ClientModels.CMPermission;
 
-namespace Reflectis.SDK.ClientModels
+namespace Reflectis.ClientModels
 {
     public enum FileTypeExt
     {
