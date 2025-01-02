@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Reflectis.SDK.ClientModels
+namespace Reflectis.ClientModels
 {
     public class CMWorldConfig : MonoBehaviour
     {
