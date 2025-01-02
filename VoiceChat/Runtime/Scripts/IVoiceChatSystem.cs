@@ -10,6 +10,8 @@ namespace Reflectis.SDK.VoiceChat
     /// </summary>
     public interface IVoiceChatSystem : ISystem
     {
+        bool IsConnected { get; }
+
         CommunicationChannel CurrentChannel { get; }
         string AppId { get; }
         byte PHOTON_GLOBAL_CHANNEL { get; }

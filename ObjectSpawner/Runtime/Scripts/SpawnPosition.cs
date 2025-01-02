@@ -9,6 +9,8 @@ namespace Reflectis.SDK.ObjectSpawner
         [SerializeField]
         private int fovAngle = 90;
         [SerializeField]
+        private int maxFov = 180;
+        [SerializeField]
         private int rayCount = 2;
         [SerializeField]
         private float viewDistance = 50f;
@@ -25,5 +27,6 @@ namespace Reflectis.SDK.ObjectSpawner
         public float StartingAngle { get => startingAngle; }
         public Vector3 OriginOffset { get => originOffset; }
         public LayerMask LayerMask { get => layerMask; }
+        public int MaxFov { get => maxFov; set => maxFov = value; }
     }
 }

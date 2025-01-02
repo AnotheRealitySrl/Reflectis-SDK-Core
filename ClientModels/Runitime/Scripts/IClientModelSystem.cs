@@ -1,5 +1,5 @@
 using Reflectis.SDK.Core;
-
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -61,6 +61,8 @@ namespace Reflectis.SDK.ClientModels
 
         #region Worlds
 
+        public Action<List<CMWorldCCU>> onWorldListUpdate { get; set; }
+
         /// <summary>
         /// Returns all the available worlds
         /// </summary>
@@ -68,8 +70,11 @@ namespace Reflectis.SDK.ClientModels
 
         Task<CMWorld> GetWorld(int worldId);
 
+        Task<CMWorldConfig> GetWorldConfig(int id);
+
         Task<List<CMCatalog>> GetWorldCatalogs(int worldId);
 
+        Task ConnectToWorldCCU();
         #endregion
 
         #region Events
@@ -365,10 +370,11 @@ namespace Reflectis.SDK.ClientModels
 
         #region Online presence
         UnityEvent OnlineUsersUpdated { get; }
-        Task<List<CMOnlinePresence>> GetOnlineUsers(bool forceRefresh = false);
+        Task<List<CMOnlinePresence>> ForceOnlineUsersRefresh();
+        List<CMOnlinePresence> GetOnlineUsers();
         CMOnlinePresence GetOnlineUser(int userId);
         bool IsOnlineUser(int userId);
-        Task<EPingStatus> PingMyOnlinePresence(int? worldId, int? eventId, int? shardId, bool? isShardClosed);
+        Task<EPingStatus> PingMyOnlinePresence(int? worldId, int? eventId, int? shardId, bool? isShardClosed, bool isMultiplayer);
 
         Task<List<CMOnlinePresence>> GetUsersInEvent(int eventId, bool forceRefresh = true);
 
@@ -393,6 +399,7 @@ namespace Reflectis.SDK.ClientModels
         /// Retrieves the current shards of an event.
         /// </summary>
         List<CMShard> GetCachedEventShards(int eventId);
+
 
         #endregion
     }
