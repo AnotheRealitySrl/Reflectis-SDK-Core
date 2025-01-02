@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Reflectis.SDK.ClientModels
+namespace Reflectis.ClientModels
 {
     [Serializable]
     public class CMUser

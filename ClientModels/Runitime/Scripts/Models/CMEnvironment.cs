@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Reflectis.SDK.ClientModels
+namespace Reflectis.ClientModels
 {
     [Serializable]
     public class CMEnvironment
