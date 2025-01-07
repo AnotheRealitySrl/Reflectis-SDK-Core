@@ -9,13 +9,9 @@ namespace Reflectis.SDK.WebSocket
     {
         public Action onClose;
 
-        public Action onOpen;
-
         public Action<string> onMessageReceived;
 
         public Action<string> onError;
-
-        public Action<string> onOpeningError;
 
         public void OnWebSocketClose()
         {
@@ -30,16 +26,6 @@ namespace Reflectis.SDK.WebSocket
         public void OnWebSocketMessageReceived(string data)
         {
             onMessageReceived?.Invoke(data);
-        }
-
-        public void OnWebSocketOpen()
-        {
-            onOpen?.Invoke();
-        }
-
-        public void OnWebSocketOpeningError(string error)
-        {
-            onOpeningError?.Invoke(error);
         }
     }
 }

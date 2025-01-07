@@ -76,6 +76,8 @@ namespace Reflectis.ClientModels
         Task<List<CMCatalog>> GetWorldCatalogs(int worldId);
 
         Task ConnectToWorldCCU();
+
+        Task DisconnectFromWorldCCU();
         #endregion
 
         #region Events
