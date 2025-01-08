@@ -3,21 +3,18 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-using UnityEngine.Events;
-
 namespace Reflectis.SDK.WebSocket
 {
     public interface IWebSocketSystem : ISystem
     {
         /// <summary>
-        /// Connect to a webSocket
+        /// Connect to a webSocket, returns false if the connection failed
         /// </summary>
         /// <param name="url"></param>
         /// <param name="queryParams"></param>
-        /// <param name="onWebSocketOpen"></param>
         /// <param name="onWebSocketOpenError">if there was an error while opening the websocket call the action with the error message param</param>
         /// <returns></returns>
-        Task ConnectAsync(string url, Dictionary<string, string> queryParams, Action onWebSocketOpen = null, Action<string> onWebSocketOpenError = null);
+        Task<bool> ConnectAsync(string url, Dictionary<string, string> queryParams, Action<string> onWebSocketOpenError = null);
 
         /// <summary>
         /// Add listener to the webSocket
