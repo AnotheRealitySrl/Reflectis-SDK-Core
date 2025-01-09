@@ -1,16 +1,19 @@
-public interface IVideoChatController
+namespace Reflectis.SDK.Core.VideoChat
 {
-    public enum EVideoChatType
+    public interface IVideoChatController
     {
-        Webcam,
-        ScreenShare
+        public enum EVideoChatType
+        {
+            Webcam,
+            ScreenShare
+        }
+
+        uint UserId { get; }
+        public EVideoChatType VideoChatType { get; }
+        uint ScreenShareId { get; }
+        bool AmStreamer { get; }
+        int StreamerId { get; }
+
+        void Destroy();
     }
-
-    uint UserId { get; }
-    public EVideoChatType VideoChatType { get; }
-    uint ScreenShareId { get; }
-    bool AmStreamer { get; }
-    int StreamerId { get; }
-
-    void Destroy();
 }

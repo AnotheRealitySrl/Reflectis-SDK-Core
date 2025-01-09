@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Reflectis.SDK.Diagnostics
+namespace Reflectis.SDK.Core.Diagnostics
 {
     public interface
 

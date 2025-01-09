@@ -8,7 +8,7 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 
 
-namespace Reflectis.SDK.Fade
+namespace Reflectis.SDK.Core.Fade
 {
     public class CanvasFadeManager : MonoBehaviour, IFadeManager
     {

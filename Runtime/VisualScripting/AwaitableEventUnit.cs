@@ -1,61 +1,66 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+
 using Unity.VisualScripting;
+
 using UnityEngine;
 
-public abstract class AwaitableEventUnit<T> : EventUnit<T>
+namespace Reflectis.SDK.Core.VisualScripting
 {
-    protected override bool register => true;
-
-    protected List<Flow> runningFlows = new List<Flow>();
-
-    public async Task AwaitableTrigger(GraphReference reference, T args)
+    public abstract class AwaitableEventUnit<T> : EventUnit<T>
     {
-        var flow = Flow.New(reference);
+        protected override bool register => true;
 
-        if (!ShouldTrigger(flow, args))
+        protected List<Flow> runningFlows = new List<Flow>();
+
+        public async Task AwaitableTrigger(GraphReference reference, T args)
         {
-            flow.Dispose();
-            return;
+            var flow = Flow.New(reference);
+
+            if (!ShouldTrigger(flow, args))
+            {
+                flow.Dispose();
+                return;
+            }
+
+            AssignArguments(flow, args);
+
+            Run(flow);
+
+            while (runningFlows.Contains(flow))
+            {
+                await Task.Yield();
+            }
         }
 
-        AssignArguments(flow, args);
 
-        Run(flow);
-
-        while (runningFlows.Contains(flow))
+        private void Run(Flow flow)
         {
-            await Task.Yield();
+            if (flow.enableDebug)
+            {
+                var editorData = flow.stack.GetElementDebugData<IUnitDebugData>(this);
+
+                editorData.lastInvokeFrame = EditorTimeBinding.frame;
+                editorData.lastInvokeTime = EditorTimeBinding.time;
+            }
+
+            if (coroutine)
+            {
+                runningFlows.Add(flow);
+                Reflectis.SDK.Utilities.CoroutineRunner.Instance.StartCoroutine(TriggerState(flow));
+                flow.StartCoroutine(trigger, flow.stack.GetElementData<Data>(this).activeCoroutines);
+            }
+            else
+            {
+                flow.Run(trigger);
+            }
         }
-    }
 
-
-    private void Run(Flow flow)
-    {
-        if (flow.enableDebug)
+        private IEnumerator TriggerState(Flow flow)
         {
-            var editorData = flow.stack.GetElementDebugData<IUnitDebugData>(this);
-
-            editorData.lastInvokeFrame = EditorTimeBinding.frame;
-            editorData.lastInvokeTime = EditorTimeBinding.time;
+            yield return new WaitUntil(() => { return flow.stack == null; });
+            runningFlows.Remove(flow);
         }
-
-        if (coroutine)
-        {
-            runningFlows.Add(flow);
-            Reflectis.SDK.Utilities.CoroutineRunner.Instance.StartCoroutine(TriggerState(flow));
-            flow.StartCoroutine(trigger, flow.stack.GetElementData<Data>(this).activeCoroutines);
-        }
-        else
-        {
-            flow.Run(trigger);
-        }
-    }
-
-    private IEnumerator TriggerState(Flow flow)
-    {
-        yield return new WaitUntil(() => { return flow.stack == null; });
-        runningFlows.Remove(flow);
     }
 }

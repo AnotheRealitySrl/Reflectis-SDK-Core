@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Reflectis.SDK.Avatars
+namespace Reflectis.SDK.Core.Avatars
 {
     /// <summary>
     /// Abstract class that represents an avatar loader

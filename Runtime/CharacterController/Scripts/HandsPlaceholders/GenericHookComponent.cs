@@ -5,7 +5,7 @@ using System.Linq;
 
 using UnityEngine;
 
-namespace Reflectis.SDK.CharacterController
+namespace Reflectis.SDK.Core.CharacterController
 {
     /// <summary>
     /// This script should be atached to some child nodes of a character, in order to identify them

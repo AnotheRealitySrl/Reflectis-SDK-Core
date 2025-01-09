@@ -1,10 +1,9 @@
-using Reflectis.SDK.Core;
 using System;
 using System.Collections.Generic;
 
 using UnityEngine;
 
-namespace Reflectis.SDK.Fade
+namespace Reflectis.SDK.Core.Fade
 {
     /// <summary>
     /// The Fade System manages fade in and fade out of what camera sees.

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Reflectis.SDK.Transitions
+namespace Reflectis.SDK.Core.Transitions
 {
     public class MultipleTransitionProvider : AbstractTransitionProvider
     {
@@ -25,7 +25,7 @@ namespace Reflectis.SDK.Transitions
         {
             onEnterTransitionStart?.Invoke();
 
-            switch(syncronizationMethod)
+            switch (syncronizationMethod)
             {
                 case SyncronizationMethod.Syncronous:
                     await EnterAllTransitionsSyncronously();
@@ -39,7 +39,7 @@ namespace Reflectis.SDK.Transitions
 
         private async Task EnterAllTransitionsAsyncronously()
         {
-            foreach(AbstractTransitionProvider provider in providers)
+            foreach (AbstractTransitionProvider provider in providers)
             {
                 await provider.DoTransitionAsync(true);
             }

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
-namespace Reflectis.SDK.Avatars
+namespace Reflectis.SDK.Core.Avatars
 {
     /// <summary>
     /// Manages the configuration of an avatar (body, skin, hair, ecc...) 

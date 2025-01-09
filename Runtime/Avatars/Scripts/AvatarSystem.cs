@@ -1,13 +1,12 @@
+using Reflectis.SDK.Core.CharacterController;
 
-using Reflectis.SDK.CharacterController;
-using Reflectis.SDK.Core;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Reflectis.SDK.Avatars
+namespace Reflectis.SDK.Core.Avatars
 {
     [CreateAssetMenu(menuName = "Reflectis/SDK-Avatars/AvatarSystem", fileName = "AvatarSystemConfig")]
     public class AvatarSystem : BaseSystem, IAvatarSystem

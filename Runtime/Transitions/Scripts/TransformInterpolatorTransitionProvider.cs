@@ -2,7 +2,7 @@ using Reflectis.SDK.Utilities;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Reflectis.SDK.Transitions
+namespace Reflectis.SDK.Core.Transitions
 {
     public class TransformInterpolatorTransitionProvider : AbstractTransitionProvider
     {

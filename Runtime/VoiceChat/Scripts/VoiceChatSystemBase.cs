@@ -1,10 +1,8 @@
-using Reflectis.SDK.Core;
-
 using System;
 
 using UnityEngine;
 
-namespace Reflectis.SDK.VoiceChat
+namespace Reflectis.SDK.Core.VoiceChat
 {
     /// <summary>
     /// Abstract class based on of <see cref="IVoiceChatSystem"/>

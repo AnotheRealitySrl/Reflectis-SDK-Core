@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 using UnityEngine;
 
-namespace Reflectis.SDK.Transitions
+namespace Reflectis.SDK.Core.Transitions
 {
     /// <summary>
     /// Transition provider that operates on the alpha value of a canvas group

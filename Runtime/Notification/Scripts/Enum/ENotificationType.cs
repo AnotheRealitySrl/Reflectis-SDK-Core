@@ -1,4 +1,8 @@
-public enum ENotificationType
+
+namespace Reflectis.SDK.Core.Notification
 {
-    Text, Invitation
+    public enum ENotificationType
+    {
+        Text, Invitation
+    }
 }

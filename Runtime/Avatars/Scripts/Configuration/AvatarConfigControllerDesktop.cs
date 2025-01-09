@@ -1,8 +1,8 @@
-using Reflectis.SDK.CharacterController;
-using Reflectis.SDK.Core;
+using Reflectis.SDK.Core.CharacterController;
+
 using UnityEngine;
 
-namespace Reflectis.SDK.Avatars
+namespace Reflectis.SDK.Core.Avatars
 {
     public class AvatarConfigControllerDesktop : AvatarConfigControllerBase
     {

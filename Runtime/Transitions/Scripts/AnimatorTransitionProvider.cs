@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 using UnityEngine;
 
-namespace Reflectis.SDK.Transitions
+namespace Reflectis.SDK.Core.Transitions
 {
     /// <summary>
     /// Transition provider that operates on a bool parameter of an animator controller

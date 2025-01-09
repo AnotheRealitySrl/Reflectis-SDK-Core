@@ -1,9 +1,8 @@
-using Reflectis.SDK.Core;
-
 using System;
+
 using UnityEngine;
 
-namespace Reflectis.SDK.VoiceChat
+namespace Reflectis.SDK.Core.VoiceChat
 {
     /// <summary>
     /// Manages the voice (and potentially video, but not yet implemented) communication among players

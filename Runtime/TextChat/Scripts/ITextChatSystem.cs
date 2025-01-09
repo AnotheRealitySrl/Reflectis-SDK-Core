@@ -1,7 +1,7 @@
 using Reflectis.SDK.Core;
 using System;
 
-namespace Reflectis.SDK.TextChat
+namespace Reflectis.SDK.Core.TextChat
 {
     /// <summary>
     /// Manages the text communication among players.

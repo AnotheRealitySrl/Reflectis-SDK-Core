@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Reflectis.SDK.Transitions
+namespace Reflectis.SDK.Core.Transitions
 {
     public abstract class AbstractInterpolatorFloatTransitionProvider : AbstractTransitionProvider
     {

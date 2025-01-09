@@ -1,7 +1,7 @@
 using System;
 using System.Text;
 
-namespace Reflectis.SDK.TextChat
+namespace Reflectis.SDK.Core.TextChat
 {
     [Serializable]
     public class ChatMessage

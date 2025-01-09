@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Reflectis.SDK.TextChat
+namespace Reflectis.SDK.Core.TextChat
 {
     public class ChatRoom
     {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Reflectis.SDK.Avatars
+namespace Reflectis.SDK.Core.Avatars
 {
     public enum AvatarGender
     {

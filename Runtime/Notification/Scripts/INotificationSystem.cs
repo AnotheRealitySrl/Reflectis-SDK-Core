@@ -1,8 +1,7 @@
-using Reflectis.SDK.Core;
 using System;
 using System.Collections.Generic;
 
-namespace Reflectis.SDK.Notification
+namespace Reflectis.SDK.Core.Notification
 {
     public interface INotificationSystem : ISystem
     {

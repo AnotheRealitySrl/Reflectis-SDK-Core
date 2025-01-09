@@ -1,12 +1,12 @@
-using Reflectis.SDK.CharacterController;
-using Reflectis.SDK.Core;
-using System.Collections;
+using Reflectis.SDK.Core.CharacterController;
+
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+
 using UnityEngine;
 
-namespace Reflectis.SDK.Avatars
+namespace Reflectis.SDK.Core.Avatars
 {
     public class VRAvatarController : ParentConstraintAvatarController
     {
@@ -56,7 +56,7 @@ namespace Reflectis.SDK.Avatars
 
             AvatarSystem avatarSystem = SM.GetSystem<AvatarSystem>();
 
-            if(avatarSystem.AvatarInstance == this)
+            if (avatarSystem.AvatarInstance == this)
             {
                 SetupAvatar(gameObject);
 

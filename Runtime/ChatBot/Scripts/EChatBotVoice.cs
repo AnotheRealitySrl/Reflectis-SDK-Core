@@ -1,4 +1,4 @@
-namespace Reflectis.SDK.ChatBot
+namespace Reflectis.SDK.Core.ChatBot
 {
     public enum EChatBotVoice
     {

@@ -1,10 +1,8 @@
-using Reflectis.SDK.Core;
-
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Events;
 
-namespace Reflectis.SDK.Audio
+namespace Reflectis.SDK.Core.Audio
 {
     [CreateAssetMenu(menuName = "Reflectis/SDK-Audio/AudioSystem", fileName = "AudioSystemConfig")]
     public class AudioSystem : BaseSystem

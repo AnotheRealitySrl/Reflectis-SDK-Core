@@ -1,4 +1,4 @@
-namespace Reflectis.SDK.ObjectSpawner
+namespace Reflectis.ObjectSpawner
 {
     public interface ISpawnedObjectCallback
     {

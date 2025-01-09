@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 
 using UnityEngine;
 
-namespace Reflectis.SDK.CharacterController
+namespace Reflectis.SDK.Core.CharacterController
 {
     /// <summary>
     /// Base implementation of <see cref="ICharacter"/>. It only exposes the properties defined in the interface.

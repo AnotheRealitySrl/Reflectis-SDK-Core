@@ -1,8 +1,10 @@
 using Reflectis.SDK.Core;
+
 using System.Threading.Tasks;
+
 using UnityEngine;
 
-namespace Reflectis.SDK.ObjectSpawner
+namespace Reflectis.ObjectSpawner
 {
     public interface IObjectSpawnerSystem : ISystem
     {

@@ -2,7 +2,7 @@ using System;
 
 using System.Threading.Tasks;
 
-namespace Reflectis.SDK.WebSocket
+namespace Reflectis.SDK.Core.WebSocket
 {
     public interface IWebSocketListener
     {

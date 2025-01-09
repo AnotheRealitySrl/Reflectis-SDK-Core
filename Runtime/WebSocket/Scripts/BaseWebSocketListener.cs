@@ -1,9 +1,6 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
-namespace Reflectis.SDK.WebSocket
+namespace Reflectis.SDK.Core.WebSocket
 {
     public class BaseWebSocketListener : IWebSocketListener
     {

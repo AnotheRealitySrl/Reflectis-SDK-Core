@@ -2,7 +2,7 @@
 
 using UnityEngine;
 
-namespace Reflectis.SDK.Transitions
+namespace Reflectis.SDK.Core.Transitions
 {
     /// <summary>
     /// Fake transition provider, it only activates/deactivates the referenced GameObject

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Reflectis.SDK.Diagnostics
+namespace Reflectis.SDK.Core.Diagnostics
 {
     public class DiagnosticDTO
     {

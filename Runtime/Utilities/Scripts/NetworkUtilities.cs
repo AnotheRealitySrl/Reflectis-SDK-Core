@@ -1,3 +1,5 @@
+using Reflectis.SDK.Core.ApplicationManagement;
+
 using System.Threading.Tasks;
 #if !UNITY_WEBGL
 using UnityEngine;

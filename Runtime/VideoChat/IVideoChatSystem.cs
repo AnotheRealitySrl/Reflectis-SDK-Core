@@ -1,13 +1,11 @@
-using Reflectis.SDK.Core;
-
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using UnityEngine.Events;
 
-using static IVideoChatController;
+using static Reflectis.SDK.Core.VideoChat.IVideoChatController;
 
-namespace Reflectis.SDK.VideoChat
+namespace Reflectis.SDK.Core.VideoChat
 {
     public interface IVideoChatSystem : ISystem
     {

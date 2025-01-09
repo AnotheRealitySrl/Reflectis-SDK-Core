@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Reflectis.SDK.Transitions
+namespace Reflectis.SDK.Core.Transitions
 {
     /// <summary>
     /// Abstract class with definitions of methods performing transitions.

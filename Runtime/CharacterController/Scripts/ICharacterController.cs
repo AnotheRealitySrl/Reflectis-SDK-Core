@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Reflectis.SDK.CharacterController
+namespace Reflectis.SDK.Core.CharacterController
 {
     /// <summary>
     /// Represents a character controller, i.e. a character that is controlled by some other entity (spoiler: the player, most of the times)

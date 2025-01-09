@@ -5,7 +5,7 @@ namespace Reflectis.SDK.Utilities
 {
     public static class ColorExtensions
     {
-        // Metodo per verificare se il colore è molto simile al bianco
+        // Metodo per verificare se il colore ï¿½ molto simile al bianco
         public static bool IsVerySimilarToWhite(this Color color, float threshold = 0.1f)
         {
             return color.r >= (1 - threshold) && color.g >= (1 - threshold) && color.b >= (1 - threshold);

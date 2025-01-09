@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
-namespace Reflectis.SDK.Fade
+namespace Reflectis.SDK.Core.Fade
 {
     public interface ILayerManager
     {

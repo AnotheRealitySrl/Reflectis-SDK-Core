@@ -1,8 +1,8 @@
-using Reflectis.SDK.CharacterController;
+using Reflectis.SDK.Core.CharacterController;
 
 using System.Threading.Tasks;
 
-namespace Reflectis.SDK.Avatars
+namespace Reflectis.SDK.Core.Avatars
 {
     /// <summary>
     /// An avatar controller handles the hook between a <see cref="CharacterBase"/> (e.g. an avatar), 

@@ -1,7 +1,8 @@
 using System;
+
 using UnityEngine;
 
-namespace Reflectis.SDK.ObjectSpawner
+namespace Reflectis.ObjectSpawner
 {
     [Serializable]
     public class SpawnPosition

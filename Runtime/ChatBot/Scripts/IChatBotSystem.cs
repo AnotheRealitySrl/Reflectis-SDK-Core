@@ -1,8 +1,6 @@
-using Reflectis.SDK.Core;
-
 using System.Threading.Tasks;
 
-namespace Reflectis.SDK.ChatBot
+namespace Reflectis.SDK.Core.ChatBot
 {
     public interface IChatBotSystem : ISystem
     {

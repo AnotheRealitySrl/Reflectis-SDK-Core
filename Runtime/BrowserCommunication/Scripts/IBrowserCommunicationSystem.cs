@@ -1,8 +1,6 @@
-﻿using Reflectis.SDK.Core;
+﻿using System;
 
-using System;
-
-namespace Reflectis.SDK.BrowserCommunication
+namespace Reflectis.SDK.Core.BrowserCommunication
 {
     public interface IBrowserCommunicationSystem : ISystem
     {

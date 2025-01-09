@@ -1,11 +1,11 @@
-using Reflectis.SDK.Core;
+using Reflectis.SDK.Core.CharacterController;
 
 using System.Threading.Tasks;
 
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Reflectis.SDK.CharacterController
+namespace Reflectis.SDK.Core.CharacterController
 {
     public interface ICharacterControllerSystem : ISystem
     {

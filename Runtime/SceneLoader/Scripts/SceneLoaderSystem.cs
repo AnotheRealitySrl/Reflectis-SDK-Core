@@ -1,5 +1,3 @@
-using Reflectis.SDK.Core;
-
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -11,7 +9,7 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
 using UnityEngine.SceneManagement;
 
-namespace Reflectis.SDK.SceneLoader
+namespace Reflectis.SDK.Core.SceneLoader
 {
     [CreateAssetMenu(menuName = "Reflectis/SDK-SceneLoader/SceneLoaderSystemConfig", fileName = "SceneLoaderSystemConfig")]
     public class SceneLoaderSystem : BaseSystem, ISceneLoaderSystem

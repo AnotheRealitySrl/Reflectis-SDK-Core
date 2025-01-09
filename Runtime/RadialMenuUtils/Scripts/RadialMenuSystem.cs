@@ -1,7 +1,6 @@
-using Reflectis.SDK.Core;
 using UnityEngine;
 
-namespace Reflectis.SDK.RadialMenuUtils
+namespace Reflectis.SDK.Core.RadialMenuUtils
 {
     [CreateAssetMenu(fileName = "New Radial Menu", menuName = "RadialMenu/Create New Radial Menu")]
     public class RadialMenuSystem : BaseSystem

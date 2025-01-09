@@ -1,4 +1,4 @@
-using Reflectis.SDK.InteractionNew;
+using Reflectis.SDK.Core.Interaction;
 
 using UnityEditor;
 

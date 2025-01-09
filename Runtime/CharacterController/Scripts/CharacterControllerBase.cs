@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Reflectis.SDK.CharacterController
+namespace Reflectis.SDK.Core.CharacterController
 {
     /// <summary>
     /// Base implementation of <see cref="ICharacterController"/>.

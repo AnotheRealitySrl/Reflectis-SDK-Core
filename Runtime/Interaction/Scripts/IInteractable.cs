@@ -1,22 +1,42 @@
-﻿using System;
-
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Events;
 
-namespace Reflectis.SDK.Interaction
+namespace Reflectis.SDK.Core.Interaction
 {
-
     /// <summary>
     /// Common interaface for any interactable entity.
     /// </summary>
     public interface IInteractable
     {
-        GameObject gameObject { get; }
+        [Flags]
+        public enum EInteractableType
+        {
+            GenericInteractable = 1,
+            Manipulable = 2,
+            ContextualMenuInteractable = 4
+        }
 
-        GameObject InteractionTarget { get; }
+        public enum EInteractionState
+        {
+            Idle,
+            Hovered,
+            Interaction
+        }
 
-        void Interact(Action completedCallback = null);
+        List<IInteractableBehaviour> InteractableBehaviours { get; }
+        EInteractionState InteractionState { get; set; }
 
-        void StopInteract(Action completedCallback = null);
+        GameObject GameObjectRef { get; }
+        List<Collider> InteractionColliders { get; }
+
+        UnityEvent OnInteractableSetupComplete { get; }
+
+        Task Setup();
+        void OnHoverEnter();
+        void OnHoverExit();
 
     }
 }

@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Reflectis.SDK.Diagnostics
+namespace Reflectis.SDK.Core.Diagnostics
 {
     public class DynamicDisplayableContent : DisplayableContentBase
     {

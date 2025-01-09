@@ -1,7 +1,8 @@
 using System.Collections.Generic;
+
 using UnityEngine;
 
-namespace Reflectis.SDK.RadialMenuUtils
+namespace Reflectis.SDK.Core.RadialMenuUtils
 {
     public class Item : MonoBehaviour
     {

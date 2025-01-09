@@ -1,6 +1,6 @@
 using System;
 
-namespace Reflectis.SDK.Diagnostics
+namespace Reflectis.SDK.Core.Diagnostics
 {
     [AttributeUsage(AttributeTargets.Field, Inherited = true, AllowMultiple = false)]
     public class SettableFieldAttribute : Attribute

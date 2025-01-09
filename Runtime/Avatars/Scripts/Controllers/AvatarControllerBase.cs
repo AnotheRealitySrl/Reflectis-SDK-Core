@@ -1,11 +1,11 @@
-using Reflectis.SDK.CharacterController;
-using Reflectis.SDK.Transitions;
+using Reflectis.SDK.Core.CharacterController;
+using Reflectis.SDK.Core.Transitions;
 
 using System.Threading.Tasks;
 
 using UnityEngine;
 
-namespace Reflectis.SDK.Avatars
+namespace Reflectis.SDK.Core.Avatars
 {
     /// <summary>
     /// Base implementation of an <see cref="IAvatarController">. 

@@ -1,4 +1,4 @@
-namespace Reflectis.SDK.TextChat.Enums
+namespace Reflectis.SDK.Core.TextChat
 {
     //public enum EChatMessageType
     //{

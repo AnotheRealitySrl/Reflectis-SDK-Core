@@ -1,7 +1,6 @@
 using UnityEditor;
 
 using UnityEngine;
-using static Reflectis.SDK.Utilities.WaypointPositioner;
 
 namespace Reflectis.SDK.Utilities.Editor
 {
@@ -75,7 +74,7 @@ namespace Reflectis.SDK.Utilities.Editor
                     GUI.enabled = waypointPositioner.LastWaypointIndex > 0;
                     if (GUILayout.Button("First <<"))
                     {
-                       await waypointPositioner.MoveToFirstWaypoint();
+                        await waypointPositioner.MoveToFirstWaypoint();
                     }
                     if (GUILayout.Button("Previous <"))
                     {

@@ -1,5 +1,4 @@
-using Reflectis.SDK.CharacterController;
-using Reflectis.SDK.Core;
+using Reflectis.SDK.Core.CharacterController;
 using Reflectis.SDK.Utilities.Extensions;
 
 using System;
@@ -12,7 +11,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Reflectis.SDK.Avatars
+namespace Reflectis.SDK.Core.Avatars
 {
     public abstract class AvatarConfigControllerBase : MonoBehaviour, IAvatarConfigController
     {

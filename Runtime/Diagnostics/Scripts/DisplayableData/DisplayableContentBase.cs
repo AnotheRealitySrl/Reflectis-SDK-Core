@@ -1,7 +1,7 @@
 using Reflectis.SDK.Utilities;
 using System.Collections.Generic;
 
-namespace Reflectis.SDK.Diagnostics
+namespace Reflectis.SDK.Core.Diagnostics
 {
     public abstract class DisplayableContentBase
     {

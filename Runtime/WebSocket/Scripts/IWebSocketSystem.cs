@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 using UnityEngine.Events;
 
-namespace Reflectis.SDK.WebSocket
+namespace Reflectis.SDK.Core.WebSocket
 {
     public interface IWebSocketSystem : ISystem
     {

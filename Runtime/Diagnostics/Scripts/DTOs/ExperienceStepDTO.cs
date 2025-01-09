@@ -1,4 +1,4 @@
-namespace Reflectis.SDK.Diagnostics
+namespace Reflectis.SDK.Core.Diagnostics
 {
     public abstract class ExperienceStepDTO : ExperienceDiagnosticDTO
     {

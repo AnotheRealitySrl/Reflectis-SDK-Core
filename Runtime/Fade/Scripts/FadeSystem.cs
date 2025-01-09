@@ -1,11 +1,10 @@
-using Reflectis.SDK.Core;
-
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+
 using UnityEngine;
 
-namespace Reflectis.SDK.Fade
+namespace Reflectis.SDK.Core.Fade
 {
     [CreateAssetMenu(menuName = "Reflectis/SDK-Fade/FadeSystemConfig", fileName = "FadeSystemConfig")]
     public class FadeSystem : BaseSystem, IFadeSystem

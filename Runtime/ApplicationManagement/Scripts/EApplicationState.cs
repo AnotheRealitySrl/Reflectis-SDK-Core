@@ -1,5 +1,9 @@
-public enum EApplicationState
+namespace Reflectis.SDK.Core.ApplicationManagement
 {
-    Offline,
-    Online
+    public enum EApplicationState
+    {
+        Offline,
+        Online
+    }
 }
+
