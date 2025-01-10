@@ -1,5 +1,3 @@
-using Reflectis.SDK.Core.ApplicationManagement;
-
 using System.Threading.Tasks;
 #if !UNITY_WEBGL
 using UnityEngine;
@@ -26,7 +24,7 @@ namespace Reflectis.SDK.Utilities
             }
             return googlePing.isDone || cloudFlarePing.isDone;
 #else
-            return await IApplicationManager.Instance.CheckInternetConnection();
+            return true;
 #endif
         }
 
