@@ -1,0 +1,130 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+using static Reflectis.SDK.Core.Interaction.ContextualMenuManageable;
+
+namespace Reflectis.SDK.Core.Interaction
+{
+    public abstract class ContextualMenuSystem : BaseSystem
+    {
+        [SerializeField] private List<ContextualMenuDict> customContextualMenuControllers;
+        [SerializeField] private float showTime = 1.5f;
+        [SerializeField] private float hideTime = 1.5f;
+        [SerializeField] private bool createMenuOnInit = true;
+        [SerializeField] private bool dontDestroyOnLoad = false;
+        [SerializeField, Tooltip("Checked if only one contextual menu can be opened at a time")]
+        protected bool esclusiveContextualMenus = false;
+        [SerializeField] protected InputActionReference contextualMenuInputActionRef;
+
+        protected ContextualMenuController contextualMenu;
+        protected ContextualMenuManageable selectedInteractable;
+
+        protected Dictionary<EContextualMenuType, ContextualMenuController> customContextualMenuControllersCache = new();
+
+        public ContextualMenuController ContextualMenuInstance => contextualMenu;
+        public ContextualMenuManageable SelectedInteractable => selectedInteractable;
+
+        public float ShowToastTime { get => showTime; private set => showTime = value; }
+        public float HideToastTime { get => hideTime; private set => hideTime = value; }
+
+        public override Task Init()
+        {
+            if (createMenuOnInit)
+            {
+                CreateMenu();
+            }
+
+            contextualMenuInputActionRef.action.Enable();
+
+            contextualMenuInputActionRef.action.started += OnMenuActivate;
+            contextualMenuInputActionRef.action.performed += OnMenuActivate;
+            contextualMenuInputActionRef.action.canceled += OnMenuActivate;
+            return base.Init();
+        }
+
+        private void OnDestroy()
+        {
+            contextualMenuInputActionRef.action.started -= OnMenuActivate;
+            contextualMenuInputActionRef.action.performed -= OnMenuActivate;
+            contextualMenuInputActionRef.action.canceled -= OnMenuActivate;
+        }
+
+        #region Input actions callbacks
+
+        public abstract void OnMenuActivate(InputAction.CallbackContext context);
+
+        #endregion
+
+        #region Abstract methods
+
+        public abstract InteractableBehaviourBase SetupInteractableBehaviour(GameObject obj);
+
+        #endregion
+
+        #region API
+
+        public void CreateMenu(Transform parent = null)
+        {
+            customContextualMenuControllersCache.Clear();
+            foreach (var contextualMenu in customContextualMenuControllers)
+            {
+                if (contextualMenu.Value.GetComponent<ContextualMenuController>())
+                {
+                    GameObject instantiatedMenu = Instantiate(contextualMenu.Value, parent);
+                    customContextualMenuControllersCache.TryAdd(contextualMenu.Key, instantiatedMenu.GetComponent<ContextualMenuController>());
+
+                    if (dontDestroyOnLoad)
+                    {
+                        DontDestroyOnLoad(instantiatedMenu);
+                    }
+                }
+
+            }
+        }
+
+        public void DestroyMenu()
+        {
+            if (contextualMenu)
+            {
+                Destroy(contextualMenu);
+                contextualMenu = null;
+            }
+        }
+
+        public virtual async Task ShowContextualMenu(ContextualMenuManageable manageable)
+        {
+            var oldContextualMenu = contextualMenu;
+            if (customContextualMenuControllersCache.TryGetValue(manageable.ContextualMenuType, out contextualMenu))
+            {
+                if (esclusiveContextualMenus && contextualMenu != oldContextualMenu)
+                {
+                    await HideContextualMenu(oldContextualMenu);
+
+                }
+                contextualMenu.Setup(manageable);
+                await contextualMenu.Show();
+            }
+        }
+
+        public virtual async Task HideContextualMenu()
+        {
+            if (contextualMenu)
+            {
+                await contextualMenu.Hide();
+                contextualMenu.Unsetup();
+            }
+        }
+        public virtual async Task HideContextualMenu(ContextualMenuController contextualMenu)
+        {
+            if (contextualMenu)
+            {
+                await contextualMenu.Hide();
+                contextualMenu.Unsetup();
+            }
+        }
+        #endregion
+    }
+}
