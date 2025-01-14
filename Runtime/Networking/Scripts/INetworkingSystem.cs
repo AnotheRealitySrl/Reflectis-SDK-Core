@@ -75,6 +75,12 @@ namespace Reflectis.SDK.Core.NetworkingSystem
         public Task<bool> ConnectToService(string key);
 
         /// <summary>
+        /// Disconnect from networking service
+        /// </summary>
+        /// <returns></returns>
+        public void DisconnectFromService();
+
+        /// <summary>
         /// Connect to networking server
         /// </summary>
         /// <returns></returns>
