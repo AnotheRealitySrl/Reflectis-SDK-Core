@@ -122,6 +122,11 @@ namespace Reflectis.SDK.Core.NetworkingSystem
         void Destroy(GameObject objectToDestroy);
 
         /// <summary>
+        /// Disconnect from room
+        /// </summary>
+        Task LeaveRoomAsync();
+
+        /// <summary>
         /// Disconnect from network server
         /// </summary>
         /// <param name="tryToReconnect"></param>
