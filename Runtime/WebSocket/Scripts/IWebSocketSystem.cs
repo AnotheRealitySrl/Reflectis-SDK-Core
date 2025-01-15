@@ -1,9 +1,6 @@
-using Reflectis.SDK.Core;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
-using UnityEngine.Events;
 
 namespace Reflectis.SDK.Core.WebSocket
 {
@@ -11,6 +8,7 @@ namespace Reflectis.SDK.Core.WebSocket
     {
         /// <summary>
         /// Connect to a webSocket, returns false if the connection failed
+        /// To make sure that you do not lose the first message received by the socket, add any listener before connecting to the socket
         /// </summary>
         /// <param name="url"></param>
         /// <param name="queryParams"></param>
@@ -20,6 +18,7 @@ namespace Reflectis.SDK.Core.WebSocket
 
         /// <summary>
         /// Add listener to the webSocket
+        /// To make sure that you do not lose the first message received by the socket, add the listener before connecting to the socket
         /// </summary>
         /// <param name="url"></param>
         /// <param name="webSocketListener"></param>
