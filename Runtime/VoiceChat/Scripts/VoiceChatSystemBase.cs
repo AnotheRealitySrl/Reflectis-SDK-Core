@@ -39,6 +39,7 @@ namespace Reflectis.SDK.Core.VoiceChat
         public abstract bool IsConnected { get; }
 
         public abstract void ConnectToService(string id);
+        public abstract void DisconnectFromService();
         public abstract void AskPermissions();
         public abstract void ConnectToChannel(CommunicationChannel channel);
         public abstract void DestroyVideoView(uint uid);

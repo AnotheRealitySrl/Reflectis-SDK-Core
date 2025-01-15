@@ -125,7 +125,7 @@ namespace Reflectis.SDK.Core.NetworkingSystem
         /// Object to destroy
         /// </summary>
         /// <param name="objectToDestroy"></param>
-        void Destroy(GameObject objectToDestroy);
+        void NetworkDestroy(GameObject objectToDestroy);
 
         /// <summary>
         /// Disconnect from room

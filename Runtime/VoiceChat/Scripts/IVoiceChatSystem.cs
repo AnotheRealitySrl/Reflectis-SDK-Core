@@ -18,6 +18,7 @@ namespace Reflectis.SDK.Core.VoiceChat
         void AskPermissions();
 
         void ConnectToService(string key);
+        void DisconnectFromService();
 
         /// <summary>
         /// Connects to a communication channel channel

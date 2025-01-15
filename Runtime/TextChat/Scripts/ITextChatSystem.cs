@@ -1,4 +1,3 @@
-using Reflectis.SDK.Core;
 using System;
 
 namespace Reflectis.SDK.Core.TextChat
@@ -54,6 +53,8 @@ namespace Reflectis.SDK.Core.TextChat
         /// Connect to text chat 
         /// </summary>
         void ConnectToService(string textChatAppId);
+
+        void DisconnectFromService();
 
         /// <summary>
         /// Wheter the user can chat or not
