@@ -18,7 +18,8 @@ namespace Reflectis.SDK.Core.WebSocket
 
         /// <summary>
         /// Add listener to the webSocket
-        /// To make sure that you do not lose the first message received by the socket, add the listener before connecting to the socket
+        /// To make sure that you do not lose the first message received by the socket, add the listener before connecting to the socket.
+        /// Every listener will be removed at the first socket disconnection.
         /// </summary>
         /// <param name="url"></param>
         /// <param name="webSocketListener"></param>
