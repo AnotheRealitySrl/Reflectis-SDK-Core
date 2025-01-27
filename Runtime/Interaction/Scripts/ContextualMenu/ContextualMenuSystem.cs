@@ -8,7 +8,7 @@ using static Reflectis.SDK.Core.Interaction.ContextualMenuManageable;
 
 namespace Reflectis.SDK.Core.Interaction
 {
-    public abstract class ContextualMenuSystem : BaseSystem
+    public abstract class ContextualMenuSystem : BaseSystem, IContextualMenuSystem
     {
         [SerializeField] private List<ContextualMenuDict> customContextualMenuControllers;
         [SerializeField] private float showTime = 1.5f;
