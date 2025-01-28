@@ -102,12 +102,12 @@ namespace Reflectis.SDK.Core.NetworkingSystem
         /// <summary>
         /// Opens the event shard where the local user currently is. 
         /// </summary>
-        public Task OpenCurrentShard();
+        void OpenCurrentShard();
 
         /// <summary>
         /// Closes the event shard where the local user currently is.
         /// </summary>
-        public Task CloseCurrentShard();
+        void CloseCurrentShard();
 
         /// <summary>
         /// Setup spawnable object
