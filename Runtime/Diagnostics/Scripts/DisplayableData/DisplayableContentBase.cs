@@ -1,4 +1,5 @@
-using Reflectis.SDK.Utilities;
+using Reflectis.SDK.Core.Utilities;
+
 using System.Collections.Generic;
 
 namespace Reflectis.SDK.Core.Diagnostics

@@ -2,6 +2,7 @@ using Reflectis.ColorPicker;
 using Reflectis.SDK.Core.LockObject;
 using Reflectis.SDK.Core.ModelExploder;
 using Reflectis.SDK.Core.Popup;
+using Reflectis.SDK.Core.SystemFramework;
 
 using System;
 using System.Collections.Generic;

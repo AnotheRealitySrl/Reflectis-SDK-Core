@@ -4,7 +4,7 @@
 using UnityEditor;
 #endif
 
-namespace Reflectis.SDK.Utilities.Editor
+namespace Reflectis.SDK.Core.Utilties.Editor
 {
     /// <summary>
     /// Useful field to avoid using strings when referencing scenes in the inspector

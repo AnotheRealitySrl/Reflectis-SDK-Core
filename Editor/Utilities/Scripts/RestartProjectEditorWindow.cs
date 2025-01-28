@@ -2,7 +2,7 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 
-namespace Reflectis.SDK.Utilities.Editor
+namespace Reflectis.SDK.Core.Utilties.Editor
 {
     public class RestartProjectEditorWindow : EditorWindow
     {

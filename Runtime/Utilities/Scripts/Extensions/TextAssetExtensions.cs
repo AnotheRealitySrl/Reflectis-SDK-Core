@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
-namespace Reflectis.SDK.Utilities
+namespace Reflectis.SDK.Core.Utilities
 {
     public static class TextAssetExtensions
     {

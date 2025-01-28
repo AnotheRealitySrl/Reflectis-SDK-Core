@@ -1,10 +1,12 @@
+using Reflectis.SDK.Core.Utilities;
+
 using System;
 
 using UnityEditor;
 
 using UnityEngine;
 
-namespace Reflectis.SDK.Utilities.Editor
+namespace Reflectis.SDK.Core.Utilties.Editor
 {
     /// <summary>
     /// Based on: https://forum.unity.com/threads/draw-a-field-only-if-a-condition-is-met.448855/

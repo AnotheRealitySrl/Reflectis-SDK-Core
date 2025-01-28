@@ -1,4 +1,5 @@
 using Reflectis.SDK.Core.ApplicationManagement;
+using Reflectis.SDK.Core.SystemFramework;
 
 using System;
 using System.Collections.Generic;

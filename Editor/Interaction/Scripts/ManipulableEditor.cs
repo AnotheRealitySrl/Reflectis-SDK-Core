@@ -1,29 +1,30 @@
-using Reflectis.SDK.Core.Interaction;
-
 using UnityEditor;
 
 using UnityEngine;
 
-[CustomEditor(typeof(Manipulable))]
-public class ManipulableEditor : Editor
+namespace Reflectis.SDK.Core.Interaction.Editor
 {
-    public override void OnInspectorGUI()
+    [CustomEditor(typeof(Manipulable))]
+    public class ManipulableEditor : UnityEditor.Editor
     {
-        DrawDefaultInspector();
-
-        GUIStyle style = new(EditorStyles.label)
+        public override void OnInspectorGUI()
         {
-            richText = true
-        };
+            DrawDefaultInspector();
 
-        EditorGUILayout.Separator();
-        EditorGUILayout.LabelField("Debug", EditorStyles.boldLabel);
+            GUIStyle style = new(EditorStyles.label)
+            {
+                richText = true
+            };
 
-        if (Application.isPlaying)
-        {
-            Manipulable manipulable = (Manipulable)target;
-            EditorGUILayout.LabelField($"<b>Current state:</b> {manipulable.CurrentInteractionState}", style);
-            //EditorGUILayout.LabelField($"<b>Can interact:</b> {manipulable.CanInteract}", style);
+            EditorGUILayout.Separator();
+            EditorGUILayout.LabelField("Debug", EditorStyles.boldLabel);
+
+            if (Application.isPlaying)
+            {
+                Manipulable manipulable = (Manipulable)target;
+                EditorGUILayout.LabelField($"<b>Current state:</b> {manipulable.CurrentInteractionState}", style);
+                //EditorGUILayout.LabelField($"<b>Can interact:</b> {manipulable.CanInteract}", style);
+            }
         }
     }
 }

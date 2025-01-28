@@ -1,4 +1,5 @@
 using Reflectis.SDK.Core.CharacterController;
+using Reflectis.SDK.Core.SystemFramework;
 
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

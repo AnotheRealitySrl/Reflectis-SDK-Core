@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Reflectis.SDK.Core.SystemFramework;
+
+using System;
 
 namespace Reflectis.SDK.Core.BrowserCommunication
 {

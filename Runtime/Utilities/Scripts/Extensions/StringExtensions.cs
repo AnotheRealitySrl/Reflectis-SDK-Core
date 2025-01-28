@@ -7,7 +7,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
-namespace Reflectis.SDK.Utilities.Extensions
+namespace Reflectis.SDK.Core.Utilities
 {
     public static class StringExtensions
     {

@@ -1,3 +1,5 @@
+using Reflectis.SDK.Core.Utilities;
+
 using System.Linq;
 using System.Reflection;
 
@@ -5,7 +7,7 @@ using UnityEditor;
 
 using UnityEngine;
 
-namespace Reflectis.SDK.Utilities.Editor
+namespace Reflectis.SDK.Core.Utilties.Editor
 {
     [CustomPropertyDrawer(typeof(OnChangedCallAttribute))]
     public class OnChangedCallAttributePropertyDrawer : PropertyDrawer

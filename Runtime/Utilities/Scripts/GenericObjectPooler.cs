@@ -2,7 +2,7 @@
 
 using UnityEngine;
 
-namespace Reflectis.SDK.Utilities
+namespace Reflectis.SDK.Core.Utilities
 {
     /// <summary>
     /// Static class that helps in managing Object Pooling.
