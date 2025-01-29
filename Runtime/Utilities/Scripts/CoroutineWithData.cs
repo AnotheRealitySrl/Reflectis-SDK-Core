@@ -2,7 +2,7 @@ using System.Collections;
 
 using UnityEngine;
 
-namespace Reflectis.SDK.Utilities
+namespace Reflectis.SDK.Core.Utilities
 {
     public class CoroutineWithData
     {

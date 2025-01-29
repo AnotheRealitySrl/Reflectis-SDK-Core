@@ -2,14 +2,14 @@
 using Sirenix.OdinInspector;
 #endif
 
-using Reflectis.SDK.Core.CharacterController;
-
 using System;
 
 using UnityEngine;
 using UnityEngine.Events;
 
 using System.Threading.Tasks;
+
+using Reflectis.SDK.Core.SystemFramework;
 
 namespace Reflectis.SDK.Core.CharacterController
 {

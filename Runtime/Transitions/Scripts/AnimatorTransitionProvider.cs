@@ -1,4 +1,4 @@
-﻿using Reflectis.SDK.Utilities.Extensions;
+﻿using Reflectis.SDK.Core.Utilities;
 
 using System.Threading.Tasks;
 

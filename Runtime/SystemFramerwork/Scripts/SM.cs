@@ -1,10 +1,12 @@
-﻿using Reflectis.SDK.Utilities.Extensions;
+﻿using Reflectis.SDK.Core.Utilities;
+
 using System.Collections.Generic;
 using System.Threading.Tasks;
+
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Reflectis.SDK.Core
+namespace Reflectis.SDK.Core.SystemFramework
 {
 
     /// <summary>

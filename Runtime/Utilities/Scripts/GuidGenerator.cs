@@ -1,6 +1,6 @@
 using System;
 
-namespace Reflectis.SDK.Utilities
+namespace Reflectis.SDK.Core.Utilities
 {
     /// <summary>
     /// https://stackoverflow.com/questions/52390149/how-to-generate-guid-from-datetime

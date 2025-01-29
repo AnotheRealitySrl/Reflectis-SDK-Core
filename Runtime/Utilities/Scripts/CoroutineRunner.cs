@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Reflectis.SDK.Utilities
+namespace Reflectis.SDK.Core.Utilities
 {
     /// <summary>
     /// Empty classed that derives form monobehaviour.

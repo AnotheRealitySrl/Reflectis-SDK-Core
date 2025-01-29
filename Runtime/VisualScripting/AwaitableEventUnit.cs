@@ -48,7 +48,7 @@ namespace Reflectis.SDK.Core.VisualScripting
             if (coroutine)
             {
                 runningFlows.Add(flow);
-                Reflectis.SDK.Utilities.CoroutineRunner.Instance.StartCoroutine(TriggerState(flow));
+                Utilities.CoroutineRunner.Instance.StartCoroutine(TriggerState(flow));
                 flow.StartCoroutine(trigger, flow.stack.GetElementData<Data>(this).activeCoroutines);
             }
             else

@@ -3,7 +3,7 @@ using System.Collections;
 
 using UnityEngine;
 
-namespace Reflectis.SDK.Utilities.Extensions
+namespace Reflectis.SDK.Core.Utilities
 {
     /// <summary>
     /// Extend base system Action.

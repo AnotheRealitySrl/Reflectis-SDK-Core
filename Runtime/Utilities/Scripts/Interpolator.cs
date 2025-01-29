@@ -1,9 +1,9 @@
-using Reflectis.SDK.Utilities.Extensions;
+using Reflectis.SDK.Core.Utilities;
 using System;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Reflectis.SDK.Utilities
+namespace Reflectis.SDK.Core.Utilities
 {
     public class Interpolator
     {
