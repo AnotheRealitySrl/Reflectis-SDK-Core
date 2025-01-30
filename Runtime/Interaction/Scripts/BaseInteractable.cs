@@ -49,8 +49,9 @@ namespace Reflectis.SDK.Core.Interaction
 
         public UnityEvent OnInteractableSetupComplete { get; } = new();
 
-        [HideInInspector]
-        public bool setupCompleted = false;
+        private bool setupCompleted = false;
+        public bool SetupCompleted { get => setupCompleted; set => setupCompleted = value; }
+
 
         private void Awake()
         {
@@ -83,7 +84,7 @@ namespace Reflectis.SDK.Core.Interaction
             {
                 await interactable.Setup();
             }
-            setupCompleted = true;
+            SetupCompleted = true;
         }
 
         public void OnHoverEnter()
