@@ -1,7 +1,7 @@
 {
   "name": "com.anotherealitysrl.reflectis-sdk-core",
   "displayName": "Reflectis-SDK-Core",
-  "version": "11.1.1",
+  "version": "12.0.0",
   "unity": "2020.1",
   "description": "Reflectis SDK",
   "dependencies": {
