@@ -6,7 +6,7 @@ using System.Reflection;
 
 using UnityEngine;
 
-namespace Reflectis.SDK.Utilities
+namespace Reflectis.SDK.Core.Utilities
 {
     ///////////////////////////////////////////////////////////////////////////
     /// <summary>

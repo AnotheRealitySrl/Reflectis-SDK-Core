@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Reflectis.SDK.Utilities
+namespace Reflectis.SDK.Core.Utilities
 {
     public static class ComponentExtensions
     {

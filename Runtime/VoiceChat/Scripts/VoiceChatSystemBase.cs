@@ -1,3 +1,5 @@
+using Reflectis.SDK.Core.SystemFramework;
+
 using System;
 
 using UnityEngine;
@@ -37,7 +39,6 @@ namespace Reflectis.SDK.Core.VoiceChat
         public byte PHOTON_GLOBAL_CHANNEL => photonGlobalChannel;
 
         public abstract bool IsConnected { get; }
-
         public abstract void ConnectToService(string id);
         public abstract void DisconnectFromService();
         public abstract void AskPermissions();

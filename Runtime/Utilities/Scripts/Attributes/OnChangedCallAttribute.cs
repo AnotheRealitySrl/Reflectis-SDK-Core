@@ -2,7 +2,7 @@ using System;
 
 using UnityEngine;
 
-namespace Reflectis.SDK.Utilities
+namespace Reflectis.SDK.Core.Utilities
 {
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = true)]
     public class OnChangedCallAttribute : PropertyAttribute

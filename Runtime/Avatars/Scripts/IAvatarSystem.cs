@@ -1,4 +1,4 @@
-using Reflectis.SDK.Core.Avatars;
+using Reflectis.SDK.Core.SystemFramework;
 
 using System.Threading.Tasks;
 

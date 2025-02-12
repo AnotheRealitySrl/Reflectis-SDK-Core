@@ -2,7 +2,7 @@ using System;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Reflectis.SDK.Utilities
+namespace Reflectis.SDK.Core.Utilities
 {
     ///////////////////////////////////////////////////////////////////////////
     /// <summary>

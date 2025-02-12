@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Reflectis.SDK.Core
+namespace Reflectis.SDK.Core.SystemFramework
 {
     public interface ISystem
     {
