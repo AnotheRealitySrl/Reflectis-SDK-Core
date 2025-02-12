@@ -1,7 +1,7 @@
 {
-  "name": "com.anotherealitysrl.reflectis-sdk",
-  "displayName": "Reflectis-SDK",
-  "version": "11.1.1",
+  "name": "com.anotherealitysrl.reflectis-sdk-core",
+  "displayName": "Reflectis-SDK-Core",
+  "version": "12.0.0",
   "unity": "2020.1",
   "description": "Reflectis SDK",
   "dependencies": {
@@ -15,13 +15,13 @@
   "category": "Unity",
   "repository": {
     "type": "git",
-    "url": "https://github.com/AnotheRealitySrl/Reflectis-Utilities"
+    "url": "https://github.com/AnotheRealitySrl/Reflectis-SDK-Core"
   },
   "samples": [
     {
       "displayName": "URP Volume fading sample",
       "description": "This is a sample of fade manager implemented with post-processing",
-      "path": "Fade/Samples~/URPVolumeSample"
+      "path": "Samples~/Fade/URPVolumeSample"
     }
   ]
 }

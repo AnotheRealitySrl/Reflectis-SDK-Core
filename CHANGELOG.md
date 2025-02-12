@@ -1,5 +1,33 @@
 # Release notes
 
+## v12.0.0
+
+### Changed
+
+- Changed package name, from Reflectis-SDK to Reflecits-SDK-Core, and updated namespaces according to new package name.
+- Revised package's folder structure to match Unity guidelines. Removed also the multiple asmdefs, one for each module.
+- Utilities: replaced `Pointer_stringify` with `UTF8ToString` in jslib utilities.
+- ClientModels: added `isMultiplayer` parameter in `PingMyOnlinePresence` method in `IClientModelSystem`.
+- ClientModels: changed type parameter in `UpdateSavedAssets` to string.
+- Utilities: removed API utilities (`ApiResponse`, `JsonArrayHelper`). They are moved to their own HTTP module.
+- ClientModels: moved MaxCCU from `CMWorld` to `CMWorldConfig`.
+- ClientModels: changed `CMTemplateObj` in `SpawnedObjectData`, removed `Erasable` and `Label` properties from it.
+
+### Removed
+
+- Removed ClientModels, Help, ObjectSpawner, ApplicationManagement and SceneObjects modules, in order to put them in CreatorKit.
+  ApplicationManagement has been split in two different parts, the one not related directly with CreatorKit has been maintained.
+- ClientModels: removed dependecies to spawned object from `IClientModelSystem`.
+- ClientModels: removed network, text and voice app ids from `CMWorld`.
+
+### Added
+
+- ObjectSpawner: added max fov parameter to spawn position data in `SpawnData`.
+- WebSocket: implemented web socket listeners. Added callbacks to `IWebSocketSystem`.
+- VoiceChat: added `DisconnectFromService` method definition in `ITextChatSystem`.
+- VoiceChat: Added `DisconnectFromService` method definition in `IVoiceChatSystem` and base implementation in `VoiceChatSystenBase`.
+- ClientModels: added `CurrentCCUCount` in `CMWorldConfig`.
+
 ## v11.1.1
 
 ### Fixed
