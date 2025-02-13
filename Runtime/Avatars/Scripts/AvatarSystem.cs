@@ -41,7 +41,7 @@ namespace Reflectis.SDK.Core.Avatars
         public AvatarControllerBase AvatarInstance { get; private set; }
         public string LayerNameHiddenToPlayer => layerNameHiddenToPlayer;
         public IAvatarConfigController AvatarInstanceConfigManager { get => avatarInstanceConfigManager; }
-        public Dictionary<int, IAvatarConfigController> OtherAvatarsConfigControllers { get => otherAvatarsConfigControllers; }
+        public Dictionary<string, IAvatarConfigController> OtherAvatarsConfigControllers { get => otherAvatarsConfigControllers; }
 
         public AvatarControllerBase AvatarPrefab { get => avatarPrefab; }
         public AvatarControllerBase AvatarNetworkPrefab { get => networkAvatarPrefab; }
@@ -60,7 +60,7 @@ namespace Reflectis.SDK.Core.Avatars
         private IAvatarConfigController avatarInstanceConfigManager;
         // List of config managers associated to other players' avatars, indicized
         // by actor number of their respective creator.
-        private Dictionary<int, IAvatarConfigController> otherAvatarsConfigControllers = new Dictionary<int, IAvatarConfigController>();
+        private Dictionary<string, IAvatarConfigController> otherAvatarsConfigControllers = new Dictionary<string, IAvatarConfigController>();
 
         private bool cameraDisable;
 
@@ -211,7 +211,7 @@ namespace Reflectis.SDK.Core.Avatars
                 otherAvatarsMeshDisablerCounter++;
             }
 
-            foreach (KeyValuePair<int, IAvatarConfigController> pair in otherAvatarsConfigControllers)
+            foreach (KeyValuePair<string, IAvatarConfigController> pair in otherAvatarsConfigControllers)
             {
                 CheckOtherAvatarActivation(pair.Value);
             }
@@ -239,14 +239,14 @@ namespace Reflectis.SDK.Core.Avatars
             otherAvatarsMeshDisablerCounter = 0;
         }
 
-        public void AddOtherAvatarReference(int creatorNumber, IAvatarConfigController controller)
+        public void AddOtherAvatarReference(string creatorSession, IAvatarConfigController controller)
         {
-            otherAvatarsConfigControllers.Add(creatorNumber, controller);
+            otherAvatarsConfigControllers.Add(creatorSession, controller);
         }
 
-        public void RemoveOtherAvatarReference(int creatorNumber)
+        public void RemoveOtherAvatarReference(string creatorSession)
         {
-            otherAvatarsConfigControllers.Remove(creatorNumber);
+            otherAvatarsConfigControllers.Remove(creatorSession);
         }
 
         public void EnableAvatarInstanceHandMeshes(bool enable) => AvatarInstanceConfigManager?.EnableHandMeshes(enable);

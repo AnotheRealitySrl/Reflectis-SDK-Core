@@ -104,17 +104,17 @@ namespace Reflectis.SDK.Core.Avatars
         /// Adds a entry to the list of istantiated avatars that are not related to 
         /// the local player.
         /// </summary>
-        /// <param name="creatorNumber">Actor number of the avatar's controller</param>
+        /// <param name="creatorSession">Actor number of the avatar's controller</param>
         /// <param name="controller">Reference to the IAvatarConfigController component 
         /// on the avatar</param>
-        public void AddOtherAvatarReference(int creatorNumber, IAvatarConfigController controller);
+        public void AddOtherAvatarReference(string creatorSession, IAvatarConfigController controller);
 
         /// <summary>
         /// Removes as entry from the list of istantiated avatars that are not related 
         /// to the local player.
         /// </summary>
-        /// <param name="creatorNumber">Actor number of the avatar's controller</param>
-        public void RemoveOtherAvatarReference(int creatorNumber);
+        /// <param name="creatorSession">Actor number of the avatar's controller</param>
+        public void RemoveOtherAvatarReference(string creatorSession);
 
         /// <summary>
         /// Updates the visibility of the non-local-player avatar.

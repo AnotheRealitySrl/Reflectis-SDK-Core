@@ -12,7 +12,7 @@ namespace Reflectis.SDK.Core.VideoChat
         public EVideoChatType VideoChatType { get; }
         uint ScreenShareId { get; }
         bool AmStreamer { get; }
-        int StreamerId { get; }
+        string StreamerId { get; }
 
         void Destroy();
     }
