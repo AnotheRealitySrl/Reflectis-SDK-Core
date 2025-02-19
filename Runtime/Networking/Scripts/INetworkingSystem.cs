@@ -154,11 +154,6 @@ namespace Reflectis.SDK.Core.NetworkingSystem
         /// <returns></returns>
         GameObject GetPlayerAvatarObjectBySessionId(string sessionId);
 
-        /// <summary>
-        /// Method used for player removal inside the current networked shard
-        /// </summary>
-        /// <param name="playerId"></param>
-        void KickPlayer(int playerId);
     }
 
 }
