@@ -1,5 +1,11 @@
 # Release notes
 
+## v12.1.0
+
+### Added
+
+- Visual scripting: added base unit class that create new custom type istances.
+
 ## v12.0.0
 
 ### Changed
