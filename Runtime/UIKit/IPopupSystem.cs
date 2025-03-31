@@ -26,5 +26,7 @@ namespace Reflectis.SDK.Core.Popup
 
         // Use this if insted of a text you need an enum-based data structure to access the texts
         public void Instantiate(int popupMessageId, UnityAction button1Callback, PopupLocation whereToDisplay, EPopUpGravity popUpGravity, Transform popupParent = null, UnityAction button2Callback = null);
+
+        public void DestroyPopup();
     }
 }
