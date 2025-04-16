@@ -3,16 +3,12 @@ namespace Reflectis.SDK.Core.ChatBot
     public enum EChatBotVoice
     {
         alloy,
+        ash,
+        ballad,
+        coral,
         echo,
+        sage,
         shimmer,
-        amuch,
-        dan,
-        elan,
-        marilyn,
-        meadow,
-        breeze,
-        cove,
-        ember,
-        jupiter
+        verse
     }
 }

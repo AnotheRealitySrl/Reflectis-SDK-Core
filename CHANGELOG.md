@@ -1,5 +1,11 @@
 # Release notes
 
+## v12.1.1
+
+### Added
+
+- Fixed import documentation static method's tooltip for better clarity in menu bar.
+
 ## v12.1.0
 
 ### Added

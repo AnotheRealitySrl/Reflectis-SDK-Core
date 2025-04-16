@@ -20,13 +20,13 @@ namespace Reflectis.SDK.Core.NetworkingSystem
         /// userID is the id of the user in thereflectis ecosystem
         /// playerId is the id of the player inside the network session
         /// </summary>
-        public UnityEvent<NetworkPlayerData> OnOtherPlayerJoinShard { get; }
+        public UnityEvent<PlayerData> OnOtherPlayerJoinShard { get; }
         /// <summary>
         /// int userID, int playerId
         /// userID is the id of the user in thereflectis ecosystem
         /// playerId is the id of the player inside the network session
         /// </summary>
-        public UnityEvent<NetworkPlayerData> OnOtherPlayerLeaveShard { get; }
+        public UnityEvent<PlayerData> OnOtherPlayerLeaveShard { get; }
 
         /// <summary>
         /// Returns true if the networking manager is currently connected to a network shard
@@ -104,12 +104,12 @@ namespace Reflectis.SDK.Core.NetworkingSystem
         /// <summary>
         /// Opens the event shard where the local user currently is. 
         /// </summary>
-        public Task OpenCurrentShard();
+        void OpenCurrentShard();
 
         /// <summary>
         /// Closes the event shard where the local user currently is.
         /// </summary>
-        public Task CloseCurrentShard();
+        void CloseCurrentShard();
 
         /// <summary>
         /// Setup spawnable object
@@ -139,17 +139,12 @@ namespace Reflectis.SDK.Core.NetworkingSystem
         /// </summary>
         /// <param name="tryToReconnect"></param>
         void DisconnectFromServer(bool tryToReconnect);
-        /// <summary>
-        /// Get local player Id
-        /// </summary>
-        /// <returns></returns>
-        int GetLocalPlayerId();
 
         /// <summary>
         /// Get list of all players data
         /// </summary>
         /// <returns></returns>
-        IEnumerable<NetworkPlayerData> GetPlayersList();
+        IEnumerable<PlayerData> GetPlayersList();
 
 
         /// <summary>
@@ -157,13 +152,8 @@ namespace Reflectis.SDK.Core.NetworkingSystem
         /// </summary>
         /// <param name="playerId"></param>
         /// <returns></returns>
-        GameObject GetPlayerAvatarObject(int playerId);
+        GameObject GetPlayerAvatarObjectBySessionId(string sessionId);
 
-        /// <summary>
-        /// Method used for player removal inside the current networked shard
-        /// </summary>
-        /// <param name="playerId"></param>
-        void KickPlayer(int playerId);
     }
 
 }
