@@ -1,6 +1,5 @@
 using Reflectis.SDK.Core.CharacterController;
 using Reflectis.SDK.Core.SystemFramework;
-using Reflectis.SDK.Core.Utilities;
 
 using System;
 using System.Collections;
@@ -47,7 +46,6 @@ namespace Reflectis.SDK.Core.Avatars
 
         protected readonly List<Renderer> handsMeshes = new();
         protected TMP_Text avatarNameText;
-        private AvatarLoaderBase avatarLoader;
 
         protected int avatarCounterEnable = 0;
 
@@ -55,8 +53,6 @@ namespace Reflectis.SDK.Core.Avatars
 
         #region Properties
         public IAvatarConfig AvatarConfig { get; private set; }
-
-        public AvatarLoaderBase AvatarLoader { get => avatarLoader; set => avatarLoader = value; }
 
         public GameObject FullBodyAvatarReference { get => fullBodyAvatarReference; protected set => fullBodyAvatarReference = value; }
         #endregion
@@ -89,17 +85,20 @@ namespace Reflectis.SDK.Core.Avatars
 
         #region Public methods
 
+        public float GetLoadingProgress()
+        {
+            return AvatarLoadersController.GetLoadingProgress();
+        }
+
         public async virtual Task UpdateAvatarCustomization(IAvatarConfig config, Action onBeforeAction = null, Action onAfterAction = null)
         {
             AvatarConfig = config;
 
             onBeforeAction?.Invoke();
 
-            AvatarLoader = Instantiate(AvatarLoadersController.GetAvatarLoader(config));
+            var avatarData = await AvatarLoadersController.LoadAvatar(config);
 
-            AvatarLoader.onLoadingAvatarComplete.AddListenerOnce(OnAvatarLoadCompletion);
-
-            await AvatarLoader.LoadAvatar(config);
+            OnAvatarLoadCompletion(avatarData);
 
             // If this avatar is the one controlled by the local player, checks its
             // visibility as local player avatar. Else, it checks the visibility as

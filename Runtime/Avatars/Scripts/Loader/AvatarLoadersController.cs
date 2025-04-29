@@ -1,6 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Reflectis.SDK.Core.Avatars
@@ -15,20 +15,50 @@ namespace Reflectis.SDK.Core.Avatars
         #region Public variables
         [Tooltip("ORDERED List of avatar loaders used to load the avatar")]
         public List<AvatarLoaderBase> avatarLoaders = new List<AvatarLoaderBase>();
+
+        [SerializeField]
+        private AvatarData defaultAvatarData;
+
+        private AvatarLoaderBase currentLoader;
         #endregion
 
         #region Public methods
-        public AvatarLoaderBase GetAvatarLoader(IAvatarConfig avatarConfig)
+        public async Task<AvatarData> LoadAvatar(IAvatarConfig config)
         {
             foreach (AvatarLoaderBase avatarLoader in avatarLoaders)
             {
-                if (avatarLoader.CheckAvatarConfig(avatarConfig))
+                if (avatarLoader.CheckAvatarConfig(config))
                 {
-                    return avatarLoader;
+                    currentLoader = Instantiate(avatarLoader);
+                    try
+                    {
+                        AvatarData avatarData = await currentLoader.LoadAvatar(config);
+                        return avatarData;
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.LogError($"Error loading avatar: {e.Message}");
+                        continue;
+                    }
+                    finally
+                    {
+                        Destroy(currentLoader);
+                    }
                 }
             }
-            Debug.LogError("No compatible avatar loader found! Probably something is missing in the avatar configuration");
-            return null;
+            return defaultAvatarData;
+        }
+
+        internal float GetLoadingProgress()
+        {
+            if (currentLoader != null)
+            {
+                return currentLoader.GetLoadingProgress();
+            }
+            else
+            {
+                return 0;
+            }
         }
         #endregion
     }
