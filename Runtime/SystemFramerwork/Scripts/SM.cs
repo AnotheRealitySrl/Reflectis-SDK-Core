@@ -99,6 +99,11 @@ namespace Reflectis.SDK.Core.SystemFramework
             {
                 //if (subSystem.AutoInitAtStartup)
                 //{
+                if (subSystem == null)
+                {
+                    Debug.LogError("Found null subsystem inside system: " + systemToInitialize, systemToInitialize as Object);
+                    continue;
+                }
                 BaseSystem systemInstance = subSystem.RequiresNewInstance ? ScriptableObject.Instantiate(subSystem as BaseSystem) : subSystem as BaseSystem;
                 CurrentSystems.Add(systemInstance);
                 _ = await InitSystem(systemInstance, systemToInitialize);
