@@ -12,10 +12,6 @@ namespace Reflectis.SDK.Core.Avatars
     public interface IAvatarConfigController
     {
         #region Properties
-        /// <summary>
-        /// The avatar loader being used
-        /// </summary>
-        public AvatarLoaderBase AvatarLoader { get; }
 
         /// <summary>
         /// Current avatar configuration
@@ -26,6 +22,12 @@ namespace Reflectis.SDK.Core.Avatars
         /// Event called after istantiating the avatar with the new avatar as parameter
         /// </summary>
         public UnityEvent<GameObject> OnAvatarIstantiated { get; }
+
+        /// <summary>
+        /// Get loading progress
+        /// </summary>
+        /// <returns></returns>
+        public float GetLoadingProgress();
 
         #endregion
 
