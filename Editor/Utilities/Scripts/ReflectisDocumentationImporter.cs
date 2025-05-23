@@ -14,7 +14,7 @@ namespace Reflectis.SDK.Core.Utilities.Editor
         private static readonly string packagesPath = "Packages";
         private static readonly string documentationPath = "Documentation~";
 
-        [MenuItem("Reflectis/Import Reflectis documentation")]
+        [MenuItem("Reflectis Worlds/SDK/Core/Import technical documentation")]
         public async static void CreateProjectItem()
         {
             EditorApplication.ExecuteMenuItem("Assets/Open C# Project");

@@ -1,7 +1,6 @@
 using System.Threading.Tasks;
 
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace Reflectis.SDK.Core.Avatars
 {
@@ -13,14 +12,6 @@ namespace Reflectis.SDK.Core.Avatars
 
         #region Properties
         public abstract IAvatarConfig AvatarConfig { get; }
-        #endregion
-
-        #region Unity Callbacks
-        /// <summary>
-        /// Called when the avatar loading has been completed.
-        /// The gameobject will be an avatar and AvatarData will be the avatar data necessary for the configuration
-        /// </summary>
-        public UnityEvent<AvatarData> onLoadingAvatarComplete;
         #endregion
 
         #region Public methods
@@ -39,7 +30,7 @@ namespace Reflectis.SDK.Core.Avatars
         /// <summary>
         /// Start the loading avatar process
         /// </summary>
-        public abstract Task LoadAvatar(IAvatarConfig avatarConfig);
+        public abstract Task<AvatarData> LoadAvatar(IAvatarConfig avatarConfig);
 
         #endregion
     }

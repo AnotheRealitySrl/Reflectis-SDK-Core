@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Reflectis.SDK.Core.Avatars
@@ -14,7 +15,7 @@ namespace Reflectis.SDK.Core.Avatars
         HalfBody = 0,
         FullBody = 1,
     }
-
+    [Serializable]
     public struct AvatarData
     {
         public GameObject avatarPrefab;
