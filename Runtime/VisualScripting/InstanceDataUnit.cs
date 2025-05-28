@@ -6,6 +6,10 @@ namespace Reflectis.SDK.Core.VisualScripting
 
     public abstract class InstanceDataUnit<DataType> : Unit
     {
+        /// <summary>
+        /// Access this dictionary to get the unit instance data.
+        /// You can use f.stack.AsReference() in flow units to get the graph reference key 
+        /// </summary>
         protected Dictionary<GraphReference, DataType> instanceData = new();
 
         public override void Instantiate(GraphReference instance)
