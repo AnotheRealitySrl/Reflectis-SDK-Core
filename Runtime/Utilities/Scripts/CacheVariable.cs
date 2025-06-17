@@ -155,6 +155,14 @@ namespace Reflectis.SDK.Core.Utilities
             GetCacheVariable(input).CacheValue = value;
         }
 
+        public async Task ForceRefresh()
+        {
+            foreach (var cache in cachesVariableCollection.Values)
+            {
+                await cache.ForceRefresh();
+            }
+        }
+
         public async Task ForceRefresh(T input)
         {
             await GetCacheVariable(input).ForceRefresh();
