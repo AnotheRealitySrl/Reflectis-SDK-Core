@@ -20,7 +20,7 @@ namespace Reflectis.SDK.Core.Utilities
             }
             catch (Exception e)
             {
-                Debug.LogError(e.Message);
+                Debug.LogException(e);
                 onFailedCallback();
             }
         }
