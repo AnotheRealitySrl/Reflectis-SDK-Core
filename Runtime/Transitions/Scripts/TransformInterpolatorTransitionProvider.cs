@@ -63,6 +63,10 @@ namespace Reflectis.SDK.Core.Transitions
 
         public override async Task EnterTransitionAsync()
         {
+            if (interpolator == null)
+            {
+                CreateInterpolator();
+            }
             onEnterTransitionStart?.Invoke();
             await interpolator.PlayForward();
             OnEnterTransitionFinish?.Invoke();
@@ -70,6 +74,10 @@ namespace Reflectis.SDK.Core.Transitions
 
         public override async Task ExitTransitionAsync()
         {
+            if (interpolator == null)
+            {
+                CreateInterpolator();
+            }
             OnExitTransitionStart?.Invoke();
             await interpolator.PlayBackwards();
             onExitTransitionFinish?.Invoke();
