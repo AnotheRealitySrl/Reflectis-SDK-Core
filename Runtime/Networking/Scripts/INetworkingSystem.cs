@@ -154,6 +154,8 @@ namespace Reflectis.SDK.Core.NetworkingSystem
         /// <returns></returns>
         GameObject GetPlayerAvatarObjectBySessionId(string sessionId);
 
+        public double GetSharedNetworkTime();
+
     }
 
 }
