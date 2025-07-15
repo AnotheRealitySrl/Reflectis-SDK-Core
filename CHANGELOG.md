@@ -1,5 +1,25 @@
 # Release notes
 
+## v13.0.0
+
+### Changed
+
+- Avatars: changed `GetAvatarLoader` method into `LoadAvatar` in `IAvatarConfigController`.
+
+### Added 
+
+- Avatars: added `GetLoadingProgress()` method in `IAvatarConfigController`.
+- Utilities: added `ForceRefresh` method in `CacheVariable`.
+- Network: added `GetSharedNetworkTime()` network in `INetworkingSystem`.
+
+### Fixed 
+
+- Fade: fixed a missing reference in `CanvasFadeSystem` configuration.
+- Avatars: improved avatar loading logic.
+- SystemFramework: added null check on systems initialization.
+- Utilities: fixed issue in `ImageDownloaded`.
+- Transition: fix on transform interpolator transition provider.
+
 ## v12.1.1
 
 ### Added
