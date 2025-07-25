@@ -1,5 +1,11 @@
 # Release notes
 
+## v13.1.0
+
+### Added 
+
+- Transitions: added `AddTransitionProvider` and `RemoveTransitionProvider` methods in `MultipleTransitionProvider`.
+  
 ## v13.0.0
 
 ### Changed

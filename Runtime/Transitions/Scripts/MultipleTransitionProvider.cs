@@ -1,8 +1,7 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 using UnityEngine;
 
 namespace Reflectis.SDK.Core.Transitions
@@ -72,6 +71,22 @@ namespace Reflectis.SDK.Core.Transitions
             onExitTransitionFinish?.Invoke();
         }
 
+        public void AddTransitionProvider(AbstractTransitionProvider provider)
+        {
+            providers.Add(provider);
+        }
+
+        public void RemoveTransitionProvider(AbstractTransitionProvider provider)
+        {
+            if (providers.Contains(provider))
+            {
+                providers.Remove(provider);
+            }
+            else
+            {
+                Debug.LogError($"The provider {provider.name} is not in the list of providers.");
+            }
+        }
 
         private async Task ExitAllTransitionsAsyncronously()
         {
