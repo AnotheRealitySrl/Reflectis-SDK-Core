@@ -26,8 +26,8 @@ namespace Reflectis.SDK.Core.ApiSystem
     {
         [SerializeField] protected AppConfig appConfig;
 
-        [SerializeField] private bool checkIsAlive;
-        [SerializeField] private bool getApiStatus;
+        [SerializeField] private bool checkIsAlive = true;
+        [SerializeField] private bool getApiStatus = true;
 
         [Header("Untrusted servers")]
         [SerializeField] private bool allowUntrustedServers;
@@ -48,17 +48,17 @@ namespace Reflectis.SDK.Core.ApiSystem
 
             if (string.IsNullOrEmpty(appConfig.AppId))
             {
-                throw new ArgumentException($"{this}: Missing appId", nameof(AppConfig.AppId));
+                throw new ArgumentException($"{name}: Missing appId", nameof(AppConfig.AppId));
             }
 
             if (string.IsNullOrEmpty(appConfig.AppSecret))
             {
-                throw new ArgumentException($"{this}: Missing appSecret", nameof(AppConfig.AppSecret));
+                throw new ArgumentException($"{name}: Missing appSecret", nameof(AppConfig.AppSecret));
             }
 
             if (string.IsNullOrEmpty(appConfig.ApiBaseUrl))
             {
-                throw new ArgumentNullException("Missing apiBaseUrl", nameof(AppConfig.ApiBaseUrl));
+                throw new ArgumentNullException($"{name}: Missing apiBaseUrl", nameof(AppConfig.ApiBaseUrl));
             }
 
             credential = new HmacCredential()
@@ -71,9 +71,9 @@ namespace Reflectis.SDK.Core.ApiSystem
             if (checkIsAlive)
             {
                 bool isAliveReq = await IsAlive();
-                if (isAliveReq)
+                if (!isAliveReq)
                 {
-                    Debug.LogError($"API is not alive");
+                    throw new Exception($"{name}: API is not alive");
                 }
             }
 
@@ -83,12 +83,12 @@ namespace Reflectis.SDK.Core.ApiSystem
                 if (apiServerStatusReq.IsSuccess)
                 {
                     ApiServerStatus apiServerStatus = apiServerStatusReq.Content;
-                    Debug.Log($"API Server Status: {JsonConvert.SerializeObject(apiServerStatus)}");
+                    Debug.Log($"{name}: API Server Status: {JsonConvert.SerializeObject(apiServerStatus)}");
                     ApiLabel = apiServerStatus.ApiConfiguration.label;
                 }
                 else
                 {
-                    Debug.LogError($"Failed to get API server status: {apiServerStatusReq.StatusCode} {apiServerStatusReq.ReasonPhrase}");
+                    throw new Exception($"{name}: Failed to get API server status: {apiServerStatusReq.StatusCode} {apiServerStatusReq.ReasonPhrase}");
                 }
             }
         }
@@ -162,7 +162,7 @@ namespace Reflectis.SDK.Core.ApiSystem
             // --- Use the new CreateHttpRequest ---
             UnityWebRequest request = httpSystem.CreateHttpRequest(
                 method,
-                $"{appConfig.ApiBaseUrl}{endpoint}",
+                $"{appConfig.ApiBaseUrl}/{endpoint}",
                 requestBodyType, // Pass the new enum
                 body,            // Pass the object body directly
                 queryParams,
