@@ -42,18 +42,9 @@ namespace Reflectis.SDK.Core.ApiSystem
 
         public string ApiLabel { get; private set; }
 
-        public override async Task Init(params object[] data)
+        public override async Task Init()
         {
             httpSystem = httpSystem != null ? httpSystem : SM.GetSystem<HttpSystem>();
-
-            if (data == null || data.Length == 0 || data[0] is not AppConfig)
-            {
-                throw new ArgumentException($"{this}: missing AppConfig");
-            }
-            else if (data[0] is AppConfig configParam)
-            {
-                appConfig = configParam;
-            }
 
             if (string.IsNullOrEmpty(appConfig.AppId))
             {
@@ -100,6 +91,13 @@ namespace Reflectis.SDK.Core.ApiSystem
                     Debug.LogError($"Failed to get API server status: {apiServerStatusReq.StatusCode} {apiServerStatusReq.ReasonPhrase}");
                 }
             }
+        }
+
+        public async Task Init(AppConfig config)
+        {
+            appConfig = config ?? throw new ArgumentException($"{this}: Missing AppConfig", nameof(AppConfig));
+
+            await Init();
         }
 
         protected (string, string) CalculateHmacHeader(HmacCredential credential, DateTime timestamp)

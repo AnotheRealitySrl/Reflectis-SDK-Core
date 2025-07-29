@@ -17,11 +17,11 @@ public class WebSocketSystem : BaseSystem, IWebSocketSystem
     /// <summary>
     /// Match url with handler
     /// </summary>
-    private Dictionary<string, IWebSocketHandler> webSocketHandlers = new Dictionary<string, IWebSocketHandler>();
+    private Dictionary<string, IWebSocketHandler> webSocketHandlers = new();
 
-    public override Task Init(params object[] data)
+    public override Task Init()
     {
-        base.Init(data);
+        base.Init();
 
 #if UNITY_WEBGL && !UNITY_EDITOR
         GameObject webGLWebSocketHandler = new GameObject();
