@@ -1,0 +1,166 @@
+#if UNITY_WEBGL && !UNITY_EDITOR
+using Reflectis.SDK.Core.SystemFramework;
+using Reflectis.SDK.Core.Utilities;
+
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
+using System.Threading.Tasks;
+
+using UnityEngine;
+
+public class WebSocketMessagesHandler : Singleton<WebSocketMessagesHandler>
+{
+    public const string WEB_SOCKET_HANDLER_OBJ_NAME = "WebSocketMessagesHandler";
+
+    [DllImport("__Internal")]
+    private static extern void WebSocketInit(string handler);
+
+    [DllImport("__Internal")]
+    private static extern int WebSocketOpen(string url);
+
+    [DllImport("__Internal")]
+    private static extern void WebSocketSend(int channel, string message);
+
+    [DllImport("__Internal")]
+    private static extern void WebSocketClose(int channel);
+
+    private WebSocketSystem webSocketSystem;
+
+    private Dictionary<int, WebGLWebSocketHandler> handlers = new Dictionary<int, WebGLWebSocketHandler>();
+
+    private Dictionary<int, WebGLWebSocketHandler> openingChannels = new Dictionary<int, WebGLWebSocketHandler>();
+
+    private List<int> closingChannels = new List<int>();
+
+    protected override void Awake()
+    {
+        base.Awake();
+        webSocketSystem = SM.GetSystem<WebSocketSystem>();
+        gameObject.name = WEB_SOCKET_HANDLER_OBJ_NAME;
+        WebSocketInit(WEB_SOCKET_HANDLER_OBJ_NAME);
+    }
+
+    public async Task Connect(string url, WebGLWebSocketHandler handler)
+    {
+        int channel = WebSocketOpen(url);
+
+        openingChannels.Add(channel, handler);
+
+        while (openingChannels.ContainsKey(channel))
+        {
+            string channels = "";
+            foreach (var item in openingChannels)
+            {
+                channels += item.Key + ", ";
+            }
+            await Task.Yield();
+        }
+    }
+
+    public void SocketOpenEventHandler(int channelId)
+    {
+        Debug.Log($"{nameof(SocketOpenEventHandler)}: open channel {channelId}");
+        handlers.TryAdd(channelId, openingChannels[channelId]);
+        openingChannels[channelId].ConnectionState = IWebSocketHandler.EWebSocketState.Open;
+        openingChannels.Remove(channelId);
+    }
+
+    public void SocketCloseEventHandler(int channelId)
+    {
+        Debug.Log($"{nameof(SocketCloseEventHandler)}: received message");
+        if (closingChannels.Contains(channelId))
+        {
+            closingChannels.Remove(channelId);
+            if (handlers.ContainsKey(channelId))
+            {
+                handlers.Remove(channelId);
+            }
+        }
+        else
+        {
+            if (handlers.ContainsKey(channelId))
+            {
+                handlers[channelId].OnSocketClose();
+                handlers.Remove(channelId);
+            }
+        }
+    }
+
+    public async void SocketMessageEventHandler(string channelAndMessage)
+    {
+        Debug.Log($"{nameof(SocketMessageEventHandler)}: received message");
+        if (channelAndMessage.Contains("|"))
+        {
+            int pipeIndex = channelAndMessage.IndexOf('|');
+
+            if (!(int.TryParse(channelAndMessage.Substring(0, pipeIndex), out int channel)))
+            {
+                Debug.LogError("Received message in wrong format: " + channelAndMessage + ". Expecting the message format to be [(int)channelId]|[(string)message]");
+                return;
+            }
+
+            string message = channelAndMessage.Substring(pipeIndex + 1);
+
+            //If the channel is still opening, wait
+            while (openingChannels.ContainsKey(channel))
+            {
+                await Task.Yield();
+            }
+
+            if (handlers.ContainsKey(channel))
+            {
+                handlers[channel].OnMessageReceived(message);
+            }
+            else
+            {
+                Debug.LogError($"Channel {channel} not found!");
+            }
+        }
+        else
+        {
+            Debug.LogError("Received message in wrong format: " + channelAndMessage + ". Expecting the message format to be [(int)channelId]|[(string)message]");
+        }
+    }
+
+    public void SocketErrorEventHandler(int channel)
+    {
+        Debug.Log($"{nameof(SocketErrorEventHandler)}: received message");
+        handlers[channel].OnSocketError();
+    }
+
+    public void SendMessage(WebGLWebSocketHandler handler, string message)
+    {
+        foreach (var channel in handlers)
+        {
+            if (channel.Value == handler)
+            {
+                WebSocketSend(channel.Key, message);
+                return;
+            }
+        }
+    }
+
+
+    public async Task CloseSocket(WebGLWebSocketHandler handler)
+    {
+        int channelId = -1;
+        foreach (var channel in handlers)
+        {
+            if (channel.Value == handler)
+            {
+                WebSocketClose(channel.Key);
+                channelId = channel.Key;
+                break;
+            }
+        }
+        if (channelId >= 0)
+        {
+            closingChannels.Add(channelId);
+            while (closingChannels.Contains(channelId))
+            {
+                await Task.Yield();
+            }
+        }
+    }
+}
+#endif
