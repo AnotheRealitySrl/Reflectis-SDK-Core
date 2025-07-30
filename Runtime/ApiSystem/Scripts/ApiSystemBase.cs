@@ -144,8 +144,9 @@ namespace Reflectis.SDK.Core.ApiSystem
             // or explicitly by the caller via headers.
             if (authentication.HasFlag(EAuthentication.Bearer))
             {
-                if (jwtToken == null || jwtToken.IsExpired(serverTimeOffset))
+                if (jwtToken.IsExpired(serverTimeOffset))
                 {
+                    Debug.LogWarning($"[{name}]: JWT token is null or expired. Refreshing token for API label: {ApiLabel}");
                     jwtToken = await SM.GetSystem<IAuthenticationSystem>().RefreshToken(ApiLabel);
                 }
 
