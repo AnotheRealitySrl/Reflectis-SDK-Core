@@ -48,17 +48,17 @@ namespace Reflectis.SDK.Core.ApiSystem
 
             if (string.IsNullOrEmpty(appConfig.AppId))
             {
-                throw new ArgumentException($"{name}: Missing appId", nameof(AppConfig.AppId));
+                throw new Exception($"{name}: Missing {nameof(AppConfig.AppId)}");
             }
 
             if (string.IsNullOrEmpty(appConfig.AppSecret))
             {
-                throw new ArgumentException($"{name}: Missing appSecret", nameof(AppConfig.AppSecret));
+                throw new Exception($"{name}: Missing {nameof(AppConfig.AppSecret)}");
             }
 
             if (string.IsNullOrEmpty(appConfig.ApiBaseUrl))
             {
-                throw new ArgumentNullException($"{name}: Missing apiBaseUrl", nameof(AppConfig.ApiBaseUrl));
+                throw new Exception($"{name}: Missing {nameof(AppConfig.ApiBaseUrl)}");
             }
 
             credential = new HmacCredential()
