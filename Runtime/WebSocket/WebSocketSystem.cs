@@ -14,6 +14,8 @@ using System.Runtime.InteropServices;
 [CreateAssetMenu(menuName = "Reflectis/SDK-WebSocket/WebSocketSystem", fileName = "WebSocketSystem")]
 public class WebSocketSystem : BaseSystem, IWebSocketSystem
 {
+    [SerializeField] private bool secureConnection = true;
+
     /// <summary>
     /// Match url with handler
     /// </summary>
@@ -147,6 +149,12 @@ public class WebSocketSystem : BaseSystem, IWebSocketSystem
 
     private string GetCompleteUrl(string url, Dictionary<string, string> queryParams)
     {
+        if (!Uri.TryCreate(url, UriKind.Absolute, out Uri parsedUri) ||
+            (parsedUri.Scheme != "ws" && parsedUri.Scheme != "wss"))
+        {
+            url = $"ws{(secureConnection ? "s" : string.Empty)}://{url}";
+        }
+
         string queryString = string.Empty;
         if (queryParams != null)
         {
@@ -157,7 +165,8 @@ public class WebSocketSystem : BaseSystem, IWebSocketSystem
                 isFirst = false;
             }
         }
-        return "wss://" + url + queryString;
+
+        return url + queryString;
     }
 
 }

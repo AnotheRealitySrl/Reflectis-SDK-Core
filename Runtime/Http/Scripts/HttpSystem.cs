@@ -10,6 +10,8 @@ using UnityEngine.Networking;
 [CreateAssetMenu(menuName = "Reflectis/SDK-Http/HttpSystemConfig", fileName = "HttpSystemConfig")]
 public class HttpSystem : BaseSystem
 {
+    [SerializeField] private bool secureConnection = true; // Use HTTPS by default
+
     public enum ERequestBodyType
     {
         /// <summary>No body for the request (e.g., GET, HEAD, DELETE).</summary>
@@ -49,17 +51,21 @@ public class HttpSystem : BaseSystem
                                             Dictionary<string, string> headers = null,
                                             CertificateHandler certificateHandler = default)
     {
+        if (!Uri.TryCreate(uri, UriKind.Absolute, out Uri parsedUri) ||
+            (parsedUri.Scheme != "http" && parsedUri.Scheme != "https"))
+        {
+            uri = $"http{(secureConnection ? "s" : string.Empty)}://{uri}";
+        }
+
         if (queryParams != null)
         {
             uri += AddQueryString(queryParams);
         }
 
-        UnityWebRequest request = null; // Initialize request to null
         string inferredContentType = null; // To keep track of the deduced Content-Type
-        if (body == null)
-        {
-            body = string.Empty; // Default to empty string if no body is provided
-        }
+        body ??= string.Empty; // Default to empty string if no body is provided
+
+        UnityWebRequest request;
         // --- Deducing and handling the body type based on the enum ---
         switch (requestBodyType)
         {

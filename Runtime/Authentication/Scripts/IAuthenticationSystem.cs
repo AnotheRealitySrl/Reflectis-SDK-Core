@@ -17,7 +17,7 @@ namespace Reflectis.SDK.Core.Authentication
             BearerAndHmac = Bearer | Hmac
         }
 
-        Task<bool> IsAlive();
+        JwtToken GetToken(string apiLabel);
         Task<JwtToken> RefreshToken(string apiLabel);
     }
 }

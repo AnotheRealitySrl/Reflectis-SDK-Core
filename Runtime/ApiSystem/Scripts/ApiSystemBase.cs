@@ -27,7 +27,7 @@ namespace Reflectis.SDK.Core.ApiSystem
         [SerializeField] protected AppConfig appConfig;
 
         [SerializeField] private bool checkIsAlive = true;
-        [SerializeField] private bool getApiStatus = true;
+        [SerializeField] private bool getApiInfo = true;
 
         [Header("Untrusted servers")]
         [SerializeField] private bool allowUntrustedServers;
@@ -70,25 +70,26 @@ namespace Reflectis.SDK.Core.ApiSystem
 
             if (checkIsAlive)
             {
-                bool isAliveReq = await IsAlive();
-                if (!isAliveReq)
+                if (!await IsAlive())
                 {
                     throw new Exception($"{name}: API is not alive");
                 }
             }
 
-            if (getApiStatus)
+            if (getApiInfo)
             {
-                ApiResponse<ApiServerStatus> apiServerStatusReq = await GetApiServerStatus();
-                if (apiServerStatusReq.IsSuccess)
+                ApiResponse<ApiInfo> apiInfoReq = await GetApiInfo();
+                if (apiInfoReq.IsSuccess)
                 {
-                    ApiServerStatus apiServerStatus = apiServerStatusReq.Content;
-                    Debug.Log($"{name}: API Server Status: {JsonConvert.SerializeObject(apiServerStatus)}");
-                    ApiLabel = apiServerStatus.ApiConfiguration.label;
+                    ApiInfo apiInfo = apiInfoReq.Content;
+                    Debug.Log($"{name}: API Server Info: {JsonConvert.SerializeObject(apiInfo)}");
+
+                    ApiLabel = apiInfo.Label;
+                    serverTimeOffset = DateTime.UtcNow - apiInfo.ServerTime;
                 }
                 else
                 {
-                    throw new Exception($"{name}: Failed to get API server status: {apiServerStatusReq.StatusCode} {apiServerStatusReq.ReasonPhrase}");
+                    throw new Exception($"{name}: Failed to get API info: {apiInfoReq.StatusCode} {apiInfoReq.ReasonPhrase}");
                 }
             }
         }
@@ -116,7 +117,7 @@ namespace Reflectis.SDK.Core.ApiSystem
                                                 string endpoint,
                                                 Dictionary<string, string> queryParams = null,
                                                 HttpSystem.ERequestBodyType requestBodyType = HttpSystem.ERequestBodyType.RawString,
-                                                object body = null, // Changed to object);
+                                                object body = null,
                                                 EAuthentication authentication = EAuthentication.BearerAndHmac,
                                                 bool allowEmptyQueryValues = false,
                                                 Dictionary<string, string> additionalHeaders = null)
@@ -144,12 +145,7 @@ namespace Reflectis.SDK.Core.ApiSystem
             // or explicitly by the caller via headers.
             if (authentication.HasFlag(EAuthentication.Bearer))
             {
-                if (jwtToken.IsExpired(serverTimeOffset))
-                {
-                    Debug.LogWarning($"[{name}]: JWT token is null or expired. Refreshing token for API label: {ApiLabel}");
-                    jwtToken = await SM.GetSystem<IAuthenticationSystem>().RefreshToken(ApiLabel);
-                }
-
+                await CheckJwtToken();
                 headers.Add("Authorization", $"Bearer {jwtToken.Bearer}");
             }
 
@@ -176,38 +172,42 @@ namespace Reflectis.SDK.Core.ApiSystem
             return request;
         }
 
+        protected async Task CheckJwtToken()
+        {
+            if (jwtToken == null)
+            {
+                try
+                {
+                    jwtToken = SM.GetSystem<IAuthenticationSystem>().GetToken(ApiLabel);
+                }
+                catch (Exception ex)
+                {
+                    Debug.LogError($"[{name}]: Failed to retrieve JWT token for API label: {ApiLabel}. Exception: {ex.Message}");
+                }
+            }
+
+            if (jwtToken.IsExpired(serverTimeOffset))
+            {
+                Debug.LogWarning($"[{name}]: JWT token is null or expired. Refreshing token for API label: {ApiLabel}");
+                jwtToken = await SM.GetSystem<IAuthenticationSystem>().RefreshToken(ApiLabel);
+            }
+        }
+
         public async Task<bool> IsAlive()
         {
             using UnityWebRequest request = await BuildRequest(UnityWebRequest.kHttpVerbGET, "health", authentication: EAuthentication.None);
             await request.SendWebRequest();
 
-            bool success = request.result == UnityWebRequest.Result.Success;
-
-            if (success)
-            {
-                ApiResponse<DateTime?> serverTimeResponse = new(request.responseCode, request.error, request.downloadHandler.text);
-                DateTime? serverTime = serverTimeResponse.Content;
-
-                if (serverTime.HasValue)
-                {
-                    serverTimeOffset = DateTime.UtcNow - serverTime.Value;
-                    Debug.Log($"Server time: {serverTime.Value}, client time offset: {serverTimeOffset}");
-                }
-                else
-                {
-                    Debug.LogWarning($"Unable to retrieve server time");
-                }
-            }
-
-            return success;
+            return request.result == UnityWebRequest.Result.Success;
         }
 
-        public async Task<ApiResponse<ApiServerStatus>> GetApiServerStatus()
+
+        public async Task<ApiResponse<ApiInfo>> GetApiInfo()
         {
-            using UnityWebRequest request = await BuildRequest(UnityWebRequest.kHttpVerbGET, "apiserver/status", authentication: EAuthentication.Hmac);
+            using UnityWebRequest request = await BuildRequest(UnityWebRequest.kHttpVerbGET, "apiserver/info", authentication: EAuthentication.None);
             await request.SendWebRequest();
 
-            return new ApiResponse<ApiServerStatus>(request.responseCode, request.error, request.downloadHandler.text);
+            return new ApiResponse<ApiInfo>(request.responseCode, request.error, request.downloadHandler.text);
         }
     }
 }
