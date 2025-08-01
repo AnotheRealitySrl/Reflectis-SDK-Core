@@ -1,14 +1,18 @@
 ﻿using System;
 
+using Unity.Properties;
+
+using UnityEngine;
+
 namespace Reflectis.SDK.Core.Utilities
 {
     [Serializable, Newtonsoft.Json.JsonObject(Newtonsoft.Json.MemberSerialization.Fields)]
     public class HmacCredential
     {
-        private string id;
-        private string secret;
+        [SerializeField] private string appId;
+        [SerializeField] private string appSecret;
 
-        public Guid Id { get => new(id); set => id = value.ToString(); }
-        public string Secret { get => secret; set => secret = value; }
+        [CreateProperty] public Guid AppId { get => new(appId); set => appId = value.ToString(); }
+        [CreateProperty] public string AppSecret { get => appSecret; set => appSecret = value; }
     }
 }

@@ -24,7 +24,7 @@ namespace Reflectis.SDK.Core.ApiSystem
 {
     public abstract class ApiSystemBase : BaseSystem
     {
-        [SerializeField] protected AppConfig appConfig;
+        [SerializeField] protected AppConfig apiConfig;
 
         [SerializeField] private bool checkIsAlive = true;
         [SerializeField] private bool getApiInfo = true;
@@ -34,8 +34,6 @@ namespace Reflectis.SDK.Core.ApiSystem
 
         [SerializeField] protected HttpSystem httpSystem;
 
-
-        protected HmacCredential credential;
         protected JwtToken jwtToken;
 
         protected TimeSpan serverTimeOffset;
@@ -46,26 +44,20 @@ namespace Reflectis.SDK.Core.ApiSystem
         {
             httpSystem = httpSystem != null ? httpSystem : SM.GetSystem<HttpSystem>();
 
-            if (string.IsNullOrEmpty(appConfig.AppId))
+            if (string.IsNullOrEmpty(apiConfig.Credential.AppId.ToString()))
             {
-                throw new Exception($"{name}: Missing {nameof(AppConfig.AppId)}");
+                throw new Exception($"{name}: Missing {nameof(HmacCredential.AppId)}");
             }
 
-            if (string.IsNullOrEmpty(appConfig.AppSecret))
+            if (string.IsNullOrEmpty(apiConfig.Credential.AppSecret))
             {
-                throw new Exception($"{name}: Missing {nameof(AppConfig.AppSecret)}");
+                throw new Exception($"{name}: Missing {nameof(HmacCredential.AppSecret)}");
             }
 
-            if (string.IsNullOrEmpty(appConfig.ApiBaseUrl))
+            if (string.IsNullOrEmpty(apiConfig.ApiBaseUrl))
             {
                 throw new Exception($"{name}: Missing {nameof(AppConfig.ApiBaseUrl)}");
             }
-
-            credential = new HmacCredential()
-            {
-                Id = new Guid(appConfig.AppId),
-                Secret = appConfig.AppSecret
-            };
 
 
             if (checkIsAlive)
@@ -96,16 +88,16 @@ namespace Reflectis.SDK.Core.ApiSystem
 
         public async Task Init(AppConfig config)
         {
-            appConfig = config ?? throw new ArgumentException($"{this}: Missing AppConfig", nameof(AppConfig));
+            apiConfig = config ?? throw new ArgumentException($"{this}: Missing AppConfig", nameof(AppConfig));
 
             await Init();
         }
 
         protected (string, string) CalculateHmacHeader(HmacCredential credential, DateTime timestamp)
         {
-            string appId = credential.Id.ToString().ToUpperInvariant();
+            string appId = credential.AppId.ToString().ToUpperInvariant();
             string timestampFormatted = timestamp.ToString("yyyy-MM-ddTHH:mm:ss'z'", CultureInfo.InvariantCulture).ToUpperInvariant();
-            byte[] keyBytes = Encoding.UTF8.GetBytes(credential.Secret);
+            byte[] keyBytes = Encoding.UTF8.GetBytes(credential.AppSecret);
             using HMACSHA256 sha256 = new(keyBytes);
             byte[] hmac = sha256.ComputeHash(Encoding.UTF8.GetBytes($"{appId}:{timestampFormatted}"));
 
@@ -127,12 +119,12 @@ namespace Reflectis.SDK.Core.ApiSystem
             // Assuming string.IsNullOrWhiteSpace is used or an extension method is properly imported
             queryParams = queryParams.Where(x => allowEmptyQueryValues ? x.Value != null : !string.IsNullOrWhiteSpace(x.Value))
                                      .ToDictionary(x => x.Key, x => x.Value);
-            queryParams.Add("api-version", appConfig.ApiVersion);
+            queryParams.Add("api-version", apiConfig.ApiVersion);
 
-            (string timestamp, string hmac) = CalculateHmacHeader(credential, DateTime.UtcNow - serverTimeOffset);
+            (string timestamp, string hmac) = CalculateHmacHeader(apiConfig.Credential, DateTime.UtcNow - serverTimeOffset);
             Dictionary<string, string> headers = new()
             {
-                { "AppId", appConfig.AppId },
+                { "AppId", apiConfig.Credential.AppId.ToString() },
                 { "Timestamp", timestamp }
             };
 
@@ -159,7 +151,7 @@ namespace Reflectis.SDK.Core.ApiSystem
             // --- Use the new CreateHttpRequest ---
             UnityWebRequest request = httpSystem.CreateHttpRequest(
                 method,
-                $"{appConfig.ApiBaseUrl}/{endpoint}",
+                $"{apiConfig.ApiBaseUrl}/{endpoint}",
                 requestBodyType, // Pass the new enum
                 body,            // Pass the object body directly
                 queryParams,
