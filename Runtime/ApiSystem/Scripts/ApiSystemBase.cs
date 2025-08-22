@@ -122,12 +122,8 @@ namespace Reflectis.SDK.Core.ApiSystem
             queryParams.Add("api-version", apiConfig.ApiVersion);
 
             (string timestamp, string hmac) = CalculateHmacHeader(apiConfig.Credential, DateTime.UtcNow - serverTimeOffset);
-            Dictionary<string, string> headers = new()
-            {
-                { "AppId", apiConfig.Credential.AppId.ToString() },
-                { "Timestamp", timestamp }
-            };
 
+            Dictionary<string, string> headers = SetDefaultHeaders(timestamp);
             if (additionalHeaders != null)
             {
                 headers.AddRange(additionalHeaders);
@@ -162,6 +158,17 @@ namespace Reflectis.SDK.Core.ApiSystem
             // and its internal logic decides if Content-Type should be set/overridden.
 
             return request;
+        }
+
+        protected virtual Dictionary<string, string> SetDefaultHeaders(params string[] values)
+        {
+            Dictionary<string, string> headers = new()
+            {
+                { "AppId", apiConfig.Credential.AppId.ToString() },
+                { "Timestamp", values[0] },
+            };
+
+            return headers;
         }
 
         protected async Task CheckJwtToken()
