@@ -182,6 +182,7 @@ namespace Reflectis.SDK.Core.ApiSystem
                 catch (Exception ex)
                 {
                     Debug.LogError($"[{name}]: Failed to retrieve JWT token for API label: {ApiLabel}. Exception: {ex.Message}");
+                    return;
                 }
             }
 
