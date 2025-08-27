@@ -4,10 +4,21 @@ using Reflectis.SDK.Core.Utilities;
 using System;
 using System.Threading.Tasks;
 
+using UnityEngine.Events;
+
 namespace Reflectis.SDK.Core.Authentication
 {
     public interface IAuthenticationSystem : ISystem
     {
+        public enum EAuthStatus
+        {
+            LoadingSession,
+            NoSession,
+            NewSession,
+            NewSessionPolling,
+            Authenticated
+        }
+
         [Flags]
         public enum EAuthentication
         {
@@ -17,7 +28,10 @@ namespace Reflectis.SDK.Core.Authentication
             BearerAndHmac = Bearer | Hmac
         }
 
+        UnityEvent<EAuthStatus> OnAuthStatusChange { get; }
+
         JwtToken GetToken(string apiLabel);
         Task<JwtToken> RefreshToken(string apiLabel);
+        Task LoadSession(string sessionHash);
     }
 }

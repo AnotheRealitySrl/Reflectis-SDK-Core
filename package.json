@@ -22,6 +22,11 @@
       "displayName": "URP Volume fading sample",
       "description": "This is a sample of fade manager implemented with post-processing",
       "path": "Samples~/Fade/URPVolumeSample"
+    },
+    {
+      "displayName": "DeepLinkReceiverWithAuth",
+      "description": "This is a sample of DeepLinkReceiver with authentication",
+      "path": "Samples~/DeepLinkReceiverWithAuth"
     }
   ]
 }
