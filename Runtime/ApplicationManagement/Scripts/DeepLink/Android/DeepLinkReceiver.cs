@@ -17,7 +17,7 @@ public class DeepLinkReceiver : MonoBehaviour
     {
         try
         {
-            AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+            AndroidJavaClass unityPlayer = new("com.unity3d.player.UnityPlayer");
             AndroidJavaObject currentActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
             AndroidJavaObject intent = currentActivity.Call<AndroidJavaObject>("getIntent");
             AndroidJavaObject uri = intent.Call<AndroidJavaObject>("getData");
@@ -29,7 +29,7 @@ public class DeepLinkReceiver : MonoBehaviour
                 // Ottieni tutte le query string in un dizionario
                 Dictionary<string, string> queryParams = GetAllQueryParameters(uri);
 
-                IApplicationManager.Instance.OnDeepLinkParametersReceived.Invoke(queryParams);
+                IDeepLinkPayloadParser.Instance.ParseDeepLinkPayload(queryParams);
 
             }
         }

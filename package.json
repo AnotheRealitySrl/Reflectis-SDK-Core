@@ -24,9 +24,9 @@
       "path": "Samples~/Fade/URPVolumeSample"
     },
     {
-      "displayName": "DeepLinkReceiverWithAuth",
-      "description": "This is a sample of DeepLinkReceiver with authentication",
-      "path": "Samples~/DeepLinkReceiverWithAuth"
+      "displayName": "QueryStringParserSample",
+      "description": "This is a sample of a script parsing deep link querystring parameters, providing authentication and websocket session creation",
+      "path": "Samples~/QueryStringParserSample"
     }
   ]
 }

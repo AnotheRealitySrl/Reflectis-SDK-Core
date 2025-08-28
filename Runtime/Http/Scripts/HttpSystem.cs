@@ -59,7 +59,7 @@ public class HttpSystem : BaseSystem
 
         if (queryParams != null)
         {
-            uri += AddQueryString(queryParams);
+            uri += CreateQueryString(queryParams);
         }
 
         string inferredContentType = null; // To keep track of the deduced Content-Type
@@ -193,7 +193,7 @@ public class HttpSystem : BaseSystem
         return request;
     }
 
-    public string AddQueryString(Dictionary<string, string> queryParams)
+    public string CreateQueryString(Dictionary<string, string> queryParams)
     {
         string queryString = string.Empty;
         bool isFirst = true;
