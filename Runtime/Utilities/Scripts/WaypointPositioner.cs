@@ -220,94 +220,165 @@ namespace Reflectis.SDK.Core.Utilities
                     }
                 }
             }
+        }
 
-            void StaticMoveIn(int wayPointIndex)
+        public void MoveInVoid(int wayPointIndex)
+        {
+            if (!initialized)
+                Init();
+
+            if (lastWaypointIndex == wayPointIndex)
             {
-                objectToMove.position = waypoints[wayPointIndex].pos;
-                objectToMove.eulerAngles = waypoints[wayPointIndex].rot;
-                var scaleMultiplier = waypoints[wayPointIndex].scaleMultiplier;
-                if (scaleMultiplier == 0)
-                    objectToMove.localScale = initialScale;
+                // Reset data to same position.
+                StaticMoveIn(wayPointIndex);
+            }
+            else
+            {
+                lastWaypointIndex = wayPointIndex;
+
+                if (!lerpMovement)
+                {
+                    StaticMoveIn(wayPointIndex);
+                }
                 else
-                    objectToMove.localScale *= scaleMultiplier;
-            }
-
-            async Task LerpPos(FixedTransform lastFixedTransform)
-            {
-                if (lerpTranslationSpeed > 0f)
                 {
-                    var initialPos = objectToMove.position;
+                    FixedTransform lastFixedTransform = waypoints[wayPointIndex];
 
-                    var spaceDif = Vector3.Distance(initialPos, lastFixedTransform.pos);
-                    var posTime = spaceDif / lerpTranslationSpeed;
-                    float currPosTime = 0f;
-                    while (currPosTime < posTime)
+                    switch (lerpMovementType)
                     {
-                        currPosTime += Time.deltaTime;
-                        if (currPosTime > posTime)
-                        {
-                            currPosTime = posTime;
-                        }
-                        objectToMove.position = Vector3.Lerp(initialPos, lastFixedTransform.pos, currPosTime / posTime);
+                        case ELerpMovementType.LookThenMoveThenRotate:
 
-                        await Task.Yield();
+                            // Look
+                            LerpLook(lastFixedTransform);
+
+                            // Position
+                            LerpPos(lastFixedTransform);
+
+                            // Rotation
+                            LerpRot(lastFixedTransform);
+
+                            break;
+                        case ELerpMovementType.LookThenMove:
+
+                            // Look
+                            LerpLook(lastFixedTransform);
+
+                            // Position
+                            LerpPos(lastFixedTransform);
+
+                            break;
+                        case ELerpMovementType.MoveThenRotate:
+
+                            // Position
+                            LerpPos(lastFixedTransform);
+
+                            // Rotation
+                            LerpRot(lastFixedTransform);
+
+                            break;
+                        case ELerpMovementType.RotateThenMove:
+
+                            // Rotation
+                            LerpRot(lastFixedTransform);
+
+                            // Position
+                            LerpPos(lastFixedTransform);
+
+                            break;
+                        default:
+                            StaticMoveIn(wayPointIndex);
+                            break;
                     }
                 }
-                objectToMove.position = lastFixedTransform.pos;
             }
+        }
 
-            async Task LerpRot(FixedTransform lastFixedTransform)
+        void StaticMoveIn(int wayPointIndex)
+        {
+            objectToMove.position = waypoints[wayPointIndex].pos;
+            objectToMove.eulerAngles = waypoints[wayPointIndex].rot;
+            var scaleMultiplier = waypoints[wayPointIndex].scaleMultiplier;
+            if (scaleMultiplier == 0)
+                objectToMove.localScale = initialScale;
+            else
+                objectToMove.localScale *= scaleMultiplier;
+        }
+
+        async Task LerpPos(FixedTransform lastFixedTransform)
+        {
+            if (lerpTranslationSpeed > 0f)
             {
-                if (lerpRotationSpeed > 0f)
+                var initialPos = objectToMove.position;
+
+                var spaceDif = Vector3.Distance(initialPos, lastFixedTransform.pos);
+                var posTime = spaceDif / lerpTranslationSpeed;
+                float currPosTime = 0f;
+                while (currPosTime < posTime)
                 {
-                    Quaternion prevAngleQ = objectToMove.rotation;
-                    Quaternion lastAngleQ = Quaternion.Euler(lastFixedTransform.rot);
-
-                    var angleDif = Quaternion.Angle(prevAngleQ, lastAngleQ);
-                    var rotTime = angleDif / lerpRotationSpeed;
-                    float currRotTime = 0f;
-                    while (currRotTime < rotTime)
+                    currPosTime += Time.deltaTime;
+                    if (currPosTime > posTime)
                     {
-                        currRotTime += Time.deltaTime;
-                        if (currRotTime > rotTime)
-                        {
-                            currRotTime = rotTime;
-                        }
-                        objectToMove.rotation = Quaternion.Lerp(prevAngleQ, lastAngleQ, currRotTime / rotTime);
-
-                        await Task.Yield();
+                        currPosTime = posTime;
                     }
-                }
-                objectToMove.eulerAngles = lastFixedTransform.rot;
-            }
+                    objectToMove.position = Vector3.Lerp(initialPos, lastFixedTransform.pos, currPosTime / posTime);
 
-            async Task LerpLook(FixedTransform lastFixedTransform)
+                    await Task.Yield();
+                }
+            }
+            objectToMove.position = lastFixedTransform.pos;
+        }
+
+        async Task LerpRot(FixedTransform lastFixedTransform)
+        {
+            if (lerpRotationSpeed > 0f)
             {
-                Quaternion lastAngleQ = Quaternion.LookRotation(lastFixedTransform.pos - objectToMove.position, Vector3.up); //calc a rotation that
-                if (lerpRotationSpeed > 0f && lastFixedTransform.pos != objectToMove.position)
+                Quaternion prevAngleQ = objectToMove.rotation;
+                Quaternion lastAngleQ = Quaternion.Euler(lastFixedTransform.rot);
+
+                var angleDif = Quaternion.Angle(prevAngleQ, lastAngleQ);
+                var rotTime = angleDif / lerpRotationSpeed;
+                float currRotTime = 0f;
+                while (currRotTime < rotTime)
                 {
-                    Quaternion prevAngleQ = objectToMove.rotation;
-
-                    var angleDif = Quaternion.Angle(prevAngleQ, lastAngleQ);
-                    var rotTime = angleDif / lerpRotationSpeed;
-                    float currRotTime = 0f;
-                    Debug.Log("Start LOOK");
-                    while (currRotTime < rotTime)
+                    currRotTime += Time.deltaTime;
+                    if (currRotTime > rotTime)
                     {
-                        currRotTime += Time.deltaTime;
-                        Debug.Log("LOOK " + currRotTime.ToString() + "/" + rotTime.ToString());
-                        if (currRotTime > rotTime)
-                        {
-                            currRotTime = rotTime;
-                        }
-                        objectToMove.rotation = Quaternion.Lerp(prevAngleQ, lastAngleQ, currRotTime / rotTime);
-
-                        await Task.Yield();
+                        currRotTime = rotTime;
                     }
-                    Debug.Log("End LOOK");
+                    objectToMove.rotation = Quaternion.Lerp(prevAngleQ, lastAngleQ, currRotTime / rotTime);
+
+                    await Task.Yield();
                 }
-                objectToMove.rotation = lastAngleQ;
             }
+            objectToMove.eulerAngles = lastFixedTransform.rot;
+        }
+
+        async Task LerpLook(FixedTransform lastFixedTransform)
+        {
+            Quaternion lastAngleQ = Quaternion.LookRotation(lastFixedTransform.pos - objectToMove.position, Vector3.up); //calc a rotation that
+            if (lerpRotationSpeed > 0f && lastFixedTransform.pos != objectToMove.position)
+            {
+                Quaternion prevAngleQ = objectToMove.rotation;
+
+                var angleDif = Quaternion.Angle(prevAngleQ, lastAngleQ);
+                var rotTime = angleDif / lerpRotationSpeed;
+                float currRotTime = 0f;
+                Debug.Log("Start LOOK");
+                while (currRotTime < rotTime)
+                {
+                    currRotTime += Time.deltaTime;
+                    Debug.Log("LOOK " + currRotTime.ToString() + "/" + rotTime.ToString());
+                    if (currRotTime > rotTime)
+                    {
+                        currRotTime = rotTime;
+                    }
+                    objectToMove.rotation = Quaternion.Lerp(prevAngleQ, lastAngleQ, currRotTime / rotTime);
+
+                    await Task.Yield();
+                }
+                Debug.Log("End LOOK");
+            }
+            objectToMove.rotation = lastAngleQ;
         }
     }
 }
