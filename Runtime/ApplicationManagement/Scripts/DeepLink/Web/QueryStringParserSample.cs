@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 using System.Net;
+
+#if UNITY_WEBGL && !UNITY_EDITOR
 using System.Runtime.InteropServices; // Necessario per DllImport
+#endif
 
 using UnityEngine;
 
@@ -8,9 +11,11 @@ namespace Reflectis.SDK.Core.ApplicationManagement.Samples
 {
     public class QueryStringParser : MonoBehaviour
     {
+#if UNITY_WEBGL && !UNITY_EDITOR
         // Importa la funzione GetQueryString dal nostro file .jslib
         [DllImport("__Internal")]
         private static extern string GetQueryString();
+#endif
 
         private void Awake()
         {
