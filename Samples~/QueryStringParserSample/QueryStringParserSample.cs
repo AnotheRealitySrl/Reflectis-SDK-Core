@@ -23,7 +23,12 @@ namespace Reflectis.SDK.Core.ApplicationManagement.Samples
     {
         private const string WORLD_ID = "worldId";
         private const string SESSION_HASH = "sessionHash";
-        private const string SESSION_ID = "sessionId";
+        private const string CONNECTION_ID = "connectionId";
+
+        private void Awake()
+        {
+            IDeepLinkPayloadParser.Instance = this;
+        }
 
         public async void ParseDeepLinkPayload(Dictionary<string, string> querystring)
         {
@@ -37,9 +42,9 @@ namespace Reflectis.SDK.Core.ApplicationManagement.Samples
                 throw new ArgumentNullException($"DeepLinkParserSample: {SESSION_HASH} not found in deep link parameters.");
             }
 
-            if (!querystring.ContainsKey(SESSION_ID))
+            if (!querystring.ContainsKey(CONNECTION_ID))
             {
-                throw new ArgumentNullException($"DeepLinkParserSample: {SESSION_ID} not found in deep link parameters.");
+                throw new ArgumentNullException($"DeepLinkParserSample: {CONNECTION_ID} not found in deep link parameters.");
             }
 
             string sessionHash = querystring[SESSION_HASH];
@@ -60,16 +65,38 @@ namespace Reflectis.SDK.Core.ApplicationManagement.Samples
                 Debug.LogError($"DeepLinkParserSample: Unable to retrieve world {worldId} - {worldReq.ReasonPhrase}");
             }
 
-            string sessionId = querystring[SESSION_ID];
-            SM.GetSystem<RealtimeApiSystem>().EmbodyConnection(sessionId,
-                () =>
+            string sessionId = querystring[CONNECTION_ID];
+
+            RealtimeApiSystem realtimeApiSystem = SM.GetSystem<RealtimeApiSystem>();
+            realtimeApiSystem.ConnectToReflectisRealtime(
+                (handshake) =>
                     {
-                        Debug.Log($"DeepLinkParserSample: successfully created websocket connection with session id: {sessionId}");
+                        Debug.Log($"DeepLinkParserSample: successfully created websocket connection");
+                        realtimeApiSystem.EmbodyConnection(sessionId,
+                                () =>
+                                {
+                                    Debug.Log($"DeepLinkParserSample: successfully created websocket connection with session id: {sessionId}");
+                                },
+                                () =>
+                                {
+                                    Debug.LogError($"DeepLinkParserSample: unable to create websocket connection with session id: {sessionId}");
+                                });
+                    },
+                (reason) =>
+                    {
+                        Debug.LogError($"DeepLinkParserSample: disconnected from websocket, reason : {reason}");
+                    },
+                (kick) =>
+                    {
+                        Debug.Log($"DeepLinkParserSample: kicked from websocket, {kick}");
                     },
                 () =>
                     {
-                        Debug.LogError($"DeepLinkParserSample: unable to create websocket connection with session id: {sessionId}");
+                        Debug.Log($"DeepLinkParserSample: successfully created websocket connection with session id: {sessionId}");
                     });
+
+
+
         }
     }
 }

@@ -1,20 +1,19 @@
+#if UNITY_ANDROID && !UNITY_EDITOR
 using Reflectis.SDK.Core.ApplicationManagement;
+#endif
 
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 
 using UnityEngine;
 
 public class DeepLinkReceiver : MonoBehaviour
 {
-    private void Awake()
+    public void CheckForDeepLink()
     {
 #if UNITY_ANDROID && !UNITY_EDITOR
-            CheckForDeepLink();
-#endif
-    }
-
-    private void CheckForDeepLink()
-    {
         try
         {
             AndroidJavaClass unityPlayer = new("com.unity3d.player.UnityPlayer");
@@ -24,46 +23,50 @@ public class DeepLinkReceiver : MonoBehaviour
 
             if (uri != null)
             {
-                Debug.Log("App lanciata con Deep Link: " + uri.Call<string>("toString"));
+                string deepLinkUrl = uri.Call<string>("toString");
+                Debug.Log("App opened with deep linkg: " + deepLinkUrl);
 
-                // Ottieni tutte le query string in un dizionario
-                Dictionary<string, string> queryParams = GetAllQueryParameters(uri);
+                Dictionary<string, string> queryParams = ParseQueryString(deepLinkUrl);
 
                 IDeepLinkPayloadParser.Instance.ParseDeepLinkPayload(queryParams);
-
             }
         }
         catch (System.Exception ex)
         {
             Debug.LogError("Errore nel recuperare il deep link: " + ex.Message);
         }
+#endif
     }
 
-    private Dictionary<string, string> GetAllQueryParameters(AndroidJavaObject uri)
+    /// <summary>
+    /// Esegue il parsing della querystring da un URL usando le librerie standard .NET.
+    /// È più robusto e leggibile rispetto all'iterazione tramite AndroidJavaObject.
+    /// </summary>
+    /// <param name="url">L'URL completo da cui estrarre i parametri.</param>
+    /// <returns>Un dizionario con i parametri della querystring.</returns>
+    private Dictionary<string, string> ParseQueryString(string url)
     {
-        var result = new Dictionary<string, string>();
-        if (uri == null)
-            return result;
+        if (string.IsNullOrEmpty(url))
+        {
+            return new Dictionary<string, string>();
+        }
 
         try
         {
-            // uri.getQueryParameterNames() -> Set<String>
-            AndroidJavaObject namesSet = uri.Call<AndroidJavaObject>("getQueryParameterNames");
-            if (namesSet == null) return result;
+            // La classe Uri di .NET è perfetta per scomporre un URL
+            var uri = new Uri(url);
 
-            AndroidJavaObject iterator = namesSet.Call<AndroidJavaObject>("iterator");
-            while (iterator != null && iterator.Call<bool>("hasNext"))
-            {
-                string name = iterator.Call<string>("next");
-                string value = uri.Call<string>("getQueryParameter", name);
-                result[name] = value;
-            }
+            // HttpUtility.ParseQueryString gestisce automaticamente la decodifica
+            // di caratteri speciali (es. %20 per lo spazio).
+            var queryCollection = HttpUtility.ParseQueryString(uri.Query);
+
+            // Converte il risultato (NameValueCollection) in un dizionario
+            return queryCollection.AllKeys.ToDictionary(key => key, key => queryCollection[key]);
         }
-        catch (System.Exception e)
+        catch (Exception ex)
         {
-            Debug.LogWarning("Impossibile leggere i parametri della query: " + e.Message);
+            Debug.LogError("Impossibile parsare i parametri della querystring: " + ex.Message);
+            return new Dictionary<string, string>();
         }
-
-        return result;
     }
 }
