@@ -1,5 +1,8 @@
 using System.Collections.Generic;
 using System.Net;
+#if UNITY_WEBGL && !UNITY_EDITOR
+using System.Runtime.InteropServices;
+#endif
 
 using UnityEngine;
 
