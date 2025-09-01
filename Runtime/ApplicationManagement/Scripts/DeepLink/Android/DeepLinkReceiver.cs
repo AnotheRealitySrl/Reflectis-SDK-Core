@@ -4,8 +4,6 @@ using Reflectis.SDK.Core.ApplicationManagement;
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 using UnityEngine;
 
@@ -47,26 +45,70 @@ public class DeepLinkReceiver : MonoBehaviour
     private Dictionary<string, string> ParseQueryString(string url)
     {
         if (string.IsNullOrEmpty(url))
-        {
             return new Dictionary<string, string>();
+
+        int qIndex = url.IndexOf('?');
+        if (qIndex < 0 || qIndex == url.Length - 1)
+            return new Dictionary<string, string>();
+
+        // Cut off fragment (#...) if present
+        int fragmentIndex = url.IndexOf('#', qIndex + 1);
+        string query = fragmentIndex >= 0
+            ? url.Substring(qIndex + 1, fragmentIndex - qIndex - 1)
+            : url.Substring(qIndex + 1);
+
+        var result = new Dictionary<string, string>();
+
+        // Fast path: iterate without allocating intermediate arrays unnecessarily
+        var pairs = query.Split('&');
+        foreach (var pair in pairs)
+        {
+            if (string.IsNullOrEmpty(pair))
+                continue;
+
+            int eq = pair.IndexOf('=');
+            string rawKey, rawValue;
+
+            if (eq >= 0)
+            {
+                rawKey = pair.Substring(0, eq);
+                rawValue = pair.Substring(eq + 1);
+            }
+            else
+            {
+                rawKey = pair;
+                rawValue = string.Empty;
+            }
+
+            string key = DecodeQueryComponent(rawKey);
+            string value = DecodeQueryComponent(rawValue);
+
+            // If duplicate keys can appear you may:
+            // 1) Overwrite (current behavior)
+            // 2) Keep first: if (!result.ContainsKey(key)) result[key] = value;
+            // 3) Store lists (change signature)
+            result[key] = value;
         }
+
+        return result;
+    }
+
+    private string DecodeQueryComponent(string s)
+    {
+        if (string.IsNullOrEmpty(s))
+            return string.Empty;
+
+        // + means space in application/x-www-form-urlencoded
+        s = s.Replace("+", " ");
 
         try
         {
-            // La classe Uri di .NET è perfetta per scomporre un URL
-            var uri = new Uri(url);
-
-            // HttpUtility.ParseQueryString gestisce automaticamente la decodifica
-            // di caratteri speciali (es. %20 per lo spazio).
-            var queryCollection = HttpUtility.ParseQueryString(uri.Query);
-
-            // Converte il risultato (NameValueCollection) in un dizionario
-            return queryCollection.AllKeys.ToDictionary(key => key, key => queryCollection[key]);
+            return Uri.UnescapeDataString(s);
         }
-        catch (Exception ex)
+        catch
         {
-            Debug.LogError("Impossibile parsare i parametri della querystring: " + ex.Message);
-            return new Dictionary<string, string>();
+            // Fallback if malformed percent-encoding
+            return s;
         }
     }
 }
