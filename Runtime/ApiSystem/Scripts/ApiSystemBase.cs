@@ -133,7 +133,7 @@ namespace Reflectis.SDK.Core.ApiSystem
             // or explicitly by the caller via headers.
             if (authentication.HasFlag(EAuthentication.Bearer))
             {
-                await CheckJwtToken();
+                await ValidateJwtToken();
                 headers.Add("Authorization", $"Bearer {jwtToken.Bearer}");
             }
 
@@ -171,13 +171,13 @@ namespace Reflectis.SDK.Core.ApiSystem
             return headers;
         }
 
-        protected async Task CheckJwtToken()
+        protected virtual async Task ValidateJwtToken()
         {
             if (jwtToken == null)
             {
                 try
                 {
-                    jwtToken = SM.GetSystem<IAuthenticationSystem>().GetToken(ApiLabel);
+                    jwtToken = SM.GetSystem<IAuthenticationSystem>().FindToken(ApiLabel);
                 }
                 catch (Exception ex)
                 {
@@ -189,7 +189,9 @@ namespace Reflectis.SDK.Core.ApiSystem
             if (jwtToken.IsExpired(serverTimeOffset))
             {
                 Debug.LogWarning($"[{name}]: JWT token is null or expired. Refreshing token for API label: {ApiLabel}");
-                jwtToken = await SM.GetSystem<IAuthenticationSystem>().RefreshToken(ApiLabel);
+
+                await SM.GetSystem<IAuthenticationSystem>().GetTokens();
+                await ValidateJwtToken(); // Recursive call to ensure we have a valid token after refresh
             }
         }
 

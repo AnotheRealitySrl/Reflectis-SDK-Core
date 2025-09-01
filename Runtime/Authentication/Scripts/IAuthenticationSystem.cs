@@ -30,8 +30,8 @@ namespace Reflectis.SDK.Core.Authentication
 
         UnityEvent<EAuthStatus> OnAuthStatusChange { get; }
 
-        JwtToken GetToken(string apiLabel);
-        Task<JwtToken> RefreshToken(string apiLabel);
+        JwtToken FindToken(string apiLabel);
+        Task GetTokens();
         Task LoadSession(string sessionHash);
     }
 }
