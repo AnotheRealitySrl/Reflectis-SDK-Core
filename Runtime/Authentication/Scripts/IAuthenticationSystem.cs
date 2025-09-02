@@ -32,6 +32,6 @@ namespace Reflectis.SDK.Core.Authentication
 
         JwtToken FindToken(string apiLabel);
         Task GetTokens();
-        Task LoadSession(string sessionHash);
+        Task ReloadSession(string sessionHash);
     }
 }
