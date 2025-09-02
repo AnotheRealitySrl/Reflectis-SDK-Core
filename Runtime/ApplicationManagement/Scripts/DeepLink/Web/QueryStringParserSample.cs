@@ -17,7 +17,7 @@ namespace Reflectis.SDK.Core.ApplicationManagement.Samples
         private static extern string GetQueryString();
 #endif
 
-        private void Awake()
+        public void ParseQuerystring()
         {
             Dictionary<string, string> queryParams = new();
             string queryString = "";
