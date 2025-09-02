@@ -34,10 +34,10 @@ namespace Reflectis.SDK.Core.ApiSystem
 
         [SerializeField] protected HttpSystem httpSystem;
 
-        protected JwtToken jwtToken;
 
         protected TimeSpan serverTimeOffset;
 
+        public JwtToken JwtToken { get; set; }
         public string ApiLabel { get; private set; }
 
         public override async Task Init()
@@ -134,7 +134,7 @@ namespace Reflectis.SDK.Core.ApiSystem
             if (authentication.HasFlag(EAuthentication.Bearer))
             {
                 await ValidateJwtToken();
-                headers.Add("Authorization", $"Bearer {jwtToken.Bearer}");
+                headers.Add("Authorization", $"Bearer {JwtToken.Bearer}");
             }
 
             if (authentication.HasFlag(EAuthentication.Hmac))
@@ -173,11 +173,11 @@ namespace Reflectis.SDK.Core.ApiSystem
 
         protected virtual async Task ValidateJwtToken()
         {
-            if (jwtToken == null)
+            if (JwtToken == null)
             {
                 try
                 {
-                    jwtToken = SM.GetSystem<IAuthenticationSystem>().FindToken(ApiLabel);
+                    JwtToken = SM.GetSystem<IAuthenticationSystem>().FindToken(ApiLabel);
                 }
                 catch (Exception ex)
                 {
@@ -186,7 +186,7 @@ namespace Reflectis.SDK.Core.ApiSystem
                 }
             }
 
-            if (jwtToken.IsExpired(serverTimeOffset))
+            if (JwtToken.IsExpired(serverTimeOffset))
             {
                 Debug.LogWarning($"[{name}]: JWT token is null or expired. Refreshing token for API label: {ApiLabel}");
 
