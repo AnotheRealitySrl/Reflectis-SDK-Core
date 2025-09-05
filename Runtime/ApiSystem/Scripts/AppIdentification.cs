@@ -9,7 +9,7 @@ using UnityEngine;
 namespace Reflectis.SDK.Core.ApiSystem
 {
     [Serializable, Newtonsoft.Json.JsonObject(Newtonsoft.Json.MemberSerialization.Fields)]
-    public class AppConfig
+    public class AppIdentification
     {
         [SerializeField] private HmacCredential credential;
         [SerializeField] private string apiBaseUrl;
@@ -19,14 +19,14 @@ namespace Reflectis.SDK.Core.ApiSystem
         [CreateProperty] public string ApiBaseUrl => apiBaseUrl;
         [CreateProperty] public string ApiVersion => apiVersion ??= "1";
 
-        public AppConfig(HmacCredential credential, string apiBaseUrl, string apiVersion = "1")
+        public AppIdentification(HmacCredential credential, string apiBaseUrl, string apiVersion = "1")
         {
             this.credential = credential;
             this.apiBaseUrl = apiBaseUrl;
             this.apiVersion = apiVersion;
         }
 
-        public AppConfig()
+        public AppIdentification()
         {
             // Default constructor for serialization
         }

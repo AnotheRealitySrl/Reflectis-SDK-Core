@@ -24,7 +24,7 @@ namespace Reflectis.SDK.Core.ApiSystem
 {
     public abstract class ApiSystemBase : BaseSystem
     {
-        [SerializeField] protected AppConfig apiConfig;
+        [SerializeField] protected AppIdentification apiConfig;
 
         [SerializeField] private bool checkIsAlive = true;
         [SerializeField] private bool getApiInfo = true;
@@ -56,7 +56,7 @@ namespace Reflectis.SDK.Core.ApiSystem
 
             if (string.IsNullOrEmpty(apiConfig.ApiBaseUrl))
             {
-                throw new Exception($"{name}: Missing {nameof(AppConfig.ApiBaseUrl)}");
+                throw new Exception($"{name}: Missing {nameof(AppIdentification.ApiBaseUrl)}");
             }
 
 
@@ -86,9 +86,9 @@ namespace Reflectis.SDK.Core.ApiSystem
             }
         }
 
-        public async Task Init(AppConfig config)
+        public async Task Init(AppIdentification config)
         {
-            apiConfig = config ?? throw new ArgumentException($"{this}: Missing AppConfig", nameof(AppConfig));
+            apiConfig = config ?? throw new ArgumentException($"{this}: Missing AppConfig", nameof(AppIdentification));
 
             await Init();
         }
