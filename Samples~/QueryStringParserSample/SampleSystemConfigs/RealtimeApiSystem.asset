@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6b62fc92fbba9541b1350d383669920, type: 3}
+  m_Name: RealtimeApiSystem
+  m_EditorClassIdentifier: Reflectis.SDK.RealtimeApi::Reflectis.SDK.RealtimeApi.RealtimeApiSystem
+  _subSystems: []
+  autoInitAtStartup: 1
+  apiConfig:
+    credential:
+      appId: C8232CDC-5788-4559-906F-F4CE93F7786B
+      appSecret: trMA^frkCAIhn66U^IgqtG&X
+    apiBaseUrl: reflectisrealtime-api-sandbox.anothereality.io
+    apiVersion: 1
+  checkIsAlive: 1
+  getApiInfo: 1
+  allowUntrustedServers: 0
+  httpSystem: {fileID: 11400000, guid: 583db5b473e63654e9bd3e941ce8d919, type: 2}
