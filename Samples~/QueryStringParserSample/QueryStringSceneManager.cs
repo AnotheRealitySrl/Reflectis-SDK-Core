@@ -38,9 +38,13 @@ public class QueryStringSceneManager : MonoBehaviour
             ApiResponse<object> prefs = await SM.GetSystem<AuthenticationSystem>().GetMyPreferences(false);
             profile.text += JsonConvert.SerializeObject(prefs.Content);
         }
-        else SM.GetSystem<AuthenticationSystem>().OnUserPreferencesChange.AddListener((prefs) =>
+        else SM.GetSystem<AuthenticationSystem>().OnAuthStatusChange.AddListener(async (authState) =>
         {
-            profile.text += JsonConvert.SerializeObject(prefs);
+            if (authState == IAuthenticationSystem.EAuthStatus.Authenticated)
+            {
+                ApiResponse<object> prefs = await SM.GetSystem<AuthenticationSystem>().GetMyPreferences(false);
+                profile.text += JsonConvert.SerializeObject(prefs);
+            }
         });
 
         queryStringParserSample.OnWorldRetrieved.AddListener((world) =>
