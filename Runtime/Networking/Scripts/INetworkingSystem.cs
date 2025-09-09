@@ -72,9 +72,9 @@ namespace Reflectis.SDK.Core.NetworkingSystem
         /// <summary>
         /// Set a custom domain for the networking service
         /// </summary>
-        /// <param name="customDomain"></param>
+        /// <param name="subdomain"></param>
         /// <returns></returns>
-        public void SetCustomDomain(string customDomain);
+        public void SetCustomSubdomain(string subdomain);
 
         /// <summary>
         /// Connect to networking service using key
