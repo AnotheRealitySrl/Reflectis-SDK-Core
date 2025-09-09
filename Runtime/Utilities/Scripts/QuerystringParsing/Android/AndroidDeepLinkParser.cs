@@ -5,6 +5,10 @@ using Reflectis.SDK.Core.ApplicationManagement;
 using System;
 using System.Collections.Generic;
 
+#if UNITY_ANDROID && !UNITY_EDITOR
+using UnityEngine;
+#endif
+
 namespace Reflectis.SDK.Core.Utilities
 {
     public class AndroidDeepLinkParser : UrlParametersParserBase
