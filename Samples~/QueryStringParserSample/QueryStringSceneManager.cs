@@ -6,6 +6,9 @@ using Reflectis.SDK.Core.Authentication;
 using Reflectis.SDK.Core.SystemFramework;
 using Reflectis.SDK.Core.Utilities;
 using Reflectis.SDK.Http;
+using Reflectis.SDK.ReflectisApi;
+
+using System;
 
 using TMPro;
 
@@ -16,11 +19,32 @@ public class QueryStringSceneManager : MonoBehaviour
     [SerializeField] private QueryStringParserSample queryStringParserSample;
     [SerializeField] private UrlParametersParserBase urlParametersParser;
 
+    [Header("Debug")]
     [SerializeField] private TextMeshProUGUI profile;
     [SerializeField] private TextMeshProUGUI worldData;
     [SerializeField] private TextMeshProUGUI experienceData;
     [SerializeField] private TextMeshProUGUI sessionData;
     [SerializeField] private TextMeshProUGUI websocket;
+
+    [Header("Sample analytics")]
+    [SerializeField] private string encryptionPassword = "Reflectis2024";
+
+    [SerializeField] private ExperienceJoinDTO sampleExperienceJoin;
+    [SerializeField] private ExperienceStartDTO sampleExperienceStart;
+    [SerializeField] private ExperienceCompleteDTO sampleExperienceComplete;
+    [SerializeField] private ExperienceStepStartDTO sampleExperienceStepStart;
+    [SerializeField] private ExperienceStepCompleteDTO sampleExperienceStepComplete;
+    [SerializeField] private ExperienceTranscriptDTO sampleExperienceTranscript;
+
+
+    private int sessionId = -1;
+    private string experienceKey = "sample";
+
+    private string experienceUniqueId;
+
+    public int VerbIntValue { get; set; }
+
+    private EAnalyticVerb Verb => (EAnalyticVerb)VerbIntValue;
 
     private void Awake()
     {
@@ -60,6 +84,8 @@ public class QueryStringSceneManager : MonoBehaviour
         queryStringParserSample.OnSessionCreated.AddListener((session) =>
         {
             sessionData.text += JsonConvert.SerializeObject(session);
+            sessionId = session.Id;
+            experienceUniqueId = GenerateUniqueKey(experienceKey);
         });
 
         queryStringParserSample.OnConnectionCreated.AddListener((handshake) =>
@@ -68,5 +94,65 @@ public class QueryStringSceneManager : MonoBehaviour
         });
 
         urlParametersParser.ParseUrlParameters();
+    }
+
+    public async void SendAnalytic()
+    {
+        ExperienceAnalyticDTO experienceAnalyticDTO = null;
+
+        switch (Verb)
+        {
+            case EAnalyticVerb.ExpJoin:
+                experienceAnalyticDTO = sampleExperienceJoin;
+                break;
+
+            case
+                EAnalyticVerb.ExpStart:
+                experienceAnalyticDTO = sampleExperienceStart;
+                break;
+
+            case
+                EAnalyticVerb.ExpComplete:
+                experienceAnalyticDTO = sampleExperienceComplete;
+                break;
+
+            case
+                EAnalyticVerb.StepStart:
+                experienceAnalyticDTO = sampleExperienceStepStart;
+                break;
+
+            case
+                EAnalyticVerb.StepComplete:
+                experienceAnalyticDTO = sampleExperienceStepComplete;
+                break;
+
+            case
+                EAnalyticVerb.ExpTranscript:
+                experienceAnalyticDTO = sampleExperienceTranscript;
+                break;
+
+            default:
+                Debug.LogError($"Unsupported verb type: {Verb}");
+                break;
+        }
+
+        experienceAnalyticDTO.SessionId = sessionId;
+        experienceAnalyticDTO.uniqueId = experienceUniqueId;
+
+        ApiResponse experienceAnalyticReq = await SM.GetSystem<ReflectisDataAccessSystem>().CreateExperienceAnalytic(experienceAnalyticDTO);
+        if (experienceAnalyticReq.IsSuccess)
+        {
+            Debug.Log("Experience analytic sent successfully.");
+        }
+        else
+        {
+            Debug.LogError($"Error sending experience analytic: {experienceAnalyticReq.StatusCode} {experienceAnalyticReq.ReasonPhrase}");
+        }
+    }
+
+
+    private string GenerateUniqueKey(string key)
+    {
+        return $"{DateTime.UtcNow:yyyyMMddHHmmssfff}{sessionId:00000}{StringExtensions.GenerateRandomAlphanumericString(8)}{key}".EncryptDecriptXOR(encryptionPassword);
     }
 }
