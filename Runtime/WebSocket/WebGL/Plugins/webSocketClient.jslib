@@ -26,11 +26,11 @@ mergeInto(LibraryManager.library, {
     this.sockets.push(socket);
 
     socket.addEventListener("open", (event) => {
-      unityInstance.SendMessage(this.handler, "SocketOpenEventHandler", socketIndex);
+      SendMessage(this.handler, "SocketOpenEventHandler", socketIndex);
     });
 
     socket.addEventListener("close", (event) => {
-      unityInstance.SendMessage(this.handler, "SocketCloseEventHandler", socketIndex);
+      SendMessage(this.handler, "SocketCloseEventHandler", socketIndex);
     });
 
     socket.addEventListener("message", (event) => {
@@ -46,7 +46,7 @@ mergeInto(LibraryManager.library, {
         responseContent = event.data;
       }
 
-      unityInstance.SendMessage(
+      SendMessage(
         this.handler,
         "SocketMessageEventHandler",
         socketIndex + "|" + responseContent
@@ -54,7 +54,7 @@ mergeInto(LibraryManager.library, {
     });
 
     socket.addEventListener("error", (event) => {
-      unityInstance.SendMessage(this.handler, "SocketErrorEventHandler", socketIndex);
+      SendMessage(this.handler, "SocketErrorEventHandler", socketIndex);
     });
 
     return socketIndex;

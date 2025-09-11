@@ -33,12 +33,8 @@ namespace Reflectis.SDK.Core.ApplicationManagement.Samples
         private const string SESSION_HASH = "authSessionHash";
         private const string EXPERIENCE_ID = "experienceId";
 
-        private void Awake()
-        {
-            urlParametersParser.OnUrlParameterdParsed.AddListener(ParseQuerystringParameters);
-        }
 
-        private async void ParseQuerystringParameters(Dictionary<string, string> querystring)
+        public async void ParseQuerystringParameters(Dictionary<string, string> querystring)
         {
             if (!querystring.ContainsKey(WORLD_ID))
             {
