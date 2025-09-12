@@ -11,11 +11,11 @@
 - New ApiSystem module which contains a base system providing base feature for implementing a reflectis-connected API.
 - New HTTP and WebSocket modules, merged from their own modules.
 - Networking: add new `SetCustomDomain` method.
-- Authentication: Add `OnAuthStatusChange` event, `ReloadSession` and `EAuthStatus` enum in `IAuthenticationSystem`.
 
 ### Fixed
 
-- Fixed `CurrentSystems` property initialization in `SM`.
+- SystemFramework: fixed `CurrentSystems` property initialization in `SM`.
+- Utilities: improvements on custom type utility.
 
 ## v13.1.0
 
