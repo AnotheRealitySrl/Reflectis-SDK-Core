@@ -1,8 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-using Reflectis.SDK.Core.Utilities;
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -193,10 +191,10 @@ namespace Reflectis.SDK.Core.Utilities
         public override void WriteJson(JsonWriter writer, CustomType value, JsonSerializer serializer)
         {
             writer.WriteStartObject();
-            foreach (var field in value.fields)
+            foreach (var field in value.Fields)
             {
-                writer.WritePropertyName(field.name);
-                serializer.Serialize(writer, field.value);
+                writer.WritePropertyName(field.Key);
+                serializer.Serialize(writer, field.Value);
             }
             writer.WriteEndObject();
         }
@@ -204,29 +202,24 @@ namespace Reflectis.SDK.Core.Utilities
         public override CustomType ReadJson(JsonReader reader, Type objectType, CustomType existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
             var customType = new CustomType();
-            var fields = new List<Field>();
 
             while (reader.Read())
             {
                 if (reader.TokenType == JsonToken.PropertyName)
                 {
 
-                    var field = new Field();
-                    field.name = reader.Value.ToString();
+                    string key = reader.Value.ToString();
 
                     reader.Read();
-                    field.value = reader.Value;
+                    object value = reader.Value;
 
-                    fields.Add(field);
+                    customType.Fields[key] = value;
                 }
                 else if (reader.TokenType == JsonToken.EndObject)
                 {
                     break;
                 }
             }
-
-            customType.fields = fields.ToArray();
-
             return customType;
         }
     }

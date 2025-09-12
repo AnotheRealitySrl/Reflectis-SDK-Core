@@ -44,7 +44,7 @@ namespace Reflectis.SDK.Core.SystemFramework
 
         #region Systems
 
-        public static List<ISystem> CurrentSystems { get; set; }
+        public static List<ISystem> CurrentSystems { get; set; } = new();
 
         /// <summary>
         /// Instantiated (if required) and initializes a list of systems

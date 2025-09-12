@@ -5,6 +5,7 @@ using System.IO.Compression;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
+
 using UnityEngine;
 
 namespace Reflectis.SDK.Core.Utilities
@@ -203,5 +204,18 @@ namespace Reflectis.SDK.Core.Utilities
             return output.ToString();
         }
 
+        public static string GenerateRandomAlphanumericString(int length)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            StringBuilder result = new(length);
+            System.Random random = new();
+
+            for (int i = 0; i < length; i++)
+            {
+                result.Append(chars[random.Next(chars.Length)]);
+            }
+
+            return result.ToString();
+        }
     }
 }

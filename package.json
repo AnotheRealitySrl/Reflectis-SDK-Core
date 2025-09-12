@@ -1,7 +1,7 @@
 {
   "name": "com.anotherealitysrl.reflectis-sdk-core",
   "displayName": "Reflectis-SDK-Core",
-  "version": "13.1.0",
+  "version": "13.2.0",
   "unity": "2020.1",
   "description": "Reflectis SDK",
   "dependencies": {
@@ -22,6 +22,11 @@
       "displayName": "URP Volume fading sample",
       "description": "This is a sample of fade manager implemented with post-processing",
       "path": "Samples~/Fade/URPVolumeSample"
+    },
+    {
+      "displayName": "QueryStringParserSample",
+      "description": "This is a sample of a script parsing deep link querystring parameters, providing authentication and websocket session creation",
+      "path": "Samples~/QueryStringParserSample"
     }
   ]
 }

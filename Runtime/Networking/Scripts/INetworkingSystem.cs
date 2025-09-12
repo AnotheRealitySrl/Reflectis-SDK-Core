@@ -70,6 +70,13 @@ namespace Reflectis.SDK.Core.NetworkingSystem
         Task<bool> WritePlayerData(GameObject avatarGameObject);
 
         /// <summary>
+        /// Set a custom domain for the networking service
+        /// </summary>
+        /// <param name="subdomain"></param>
+        /// <returns></returns>
+        public void SetCustomSubdomain(string subdomain);
+
+        /// <summary>
         /// Connect to networking service using key
         /// </summary>
         /// <param name="key"></param>
