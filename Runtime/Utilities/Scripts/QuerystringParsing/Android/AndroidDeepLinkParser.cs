@@ -13,8 +13,10 @@ namespace Reflectis.SDK.Core.Utilities
 {
     public class AndroidDeepLinkParser : UrlParametersParserBase
     {
-        public override void ParseUrlParameters()
+        public override Dictionary<string, string> ParseUrlParameters()
         {
+            Dictionary<string, string> queryParams = new();
+
 #if UNITY_ANDROID && !UNITY_EDITOR
         try
         {
@@ -28,9 +30,7 @@ namespace Reflectis.SDK.Core.Utilities
                 string deepLinkUrl = uri.Call<string>("toString");
                 Debug.Log("App opened with deep linkg: " + deepLinkUrl);
 
-                Dictionary<string, string> queryParams = ParseQueryString(deepLinkUrl);
-                
-                OnUrlParameterdParsed.Invoke(queryParams);
+                queryParams = ParseQueryString(deepLinkUrl);
             }
         }
         catch (System.Exception ex)
@@ -38,6 +38,8 @@ namespace Reflectis.SDK.Core.Utilities
             Debug.LogError("Errore nel recuperare il deep link: " + ex.Message);
         }
 #endif
+
+            return queryParams;
         }
 
         /// <summary>

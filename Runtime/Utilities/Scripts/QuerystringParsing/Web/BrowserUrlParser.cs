@@ -16,7 +16,7 @@ namespace Reflectis.SDK.Core.Utilities
             private static extern string GetQueryString();
 #endif
 
-        public override void ParseUrlParameters()
+        public override Dictionary<string, string> ParseUrlParameters()
         {
             var queryParams = new Dictionary<string, string>();
             string queryString = "";
@@ -55,7 +55,7 @@ namespace Reflectis.SDK.Core.Utilities
                 Debug.Log($"{nameof(BrowserUrlParser)}: Key: {kvp.Key}, Value: {kvp.Value}");
             }
 
-            OnUrlParameterdParsed.Invoke(queryParams);
+            return queryParams;
         }
 
         private static string SafeDecode(string s)
