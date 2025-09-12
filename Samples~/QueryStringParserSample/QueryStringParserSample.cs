@@ -36,25 +36,27 @@ namespace Reflectis.SDK.Core.ApplicationManagement.Samples
 
         public async void ParseQuerystringParameters(Dictionary<string, string> querystring)
         {
+            // Parameters validation
             if (!querystring.ContainsKey(WORLD_ID))
             {
-                throw new ArgumentNullException($"DeepLinkParserSample: {WORLD_ID} not found in deep link parameters.");
+                throw new ArgumentNullException($"{nameof(QueryStringParserSample)}: {WORLD_ID} not found in deep link parameters.");
             }
 
             if (!querystring.ContainsKey(SESSION_HASH))
             {
-                throw new ArgumentNullException($"DeepLinkParserSample: {SESSION_HASH} not found in deep link parameters.");
+                throw new ArgumentNullException($"{nameof(QueryStringParserSample)}: {SESSION_HASH} not found in deep link parameters.");
             }
 
             if (!querystring.ContainsKey(EXPERIENCE_ID))
             {
-                throw new ArgumentNullException($"DeepLinkParserSample: {EXPERIENCE_ID} not found in deep link parameters.");
+                throw new ArgumentNullException($"{nameof(QueryStringParserSample)}: {EXPERIENCE_ID} not found in deep link parameters.");
             }
 
+            // Reload a user session with the provided session hash
             string sessionHash = querystring[SESSION_HASH];
             if (SM.GetSystem<AuthenticationSystem>().AuthenticationStatus != IAuthenticationSystem.EAuthStatus.Authenticated)
             {
-                Debug.Log($"DeepLinkParserSample: reloading session with hash {sessionHash}");
+                Debug.Log($"{nameof(QueryStringParserSample)}: reloading session with hash {sessionHash}");
                 await SM.GetSystem<IAuthenticationSystem>().ReloadSession(sessionHash);
             }
 
@@ -66,7 +68,7 @@ namespace Reflectis.SDK.Core.ApplicationManagement.Samples
             }
             else
             {
-                Debug.LogError($"DeepLinkParserSample: Unable to retrieve user data");
+                Debug.LogError($"{nameof(QueryStringParserSample)}: Unable to retrieve user data");
             }
 
             int worldId = int.Parse(querystring[WORLD_ID]);
@@ -75,21 +77,23 @@ namespace Reflectis.SDK.Core.ApplicationManagement.Samples
             {
                 WorldDTO world = worldReq.Content;
                 OnWorldRetrieved?.Invoke(world);
-                Debug.Log($"DeepLinkParserSample: Successfully retrieved world {worldId} - {world.Label}");
+                Debug.Log($"{nameof(QueryStringParserSample)}: Successfully retrieved world {worldId} - {world.Label}");
             }
             else
             {
-                Debug.LogError($"DeepLinkParserSample: Unable to retrieve world {worldId} - {worldReq.ReasonPhrase}");
+                Debug.LogError($"{nameof(QueryStringParserSample)}: Unable to retrieve world {worldId} - {worldReq.ReasonPhrase}");
             }
 
+            // Retrieve experience data
             int experienceId = int.Parse(querystring[EXPERIENCE_ID]);
             ApiResponse<ExperienceDTO> experienceReq = await SM.GetSystem<ReflectisDataAccessSystem>().GetExperience(worldId, experienceId);
             if (experienceReq.IsSuccess)
             {
                 ExperienceDTO experience = experienceReq.Content;
                 OnExperienceRetrieved?.Invoke(experience);
-                Debug.Log($"DeepLinkParserSample: Successfully retrieved session data: {experienceId} - {experience.Label}");
+                Debug.Log($"{nameof(QueryStringParserSample)}: Successfully retrieved session data: {experienceId} - {experience.Label}");
 
+                // Create a new single player session for the experience
                 NewSessionDTO newSession = new()
                 {
                     Label = $"{experience.Label} - {user.Id} - External experience",
@@ -105,31 +109,32 @@ namespace Reflectis.SDK.Core.ApplicationManagement.Samples
                 if (newSessionReq.IsSuccess)
                 {
                     SessionDTO createdSession = newSessionReq.Content;
-                    Debug.Log($"DeepLinkParserSample: Successfully created session: {createdSession.Id} - {createdSession.Label}");
+                    Debug.Log($"{nameof(QueryStringParserSample)}: Successfully created session: {createdSession.Id} - {createdSession.Label}");
                     OnSessionCreated.Invoke(createdSession);
 
+                    // Connect to the realtime api to ping user presence in the created session
                     RealtimeApiSystem realtimeApiSystem = SM.GetSystem<RealtimeApiSystem>();
                     realtimeApiSystem.ConnectToReflectisRealtime(
                         (handshake) =>
                         {
-                            Debug.Log($"DeepLinkParserSample: successfully created websocket connection, client id: {handshake.ConnectionId}");
+                            Debug.Log($"{nameof(QueryStringParserSample)}: successfully created websocket connection, client id: {handshake.ConnectionId}");
                             realtimeApiSystem.JoinWorld(worldId, createdSession.Id, (value) =>
                             {
-                                Debug.Log($"DeepLinkParserSample: successfully joined world {worldId} with session {createdSession.Id}");
+                                Debug.Log($"{nameof(QueryStringParserSample)}: successfully joined world {worldId} with session {createdSession.Id}");
                                 OnConnectionCreated?.Invoke(handshake.ConnectionId);
                             });
                         },
                         (reason) =>
                         {
-                            Debug.LogError($"DeepLinkParserSample: disconnected from websocket, reason : {reason}");
+                            Debug.LogError($"{nameof(QueryStringParserSample)}: disconnected from websocket, reason : {reason}");
                         },
                         (kick) =>
                         {
-                            Debug.Log($"DeepLinkParserSample: kicked from websocket, {kick}");
+                            Debug.Log($"{nameof(QueryStringParserSample)}: kicked from websocket, {kick}");
                         },
                         () =>
                         {
-                            Debug.Log($"DeepLinkParserSample: Double session login");
+                            Debug.Log($"{nameof(QueryStringParserSample)}: Double session login");
                         });
                 }
                 else
