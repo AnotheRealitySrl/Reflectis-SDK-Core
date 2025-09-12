@@ -56,6 +56,8 @@ public class QueryStringSceneManager : MonoBehaviour
     {
         Debug.Log("All systems setups done. App is ready.");
 
+        // If the user is already authenticated, get and display his profile, otherwise wait for authentication
+        // (it will be managed by the QueryStringParserSample).
         if (SM.GetSystem<AuthenticationSystem>().AuthenticationStatus == IAuthenticationSystem.EAuthStatus.Authenticated)
         {
             ApiResponse<object> prefs = await SM.GetSystem<AuthenticationSystem>().GetMyPreferences(false);
@@ -70,6 +72,7 @@ public class QueryStringSceneManager : MonoBehaviour
             }
         });
 
+        // register to events fired by the QueryStringParserSample
         queryStringParserSample.OnWorldRetrieved.AddListener((world) =>
         {
             worldData.text += JsonConvert.SerializeObject(world);
@@ -92,10 +95,14 @@ public class QueryStringSceneManager : MonoBehaviour
             websocket.text += JsonConvert.SerializeObject(handshake);
         });
 
+        // Parse the URL parameters and start the flow
         Dictionary<string, string> parameters = urlParametersParser.ParseUrlParameters();
         queryStringParserSample.ParseQuerystringParameters(parameters);
     }
 
+    /// <summary>
+    /// Test method to send an analytic to Reflectis API.
+    /// </summary>
     public async void SendAnalytic()
     {
         ExperienceAnalyticDTO experienceAnalyticDTO = null;
