@@ -1,24 +1,41 @@
 # Release notes
 
+## v13.2.0
+
+### Changed
+
+### Added
+
+- ApplicationManagement: added support, sample and documentation for external apps integrated into Reflectis.
+- Utilities: added querystring parsers which retrieve the query parameters in Android and WebGL apps.
+- New ApiSystem module which contains a base system providing base feature for implementing a reflectis-connected API.
+- New HTTP and WebSocket modules, merged from their own modules.
+- Networking: add new `SetCustomDomain` method.
+- Authentication: Add `OnAuthStatusChange` event, `ReloadSession` and `EAuthStatus` enum in `IAuthenticationSystem`.
+
+### Fixed
+
+- Fixed `CurrentSystems` property initialization in `SM`.
+
 ## v13.1.0
 
-### Added 
+### Added
 
 - Transitions: added `AddTransitionProvider` and `RemoveTransitionProvider` methods in `MultipleTransitionProvider`.
-  
+
 ## v13.0.0
 
 ### Changed
 
 - Avatars: changed `GetAvatarLoader` method into `LoadAvatar` in `IAvatarConfigController`.
 
-### Added 
+### Added
 
 - Avatars: added `GetLoadingProgress()` method in `IAvatarConfigController`.
 - Utilities: added `ForceRefresh` method in `CacheVariable`.
 - Network: added `GetSharedNetworkTime()` network in `INetworkingSystem`.
 
-### Fixed 
+### Fixed
 
 - Fade: fixed a missing reference in `CanvasFadeSystem` configuration.
 - Avatars: improved avatar loading logic.
