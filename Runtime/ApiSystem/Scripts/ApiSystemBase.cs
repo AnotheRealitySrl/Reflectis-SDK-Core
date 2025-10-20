@@ -173,25 +173,33 @@ namespace Reflectis.SDK.Core.ApiSystem
 
         protected virtual async Task ValidateJwtToken()
         {
+            IAuthenticationSystem authenticationSystem = SM.GetSystem<IAuthenticationSystem>();
+
             if (JwtToken == null)
             {
-                try
-                {
-                    JwtToken = SM.GetSystem<IAuthenticationSystem>().FindToken(ApiLabel);
-                }
-                catch (Exception ex)
-                {
-                    Debug.LogError($"[{name}]: Failed to retrieve JWT token for API label: {ApiLabel}. Exception: {ex.Message}");
-                    return;
-                }
+                SetToken();
             }
 
             if (JwtToken.IsExpired(serverTimeOffset))
             {
                 Debug.LogWarning($"[{name}]: JWT token is null or expired. Refreshing token for API label: {ApiLabel}");
 
-                await SM.GetSystem<IAuthenticationSystem>().GetTokens();
-                await ValidateJwtToken(); // Recursive call to ensure we have a valid token after refresh
+                await authenticationSystem.GetTokens();
+
+                SetToken();
+            }
+
+            void SetToken()
+            {
+                try
+                {
+                    JwtToken = authenticationSystem.FindToken(ApiLabel);
+                }
+                catch (Exception ex)
+                {
+                    Debug.LogError($"[{name}]: Failed to retrieve JWT token for API label: {ApiLabel}. Exception: {ex.Message}");
+                    return;
+                }
             }
         }
 
