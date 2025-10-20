@@ -8,6 +8,7 @@ using Reflectis.SDK.ReflectisApi;
 
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using UnityEngine;
 using UnityEngine.Events;
@@ -33,6 +34,16 @@ namespace Reflectis.SDK.Core.ApplicationManagement.Samples
         private const string SESSION_HASH = "authSessionHash";
         private const string EXPERIENCE_ID = "experienceId";
 
+
+        private void OnEnable()
+        {
+            OnSessionCreated.AddListener(CreateWebSocketConnection);
+        }
+
+        private void OnDisable()
+        {
+            OnSessionCreated.RemoveListener(CreateWebSocketConnection);
+        }
 
         public async void ParseQuerystringParameters(Dictionary<string, string> querystring)
         {
@@ -60,32 +71,50 @@ namespace Reflectis.SDK.Core.ApplicationManagement.Samples
                 await SM.GetSystem<IAuthenticationSystem>().ReloadSession(sessionHash);
             }
 
-            UserDTO user = new();
+            // Retrieve user data
+            UserDTO user = await RetrieveUserData();
+
+            // Retrieve world data
+            int worldId = int.Parse(querystring[WORLD_ID]);
+            await RetrieveWorldData(worldId);
+
+            // Retrieve experience data
+            int experienceId = int.Parse(querystring[EXPERIENCE_ID]);
+            await CreateSessionFromExperience(worldId, experienceId, user.Id);
+        }
+
+        public async Task<UserDTO> RetrieveUserData()
+        {
             ApiResponse<UserDTO> userReq = await SM.GetSystem<ReflectisDataAccessSystem>().GetMyUserData();
             if (userReq.IsSuccess)
             {
-                user = userReq.Content;
+                Debug.Log($"{nameof(QueryStringParserSample)}: Successfully retrieved user data - {userReq.Content.Id}");
+                return userReq.Content;
             }
             else
             {
-                Debug.LogError($"{nameof(QueryStringParserSample)}: Unable to retrieve user data");
+                throw new Exception($"{nameof(QueryStringParserSample)}: Unable to retrieve user data - {userReq.ReasonPhrase}");
             }
+        }
 
-            int worldId = int.Parse(querystring[WORLD_ID]);
+        public async Task<WorldDTO> RetrieveWorldData(int worldId)
+        {
             ApiResponse<WorldDTO> worldReq = await SM.GetSystem<ReflectisDataAccessSystem>().GetWorld(worldId);
             if (worldReq.IsSuccess)
             {
                 WorldDTO world = worldReq.Content;
                 OnWorldRetrieved?.Invoke(world);
                 Debug.Log($"{nameof(QueryStringParserSample)}: Successfully retrieved world {worldId} - {world.Label}");
+                return world;
             }
             else
             {
-                Debug.LogError($"{nameof(QueryStringParserSample)}: Unable to retrieve world {worldId} - {worldReq.ReasonPhrase}");
+                throw new Exception($"{nameof(QueryStringParserSample)}: Unable to retrieve world {worldId} - {worldReq.ReasonPhrase}");
             }
+        }
 
-            // Retrieve experience data
-            int experienceId = int.Parse(querystring[EXPERIENCE_ID]);
+        public async Task<SessionDTO> CreateSessionFromExperience(int worldId, int experienceId, int userId)
+        {
             ApiResponse<ExperienceDTO> experienceReq = await SM.GetSystem<ReflectisDataAccessSystem>().GetExperience(worldId, experienceId);
             if (experienceReq.IsSuccess)
             {
@@ -96,7 +125,7 @@ namespace Reflectis.SDK.Core.ApplicationManagement.Samples
                 // Create a new single player session for the experience
                 NewSessionDTO newSession = new()
                 {
-                    Label = $"{experience.Label} - {user.Id} - External experience",
+                    Label = $"{experience.Label} - {userId} - External experience",
                     StartDate = null,
                     EndDate = null,
                     Multiplayer = false,
@@ -111,41 +140,45 @@ namespace Reflectis.SDK.Core.ApplicationManagement.Samples
                     SessionDTO createdSession = newSessionReq.Content;
                     Debug.Log($"{nameof(QueryStringParserSample)}: Successfully created session: {createdSession.Id} - {createdSession.Label}");
                     OnSessionCreated.Invoke(createdSession);
-
-                    // Connect to the realtime api to ping user presence in the created session
-                    RealtimeApiSystem realtimeApiSystem = SM.GetSystem<RealtimeApiSystem>();
-                    realtimeApiSystem.ConnectToReflectisRealtime(
-                        (handshake) =>
-                        {
-                            Debug.Log($"{nameof(QueryStringParserSample)}: successfully created websocket connection, client id: {handshake.ConnectionId}");
-                            realtimeApiSystem.JoinWorld(worldId, createdSession.Id, (value) =>
-                            {
-                                Debug.Log($"{nameof(QueryStringParserSample)}: successfully joined world {worldId} with session {createdSession.Id}");
-                                OnConnectionCreated?.Invoke(handshake.ConnectionId);
-                            });
-                        },
-                        (reason) =>
-                        {
-                            Debug.LogError($"{nameof(QueryStringParserSample)}: disconnected from websocket, reason : {reason}");
-                        },
-                        (kick) =>
-                        {
-                            Debug.Log($"{nameof(QueryStringParserSample)}: kicked from websocket, {kick}");
-                        },
-                        () =>
-                        {
-                            Debug.Log($"{nameof(QueryStringParserSample)}: Double session login");
-                        });
+                    return createdSession;
                 }
                 else
                 {
-                    Debug.LogError($"DeepLinkParserSample: Unable to create session: {experienceId} - {newSessionReq.ReasonPhrase}");
+                    throw new Exception($"DeepLinkParserSample: Unable to create session: {experienceId} - {newSessionReq.ReasonPhrase}");
                 }
             }
             else
             {
-                Debug.LogError($"DeepLinkParserSample: Unable to retrieve session data: {experienceId} - {experienceReq.ReasonPhrase}");
+                throw new Exception($"DeepLinkParserSample: Unable to retrieve session data: {experienceId} - {experienceReq.ReasonPhrase}");
             }
+        }
+
+        private void CreateWebSocketConnection(SessionDTO session)
+        {
+            // Connect to the realtime api to ping user presence in the created session
+            RealtimeApiSystem realtimeApiSystem = SM.GetSystem<RealtimeApiSystem>();
+            realtimeApiSystem.ConnectToReflectisRealtime(
+                (handshake) =>
+                {
+                    Debug.Log($"{nameof(QueryStringParserSample)}: successfully created websocket connection, client id: {handshake.ConnectionId}");
+                    realtimeApiSystem.JoinWorld(session.WorldId, session.Id, (value) =>
+                    {
+                        Debug.Log($"{nameof(QueryStringParserSample)}: successfully joined world {session.WorldId} with session {session.Id}");
+                        OnConnectionCreated?.Invoke(handshake.ConnectionId);
+                    });
+                },
+                (reason) =>
+                {
+                    Debug.LogError($"{nameof(QueryStringParserSample)}: disconnected from websocket, reason : {reason}");
+                },
+                (kick) =>
+                {
+                    Debug.Log($"{nameof(QueryStringParserSample)}: kicked from websocket, {kick}");
+                },
+                () =>
+                {
+                    Debug.Log($"{nameof(QueryStringParserSample)}: Double session login");
+                });
         }
     }
 }

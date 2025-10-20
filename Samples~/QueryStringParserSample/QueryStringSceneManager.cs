@@ -17,6 +17,9 @@ using UnityEngine;
 
 public class QueryStringSceneManager : MonoBehaviour
 {
+    [SerializeField] private int worldId;
+    [SerializeField] private int experienceId;
+
     [SerializeField] private QueryStringParserSample queryStringParserSample;
     [SerializeField] private UrlParametersParserBase urlParametersParser;
 
@@ -95,9 +98,22 @@ public class QueryStringSceneManager : MonoBehaviour
             websocket.text += JsonConvert.SerializeObject(handshake);
         });
 
+
         // Parse the URL parameters and start the flow
         Dictionary<string, string> parameters = urlParametersParser.ParseUrlParameters();
-        queryStringParserSample.ParseQuerystringParameters(parameters);
+        // Case 1: the application is started from a deep link: parse the parameters from the URL
+        if (parameters.Count > 0)
+        {
+            queryStringParserSample.ParseQuerystringParameters(parameters);
+        }
+        // Case 2: the application is started in standalone mode: read the hardcoded worldId and experienceId
+        // and use them to retrieve data and create a session
+        else
+        {
+            UserDTO user = await queryStringParserSample.RetrieveUserData();
+            await queryStringParserSample.RetrieveWorldData(worldId);
+            await queryStringParserSample.CreateSessionFromExperience(worldId, experienceId, user.Id);
+        }
     }
 
     /// <summary>
