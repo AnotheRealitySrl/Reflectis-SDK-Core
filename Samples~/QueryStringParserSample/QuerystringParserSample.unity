@@ -2943,8 +2943,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12925ee8fabc0e04481b8c49d8ba2db1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  worldId: 82
-  experienceId: 458
+  worldId: 0
+  experienceId: 0
   queryStringParserSample: {fileID: 2005385349}
   urlParametersParser: {fileID: 2005385351}
   profile: {fileID: 1018721990}
