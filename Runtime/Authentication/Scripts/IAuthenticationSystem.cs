@@ -10,15 +10,6 @@ namespace Reflectis.SDK.Core.Authentication
 {
     public interface IAuthenticationSystem : ISystem
     {
-        public enum EAuthStatus
-        {
-            LoadingSession,
-            NoSession,
-            NewSession,
-            NewSessionPolling,
-            Authenticated
-        }
-
         [Flags]
         public enum EAuthentication
         {
@@ -28,7 +19,9 @@ namespace Reflectis.SDK.Core.Authentication
             BearerAndHmac = Bearer | Hmac
         }
 
-        UnityEvent<EAuthStatus> OnAuthStatusChange { get; }
+        UnityEvent OnAuthenticated { get; }
+        UnityEvent OnUnauthenticated { get; }
+        UnityEvent<long, string> OnAuthenticationError { get; }
 
         JwtToken FindToken(string apiLabel);
         Task GetTokens();
