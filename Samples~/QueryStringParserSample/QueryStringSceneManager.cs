@@ -3,7 +3,6 @@ using Newtonsoft.Json;
 using Reflectis.SDK.Authentication;
 using Reflectis.SDK.Authentication.Samples;
 using Reflectis.SDK.Core.ApplicationManagement.Samples;
-using Reflectis.SDK.Core.Authentication;
 using Reflectis.SDK.Core.SystemFramework;
 using Reflectis.SDK.Core.Utilities;
 using Reflectis.SDK.Http;
@@ -57,7 +56,7 @@ public class QueryStringSceneManager : MonoBehaviour
         SM.OnAllSystemsSetupsDone.AddListener(OnAllSystemsSetupsDone);
     }
 
-    private void OnAllSystemsSetupsDone()
+    private async void OnAllSystemsSetupsDone()
     {
         Debug.Log("All systems setups done. App is ready.");
 
@@ -86,48 +85,30 @@ public class QueryStringSceneManager : MonoBehaviour
             websocket.text += JsonConvert.SerializeObject(handshake);
         });
 
+        AuthenticationSystem authSystem = SM.GetSystem<AuthenticationSystem>();
+        authSystem.OnAuthenticated.AddListener(async () =>
+        {
+            ApiResponse<object> prefs = await SM.GetSystem<AuthenticationSystem>().GetMyPreferences(false);
+            profile.text += JsonConvert.SerializeObject(prefs.Content);
+            loginPanelBinding.gameObject.SetActive(false);
+        });
+
         // Parse the URL parameters and start the flow
         Dictionary<string, string> parameters = urlParametersParser.ParseUrlParameters();
         if (parameters.Count > 0)
         {
             queryStringParserSample.ParseQuerystringParameters(parameters);
         }
-
-        // If the user is already authenticated, get and display his profile, otherwise wait for authentication
-        // (it will be managed by the QueryStringParserSample).
-        if (SM.GetSystem<AuthenticationSystem>().AuthenticationStatus == IAuthenticationSystem.EAuthStatus.Authenticated)
-        {
-            OnAuthenticated(parameters.Count);
-        }
         else
         {
-            SM.GetSystem<AuthenticationSystem>().OnAuthStatusChange.AddListener((authState) =>
+            authSystem.OnAuthenticated.AddListener(async () =>
             {
-                if (authState == IAuthenticationSystem.EAuthStatus.Authenticated)
-                {
-                    OnAuthenticated(parameters.Count);
-                }
+                UserDTO user = await queryStringParserSample.RetrieveUserData();
+                await queryStringParserSample.RetrieveWorldData(worldId);
+                await queryStringParserSample.CreateSessionFromExperience(worldId, experienceId, user.Id);
             });
+            await authSystem.LoadSession();
         }
-
-    }
-
-    private async void OnAuthenticated(int count)
-    {
-        ApiResponse<object> prefs = await SM.GetSystem<AuthenticationSystem>().GetMyPreferences(false);
-        profile.text += JsonConvert.SerializeObject(prefs.Content);
-        loginPanelBinding.gameObject.SetActive(false);
-
-        // Case 2: the application is started in standalone mode: read the hardcoded worldId and experienceId
-        // and use them to retrieve data and create a session
-        if (count == 0)
-        {
-            UserDTO user = await queryStringParserSample.RetrieveUserData();
-            await queryStringParserSample.RetrieveWorldData(worldId);
-            await queryStringParserSample.CreateSessionFromExperience(worldId, experienceId, user.Id);
-        }
-
-
     }
 
     /// <summary>

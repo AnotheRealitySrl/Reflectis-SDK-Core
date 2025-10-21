@@ -1,4 +1,3 @@
-using Reflectis.SDK.Authentication;
 using Reflectis.SDK.Core.Authentication;
 using Reflectis.SDK.Core.SystemFramework;
 using Reflectis.SDK.Core.Utilities;
@@ -65,11 +64,9 @@ namespace Reflectis.SDK.Core.ApplicationManagement.Samples
 
             // Reload a user session with the provided session hash
             string sessionHash = querystring[SESSION_HASH];
-            if (SM.GetSystem<AuthenticationSystem>().AuthenticationStatus != IAuthenticationSystem.EAuthStatus.Authenticated)
-            {
-                Debug.Log($"{nameof(QueryStringParserSample)}: reloading session with hash {sessionHash}");
-                await SM.GetSystem<IAuthenticationSystem>().ReloadSession(sessionHash);
-            }
+            Debug.Log($"{nameof(QueryStringParserSample)}: reloading session with hash {sessionHash}");
+            await SM.GetSystem<IAuthenticationSystem>().ReloadSession(sessionHash);
+
 
             // Retrieve user data
             UserDTO user = await RetrieveUserData();

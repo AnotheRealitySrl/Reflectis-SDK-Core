@@ -27,4 +27,4 @@ MonoBehaviour:
   applicationUrl: 
   keepSessionAlive: 1
   pollingInterval: 3
-  connectOnStart: 1
+  connectOnStart: 0
