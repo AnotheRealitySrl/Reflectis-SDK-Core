@@ -1,4 +1,3 @@
-
 var plugin = {
   SaveDataToSessionStorage: function (key, value) {
     var keyStr = UTF8ToString(key);
