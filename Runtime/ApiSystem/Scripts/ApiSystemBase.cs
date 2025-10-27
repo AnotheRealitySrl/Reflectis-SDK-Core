@@ -173,7 +173,7 @@ namespace Reflectis.SDK.Core.ApiSystem
 
         protected virtual async Task ValidateJwtToken()
         {
-            if (JwtToken == null)
+            if (JwtToken == null || JwtToken.IsExpired(serverTimeOffset))
             {
                 try
                 {
@@ -191,6 +191,7 @@ namespace Reflectis.SDK.Core.ApiSystem
                 Debug.LogWarning($"[{name}]: JWT token is null or expired. Refreshing token for API label: {ApiLabel}");
 
                 await SM.GetSystem<IAuthenticationSystem>().GetTokens();
+                JwtToken = SM.GetSystem<IAuthenticationSystem>().FindToken(ApiLabel);
                 await ValidateJwtToken(); // Recursive call to ensure we have a valid token after refresh
             }
         }
