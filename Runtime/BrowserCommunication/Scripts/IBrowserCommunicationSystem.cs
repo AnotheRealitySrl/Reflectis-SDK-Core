@@ -18,7 +18,7 @@ namespace Reflectis.SDK.Core.BrowserCommunication
         /// Sends a string to JS.
         /// </summary>
         /// <param name="payload">The payload to send.</param>
-        public void SendMessageToWeb(string payload);
+        public void SendMessageToWeb(string message, object payload = null);
 
         /// <summary>
         /// Sends a raw message to JS.
