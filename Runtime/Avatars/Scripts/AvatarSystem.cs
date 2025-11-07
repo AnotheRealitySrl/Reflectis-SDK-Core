@@ -24,8 +24,6 @@ namespace Reflectis.SDK.Core.Avatars
         [Header("Avatar instantiation")]
         [SerializeField, Tooltip("Reference to the avatar prefab")]
         private AvatarControllerBase avatarPrefab;
-        [SerializeField, Tooltip("Reference to the network avatar prefab")]
-        private AvatarControllerBase networkAvatarPrefab;
 
         [Header("General settings")]
         [SerializeField, Tooltip("If true, once a new avatar instance is created, the method Setup of its SourceCharacter is called")]
@@ -44,7 +42,6 @@ namespace Reflectis.SDK.Core.Avatars
         public Dictionary<string, IAvatarConfigController> OtherAvatarsConfigControllers { get => otherAvatarsConfigControllers; }
 
         public AvatarControllerBase AvatarPrefab { get => avatarPrefab; }
-        public AvatarControllerBase AvatarNetworkPrefab { get => networkAvatarPrefab; }
         #endregion
 
         #region Unity events
