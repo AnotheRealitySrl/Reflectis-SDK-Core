@@ -4,6 +4,7 @@ using Sirenix.OdinInspector;
 #endif
 using System.Collections.Generic;
 using System.Threading.Tasks;
+
 using UnityEngine;
 
 namespace Reflectis.SDK.Core.SystemFramework
@@ -22,12 +23,6 @@ namespace Reflectis.SDK.Core.SystemFramework
 
         [SerializeField]
         private bool autoInitAtStartup = true;
-
-        protected bool isInit;
-
-
-
-        public bool IsInit { get => isInit; }
 
         public bool RequiresNewInstance { get; set; } = true;
 
