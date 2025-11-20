@@ -88,7 +88,7 @@ public class QueryStringSceneManager : MonoBehaviour
         AuthenticationSystem authSystem = SM.GetSystem<AuthenticationSystem>();
         authSystem.OnAuthenticated.AddListener(async () =>
         {
-            ApiResponse<object> prefs = await SM.GetSystem<AuthenticationSystem>().GetMyPreferences(false);
+            ApiResponse<JObject> prefs = await SM.GetSystem<AuthenticationSystem>().GetMyPreferences(false);
             profile.text += JsonConvert.SerializeObject(prefs.Content);
             loginPanelBinding.gameObject.SetActive(false);
         });
