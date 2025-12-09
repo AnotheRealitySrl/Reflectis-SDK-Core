@@ -225,8 +225,11 @@ public class WebSocketHandler : IWebSocketHandler, IDisposable
                     switch (result.MessageType)
                     {
                         case WebSocketMessageType.Binary:
-                            Debug.Log("Binary message received (not handled).");
-                            // TODO: Implement handling for binary messages
+                            Debug.Log("Binary message received.");
+                            foreach (var listener in listeners)
+                            {
+                                listener?.OnWebSocketBinaryMessageReceived(buffer);
+                            }
                             break;
                         case WebSocketMessageType.Close:
                             Debug.Log($"Close message received from server. Status: {result.CloseStatus}, Description: {result.CloseStatusDescription}");

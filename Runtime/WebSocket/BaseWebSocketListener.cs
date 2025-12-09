@@ -8,6 +8,8 @@ namespace Reflectis.SDK.Core.WebSocket
 
         public Action<string> onMessageReceived;
 
+        public Action<byte[]> onBinaryMessageReceived;
+
         public Action<string> onError;
 
         public void OnWebSocketClose()
@@ -23,6 +25,11 @@ namespace Reflectis.SDK.Core.WebSocket
         public void OnWebSocketMessageReceived(string data)
         {
             onMessageReceived?.Invoke(data);
+        }
+
+        public void OnWebSocketBinaryMessageReceived(byte[] buffer)
+        {
+            onBinaryMessageReceived?.Invoke(buffer);
         }
     }
 }
