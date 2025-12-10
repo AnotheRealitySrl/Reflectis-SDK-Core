@@ -226,9 +226,11 @@ public class WebSocketHandler : IWebSocketHandler, IDisposable
                     {
                         case WebSocketMessageType.Binary:
                             Debug.Log("Binary message received.");
+                            var partialBytes = new byte[offset];
+                            Array.Copy(buffer, partialBytes, offset);
                             foreach (var listener in listeners)
                             {
-                                listener?.OnWebSocketBinaryMessageReceived(buffer);
+                                listener?.OnWebSocketBinaryMessageReceived(partialBytes);
                             }
                             break;
                         case WebSocketMessageType.Close:
