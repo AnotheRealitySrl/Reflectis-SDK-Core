@@ -21,6 +21,10 @@ mergeInto(LibraryManager.library, {
 
     const socket = new WebSocket(url);
 
+    // Impostiamo esplicitamente il tipo binario su arraybuffer.
+    // Senza questo, i dati binari arriverebbero come 'Blob'.
+    socket.binaryType = "arraybuffer"; 
+
     const socketIndex = this.sockets.length;
 
     this.sockets.push(socket);
@@ -34,23 +38,35 @@ mergeInto(LibraryManager.library, {
     });
 
     socket.addEventListener("message", (event) => {
-      let responseContent;
-
       // binary frame: convert to string
       if (event.data instanceof ArrayBuffer) {
         const bufView = new Uint8Array(event.data); // Usa `event.data` anziché `buffer`
-        responseContent = String.fromCharCode.apply(null, bufView);
+
+        // 1. Converti i byte in una stringa binaria grezza
+        // (Attenzione allo stack overflow per file grandi, meglio un loop se >60kb)
+        let binaryString = "";
+        const len = bufView.byteLength;
+        for (let i = 0; i < len; i++) {
+          binaryString += String.fromCharCode(bufView[i]);
+        }
+        
+        // 2. CODIFICA IN BASE64
+        const base64String = btoa(binaryString);
+
+        SendMessage(
+          this.handler,
+          "SocketBinaryMessageEventHandler",
+          socketIndex + "|" + base64String
+        );
       }
       // text frame
       else {
-        responseContent = event.data;
+        SendMessage(
+          this.handler,
+          "SocketMessageEventHandler",
+          socketIndex + "|" + event.data
+        );
       }
-
-      SendMessage(
-        this.handler,
-        "SocketMessageEventHandler",
-        socketIndex + "|" + responseContent
-      );
     });
 
     socket.addEventListener("error", (event) => {

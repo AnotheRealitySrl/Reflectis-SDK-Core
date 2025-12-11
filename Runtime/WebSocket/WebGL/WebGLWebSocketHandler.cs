@@ -60,6 +60,17 @@ public class WebGLWebSocketHandler : IWebSocketHandler
         }
     }
 
+    internal void OnBinaryMessageReceived(byte[] buffer)
+    {
+        foreach (IWebSocketListener listener in listeners)
+        {
+            if (listener != null)
+            {
+                listener.OnWebSocketBinaryMessageReceived(buffer);
+            }
+        }
+    }
+
     internal void OnSocketError()
     {
         foreach (IWebSocketListener listener in listeners)
