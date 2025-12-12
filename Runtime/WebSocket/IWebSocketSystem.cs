@@ -50,5 +50,12 @@ namespace Reflectis.SDK.Core.WebSocket
         /// <returns></returns>
         public Task SendMessageAsync(string url, string message);
 
+        /// <summary>
+        /// Send buffer to a websocket we are connected to. 
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="buffer"></param>
+        /// <returns></returns>
+        public Task SendBufferMessageAsync(string url, byte[] buffer);
     }
 }

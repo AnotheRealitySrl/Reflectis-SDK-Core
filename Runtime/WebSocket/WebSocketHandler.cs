@@ -92,6 +92,37 @@ public class WebSocketHandler : IWebSocketHandler, IDisposable
         }
     }
 
+    public virtual async Task SendBufferMessage(byte[] buffer)
+    {
+        // Check WebSocket state before sending
+        if (webSocket == null || webSocket.State != WebSocketState.Open)
+        {
+            Debug.LogWarning("Attempting to send buffer on a non-open or null WebSocket.");
+            return;
+        }
+
+        try
+        {
+            // Use the primary cancellation token for sending
+            await webSocket.SendAsync(buffer, WebSocketMessageType.Binary, true, connectCts.Token);
+        }
+        catch (OperationCanceledException)
+        {
+            Debug.Log("Buffer send cancelled.");
+        }
+        catch (WebSocketException wse)
+        {
+            Debug.LogError($"WebSocket error during send: {wse.Message}");
+            // Connection might be broken, handle disconnection
+            HandleDisconnection("Error during buffer send");
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"Generic error during send: {ex.Message}");
+            HandleDisconnection("Generic error during buffer send");
+        }
+    }
+
     public virtual async Task Disconnect()
     {
         if (webSocket == null || (webSocket.State != WebSocketState.Open && webSocket.State != WebSocketState.CloseSent && webSocket.State != WebSocketState.CloseReceived))

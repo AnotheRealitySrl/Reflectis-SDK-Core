@@ -127,7 +127,27 @@ public class WebSocketSystem : BaseSystem, IWebSocketSystem
         }
         else
         {
-            Debug.LogError("trying to send message on an inactive socket! Url: " + url
+            Debug.LogError("Trying to send message on an inactive socket! Url: " + url
+                + ". Open a new websocket to send a message on this Url.");
+        }
+    }
+
+    public async Task SendBufferMessageAsync(string url, byte[] buffer)
+    {
+        IWebSocketHandler webSocketHandler = GetWebSocketHandler(url);
+
+        while (webSocketHandler.ConnectionState == IWebSocketHandler.EWebSocketState.Connecting)
+        {
+            await Task.Yield();
+        }
+
+        if (webSocketHandler.ConnectionState == IWebSocketHandler.EWebSocketState.Open)
+        {
+            await webSocketHandlers[url].SendBufferMessage(buffer);
+        }
+        else
+        {
+            Debug.LogError("Trying to send buffer on an inactive socket! Url: " + url
                 + ". Open a new websocket to send a message on this Url.");
         }
     }
