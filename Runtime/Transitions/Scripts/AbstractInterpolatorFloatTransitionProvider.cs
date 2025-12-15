@@ -16,11 +16,11 @@ namespace Reflectis.SDK.Core.Transitions
         private float duration;
         [SerializeField]
         private AnimationCurve ease;
-        private float defaultValue = 0f;
+        protected float defaultValue = 0f;
 
         private Interpolator interpolator;
 
-        protected virtual void Awake()
+        public virtual void Awake()
         {
             if (ease.keys.Count() == 0)
             {
