@@ -27,6 +27,11 @@ public class WebGLWebSocketHandler : IWebSocketHandler
         return Task.CompletedTask;
     }
 
+    public Task SendBufferMessage(byte[] buffer)
+    {
+        throw new System.NotImplementedException();
+    }
+
     public void OnSocketClose()
     {
         foreach (IWebSocketListener listener in listeners)
