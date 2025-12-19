@@ -76,7 +76,7 @@ mergeInto(LibraryManager.library, {
     return socketIndex;
   },
 
-  WebSocketSend: function (socketIndex, message) {
+  WebSocketSendMessage: function (socketIndex, message) {
     message = UTF8ToString(message);
 
     if (socketIndex < 0 || socketIndex >= this.sockets.length) {
@@ -88,6 +88,29 @@ mergeInto(LibraryManager.library, {
       const socket = this.sockets[socketIndex];
       if (socket) {
         socket.send(message);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  },
+
+  WebSocketSendBuffer: function (socketIndex, bufferPtr, length) {
+    if (socketIndex < 0 || socketIndex >= this.sockets.length) {
+      console.error("Invalid socket index: ", socketIndex);
+      return;
+    }
+
+    try {
+      const socket = this.sockets[socketIndex];
+      if (socket) {
+        // ACCESSO ALLA MEMORIA DI UNITY
+        // HEAPU8 è l'array globale che rappresenta la RAM del gioco.
+        // Creiamo una subarray che punta esattamente ai dati passati da C#.
+        // bufferPtr = inizio, bufferPtr + length = fine.
+        const dataToSend = HEAPU8.subarray(bufferPtr, bufferPtr + length);
+
+        // socket.send accetta Uint8Array, quindi invierà binary frame.
+        socket.send(dataToSend);
       }
     } catch (error) {
       console.error(error);

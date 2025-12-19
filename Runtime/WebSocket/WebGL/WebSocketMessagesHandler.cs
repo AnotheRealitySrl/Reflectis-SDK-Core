@@ -20,7 +20,10 @@ public class WebSocketMessagesHandler : Singleton<WebSocketMessagesHandler>
     private static extern int WebSocketOpen(string url);
 
     [DllImport("__Internal")]
-    private static extern void WebSocketSend(int channel, string message);
+    private static extern void WebSocketSendMessage(int channel, string message);
+
+    [DllImport("__Internal")]
+    private static extern void WebSocketSendBuffer(int channel, byte[] buffer, int length);
 
     [DllImport("__Internal")]
     private static extern void WebSocketClose(int channel);
@@ -158,7 +161,19 @@ public class WebSocketMessagesHandler : Singleton<WebSocketMessagesHandler>
         {
             if (channel.Value == handler)
             {
-                WebSocketSend(channel.Key, message);
+                WebSocketSendMessage(channel.Key, message);
+                return;
+            }
+        }
+    }
+
+    public void SendBuffer(WebGLWebSocketHandler handler, byte[] buffer)
+    {
+        foreach (var channel in handlers)
+        {
+            if (channel.Value == handler)
+            {
+                WebSocketSendBuffer(channel.Key, buffer, buffer.Length);
                 return;
             }
         }

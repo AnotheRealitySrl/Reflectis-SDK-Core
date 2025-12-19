@@ -92,7 +92,7 @@ public class WebSocketHandler : IWebSocketHandler, IDisposable
         }
     }
 
-    public virtual async Task SendBufferMessage(byte[] buffer)
+    public virtual async Task SendBuffer(byte[] buffer)
     {
         // Check WebSocket state before sending
         if (webSocket == null || webSocket.State != WebSocketState.Open)

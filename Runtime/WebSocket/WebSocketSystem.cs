@@ -143,7 +143,7 @@ public class WebSocketSystem : BaseSystem, IWebSocketSystem
 
         if (webSocketHandler.ConnectionState == IWebSocketHandler.EWebSocketState.Open)
         {
-            await webSocketHandlers[url].SendBufferMessage(buffer);
+            await webSocketHandlers[url].SendBuffer(buffer);
         }
         else
         {

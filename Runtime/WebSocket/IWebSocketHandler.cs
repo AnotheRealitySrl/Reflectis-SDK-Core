@@ -21,7 +21,7 @@ public interface IWebSocketHandler
 
     public abstract Task SendMessage(string message);
 
-    public abstract Task SendBufferMessage(byte[] buffer);
+    public abstract Task SendBuffer(byte[] buffer);
 
     public abstract Task Disconnect();
 
