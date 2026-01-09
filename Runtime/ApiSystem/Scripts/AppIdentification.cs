@@ -17,9 +17,9 @@ namespace Reflectis.SDK.Core.ApiSystem
 
         [CreateProperty] public HmacCredential Credential => credential;
         [CreateProperty] public string ApiBaseUrl => apiBaseUrl;
-        [CreateProperty] public string ApiVersion => apiVersion ??= "1";
+        [CreateProperty] public string ApiVersion => apiVersion;
 
-        public AppIdentification(HmacCredential credential, string apiBaseUrl, string apiVersion = "1")
+        public AppIdentification(HmacCredential credential, string apiBaseUrl, string apiVersion = null)
         {
             this.credential = credential;
             this.apiBaseUrl = apiBaseUrl;

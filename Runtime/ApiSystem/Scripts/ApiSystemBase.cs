@@ -119,7 +119,10 @@ namespace Reflectis.SDK.Core.ApiSystem
             // Assuming string.IsNullOrWhiteSpace is used or an extension method is properly imported
             queryParams = queryParams.Where(x => allowEmptyQueryValues ? x.Value != null : !string.IsNullOrWhiteSpace(x.Value))
                                      .ToDictionary(x => x.Key, x => x.Value);
-            queryParams.Add("api-version", apiConfig.ApiVersion);
+            if (!string.IsNullOrEmpty(apiConfig.ApiVersion))
+            {
+                queryParams.Add("api-version", apiConfig.ApiVersion);
+            }
 
             (string timestamp, string hmac) = CalculateHmacHeader(apiConfig.Credential, DateTime.UtcNow - serverTimeOffset);
 
