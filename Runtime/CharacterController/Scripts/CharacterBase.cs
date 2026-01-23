@@ -17,8 +17,8 @@ namespace Reflectis.SDK.Core.CharacterController
         [Header("Character structure")]
         [SerializeField] private Transform pivotReference;
         [SerializeField] private Transform headReference;
-        [SerializeField] private Transform leftHandReference;
-        [SerializeField] private Transform rightHandReference;
+        [SerializeField] protected Transform leftHandReference;
+        [SerializeField] protected Transform rightHandReference;
         [SerializeField] private Transform labelReference;
         [SerializeField] private float labelOffsetFromBounds = 0.06f;
         [SerializeField] private Transform tagReference;
