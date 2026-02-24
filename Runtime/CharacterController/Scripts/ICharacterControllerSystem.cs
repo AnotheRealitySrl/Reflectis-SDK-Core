@@ -61,25 +61,25 @@ namespace Reflectis.SDK.Core.CharacterController
         /// Enable or disable based on value the movement of the character
         /// </summary>
         /// <param name="enable"></param>
-        void EnableCharacterMovement(bool value);
+        void EnableCharacterMovement(bool value, InputSettings settings = null, bool setAsDefaultSettings = false);
 
         /// <summary>
         /// Enable or disable based on value the jump of the character
         /// </summary>
         /// <param name="value"></param>
-        void EnableCharacterJump(bool value);
+        void EnableCharacterJump(bool value, InputSettings settings = null, bool setAsDefaultSettings = false);
 
         /// <summary>
         /// Enable or disable the rotation of the player camera (Desktop only)
         /// </summary>
         /// <param name="value"></param>
-        void EnableCameraRotation(bool value);
+        void EnableCameraRotation(bool value, InputSettings settings = null, bool setAsDefaultSettings = false);
 
         /// <summary>
         /// Enable or disable the zoom of the player camera (Desktop only)
         /// </summary>
         /// <param name="value"></param>
-        void EnableCameraZoom(bool value);
+        void EnableCameraZoom(bool value, InputSettings settings = null, bool setAsDefaultSettings = false);
 
         /// <summary>
         /// Switches camera to first person view (Desktop only)
