@@ -107,6 +107,21 @@ namespace Reflectis.SDK.Core.CharacterController
         /// </summary>
         public void EnableCharacterGravity(bool enable);
 
+        /// <summary>
+        /// Create default settings (Desktop only)
+        /// </summary>
+        void CreateDefaultSettings(InputSettings settings);
+
+        /// <summary>
+        /// Set default settings as active (Desktop only)
+        /// </summary>
+        void SetDeafultSettingsAsActive();
+
+        /// <summary>
+        /// Disable all settings and give new one only to camera (Desktop only)
+        /// </summary>
+        void DisableAllButCamera(InputSettings settings);
+
         #endregion
     }
 }
