@@ -6,20 +6,26 @@ namespace Reflectis.SDK.Core
     {
         //TODO FARE TUTTO IN EDITOR SCRIPTING FATTO BENE!!!!
         [Header("Movement")]
-        public bool EnableWASDInteraction, EnableArrowInteraction, EnableNavmeshMovement, EnableJoystickInteraction;
+        public bool EnableWASDInteraction;
+        public bool EnableArrowInteraction;
+        public bool EnableNavmeshMovement;
+        public bool EnableJoystickInteraction;
 
         [Header("Camera")]
-        public bool EnableMouseDraggingInteraction, EnableInputCameraInteraction;
+        public bool EnableMouseDraggingInteraction;
+        public bool EnableInputCameraInteraction;
         public bool InvertX = false;
         public bool InvertY = false;
         public bool LeftButton = true;
         public bool RightButton = false;
 
         [Header("Zoom")]
-        public bool EnableMouseWheelZoom, EnablePinchZoom;
+        public bool EnableMouseWheelZoom;
+        public bool EnablePinchZoom;
 
         [Header("Jump")]
-        public bool EnableJumpWithKey, EnableJumpWithButton;
+        public bool EnableJumpWithKey;
+        public bool EnableJumpWithButton;
 
         [Header("Sit")]
         public bool EnableSittingInteraction;
