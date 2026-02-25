@@ -18,6 +18,7 @@ namespace Reflectis.SDK.Core
         public bool InvertY = false;
         public bool LeftButton = true;
         public bool RightButton = false;
+        public bool ThirdPerson = true;
 
         [Header("Zoom")]
         public bool EnableMouseWheelZoom;
@@ -33,7 +34,7 @@ namespace Reflectis.SDK.Core
         [Header("Walk")]
         public bool EnableWalkInteraction;
 
-        public InputSettings(bool enableWASDInteraction, bool enableArrowInteraction, bool enableNavmeshMovement, bool enableJoystickInteraction, bool enableMouseDraggingInteraction, bool enableInputCameraInteraction, bool invertX, bool invertY, bool leftButton, bool rightButton, bool enableMouseWheelZoom, bool enablePinchZoom, bool enableJumpWithKey, bool enableJumpWithButton, bool enableSittingInteraction, bool enableWalkInteraction)
+        public InputSettings(bool enableWASDInteraction, bool enableArrowInteraction, bool enableNavmeshMovement, bool enableJoystickInteraction, bool enableMouseDraggingInteraction, bool enableInputCameraInteraction, bool invertX, bool invertY, bool leftButton, bool rightButton, bool thirdPerson, bool enableMouseWheelZoom, bool enablePinchZoom, bool enableJumpWithKey, bool enableJumpWithButton, bool enableSittingInteraction, bool enableWalkInteraction)
         {
             EnableWASDInteraction = enableWASDInteraction;
             EnableArrowInteraction = enableArrowInteraction;
@@ -45,6 +46,7 @@ namespace Reflectis.SDK.Core
             InvertY = invertY;
             LeftButton = leftButton;
             RightButton = rightButton;
+            ThirdPerson = thirdPerson;
             EnableMouseWheelZoom = enableMouseWheelZoom;
             EnablePinchZoom = enablePinchZoom;
             EnableJumpWithKey = enableJumpWithKey;
