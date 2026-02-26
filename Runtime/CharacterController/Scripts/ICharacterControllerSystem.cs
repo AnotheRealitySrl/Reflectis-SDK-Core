@@ -110,7 +110,7 @@ namespace Reflectis.SDK.Core.CharacterController
         /// <summary>
         /// Create default settings (Desktop only)
         /// </summary>
-        void CreateDefaultSettings(InputSettings settings);
+        void CreateDefaultSettings(InputSettings settings, bool setDeafultActive = true);
 
         /// <summary>
         /// Set default settings as active (Desktop only)

@@ -139,7 +139,7 @@ namespace Reflectis.SDK.Core.CharacterController
 
         public virtual void EnableCharacterGravity(bool enable) { }
 
-        public virtual void CreateDefaultSettings(InputSettings settings) { }
+        public virtual void CreateDefaultSettings(InputSettings settings, bool setDeafultActive = true) { }
         public virtual void SetDeafultSettingsAsActive() { }
         public virtual void DisableAllButCamera(InputSettings settings) { }
 

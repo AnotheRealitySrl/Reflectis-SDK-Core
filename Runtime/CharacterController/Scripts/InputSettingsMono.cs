@@ -1,9 +1,16 @@
+using System;
 using UnityEngine;
 
 namespace Reflectis.SDK.Core
 {
-    public class InputSettings : MonoBehaviour
+    public class InputSettingsMono : MonoBehaviour
     {
+        public InputSettings settings;
+    }
+
+    [Serializable]
+    public class InputSettings
+    {        
         //TODO FARE TUTTO IN EDITOR SCRIPTING FATTO BENE!!!!
         [Header("Movement")]
         public bool EnableWASDInteraction;
