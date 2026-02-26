@@ -61,5 +61,28 @@ namespace Reflectis.SDK.Core
             EnableSittingInteraction = enableSittingInteraction;
             EnableWalkInteraction = enableWalkInteraction;
         }
+
+        public InputSettings(bool _invertX, bool _invertY, bool _leftButton, bool _rightButton, bool _thirdPerson, bool _enablemouseWheel)
+        {
+            EnableWASDInteraction = false;
+            EnableArrowInteraction = false;
+            EnableNavmeshMovement = false;
+            EnableJoystickInteraction = false;
+            EnableMouseDraggingInteraction = false;
+            EnableInputCameraInteraction = false;
+
+            InvertX = _invertX;
+            InvertY = _invertY;
+            LeftButton = _leftButton;
+            RightButton = _rightButton;
+            ThirdPerson = _thirdPerson;
+            EnableMouseWheelZoom = _enablemouseWheel;
+
+            EnablePinchZoom = false;
+            EnableJumpWithKey = false;
+            EnableJumpWithButton = false;
+            EnableSittingInteraction = false;
+            EnableWalkInteraction = false;
+        }
     }
 }

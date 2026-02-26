@@ -1,5 +1,6 @@
 using Reflectis.SDK.Core.SystemFramework;
-
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using UnityEngine;
@@ -121,6 +122,27 @@ namespace Reflectis.SDK.Core.CharacterController
         /// Disable all settings and give new one only to camera (Desktop only)
         /// </summary>
         void DisableAllButCamera(InputSettings settings);
+
+        public static Dictionary<ECameraModes, Type> CameraTypes =
+         new Dictionary<ECameraModes, Type>
+         {
+             {
+                 ECameraModes.DefaultCamera,
+                 typeof(StaticCameraType)
+             },
+             {
+                 ECameraModes.StaticCamera,
+                 typeof(StaticCameraType)
+             },
+             {
+                 ECameraModes.RotationCamera,
+                 typeof(RotationCameraType)
+             },
+             {
+                 ECameraModes.CinemaCamera,
+                 typeof(StaticCameraType)
+             },
+         };
 
         #endregion
     }
