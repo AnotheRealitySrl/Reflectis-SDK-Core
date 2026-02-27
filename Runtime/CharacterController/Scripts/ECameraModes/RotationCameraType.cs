@@ -9,9 +9,10 @@ namespace Reflectis.SDK.Core
         //[SettableField(isRequired = true)]
         public bool rotationY;
         public bool rotationX;
-        public bool invertX;
-        public bool invertY;
-        public bool lockRotation;
-        public bool mouseWheelZoom;
+        public bool constrainedRotation;
+        public bool leftButtonToRotate;
+        //public bool mouseWheelZoom;
+        //public bool invertX;
+        //public bool invertY;
     }
 }

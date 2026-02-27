@@ -128,7 +128,7 @@ namespace Reflectis.SDK.Core.CharacterController
          {
              {
                  ECameraModes.DefaultCamera,
-                 typeof(StaticCameraType)
+                 typeof(DefaultCameraType)
              },
              {
                  ECameraModes.StaticCamera,

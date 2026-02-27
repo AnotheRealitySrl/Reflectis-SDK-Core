@@ -1,19 +1,10 @@
+using System;
 using UnityEngine;
 
 namespace Reflectis.SDK.Core
 {
-    public class DefaultCameraType : MonoBehaviour
+    [Serializable]
+    public class DefaultCameraType
     {
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
-        {
-        
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-        
-        }
     }
 }

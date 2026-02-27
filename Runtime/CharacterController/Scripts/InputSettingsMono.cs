@@ -26,6 +26,7 @@ namespace Reflectis.SDK.Core
         public bool LeftButton = true;
         public bool RightButton = false;
         public bool ThirdPerson = true;
+        public bool ConstrainedRotation = false;
 
         [Header("Zoom")]
         public bool EnableMouseWheelZoom;
@@ -62,21 +63,22 @@ namespace Reflectis.SDK.Core
             EnableWalkInteraction = enableWalkInteraction;
         }
 
-        public InputSettings(bool _invertX, bool _invertY, bool _leftButton, bool _rightButton, bool _thirdPerson, bool _enablemouseWheel)
+        public InputSettings(bool _mouseDragging, bool _cameraInteraction, bool _invertX, bool _invertY, bool _leftButton, bool _rightButton, bool _thirdPerson, bool _enablemouseWheel, bool _constrainedRotation)
         {
             EnableWASDInteraction = false;
             EnableArrowInteraction = false;
             EnableNavmeshMovement = false;
             EnableJoystickInteraction = false;
-            EnableMouseDraggingInteraction = false;
-            EnableInputCameraInteraction = false;
 
+            EnableMouseDraggingInteraction = _mouseDragging;
+            EnableInputCameraInteraction = _cameraInteraction;
             InvertX = _invertX;
             InvertY = _invertY;
             LeftButton = _leftButton;
             RightButton = _rightButton;
             ThirdPerson = _thirdPerson;
             EnableMouseWheelZoom = _enablemouseWheel;
+            ConstrainedRotation = _constrainedRotation;
 
             EnablePinchZoom = false;
             EnableJumpWithKey = false;
