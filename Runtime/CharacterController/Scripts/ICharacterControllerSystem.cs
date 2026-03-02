@@ -144,6 +144,7 @@ namespace Reflectis.SDK.Core.CharacterController
              },
          };
 
+        public InputSettings GetCurrentSettings();
         #endregion
     }
 }

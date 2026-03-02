@@ -157,6 +157,10 @@ namespace Reflectis.SDK.Core.CharacterController
             return interactionCount;
         }
 
+        public virtual InputSettings GetCurrentSettings()
+        {
+            return null;
+        }
         #endregion
     }
 
