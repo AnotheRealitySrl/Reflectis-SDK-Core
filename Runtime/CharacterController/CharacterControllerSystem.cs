@@ -135,12 +135,14 @@ namespace Reflectis.SDK.Core.CharacterController
 
         public virtual Task GoToInteractState(Transform targetTransform) => Task.CompletedTask;
 
+        public virtual Task MoveCameraToPoint(Transform targetTransform) => Task.CompletedTask;
+
         public virtual Task GoToSetMovementState() => Task.CompletedTask;
 
         public virtual void EnableCharacterGravity(bool enable) { }
 
         public virtual void CreateDefaultSettings(InputSettings settings, bool setDeafultActive = true) { }
-        public virtual void SetDeafultSettingsAsActive() { }
+        public virtual void SetDefaultSettingsAsActive() { }
         public virtual void DisableAllButCamera(InputSettings settings) { }
 
 

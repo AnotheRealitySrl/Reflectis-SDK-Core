@@ -99,6 +99,11 @@ namespace Reflectis.SDK.Core.CharacterController
         public Task GoToInteractState(Transform targetTransform);
 
         /// <summary>
+        /// Sends the camera to point (Desktop only)
+        /// </summary>
+        public Task MoveCameraToPoint(Transform targetTransform);
+
+        /// <summary>
         /// Sends the character to movement state (Desktop only)
         /// </summary>
         public Task GoToSetMovementState();
@@ -116,7 +121,7 @@ namespace Reflectis.SDK.Core.CharacterController
         /// <summary>
         /// Set default settings as active (Desktop only)
         /// </summary>
-        void SetDeafultSettingsAsActive();
+        void SetDefaultSettingsAsActive();
 
         /// <summary>
         /// Disable all settings and give new one only to camera (Desktop only)
