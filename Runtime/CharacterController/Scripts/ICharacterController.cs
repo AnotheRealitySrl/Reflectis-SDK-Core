@@ -21,9 +21,14 @@ namespace Reflectis.SDK.Core.CharacterController
         #region Interface properties
 
         /// <summary>
+        /// Reference to the cinemachine camera
+        /// </summary>
+        CinemachineCamera CinemachineCam { get; }
+
+        /// <summary>
         /// Reference to the main camera
         /// </summary>
-        CinemachineCamera Camera { get; }
+        Camera Camera { get; }
 
         /// <summary>
         /// Controllers/Hands
