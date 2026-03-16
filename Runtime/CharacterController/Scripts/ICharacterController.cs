@@ -1,4 +1,3 @@
-using Unity.Cinemachine;
 using UnityEngine;
 
 namespace Reflectis.SDK.Core.CharacterController
@@ -23,7 +22,7 @@ namespace Reflectis.SDK.Core.CharacterController
         /// <summary>
         /// Reference to the cinemachine camera
         /// </summary>
-        CinemachineCamera CinemachineCam { get; }
+        Transform CameraControllerTransform { get; }
 
         /// <summary>
         /// Reference to the main camera

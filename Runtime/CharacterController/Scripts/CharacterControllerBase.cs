@@ -1,5 +1,4 @@
-﻿using Unity.Cinemachine;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Reflectis.SDK.Core.CharacterController
 {
@@ -12,7 +11,7 @@ namespace Reflectis.SDK.Core.CharacterController
     {
         #region Inspector variables
 
-        [SerializeField] protected CinemachineCamera cinemachineCam;
+        [SerializeField] protected Transform cameraControllerTransform;
         [SerializeField] protected Camera cam;
         [SerializeField] protected AudioListener audioListener;
         [SerializeField] protected ICharacterController.EInteractionType interactorsType;
@@ -22,11 +21,10 @@ namespace Reflectis.SDK.Core.CharacterController
         #region Interface implementation
 
         public Camera Camera { get => cam; set => cam = value; }
-        public CinemachineCamera CinemachineCam { get => cinemachineCam; set => cinemachineCam = value; }
+        public Transform CameraControllerTransform { get => cameraControllerTransform; set => cameraControllerTransform = value; }
         public ICharacterController.EInteractionType InteractorsType => interactorsType;
         public bool IsInRangeToInteract { get => isInRangeToInteract; set => isInRangeToInteract = value; }
         public AudioListener AudioListener => audioListener;
-
 
         #endregion
     }
