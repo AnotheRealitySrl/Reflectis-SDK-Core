@@ -1,5 +1,11 @@
 # Release notes
 
+## v14.0.0
+
+### Added
+- Added cinemachine
+- Added new input settings for character
+
 ## v13.2.0
 
 ### Changed
