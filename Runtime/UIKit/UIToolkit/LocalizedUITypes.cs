@@ -17,6 +17,9 @@
 using System.Collections.Generic;
 using UnityEngine.UIElements;
 
+namespace Reflectis.LocalizedComponents
+{
+
 // ============================================================
 // TEXT ELEMENTS
 // ============================================================
@@ -178,4 +181,6 @@ public partial class LocalizedEnumField : EnumField
     [UxmlAttribute] public string locKey { get => _k; set => _k = value; }
     string _k;
 }
+
+} // namespace Reflectis.LocalizedComponents
 #endif

@@ -13,6 +13,9 @@ using static I2.Loc.LocalizationManager;
 using System.Collections.Generic;
 using UnityEngine.UIElements;
 
+namespace Reflectis.LocalizedComponents
+{
+
 // ============================================================
 // LocalizationHelper — shared attach/detach + translate logic
 // ============================================================
@@ -261,3 +264,5 @@ public partial class LocalizedEnumField : EnumField
     public LocalizedEnumField() => LocalizationHelper.Setup(this, Apply);
     void Apply() { var t = LocalizationHelper.Translate(_k); if (t != null) label = t; }
 }
+
+} // namespace Reflectis.LocalizedComponents
