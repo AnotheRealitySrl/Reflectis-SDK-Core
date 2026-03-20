@@ -4,9 +4,6 @@
 // Automatically adds or removes the scripting define symbol
 // "I2LOC" depending on whether the I2Loc package is present
 // in the project. Runs every time scripts are recompiled.
-//
-// Place this file inside any folder named "Editor" so Unity
-// excludes it from runtime / build compilation.
 // ============================================================
 using System;
 using UnityEditor;
