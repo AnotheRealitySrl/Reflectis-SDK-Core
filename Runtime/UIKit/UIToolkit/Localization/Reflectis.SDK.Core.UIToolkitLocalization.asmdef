@@ -1,0 +1,20 @@
+{
+    "name": "Reflectis.SDK.Core.I2Loc",
+    "rootNamespace": "Reflectis.SDK.Core",
+    "references": [
+        "Reflectis.SDK.Core",
+        "I2.Loc"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "I2LOC",
+        "UITOOLKIT"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
