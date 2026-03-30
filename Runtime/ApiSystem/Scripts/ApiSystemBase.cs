@@ -7,13 +7,7 @@ using Reflectis.SDK.Http;
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
 using System.Threading.Tasks;
-
-using Unity.VisualScripting;
 
 using UnityEngine;
 using UnityEngine.Networking;
@@ -59,10 +53,9 @@ namespace Reflectis.SDK.Core.ApiSystem
                 throw new Exception($"{name}: Missing {nameof(AppIdentification.ApiBaseUrl)}");
             }
 
-
             if (checkIsAlive)
             {
-                if (!await IsAlive())
+                if (!await ApiHelper.IsAlive(apiConfig, !allowUntrustedServers))
                 {
                     throw new Exception($"{name}: API is not alive");
                 }
@@ -70,7 +63,7 @@ namespace Reflectis.SDK.Core.ApiSystem
 
             if (getApiInfo)
             {
-                ApiResponse<ApiInfo> apiInfoReq = await GetApiInfo();
+                ApiResponse<ApiInfo> apiInfoReq = await ApiHelper.GetApiInfo(apiConfig, !allowUntrustedServers);
                 if (apiInfoReq.IsSuccess)
                 {
                     ApiInfo apiInfo = apiInfoReq.Content;
@@ -95,13 +88,7 @@ namespace Reflectis.SDK.Core.ApiSystem
 
         protected (string, string) CalculateHmacHeader(HmacCredential credential, DateTime timestamp)
         {
-            string appId = credential.AppId.ToString().ToUpperInvariant();
-            string timestampFormatted = timestamp.ToString("yyyy-MM-ddTHH:mm:ss'z'", CultureInfo.InvariantCulture).ToUpperInvariant();
-            byte[] keyBytes = Encoding.UTF8.GetBytes(credential.AppSecret);
-            using HMACSHA256 sha256 = new(keyBytes);
-            byte[] hmac = sha256.ComputeHash(Encoding.UTF8.GetBytes($"{appId}:{timestampFormatted}"));
-
-            return (timestampFormatted, Convert.ToBase64String(hmac));
+            return ApiHelper.CalculateHmacHeader(credential, timestamp);
         }
 
         protected virtual async Task<UnityWebRequest> BuildRequest(
@@ -114,53 +101,22 @@ namespace Reflectis.SDK.Core.ApiSystem
                                                 bool allowEmptyQueryValues = false,
                                                 Dictionary<string, string> additionalHeaders = null)
         {
-            queryParams ??= new Dictionary<string, string>();
-            // Filter null or empty query parameters
-            // Assuming string.IsNullOrWhiteSpace is used or an extension method is properly imported
-            queryParams = queryParams.Where(x => allowEmptyQueryValues ? x.Value != null : !string.IsNullOrWhiteSpace(x.Value))
-                                     .ToDictionary(x => x.Key, x => x.Value);
-            if (!string.IsNullOrEmpty(apiConfig.ApiVersion))
-            {
-                queryParams.Add("api-version", apiConfig.ApiVersion);
-            }
-
-            (string timestamp, string hmac) = CalculateHmacHeader(apiConfig.Credential, DateTime.UtcNow - serverTimeOffset);
-
-            Dictionary<string, string> headers = SetDefaultHeaders(timestamp);
-            if (additionalHeaders != null)
-            {
-                headers.AddRange(additionalHeaders);
-            }
-
-            // Removed the Content-Type: application/json here, as it's now handled by CreateHttpRequest
-            // or explicitly by the caller via headers.
             if (authentication.HasFlag(EAuthentication.Bearer))
             {
                 await ValidateJwtToken();
-                headers.Add("Authorization", $"Bearer {JwtToken.Bearer}");
             }
 
-            if (authentication.HasFlag(EAuthentication.Hmac))
-            {
-                headers.Add("Hmac", hmac);
-            }
-
-            CertificateHandler certificateHandler = allowUntrustedServers ? new AcceptAllCertificates() : default;
-
-            // --- Use the new CreateHttpRequest ---
-            UnityWebRequest request = httpSystem.CreateHttpRequest(
-                method,
-                $"{apiConfig.ApiBaseUrl}/{endpoint}",
-                requestBodyType, // Pass the new enum
-                body,            // Pass the object body directly
+            return ApiHelper.BuildRequest(
+                method, endpoint, apiConfig,
                 queryParams,
-                headers,
-                certificateHandler);
-
-            // No need for separate header application loop here, as CreateHttpRequest handles it
-            // and its internal logic decides if Content-Type should be set/overridden.
-
-            return request;
+                (HttpHelper.ERequestBodyType)requestBodyType,
+                body,
+                authentication,
+                allowEmptyQueryValues,
+                additionalHeaders,
+                jwtToken: JwtToken,
+                serverTimeOffset: serverTimeOffset,
+                allowUntrustedServers: allowUntrustedServers);
         }
 
         protected virtual Dictionary<string, string> SetDefaultHeaders(params string[] values)
@@ -208,19 +164,12 @@ namespace Reflectis.SDK.Core.ApiSystem
 
         public async Task<bool> IsAlive()
         {
-            using UnityWebRequest request = await BuildRequest(UnityWebRequest.kHttpVerbGET, "health", authentication: EAuthentication.None);
-            await request.SendWebRequest();
-
-            return request.result == UnityWebRequest.Result.Success;
+            return await ApiHelper.IsAlive(apiConfig, !allowUntrustedServers);
         }
-
 
         public async Task<ApiResponse<ApiInfo>> GetApiInfo()
         {
-            using UnityWebRequest request = await BuildRequest(UnityWebRequest.kHttpVerbGET, "apiserver/info", authentication: EAuthentication.None);
-            await request.SendWebRequest();
-
-            return new ApiResponse<ApiInfo>(request.responseCode, request.error, request.downloadHandler.text);
+            return await ApiHelper.GetApiInfo(apiConfig, !allowUntrustedServers);
         }
     }
 }
