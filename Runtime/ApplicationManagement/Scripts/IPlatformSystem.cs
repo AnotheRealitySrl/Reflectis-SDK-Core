@@ -10,7 +10,8 @@ namespace Reflectis.SDK.Core.ApplicationManagement
     public enum ESupportedPlatform
     {
         VR = 1,
-        WebGL = 2
+        WebGL = 2,
+        Mobile = 4,
     }
 
     public interface IPlatformSystem : ISystem
