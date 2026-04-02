@@ -133,10 +133,11 @@ namespace Reflectis.SDK.Core.CharacterController
 
         public virtual void SetThirdPersonCameraMode() { }
 
-        public virtual Task GoToInteractState(Transform targetTransform, float maxZoom = 0.0001f, float minZoom = 1f, float maxYRotation = 45, float minYRotation = -45, bool cameraInteraction = false) => Task.CompletedTask;
+        public virtual Task GoToInteractState(Transform targetTransform, float maxZoom = 0.0001f, float minZoom = 1f, float maxYRotation = 85f, float minYRotation = -85f, float maxXRotation = 180f, float minXRotation = -180f, bool cameraInteraction = false) => Task.CompletedTask;
 
-        public virtual Task MoveCameraToPoint(Transform targetTransform, float maxZoom = 0.0001f, float minZoom = 1f, float maxYRotation = 45, float minYRotation = -45, bool cameraInteraction = false) => Task.CompletedTask;
+        public virtual Task MoveCameraToPoint(Transform targetTransform, float maxZoom = 0.0001f, float minZoom = 1f, float maxYRotation = 85f, float minYRotation = -85f, float maxXRotation = 180f, float minXRotation = -180f, bool cameraInteraction = false) => Task.CompletedTask;
 
+        public virtual void ChangeCameraSpeed(float x, float y) { }
         public virtual Task GoToSetMovementState() => Task.CompletedTask;
 
         public virtual void EnableCharacterGravity(bool enable) { }

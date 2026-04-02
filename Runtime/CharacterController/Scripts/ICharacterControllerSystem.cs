@@ -96,12 +96,14 @@ namespace Reflectis.SDK.Core.CharacterController
         /// Sends the character to intract state (Desktop only)
         /// </summary>
         /// <param name="interactingItem"></param>
-        public Task GoToInteractState(Transform targetTransform, float maxZoom = 0.0001f, float minZoom = 1f, float maxYRotation = 45, float minYRotation = -45, bool cameraInteraction = false);
+        public Task GoToInteractState(Transform targetTransform, float maxZoom = 0.0001f, float minZoom = 1f, float maxYRotation = 85f, float minYRotation = -85, float maxXRotation = 180f, float minXRotation = -180f, bool cameraInteraction = false);
 
         /// <summary>
         /// Sends the camera to point (Desktop only)
         /// </summary>
-        public Task MoveCameraToPoint(Transform targetTransform, float maxZoom = 0.0001f, float minZoom = 1f, float maxYRotation = 45, float minYRotation = -45, bool cameraInteraction = false);
+        public Task MoveCameraToPoint(Transform targetTransform, float maxZoom = 0.0001f, float minZoom = 1f, float maxYRotation = 85f, float minYRotation = -85f, float maxXRotation = 180f, float minXRotation = -180f, bool cameraInteraction = false);
+
+        public void ChangeCameraSpeed(float x, float y);
 
         /// <summary>
         /// Sends the character to movement state (Desktop only)
