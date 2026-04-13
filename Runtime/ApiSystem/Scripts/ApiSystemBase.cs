@@ -171,5 +171,10 @@ namespace Reflectis.SDK.Core.ApiSystem
         {
             return await ApiHelper.GetApiInfo(apiConfig, !allowUntrustedServers);
         }
+
+        public void SetApiConfig(AppIdentification config)
+        {
+            apiConfig = config;
+        }
     }
 }
