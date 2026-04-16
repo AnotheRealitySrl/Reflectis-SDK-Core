@@ -16,32 +16,36 @@ using static Reflectis.SDK.Core.Authentication.IAuthenticationSystem;
 
 namespace Reflectis.SDK.Core.ApiSystem
 {
-    public abstract class ApiSystemBase<TApiBase, TApiData> : BaseSystem
-        where TApiBase : ApiBase<TApiData>, new()
-        where TApiData : ApiDataBase
+    public abstract class ApiSystemBase : BaseSystem
     {
+        #region Inspector info
+        [Header("General API Info")]
         [SerializeField] protected AppIdentification apiConfig;
-        [SerializeField] protected ScriptableObject apiData;
 
-        [Space]
+        [Header("API Configuration")]
         [SerializeField] private bool checkIsAlive = true;
         [SerializeField] private bool getApiInfo = true;
 
         [Header("Untrusted servers")]
         [SerializeField] private bool allowUntrustedServers;
+        #endregion
 
-        [SerializeField] protected HttpSystem httpSystem;
-
-
+        #region Private info
+        // Runtime state (not serialized, populated by the static API class)
         protected TimeSpan serverTimeOffset;
+        #endregion
+
+        #region Properties
+        public AppIdentification ApiConfig { get => apiConfig; set => apiConfig = value; }
 
         public JwtToken JwtToken { get; set; }
+        public TimeSpan ServerTimeOffset { get => serverTimeOffset; set => serverTimeOffset = value; }
+
         public string ApiLabel { get; private set; }
+        #endregion
 
         public override async Task Init()
         {
-            httpSystem = httpSystem != null ? httpSystem : SM.GetSystem<HttpSystem>();
-
             if (string.IsNullOrEmpty(apiConfig.Credential.AppId.ToString()))
             {
                 throw new Exception($"{name}: Missing {nameof(HmacCredential.AppId)}");
@@ -55,19 +59,6 @@ namespace Reflectis.SDK.Core.ApiSystem
             if (string.IsNullOrEmpty(apiConfig.ApiBaseUrl))
             {
                 throw new Exception($"{name}: Missing {nameof(AppIdentification.ApiBaseUrl)}");
-            }
-
-            if (apiData != null)
-            {
-                if (apiData is TApiData data)
-                {
-                    TApiBase temp = new();
-                    temp.Initialize(data);
-                }
-                else
-                {
-                    throw new Exception($"{name}: Assigned ApiData is of type {apiData.GetType()}, expected {typeof(TApiData)}");
-                }
             }
 
             if (checkIsAlive)
@@ -103,16 +94,11 @@ namespace Reflectis.SDK.Core.ApiSystem
             await Init();
         }
 
-        protected (string, string) CalculateHmacHeader(HmacCredential credential, DateTime timestamp)
-        {
-            return ApiHelper.CalculateHmacHeader(credential, timestamp);
-        }
-
         protected virtual async Task<UnityWebRequest> BuildRequest(
                                                 string method,
                                                 string endpoint,
                                                 Dictionary<string, string> queryParams = null,
-                                                HttpSystem.ERequestBodyType requestBodyType = HttpSystem.ERequestBodyType.RawString,
+                                                HttpHelper.ERequestBodyType requestBodyType = HttpHelper.ERequestBodyType.RawString,
                                                 object body = null,
                                                 EAuthentication authentication = EAuthentication.BearerAndHmac,
                                                 bool allowEmptyQueryValues = false,
@@ -126,7 +112,7 @@ namespace Reflectis.SDK.Core.ApiSystem
             return ApiHelper.BuildRequest(
                 method, endpoint, apiConfig,
                 queryParams,
-                (HttpHelper.ERequestBodyType)requestBodyType,
+                requestBodyType,
                 body,
                 authentication,
                 allowEmptyQueryValues,
@@ -182,11 +168,6 @@ namespace Reflectis.SDK.Core.ApiSystem
         public async Task<bool> IsAlive()
         {
             return await ApiHelper.IsAlive(apiConfig, !allowUntrustedServers);
-        }
-
-        public async Task<ApiResponse<ApiInfo>> GetApiInfo()
-        {
-            return await ApiHelper.GetApiInfo(apiConfig, !allowUntrustedServers);
         }
 
         public void SetApiConfig(AppIdentification config)

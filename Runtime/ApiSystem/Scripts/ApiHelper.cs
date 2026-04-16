@@ -138,56 +138,5 @@ namespace Reflectis.SDK.Core.ApiSystem
             await request.SendWebRequest();
             return new ApiResponse<ApiInfo>(request.responseCode, request.error, request.downloadHandler.text);
         }
-
-        /// <summary>
-        /// Initializes common API data: checks health, gets API info, stores label and server time offset.
-        /// </summary>
-        public static async Task InitializeApiData(ApiDataBase data)
-        {
-            if (data.ApiConfig == null)
-            {
-                throw new ArgumentException($"Missing ApiConfig on {data.name}");
-            }
-
-            if (string.IsNullOrEmpty(data.ApiConfig.Credential.AppId.ToString()) || data.ApiConfig.Credential.AppId == Guid.Empty)
-            {
-                throw new ArgumentException($"{data.name}: Missing AppId");
-            }
-
-            if (string.IsNullOrEmpty(data.ApiConfig.Credential.AppSecret))
-            {
-                throw new ArgumentException($"{data.name}: Missing AppSecret");
-            }
-
-            if (string.IsNullOrEmpty(data.ApiConfig.ApiBaseUrl))
-            {
-                throw new ArgumentException($"{data.name}: Missing ApiBaseUrl");
-            }
-
-            if (data.CheckIsAlive)
-            {
-                if (!await IsAlive(data.ApiConfig, !data.AllowUntrustedServers))
-                {
-                    throw new Exception($"{data.name}: API is not alive");
-                }
-            }
-
-            if (data.GetApiInfo)
-            {
-                ApiResponse<ApiInfo> apiInfoReq = await GetApiInfo(data.ApiConfig, !data.AllowUntrustedServers);
-                if (apiInfoReq.IsSuccess)
-                {
-                    ApiInfo apiInfo = apiInfoReq.Content;
-                    Debug.Log($"{data.name}: API Server Info: {Newtonsoft.Json.JsonConvert.SerializeObject(apiInfo)}");
-
-                    data.ApiLabel = apiInfo.Label;
-                    data.ServerTimeOffset = DateTime.UtcNow - apiInfo.ServerTime;
-                }
-                else
-                {
-                    throw new Exception($"{data.name}: Failed to get API info: {apiInfoReq.StatusCode} {apiInfoReq.ReasonPhrase}");
-                }
-            }
-        }
     }
 }
