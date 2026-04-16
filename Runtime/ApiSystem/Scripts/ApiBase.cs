@@ -9,6 +9,11 @@ namespace Reflectis.SDK.Core.ApiSystem
     /// <typeparam name="TData">The ApiDataBase-derived ScriptableObject type</typeparam>
     public abstract class ApiBase<TData> where TData : ApiDataBase
     {
+        #region Initialization and data management
+        public ApiBase() { }
+        public void Initialize(TData data) => InitializeStatic(data);
+        #endregion
+
         protected static TData _data;
 
         /// <summary>
@@ -21,7 +26,7 @@ namespace Reflectis.SDK.Core.ApiSystem
         /// <summary>
         /// Explicit initialization (used by SM wrapper at runtime or manual setup).
         /// </summary>
-        public static void Initialize(TData data) => _data = data;
+        public static void InitializeStatic(TData data) => _data = data;
 
         /// <summary>
         /// Searches the project for an existing SO of type TData.

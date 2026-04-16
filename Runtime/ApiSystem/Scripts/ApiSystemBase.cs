@@ -16,10 +16,14 @@ using static Reflectis.SDK.Core.Authentication.IAuthenticationSystem;
 
 namespace Reflectis.SDK.Core.ApiSystem
 {
-    public abstract class ApiSystemBase : BaseSystem
+    public abstract class ApiSystemBase<TApiBase, TApiData> : BaseSystem
+        where TApiBase : ApiBase<TApiData>, new()
+        where TApiData : ApiDataBase
     {
         [SerializeField] protected AppIdentification apiConfig;
+        [SerializeField] protected ScriptableObject apiData;
 
+        [Space]
         [SerializeField] private bool checkIsAlive = true;
         [SerializeField] private bool getApiInfo = true;
 
@@ -51,6 +55,19 @@ namespace Reflectis.SDK.Core.ApiSystem
             if (string.IsNullOrEmpty(apiConfig.ApiBaseUrl))
             {
                 throw new Exception($"{name}: Missing {nameof(AppIdentification.ApiBaseUrl)}");
+            }
+
+            if (apiData != null)
+            {
+                if (apiData is TApiData data)
+                {
+                    TApiBase temp = new();
+                    temp.Initialize(data);
+                }
+                else
+                {
+                    throw new Exception($"{name}: Assigned ApiData is of type {apiData.GetType()}, expected {typeof(TApiData)}");
+                }
             }
 
             if (checkIsAlive)
