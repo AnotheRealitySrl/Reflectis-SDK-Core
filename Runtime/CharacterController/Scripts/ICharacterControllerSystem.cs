@@ -75,6 +75,10 @@ namespace Reflectis.SDK.Core.CharacterController
         /// </summary>
         /// <param name="value"></param>
         void EnableCameraRotation(bool value, InputSettings settings = null, bool setAsDefaultSettings = false);
+        /// <summary>
+        /// Disable character movement and camera rotation
+        /// </summary>
+        void DisableMovementAndRotation();
 
         /// <summary>
         /// Enable or disable the zoom of the player camera (Desktop only)

@@ -122,6 +122,7 @@ namespace Reflectis.SDK.Core.CharacterController
         public virtual void ActivateReactionAnimation(string reactionName) { }
 
         public virtual void EnableCharacterMovement(bool value, InputSettings settings = null, bool setAsDefaultSettings = false) { }
+        public virtual void DisableMovementAndRotation() { }
 
         public virtual void EnableCharacterJump(bool value, InputSettings settings = null, bool setAsDefaultSettings = false) { }
 
