@@ -31,7 +31,7 @@ namespace Reflectis.SDK.Core.CharacterController
         #region Character controller lifecycle
 
         /// <summary>
-        /// Creates the character controller instance. 
+        /// Creates the character controller instance.
         /// A character controller can be referenced as a prefab through the serialized field `characterControllerPrefab`, or can be already in scene
         /// </summary>
         void CreateCharacterControllerInstance(CharacterControllerBase characterController);
@@ -40,6 +40,21 @@ namespace Reflectis.SDK.Core.CharacterController
         /// Destroys the character controller instance
         /// </summary>
         void DestroyCharacterControllerInstance();
+
+        /// <summary>
+        /// Ensures a character controller instance exists (idempotent). Called by scene managers
+        /// on Load() so each scene owns its CC lifecycle instead of relying on system init.
+        /// Reactivates the GameObject if it was hibernated by <see cref="HibernateInstance"/>.
+        /// </summary>
+        void EnsureInstance();
+
+        /// <summary>
+        /// Soft scene teardown: disables the CC GameObject to stop Update/Physics
+        /// (e.g. character falling on a NavMesh-less wait scene) while preserving
+        /// the instance and any subsystem-cached references. Cheaper and safer
+        /// than full destroy/recreate for scene transitions.
+        /// </summary>
+        void HibernateInstance();
 
         #endregion
 

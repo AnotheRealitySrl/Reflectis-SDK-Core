@@ -42,6 +42,12 @@ namespace Reflectis.SDK.Core.CharacterController
 
         private int interactionCount = 0;
 
+        // True when CharacterControllerInstance was Instantiate()d from the
+        // prefab by this system (we own its lifetime). False when it was
+        // found pre-placed in a loaded scene (the scene owns it; destroying
+        // it would permanently remove a scene authoring node).
+        private bool ownsInstance;
+
         #region Properties
 
         public CharacterControllerBase CharacterControllerInstance { get; protected set; }
@@ -60,28 +66,7 @@ namespace Reflectis.SDK.Core.CharacterController
         {
             if (createCharacterControllerInstanceOnInit)
             {
-                if (characterControllerAlreadyInScene)
-                {
-                    if (FindObjectOfType<CharacterControllerBase>() is CharacterControllerBase characterController)
-                    {
-                        CreateCharacterControllerInstance(characterController);
-                    }
-                    else
-                    {
-                        throw new Exception("Character controller not found in scene");
-                    }
-                }
-                else
-                {
-                    if (characterControllerPrefab)
-                    {
-                        CreateCharacterControllerInstance(characterControllerPrefab);
-                    }
-                    else
-                    {
-                        throw new Exception("Character controller prefab not specified");
-                    }
-                }
+                EnsureInstance();
             }
             return base.Init();
         }
@@ -89,6 +74,58 @@ namespace Reflectis.SDK.Core.CharacterController
         #endregion
 
         #region Public API
+
+        /// <summary>
+        /// Ensures a character controller instance exists. Idempotent: if one already exists, this is a no-op.
+        /// Scene managers call this on Load() so they own the CC lifecycle (instead of relying on system init).
+        /// Honors <see cref="characterControllerAlreadyInScene"/>: when true, finds the CC pre-placed in the
+        /// current scene (VR case); when false, instantiates from <see cref="characterControllerPrefab"/>.
+        /// </summary>
+        public virtual void EnsureInstance()
+        {
+            if (CharacterControllerInstance)
+            {
+                // Reactivate if hibernated; otherwise no-op.
+                if (!CharacterControllerInstance.gameObject.activeSelf)
+                {
+                    CharacterControllerInstance.gameObject.SetActive(true);
+                }
+                return;
+            }
+
+            if (characterControllerAlreadyInScene)
+            {
+                // Include inactive: a previous DestroyCharacterControllerInstance
+                // may have left the scene-placed CC disabled (we don't destroy
+                // authored content). Pick it up, reactivate.
+                CharacterControllerBase[] found = FindObjectsByType<CharacterControllerBase>(
+                    FindObjectsInactive.Include, FindObjectsSortMode.None);
+                if (found != null && found.Length > 0)
+                {
+                    CharacterControllerBase characterController = found[0];
+                    if (!characterController.gameObject.activeSelf)
+                    {
+                        characterController.gameObject.SetActive(true);
+                    }
+                    CreateCharacterControllerInstance(characterController);
+                }
+                else
+                {
+                    throw new Exception("Character controller not found in scene");
+                }
+            }
+            else
+            {
+                if (characterControllerPrefab)
+                {
+                    CreateCharacterControllerInstance(characterControllerPrefab);
+                }
+                else
+                {
+                    throw new Exception("Character controller prefab not specified");
+                }
+            }
+        }
 
         public virtual void CreateCharacterControllerInstance(CharacterControllerBase characterController)
         {
@@ -99,19 +136,55 @@ namespace Reflectis.SDK.Core.CharacterController
             }
 
             // Checks if the referenced character controller is already in scene
-            CharacterControllerInstance = string.IsNullOrEmpty(characterController.gameObject.scene.name)
+            bool fromPrefab = string.IsNullOrEmpty(characterController.gameObject.scene.name);
+            CharacterControllerInstance = fromPrefab
                 ? Instantiate(characterController, spawnPose.position, spawnPose.rotation).GetComponent<CharacterControllerBase>()
                 : characterController;
+            ownsInstance = fromPrefab;
         }
 
         public virtual void DestroyCharacterControllerInstance()
         {
             if (CharacterControllerInstance)
             {
-                Destroy(CharacterControllerInstance.gameObject);
+                // SetActive(false) is synchronous: stops Update on every
+                // MonoBehaviour in the CC hierarchy this frame. Without
+                // this, end-of-frame Destroy() leaves one tick where
+                // components like ReflectisCamera3D.Update dereference
+                // transforms that have already been marked destroyed by
+                // the avatar/networking teardown earlier in Unload, NRE'ing.
+                CharacterControllerInstance.gameObject.SetActive(false);
+
+                // Only destroy if we instantiated from prefab. A scene-placed
+                // CC is authored content; destroying it would permanently
+                // remove it from its scene (re-entering that scene would not
+                // bring it back) and break the next EnsureInstance() find.
+                if (ownsInstance)
+                {
+                    Destroy(CharacterControllerInstance.gameObject);
+                }
             }
 
             CharacterControllerInstance = null;
+            ownsInstance = false;
+        }
+
+        /// <summary>
+        /// Soft scene teardown of the CC: disables the GameObject so its
+        /// Update/Physics stop, but keeps <see cref="CharacterControllerInstance"/>
+        /// and any subsystem-cached references (e.g. CharacterControllerProSystem's
+        /// reflectisCinemachine / cinemachineBrain) intact. The next
+        /// <see cref="EnsureInstance"/> call is a no-op except for reactivating
+        /// the GameObject — much cheaper and safer than the full
+        /// Destroy/Recreate cycle, which would tear down the cinemachine sub-
+        /// hierarchy without recreating it.
+        /// </summary>
+        public virtual void HibernateInstance()
+        {
+            if (CharacterControllerInstance && CharacterControllerInstance.gameObject.activeSelf)
+            {
+                CharacterControllerInstance.gameObject.SetActive(false);
+            }
         }
 
         public virtual void MoveCharacter(Pose newPose)
