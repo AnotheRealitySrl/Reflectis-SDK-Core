@@ -46,7 +46,7 @@ namespace Reflectis.SDK.Core.Avatars
         #endregion
 
         #region Private variables
-        private AvatarConfigControllerVR avatarConfigControllerVR;
+        private AvatarConfigControllerXR avatarConfigControllerVR;
 
         #endregion
 
@@ -69,7 +69,7 @@ namespace Reflectis.SDK.Core.Avatars
         #region Private Methods
         private void SetupAvatar(GameObject avatarInstance)
         {
-            avatarConfigControllerVR = GetComponent<AvatarConfigControllerVR>();
+            avatarConfigControllerVR = GetComponent<AvatarConfigControllerXR>();
 
             HideHeadToPlayer();
 
