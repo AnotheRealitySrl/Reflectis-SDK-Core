@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Reflectis.SDK.Core.Avatars
 {
-    public class AvatarConfigControllerDesktop : AvatarConfigControllerBase
+    public class AvatarConfigControllerStandard : AvatarConfigControllerBase
     {
         #region Inspector variables
 
