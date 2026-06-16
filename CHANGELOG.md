@@ -1,8 +1,20 @@
 # Release notes
 
+## v15.0.0
+
+### Added
+
+- Added UI toolkit localization types
+
+### Changed
+
+- Refactor Api classes to static classes instead of systems
+- Renamed AvatarConfigControllers
+
 ## v14.0.0
 
 ### Added
+
 - Added cinemachine
 - Added new input settings for character
 
