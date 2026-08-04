@@ -183,6 +183,8 @@ namespace Reflectis.SDK.Core.Avatars
             CharacterControllerBase ccInstance = SM.GetSystem<CharacterControllerSystem>().CharacterControllerInstance;
             if (ccInstance != null)
             {
+                // Switch the characterControllerInstance layer to enable/Disable clicks on it. Currently just changing the root
+                // if colliders are added to children in the future, then we should rescursively change the childer collider's layers too
                 ccInstance.gameObject.layer = LayerMask.NameToLayer(enable ? PlayerLayerName : IgnoreRaycastLayerName);
             }
 
@@ -275,6 +277,8 @@ namespace Reflectis.SDK.Core.Avatars
 
         public void CheckOtherAvatarActivation(IAvatarConfigController avatarConfigController)
         {
+            // Switch the characterControllerInstance layer to enable/Disable clicks on it. Currently just changing the root
+            // if colliders are added to children in the future, then we should rescursively change the childer collider's layers too
             GameObject avatarRoot = (avatarConfigController as AvatarConfigControllerBase)?.gameObject;
             if (otherAvatarsMeshDisablerCounter <= 0)
             {
