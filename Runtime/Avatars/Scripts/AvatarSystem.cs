@@ -72,6 +72,11 @@ namespace Reflectis.SDK.Core.Avatars
         /// </summary>
         private int otherAvatarsMeshDisablerCounter;
 
+        // Layer names used when toggling avatar raycast targetability.
+        // Active meshes -> Player (raycastable); disabled meshes -> Ignore Raycast (rays pass through).
+        private const string PlayerLayerName = "Player";
+        private const string IgnoreRaycastLayerName = "Ignore Raycast";
+
         #endregion
 
         #region System implementation
@@ -175,20 +180,26 @@ namespace Reflectis.SDK.Core.Avatars
 
         public void EnableAvatarInstanceMeshes(bool enable, bool fromCamera = false)
         {
+            CharacterControllerBase ccInstance = SM.GetSystem<CharacterControllerSystem>().CharacterControllerInstance;
+            if (ccInstance != null)
+            {
+                ccInstance.gameObject.layer = LayerMask.NameToLayer(enable ? PlayerLayerName : IgnoreRaycastLayerName);
+            }
+
             if (fromCamera)
             {
-                cameraDisable = !enable;
+              cameraDisable = !enable;
             }
             else
             {
-                if (enable)
-                {
-                    avatarMeshDisablerCounter--;
-                }
-                else
-                {
-                    avatarMeshDisablerCounter++;
-                }
+              if (enable)
+              {
+                avatarMeshDisablerCounter--;
+              }
+              else
+              {
+                avatarMeshDisablerCounter++;
+              }
             }
             CheckAvatarActivation();
         }
@@ -264,12 +275,17 @@ namespace Reflectis.SDK.Core.Avatars
 
         public void CheckOtherAvatarActivation(IAvatarConfigController avatarConfigController)
         {
+            GameObject avatarRoot = (avatarConfigController as AvatarConfigControllerBase)?.gameObject;
             if (otherAvatarsMeshDisablerCounter <= 0)
             {
+                if (avatarRoot != null)
+                    avatarRoot.layer = LayerMask.NameToLayer(PlayerLayerName);
                 avatarConfigController.EnableAvatarMeshes(true);
             }
             else
             {
+                if (avatarRoot != null)
+                    avatarRoot.layer = LayerMask.NameToLayer(IgnoreRaycastLayerName);
                 avatarConfigController.EnableAvatarMeshes(false);
             }
         }
