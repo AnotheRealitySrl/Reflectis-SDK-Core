@@ -1,5 +1,18 @@
 # Release notes
 
+## v16.0.0
+
+### Added
+- Added `ICameraSystem` (`Reflectis.SDK.Core.Cameras`): rig registration and hibernation, follow-target binding, realignment after teleport, first-person toggle and rotation-input gating.
+- Added `IsEmbedded` to `IApplicationManager`, so systems can tell an embedded host from a standalone run.
+- `ICharacterControllerSystem` gained members for the camera and layer work above.
+
+### Changed
+- The player layer now follows mesh display, so avatar interactions can be enabled and disabled coherently.
+
+### Note
+- Major bump: the additions to `IApplicationManager` and `ICharacterControllerSystem` are breaking for any external implementer of those interfaces, even though nothing was removed.
+
 ## v15.0.0
 
 ### Added
