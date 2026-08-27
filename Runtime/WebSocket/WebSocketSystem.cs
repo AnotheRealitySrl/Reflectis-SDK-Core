@@ -11,7 +11,7 @@ using UnityEngine;
 using System.Runtime.InteropServices;
 #endif
 
-[CreateAssetMenu(menuName = "Reflectis/SDK-WebSocket/WebSocketSystem", fileName = "WebSocketSystem")]
+[CreateAssetMenu(menuName = "Virtuademy/SDK-WebSocket/WebSocketSystem", fileName = "WebSocketSystem")]
 public class WebSocketSystem : BaseSystem, IWebSocketSystem
 {
     [SerializeField] private bool secureConnection = true;

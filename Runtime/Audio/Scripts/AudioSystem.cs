@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 namespace Reflectis.SDK.Core.Audio
 {
-    [CreateAssetMenu(menuName = "Reflectis/SDK-Audio/AudioSystem", fileName = "AudioSystemConfig")]
+    [CreateAssetMenu(menuName = "Virtuademy/SDK-Audio/AudioSystem", fileName = "AudioSystemConfig")]
     public class AudioSystem : BaseSystem
     {
         [SerializeField] AudioMixerGroup musicMixerGroup;

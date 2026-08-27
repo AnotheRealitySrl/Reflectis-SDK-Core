@@ -13,7 +13,7 @@ using UnityEngine.SceneManagement;
 
 namespace Reflectis.SDK.Core.SceneLoader
 {
-    [CreateAssetMenu(menuName = "Reflectis/SDK-SceneLoader/SceneLoaderSystemConfig", fileName = "SceneLoaderSystemConfig")]
+    [CreateAssetMenu(menuName = "Virtuademy/SDK-SceneLoader/SceneLoaderSystemConfig", fileName = "SceneLoaderSystemConfig")]
     public class SceneLoaderSystem : BaseSystem, ISceneLoaderSystem
     {
         #region Private variables

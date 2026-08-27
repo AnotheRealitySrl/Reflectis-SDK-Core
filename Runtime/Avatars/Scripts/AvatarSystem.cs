@@ -9,7 +9,7 @@ using UnityEngine.Events;
 
 namespace Reflectis.SDK.Core.Avatars
 {
-    [CreateAssetMenu(menuName = "Reflectis/SDK-Avatars/AvatarSystem", fileName = "AvatarSystemConfig")]
+    [CreateAssetMenu(menuName = "Virtuademy/SDK-Avatars/AvatarSystem", fileName = "AvatarSystemConfig")]
     public class AvatarSystem : BaseSystem, IAvatarSystem
     {
         #region Inspector variables

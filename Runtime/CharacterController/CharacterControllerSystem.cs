@@ -13,7 +13,7 @@ using Reflectis.SDK.Core.SystemFramework;
 
 namespace Reflectis.SDK.Core.CharacterController
 {
-    [CreateAssetMenu(menuName = "Reflectis/SDK-CharacterController/CharacterControllerBaseSystemConfig", fileName = "CharacterControllerBaseSystemConfig")]
+    [CreateAssetMenu(menuName = "Virtuademy/SDK-CharacterController/CharacterControllerBaseSystemConfig", fileName = "CharacterControllerBaseSystemConfig")]
     public class CharacterControllerSystem : BaseSystem, ICharacterControllerSystem
     {
         #region Inspector variables

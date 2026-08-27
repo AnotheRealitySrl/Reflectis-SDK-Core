@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Reflectis.SDK.Core.Fade
 {
-    [CreateAssetMenu(menuName = "Reflectis/SDK-Fade/FadeSystemConfig", fileName = "FadeSystemConfig")]
+    [CreateAssetMenu(menuName = "Virtuademy/SDK-Fade/FadeSystemConfig", fileName = "FadeSystemConfig")]
     public class FadeSystem : BaseSystem, IFadeSystem
     {
         #region Inspector variables

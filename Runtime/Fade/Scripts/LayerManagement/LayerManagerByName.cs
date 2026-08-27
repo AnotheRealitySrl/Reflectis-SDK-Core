@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Reflectis.SDK.Core.Fade
 {
-    [CreateAssetMenu(menuName = "Reflectis/SDK-Fade/LayerManagerConfig", fileName = "LayerManagerByNameConfig")]
+    [CreateAssetMenu(menuName = "Virtuademy/SDK-Fade/LayerManagerConfig", fileName = "LayerManagerByNameConfig")]
     public class LayerManagerByName : LayerManagerBase
     {
         [SerializeField] protected string unaffectedByFadeLayerName = "UnaffectedByFade";
