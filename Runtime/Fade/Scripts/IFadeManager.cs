@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Reflectis.SDK.Core.Fade
+namespace Virtuademy.SDK.Core.Fade
 {
     public interface IFadeManager
     {

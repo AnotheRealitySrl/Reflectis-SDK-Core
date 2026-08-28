@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Reflectis.SDK.Core.Utilities
+namespace Virtuademy.SDK.Core.Utilities
 {
     public static class DictionaryExtensions
     {

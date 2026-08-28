@@ -3,9 +3,9 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 
-using Reflectis.SDK.Core.SystemFramework;
+using Virtuademy.SDK.Core.SystemFramework;
 
-namespace Reflectis.SDK.Core.Cameras
+namespace Virtuademy.SDK.Core.Cameras
 {
     /// <summary>
     /// Abstract base for the camera rig system. Concrete implementations

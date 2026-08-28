@@ -6,7 +6,7 @@ using Unity.VisualScripting;
 
 using UnityEngine;
 
-namespace Reflectis.SDK.Core.VisualScripting
+namespace Virtuademy.SDK.Core.VisualScripting
 {
     public abstract class AwaitableUnit : Unit
     {

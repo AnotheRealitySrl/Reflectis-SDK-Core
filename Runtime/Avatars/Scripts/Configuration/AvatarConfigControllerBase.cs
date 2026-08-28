@@ -1,5 +1,5 @@
-using Reflectis.SDK.Core.CharacterController;
-using Reflectis.SDK.Core.SystemFramework;
+using Virtuademy.SDK.Core.CharacterController;
+using Virtuademy.SDK.Core.SystemFramework;
 
 using System;
 using System.Collections;
@@ -11,7 +11,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Reflectis.SDK.Core.Avatars
+namespace Virtuademy.SDK.Core.Avatars
 {
     public abstract class AvatarConfigControllerBase : MonoBehaviour, IAvatarConfigController
     {

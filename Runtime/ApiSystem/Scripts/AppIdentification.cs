@@ -1,4 +1,4 @@
-using Reflectis.SDK.Core.Utilities;
+using Virtuademy.SDK.Core.Utilities;
 
 using System;
 
@@ -6,7 +6,7 @@ using Unity.Properties;
 
 using UnityEngine;
 
-namespace Reflectis.SDK.Core.ApiSystem
+namespace Virtuademy.SDK.Core.ApiSystem
 {
     [Serializable, Newtonsoft.Json.JsonObject(Newtonsoft.Json.MemberSerialization.Fields)]
     public class AppIdentification

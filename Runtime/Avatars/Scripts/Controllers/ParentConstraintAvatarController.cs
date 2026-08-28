@@ -1,10 +1,10 @@
-using Reflectis.SDK.Core.CharacterController;
+using Virtuademy.SDK.Core.CharacterController;
 
 using System.Threading.Tasks;
 
 using UnityEngine.Animations;
 
-namespace Reflectis.SDK.Core.Avatars
+namespace Virtuademy.SDK.Core.Avatars
 {
     /// <summary>
     /// This avatar controller attaches a <see cref="ParentConstraint"> to each node specified in the <see cref="AvatarControllerBase.CharacterReference", 

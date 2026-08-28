@@ -1,4 +1,4 @@
-using Reflectis.SDK.Core.Utilities;
+using Virtuademy.SDK.Core.Utilities;
 
 using System;
 using System.Collections;
@@ -9,7 +9,7 @@ using UnityEditor;
 
 using UnityEngine;
 
-namespace Reflectis.SDK.Core.Utilties.Editor
+namespace Virtuademy.SDK.Core.Utilties.Editor
 {
     [CustomPropertyDrawer(typeof(SerializedType<>))]
     public class SerializedTypePropertyDrawer : PropertyDrawer

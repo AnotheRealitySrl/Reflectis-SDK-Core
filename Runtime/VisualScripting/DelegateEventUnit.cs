@@ -2,7 +2,7 @@ using System;
 using Unity.VisualScripting;
 using UnityEngine.Events;
 
-namespace Reflectis.SDK.Core.VisualScripting
+namespace Virtuademy.SDK.Core.VisualScripting
 {
 
     public abstract class DelegateEventUnit<UnitOutput, TEvent, TAction> : InstanceDataEventUnit<UnitOutput, TAction>

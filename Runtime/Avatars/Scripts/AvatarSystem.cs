@@ -1,5 +1,5 @@
-using Reflectis.SDK.Core.CharacterController;
-using Reflectis.SDK.Core.SystemFramework;
+using Virtuademy.SDK.Core.CharacterController;
+using Virtuademy.SDK.Core.SystemFramework;
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Reflectis.SDK.Core.Avatars
+namespace Virtuademy.SDK.Core.Avatars
 {
     [CreateAssetMenu(menuName = "Virtuademy/SDK-Avatars/AvatarSystem", fileName = "AvatarSystemConfig")]
     public class AvatarSystem : BaseSystem, IAvatarSystem

@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace Reflectis.SDK.Core.ApplicationManagement
+namespace Virtuademy.SDK.Core.ApplicationManagement
 {
     public interface IApplicationManager
     {

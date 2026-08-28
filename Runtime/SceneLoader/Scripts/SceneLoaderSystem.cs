@@ -1,4 +1,4 @@
-using Reflectis.SDK.Core.SystemFramework;
+using Virtuademy.SDK.Core.SystemFramework;
 
 using System;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
 using UnityEngine.SceneManagement;
 
-namespace Reflectis.SDK.Core.SceneLoader
+namespace Virtuademy.SDK.Core.SceneLoader
 {
     [CreateAssetMenu(menuName = "Virtuademy/SDK-SceneLoader/SceneLoaderSystemConfig", fileName = "SceneLoaderSystemConfig")]
     public class SceneLoaderSystem : BaseSystem, ISceneLoaderSystem

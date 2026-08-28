@@ -7,7 +7,7 @@ using System.Runtime.InteropServices; // Necessario per DllImport
 
 using UnityEngine;
 
-namespace Reflectis.SDK.Core.Utilities
+namespace Virtuademy.SDK.Core.Utilities
 {
     public class BrowserUrlParser : UrlParametersParserBase
     {

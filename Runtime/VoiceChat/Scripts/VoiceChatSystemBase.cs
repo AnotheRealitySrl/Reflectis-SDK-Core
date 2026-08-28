@@ -1,10 +1,10 @@
-using Reflectis.SDK.Core.SystemFramework;
+using Virtuademy.SDK.Core.SystemFramework;
 
 using System;
 
 using UnityEngine;
 
-namespace Reflectis.SDK.Core.VoiceChat
+namespace Virtuademy.SDK.Core.VoiceChat
 {
     /// <summary>
     /// Abstract class based on of <see cref="IVoiceChatSystem"/>

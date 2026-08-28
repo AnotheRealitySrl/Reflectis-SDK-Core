@@ -1,4 +1,4 @@
-namespace Reflectis.SDK.Core
+namespace Virtuademy.SDK.Core
 {
     public class PlayerData
     {

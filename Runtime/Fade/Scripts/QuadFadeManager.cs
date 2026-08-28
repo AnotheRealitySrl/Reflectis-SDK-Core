@@ -1,4 +1,4 @@
-using Reflectis.SDK.Core.Utilities;
+using Virtuademy.SDK.Core.Utilities;
 
 using System;
 using System.Collections;
@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 
-namespace Reflectis.SDK.Core.Fade
+namespace Virtuademy.SDK.Core.Fade
 {
     public class QuadFadeManager : MonoBehaviour, IFadeManager
     {

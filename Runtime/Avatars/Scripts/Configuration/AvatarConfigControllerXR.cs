@@ -1,11 +1,11 @@
-using Reflectis.SDK.Core.CharacterController;
-using Reflectis.SDK.Core.SystemFramework;
+using Virtuademy.SDK.Core.CharacterController;
+using Virtuademy.SDK.Core.SystemFramework;
 
 using System.Linq;
 
 using UnityEngine;
 
-namespace Reflectis.SDK.Core.Avatars
+namespace Virtuademy.SDK.Core.Avatars
 {
     public class AvatarConfigControllerXR : AvatarConfigControllerBase
     {

@@ -1,4 +1,4 @@
-namespace Reflectis.SDK.Core.Avatars
+namespace Virtuademy.SDK.Core.Avatars
 {
     /// <summary>
     /// Each avatar configuration object must implement this class

@@ -2,7 +2,7 @@ using UnityEditor;
 using UnityEditor.Compilation;
 using UnityEngine;
 
-namespace Reflectis.SDK.Core.Utilties.Editor
+namespace Virtuademy.SDK.Core.Utilties.Editor
 {
     public class RecompileProjectEditorWindow : EditorWindow
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 
-namespace Reflectis.SDK.Core.Utilities
+namespace Virtuademy.SDK.Core.Utilities
 {
     /// <summary>
     /// Extend base system Action.

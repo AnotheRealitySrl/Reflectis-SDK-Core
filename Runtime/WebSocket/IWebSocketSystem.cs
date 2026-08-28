@@ -1,10 +1,10 @@
-using Reflectis.SDK.Core.SystemFramework;
+using Virtuademy.SDK.Core.SystemFramework;
 
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Reflectis.SDK.Core.WebSocket
+namespace Virtuademy.SDK.Core.WebSocket
 {
     public interface IWebSocketSystem : ISystem
     {

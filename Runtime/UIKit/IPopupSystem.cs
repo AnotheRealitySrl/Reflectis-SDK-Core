@@ -1,9 +1,9 @@
-using Reflectis.SDK.Core.SystemFramework;
+using Virtuademy.SDK.Core.SystemFramework;
 
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Reflectis.SDK.Core.Popup
+namespace Virtuademy.SDK.Core.Popup
 {
     public interface IPopupSystem : ISystem
     {

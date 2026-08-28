@@ -1,9 +1,9 @@
-using Reflectis.SDK.Core.Authentication;
-using Reflectis.SDK.Core.SystemFramework;
-using Reflectis.SDK.Core.Utilities;
-using Reflectis.SDK.Http;
-using Reflectis.SDK.RealtimeApi;
-using Reflectis.SDK.ReflectisApi;
+using Virtuademy.SDK.Core.Authentication;
+using Virtuademy.SDK.Core.SystemFramework;
+using Virtuademy.SDK.Core.Utilities;
+using Virtuademy.SDK.Http;
+using Virtuademy.SDK.RealtimeApi;
+using Virtuademy.SDK.PlatformApi;
 
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Reflectis.SDK.Core.ApplicationManagement.Samples
+namespace Virtuademy.SDK.Core.ApplicationManagement.Samples
 {
     /// <summary>
     /// Parameters arriving in the query string: 

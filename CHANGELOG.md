@@ -3,7 +3,7 @@
 ## v16.0.0
 
 ### Added
-- Added `ICameraSystem` (`Reflectis.SDK.Core.Cameras`): rig registration and hibernation, follow-target binding, realignment after teleport, first-person toggle and rotation-input gating.
+- Added `ICameraSystem` (`Virtuademy.SDK.Core.Cameras`): rig registration and hibernation, follow-target binding, realignment after teleport, first-person toggle and rotation-input gating.
 - Added `IsEmbedded` to `IApplicationManager`, so systems can tell an embedded host from a standalone run.
 - `ICharacterControllerSystem` gained members for the camera and layer work above.
 
@@ -37,7 +37,7 @@
 
 ### Added
 
-- ApplicationManagement: added support, sample and documentation for external apps integrated into Reflectis.
+- ApplicationManagement: added support, sample and documentation for external apps integrated into Virtuademy.
 - Utilities: added querystring parsers which retrieve the query parameters in Android and WebGL apps.
 - New ApiSystem module which contains a base system providing base feature for implementing a reflectis-connected API.
 - New HTTP and WebSocket modules, merged from their own modules.
@@ -155,7 +155,7 @@
 - Networking: the `Networking System` is hosting the events `OtherPlayerJoinedShard` and `OtherPlayerLeftShard`, that can be used to detect players entering/leaving the Reflectis event where the local player is currently staying. These events have two integer parameters, respectively the User ID (from the Reflectis profile) and the actor number of the user that just entered/left the shard.
 - Networking: the `Networking System` is exposing the methods `OpenCurrentShard` and `CloseCurrentShard`. These can be used to respectively open or close the shard where the local player is. A closed shard will prevent other player from joining it, like if the shard has reached max capacity. In case the shard event is set as "unlimited", player entering after the shard has been closed will just land in a new shard.
 - Networking: the `Networking System` is exposing the boolean property `IsCurrentShardOpen`. This read-only property returns true if the current shard is open, false if the current shard is closed.
-- Added signature for the `LoadEvent` method in `IReflectisApplicationManager` interface. This will allow accessing the implemented method via `Reflectis.SDK.ApplicationManagement` module.
+- Added signature for the `LoadEvent` method in `IReflectisApplicationManager` interface. This will allow accessing the implemented method via `Virtuademy.SDK.ApplicationManagement` module.
 
 ## v10.0.0
 

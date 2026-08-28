@@ -1,4 +1,4 @@
-using Reflectis.SDK.Core.Utilities;
+using Virtuademy.SDK.Core.Utilities;
 
 using System;
 using System.Collections;
@@ -8,7 +8,7 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 
 
-namespace Reflectis.SDK.Core.Fade
+namespace Virtuademy.SDK.Core.Fade
 {
     public class CanvasFadeManager : MonoBehaviour, IFadeManager
     {

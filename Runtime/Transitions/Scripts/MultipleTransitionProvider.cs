@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 using UnityEngine;
 
-namespace Reflectis.SDK.Core.Transitions
+namespace Virtuademy.SDK.Core.Transitions
 {
     public class MultipleTransitionProvider : AbstractTransitionProvider
     {

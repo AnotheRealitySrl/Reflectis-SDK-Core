@@ -1,10 +1,10 @@
-using Reflectis.SDK.Core.SystemFramework;
+using Virtuademy.SDK.Core.SystemFramework;
 
 using System;
 
 using UnityEngine;
 
-namespace Reflectis.SDK.Core.VoiceChat
+namespace Virtuademy.SDK.Core.VoiceChat
 {
     /// <summary>
     /// Manages the voice (and potentially video, but not yet implemented) communication among players

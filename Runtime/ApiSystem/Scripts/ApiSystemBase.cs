@@ -1,9 +1,9 @@
 using Newtonsoft.Json;
 
-using Reflectis.SDK.Core.Authentication;
-using Reflectis.SDK.Core.SystemFramework;
-using Reflectis.SDK.Core.Utilities;
-using Reflectis.SDK.Http;
+using Virtuademy.SDK.Core.Authentication;
+using Virtuademy.SDK.Core.SystemFramework;
+using Virtuademy.SDK.Core.Utilities;
+using Virtuademy.SDK.Http;
 
 using System;
 using System.Collections.Generic;
@@ -12,9 +12,9 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
 
-using static Reflectis.SDK.Core.Authentication.IAuthenticationSystem;
+using static Virtuademy.SDK.Core.Authentication.IAuthenticationSystem;
 
-namespace Reflectis.SDK.Core.ApiSystem
+namespace Virtuademy.SDK.Core.ApiSystem
 {
     public abstract class ApiSystemBase : BaseSystem
     {

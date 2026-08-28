@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 using UnityEngine;
 
-namespace Reflectis.SDK.Core.Utilities
+namespace Virtuademy.SDK.Core.Utilities
 {
     /// <summary>
     /// Class that rapresent a variable that can be cached. By defining how to get the variable

@@ -1,9 +1,9 @@
-using Reflectis.SDK.Core.CharacterController;
-using Reflectis.SDK.Core.SystemFramework;
+using Virtuademy.SDK.Core.CharacterController;
+using Virtuademy.SDK.Core.SystemFramework;
 
 using UnityEngine;
 
-namespace Reflectis.SDK.Core.Avatars
+namespace Virtuademy.SDK.Core.Avatars
 {
     public class AvatarConfigControllerStandard : AvatarConfigControllerBase
     {

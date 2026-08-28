@@ -1,4 +1,4 @@
-namespace Reflectis.SDK.Core.ApplicationManagement
+namespace Virtuademy.SDK.Core.ApplicationManagement
 {
     public enum EApplicationState
     {

@@ -1,4 +1,4 @@
-# Reflectis-SDK-Fade
+# Virtuademy-SDK-Fade
 
 The fade module contains helper scripts designed to perform customizable fade in and fade out operations.
 

@@ -1,10 +1,10 @@
-using Reflectis.SDK.Core.Utilities;
+using Virtuademy.SDK.Core.Utilities;
 
 using System.Threading.Tasks;
 
 using UnityEngine;
 
-namespace Reflectis.SDK.Core.Transitions
+namespace Virtuademy.SDK.Core.Transitions
 {
     /// <summary>
     /// Transition provider that operates on the alpha value of a canvas group

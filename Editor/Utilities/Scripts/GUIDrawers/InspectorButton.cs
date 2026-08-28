@@ -4,7 +4,7 @@ using UnityEditor;
 #endif
 using System.Reflection;
 
-namespace Reflectis.SDK.Core.Utilties.Editor
+namespace Virtuademy.SDK.Core.Utilties.Editor
 {
     /// <summary>
     /// This attribute can only be applied to fields because its

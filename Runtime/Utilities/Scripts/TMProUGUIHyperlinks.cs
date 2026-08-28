@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Reflectis.SDK.Core.Utilities
+namespace Virtuademy.SDK.Core.Utilities
 {
     /// <summary>
     /// This class handles basic link color behavior, supports also underline

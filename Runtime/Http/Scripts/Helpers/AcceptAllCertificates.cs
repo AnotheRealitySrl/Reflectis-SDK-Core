@@ -1,6 +1,6 @@
 using UnityEngine.Networking;
 
-namespace Reflectis.SDK.Http
+namespace Virtuademy.SDK.Http
 {
     public class AcceptAllCertificates : CertificateHandler
     {

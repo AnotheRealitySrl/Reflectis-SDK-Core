@@ -9,9 +9,9 @@ using UnityEngine.Events;
 
 using System.Threading.Tasks;
 
-using Reflectis.SDK.Core.SystemFramework;
+using Virtuademy.SDK.Core.SystemFramework;
 
-namespace Reflectis.SDK.Core.CharacterController
+namespace Virtuademy.SDK.Core.CharacterController
 {
     [CreateAssetMenu(menuName = "Virtuademy/SDK-CharacterController/CharacterControllerBaseSystemConfig", fileName = "CharacterControllerBaseSystemConfig")]
     public class CharacterControllerSystem : BaseSystem, ICharacterControllerSystem

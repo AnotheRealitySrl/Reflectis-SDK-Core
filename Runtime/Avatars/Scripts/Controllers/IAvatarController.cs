@@ -1,8 +1,8 @@
-using Reflectis.SDK.Core.CharacterController;
+using Virtuademy.SDK.Core.CharacterController;
 
 using System.Threading.Tasks;
 
-namespace Reflectis.SDK.Core.Avatars
+namespace Virtuademy.SDK.Core.Avatars
 {
     /// <summary>
     /// An avatar controller handles the hook between a <see cref="CharacterBase"/> (e.g. an avatar), 

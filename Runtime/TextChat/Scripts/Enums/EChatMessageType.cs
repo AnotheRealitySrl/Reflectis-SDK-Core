@@ -1,4 +1,4 @@
-namespace Reflectis.SDK.Core.TextChat
+namespace Virtuademy.SDK.Core.TextChat
 {
     //public enum EChatMessageType
     //{

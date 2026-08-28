@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Audio;
 
-namespace Reflectis.SDK.Core.Utilities
+namespace Virtuademy.SDK.Core.Utilities
 {
     public static class AudioMixerExtension
     {

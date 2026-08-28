@@ -11,7 +11,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e6b62fc92fbba9541b1350d383669920, type: 3}
   m_Name: RealtimeApiSystem
-  m_EditorClassIdentifier: Reflectis.SDK.RealtimeApi::Reflectis.SDK.RealtimeApi.RealtimeApiSystem
+  m_EditorClassIdentifier: Virtuademy.SDK.RealtimeApi::Virtuademy.SDK.RealtimeApi.RealtimeApiSystem
   _subSystems: []
   autoInitAtStartup: 1
   apiConfig:

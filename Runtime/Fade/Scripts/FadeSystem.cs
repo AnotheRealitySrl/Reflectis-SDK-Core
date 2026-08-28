@@ -1,4 +1,4 @@
-using Reflectis.SDK.Core.SystemFramework;
+using Virtuademy.SDK.Core.SystemFramework;
 
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using UnityEngine;
 
-namespace Reflectis.SDK.Core.Fade
+namespace Virtuademy.SDK.Core.Fade
 {
     [CreateAssetMenu(menuName = "Virtuademy/SDK-Fade/FadeSystemConfig", fileName = "FadeSystemConfig")]
     public class FadeSystem : BaseSystem, IFadeSystem

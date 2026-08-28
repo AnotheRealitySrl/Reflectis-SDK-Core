@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 using UnityEngine.Events;
 
-namespace Reflectis.SDK.Core.SceneLoader
+namespace Virtuademy.SDK.Core.SceneLoader
 {
     public interface ISceneLoaderSystem
     {

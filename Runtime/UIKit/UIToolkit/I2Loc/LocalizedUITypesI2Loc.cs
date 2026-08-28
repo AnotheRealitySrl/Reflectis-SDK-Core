@@ -1,7 +1,7 @@
 // ============================================================
 // LocalizedUITypesI2Loc.cs
 //
-// Belongs to Reflectis.SDK.Core.I2Loc — compiled only when
+// Belongs to Virtuademy.SDK.Core.I2Loc — compiled only when
 // I2LOC is defined (I2Loc package present in the project).
 //
 // Provides the full localized versions of every UI Toolkit
@@ -13,7 +13,7 @@ using static I2.Loc.LocalizationManager;
 using System.Collections.Generic;
 using UnityEngine.UIElements;
 
-namespace Reflectis.LocalizedComponents
+namespace Virtuademy.LocalizedComponents
 {
 
 // ============================================================
@@ -265,4 +265,4 @@ public partial class LocalizedEnumField : EnumField
     void Apply() { var t = LocalizationHelper.Translate(_k); if (t != null) label = t; }
 }
 
-} // namespace Reflectis.LocalizedComponents
+} // namespace Virtuademy.LocalizedComponents

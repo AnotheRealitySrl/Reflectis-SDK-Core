@@ -1,7 +1,7 @@
 # How to use the sample
 
 La scena QuerystringParserSample contiene tutto ciò che serve per parsare i dati che arrivano in querystring dall'url del browser,
-e parsarli nei dati che servono per collegare un'app esterna all'ecosistema di Reflectis.
+e parsarli nei dati che servono per collegare un'app esterna all'ecosistema di Virtuademy.
 
 L'oggetto GameManager contiene gli script principali per gestire il flow.
 

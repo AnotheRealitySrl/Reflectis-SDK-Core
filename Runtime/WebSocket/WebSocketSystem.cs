@@ -1,5 +1,5 @@
-using Reflectis.SDK.Core.SystemFramework;
-using Reflectis.SDK.Core.WebSocket;
+using Virtuademy.SDK.Core.SystemFramework;
+using Virtuademy.SDK.Core.WebSocket;
 
 using System;
 using System.Collections.Generic;

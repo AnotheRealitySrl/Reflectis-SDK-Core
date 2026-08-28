@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 using UnityEngine;
 
-namespace Reflectis.SDK.Core.SystemFramework
+namespace Virtuademy.SDK.Core.SystemFramework
 {
 
     /// <summary>

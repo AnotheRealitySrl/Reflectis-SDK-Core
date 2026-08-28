@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 
 using UnityEngine;
 
-namespace Reflectis.SDK.Core.Utilities
+namespace Virtuademy.SDK.Core.Utilities
 {
     public static class BrowserStorage
     {

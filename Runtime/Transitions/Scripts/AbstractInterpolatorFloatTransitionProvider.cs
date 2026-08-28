@@ -1,11 +1,11 @@
-using Reflectis.SDK.Core.Utilities;
+using Virtuademy.SDK.Core.Utilities;
 
 using System.Linq;
 using System.Threading.Tasks;
 
 using UnityEngine;
 
-namespace Reflectis.SDK.Core.Transitions
+namespace Virtuademy.SDK.Core.Transitions
 {
     public abstract class AbstractInterpolatorFloatTransitionProvider : AbstractTransitionProvider
     {

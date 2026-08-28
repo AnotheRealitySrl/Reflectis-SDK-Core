@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Reflectis.SDK.Core.Utilities
+namespace Virtuademy.SDK.Core.Utilities
 {
     /// <summary>
     /// Puts the field in a foldable group that can contain one or more fields.

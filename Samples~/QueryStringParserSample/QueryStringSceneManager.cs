@@ -1,12 +1,12 @@
 using Newtonsoft.Json;
 
-using Reflectis.SDK.Authentication;
-using Reflectis.SDK.Authentication.Samples;
-using Reflectis.SDK.Core.ApplicationManagement.Samples;
-using Reflectis.SDK.Core.SystemFramework;
-using Reflectis.SDK.Core.Utilities;
-using Reflectis.SDK.Http;
-using Reflectis.SDK.ReflectisApi;
+using Virtuademy.SDK.Authentication;
+using Virtuademy.SDK.Authentication.Samples;
+using Virtuademy.SDK.Core.ApplicationManagement.Samples;
+using Virtuademy.SDK.Core.SystemFramework;
+using Virtuademy.SDK.Core.Utilities;
+using Virtuademy.SDK.Http;
+using Virtuademy.SDK.PlatformApi;
 
 using System;
 using System.Collections.Generic;

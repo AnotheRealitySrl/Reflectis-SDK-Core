@@ -1,4 +1,4 @@
-﻿using Reflectis.SDK.Core.Utilities;
+﻿using Virtuademy.SDK.Core.Utilities;
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Reflectis.SDK.Core.SystemFramework
+namespace Virtuademy.SDK.Core.SystemFramework
 {
 
     /// <summary>

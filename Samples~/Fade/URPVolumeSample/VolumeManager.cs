@@ -1,4 +1,4 @@
-using Reflectis.SDK.Utilities;
+using Virtuademy.SDK.Utilities;
 
 using System.Collections;
 
@@ -7,7 +7,7 @@ using UnityEngine.Events;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-namespace Reflectis.SDK.Fade.Samples
+namespace Virtuademy.SDK.Fade.Samples
 {
     public class VolumeManager : MonoBehaviour, IFadeManager
     {

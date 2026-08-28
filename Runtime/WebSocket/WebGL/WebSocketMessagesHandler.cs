@@ -1,6 +1,6 @@
 #if UNITY_WEBGL && !UNITY_EDITOR
-using Reflectis.SDK.Core.SystemFramework;
-using Reflectis.SDK.Core.Utilities;
+using Virtuademy.SDK.Core.SystemFramework;
+using Virtuademy.SDK.Core.Utilities;
 
 using System;
 using System.Collections.Generic;

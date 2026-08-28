@@ -1,4 +1,4 @@
-namespace Reflectis.SDK.Core.NetworkingSystem
+namespace Virtuademy.SDK.Core.NetworkingSystem
 {
     public class NetworkStateAsyncOperation
     {

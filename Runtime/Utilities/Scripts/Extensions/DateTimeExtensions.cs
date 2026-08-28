@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using UnityEngine;
 
-namespace Reflectis.SDK.Core.Utilities
+namespace Virtuademy.SDK.Core.Utilities
 {
     public static class DateTimeExtensions
     {

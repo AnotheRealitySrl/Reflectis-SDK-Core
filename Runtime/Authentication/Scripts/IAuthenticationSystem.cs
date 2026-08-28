@@ -1,12 +1,12 @@
-﻿using Reflectis.SDK.Core.SystemFramework;
-using Reflectis.SDK.Core.Utilities;
+﻿using Virtuademy.SDK.Core.SystemFramework;
+using Virtuademy.SDK.Core.Utilities;
 
 using System;
 using System.Threading.Tasks;
 
 using UnityEngine.Events;
 
-namespace Reflectis.SDK.Core.Authentication
+namespace Virtuademy.SDK.Core.Authentication
 {
     public interface IAuthenticationSystem : ISystem
     {

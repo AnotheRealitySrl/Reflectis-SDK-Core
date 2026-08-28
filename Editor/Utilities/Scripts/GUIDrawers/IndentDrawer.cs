@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEditor;
 
-namespace Reflectis.SDK.Core.Utilities.Editor
+namespace Virtuademy.SDK.Core.Utilities.Editor
 {
     [CustomPropertyDrawer(typeof(IndentAttribute))]
     public class IndentDrawer : PropertyDrawer

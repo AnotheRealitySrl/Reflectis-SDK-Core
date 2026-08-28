@@ -1,5 +1,5 @@
-using Reflectis.SDK.Core.Utilities;
-using Reflectis.SDK.Http;
+using Virtuademy.SDK.Core.Utilities;
+using Virtuademy.SDK.Http;
 
 using Newtonsoft.Json;
 
@@ -14,9 +14,9 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
 
-using static Reflectis.SDK.Core.Authentication.IAuthenticationSystem;
+using static Virtuademy.SDK.Core.Authentication.IAuthenticationSystem;
 
-namespace Reflectis.SDK.Core.ApiSystem
+namespace Virtuademy.SDK.Core.ApiSystem
 {
     /// <summary>
     /// Static helper for building authenticated API requests.

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Reflectis.SDK.Core.Avatars
+namespace Virtuademy.SDK.Core.Avatars
 {
     public class AvatarConfigBase : IAvatarConfig
     {

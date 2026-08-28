@@ -1,8 +1,8 @@
-using Reflectis.SDK.Core.SystemFramework;
+using Virtuademy.SDK.Core.SystemFramework;
 
 using System;
 
-namespace Reflectis.SDK.Core.TextChat
+namespace Virtuademy.SDK.Core.TextChat
 {
     /// <summary>
     /// Manages the text communication among players.

@@ -3,7 +3,7 @@ using System.Linq;
 
 using UnityEngine;
 
-namespace Reflectis.SDK.Core.Fade
+namespace Virtuademy.SDK.Core.Fade
 {
     [CreateAssetMenu(menuName = "Virtuademy/SDK-Fade/LayerManagerConfig", fileName = "LayerManagerByNameConfig")]
     public class LayerManagerByName : LayerManagerBase

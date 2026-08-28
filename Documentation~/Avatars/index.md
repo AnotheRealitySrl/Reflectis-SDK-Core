@@ -1,4 +1,4 @@
-# Reflectis-SDK-Avatars
+# Virtuademy-SDK-Avatars
 
 The `AvatarSystem` is designed to handle the hooking of an avatar (full-body and half-body) to the character controller.
 

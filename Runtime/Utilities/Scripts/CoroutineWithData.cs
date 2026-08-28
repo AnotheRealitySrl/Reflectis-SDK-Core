@@ -2,7 +2,7 @@ using System.Collections;
 
 using UnityEngine;
 
-namespace Reflectis.SDK.Core.Utilities
+namespace Virtuademy.SDK.Core.Utilities
 {
     public class CoroutineWithData
     {

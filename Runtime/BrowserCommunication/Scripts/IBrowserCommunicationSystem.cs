@@ -1,8 +1,8 @@
-﻿using Reflectis.SDK.Core.SystemFramework;
+﻿using Virtuademy.SDK.Core.SystemFramework;
 
 using System;
 
-namespace Reflectis.SDK.Core.BrowserCommunication
+namespace Virtuademy.SDK.Core.BrowserCommunication
 {
     public interface IBrowserCommunicationSystem : ISystem
     {

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Unity.VisualScripting;
 
-namespace Reflectis.SDK.Core.VisualScripting
+namespace Virtuademy.SDK.Core.VisualScripting
 {
 
     public abstract class InstanceDataEventUnit<UnitOutput, DataType> : EventUnit<UnitOutput>

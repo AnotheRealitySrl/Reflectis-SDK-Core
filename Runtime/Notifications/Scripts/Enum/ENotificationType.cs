@@ -1,5 +1,5 @@
 
-namespace Reflectis.SDK.Core.Notification
+namespace Virtuademy.SDK.Core.Notification
 {
     public enum ENotificationType
     {

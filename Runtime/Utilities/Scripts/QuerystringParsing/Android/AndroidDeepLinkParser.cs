@@ -1,5 +1,5 @@
 #if UNITY_ANDROID && !UNITY_EDITOR
-using Reflectis.SDK.Core.ApplicationManagement;
+using Virtuademy.SDK.Core.ApplicationManagement;
 #endif
 
 using System;
@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using UnityEngine;
 #endif
 
-namespace Reflectis.SDK.Core.Utilities
+namespace Virtuademy.SDK.Core.Utilities
 {
     public class AndroidDeepLinkParser : UrlParametersParserBase
     {

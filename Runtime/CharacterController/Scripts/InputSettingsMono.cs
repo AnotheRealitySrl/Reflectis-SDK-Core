@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Reflectis.SDK.Core
+namespace Virtuademy.SDK.Core
 {
     public class InputSettingsMono : MonoBehaviour
     {

@@ -11,7 +11,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d9799ebb9ec17f64985a930f63bbad6e, type: 3}
   m_Name: TenantConfigurationSystem
-  m_EditorClassIdentifier: Reflectis.SDK.TenantConfiguration::Reflectis.SDK.TenantConfiguration.TenantConfigurationSystem
+  m_EditorClassIdentifier: Virtuademy.SDK.TenantConfiguration::Virtuademy.SDK.TenantConfiguration.TenantConfigurationSystem
   _subSystems: []
   autoInitAtStartup: 1
   apiConfig:

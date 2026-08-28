@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Reflectis.SDK.Core.Utilities
+namespace Virtuademy.SDK.Core.Utilities
 {
     public class CustomType
     {

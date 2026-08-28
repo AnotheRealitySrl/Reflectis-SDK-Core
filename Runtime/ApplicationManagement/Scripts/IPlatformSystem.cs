@@ -1,10 +1,10 @@
-using Reflectis.SDK.Core.SystemFramework;
+using Virtuademy.SDK.Core.SystemFramework;
 
 using System;
 
 using UnityEngine;
 
-namespace Reflectis.SDK.Core.ApplicationManagement
+namespace Virtuademy.SDK.Core.ApplicationManagement
 {
     [Flags]
     public enum ESupportedPlatform

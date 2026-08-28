@@ -5,7 +5,7 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace Reflectis.SDK.Http
+namespace Virtuademy.SDK.Http
 {
     /// <summary>
     /// Static helper for creating HTTP requests.

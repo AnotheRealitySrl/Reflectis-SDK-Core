@@ -1,10 +1,10 @@
-using Reflectis.SDK.Core.SystemFramework;
+using Virtuademy.SDK.Core.SystemFramework;
 
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Events;
 
-namespace Reflectis.SDK.Core.Audio
+namespace Virtuademy.SDK.Core.Audio
 {
     [CreateAssetMenu(menuName = "Virtuademy/SDK-Audio/AudioSystem", fileName = "AudioSystemConfig")]
     public class AudioSystem : BaseSystem

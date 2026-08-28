@@ -1,4 +1,4 @@
-using Reflectis.SDK.Core.WebSocket;
+using Virtuademy.SDK.Core.WebSocket;
 using System;
 using System.Collections.Generic;
 using System.Net.WebSockets;

@@ -1,18 +1,19 @@
 {
-    "name": "Reflectis.SDK.Core.Editor",
-    "rootNamespace": "Reflectis.SDK.Core.Editor",
+    "name": "Virtuademy.SDK.Core.I2Loc",
+    "rootNamespace": "Virtuademy.SDK.Core",
     "references": [
-        "GUID:ab59f74e483e1ee4595bfefea56493f2"
+        "Virtuademy.SDK.Core",
+        "I2.Loc"
     ],
-    "includePlatforms": [
-        "Editor"
-    ],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
     "precompiledReferences": [],
     "autoReferenced": true,
-    "defineConstraints": [],
+    "defineConstraints": [
+        "I2LOC"
+    ],
     "versionDefines": [],
     "noEngineReferences": false
 }

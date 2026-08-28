@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Reflectis.SDK.Core.Editor
+namespace Virtuademy.SDK.Core.Editor
 {
     public static class AssetDatabaseExtension
     {

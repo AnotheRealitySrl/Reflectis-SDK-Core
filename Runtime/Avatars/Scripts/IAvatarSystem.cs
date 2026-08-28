@@ -1,10 +1,10 @@
-using Reflectis.SDK.Core.SystemFramework;
+using Virtuademy.SDK.Core.SystemFramework;
 
 using System.Threading.Tasks;
 
 using UnityEngine.Events;
 
-namespace Reflectis.SDK.Core.Avatars
+namespace Virtuademy.SDK.Core.Avatars
 {
     /// <summary>
     /// The avatar system manages the lifecycle of the avatar instance, i.e. the avatar associated to the character controller

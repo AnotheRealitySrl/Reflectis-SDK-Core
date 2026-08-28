@@ -1,7 +1,7 @@
 // ============================================================
 // LocalizedUITypes.cs
 //
-// Belongs to Reflectis.SDK.Core.
+// Belongs to Virtuademy.SDK.Core.
 //
 // When I2Loc is NOT present (I2LOC undefined), this file
 // provides stub versions of every LocalizedXxx element:
@@ -9,7 +9,7 @@
 // translation is applied at runtime.
 //
 // When I2Loc IS present (I2LOC defined), this file is excluded
-// and LocalizedUITypesI2Loc.cs (Reflectis.SDK.Core.I2Loc
+// and LocalizedUITypesI2Loc.cs (Virtuademy.SDK.Core.I2Loc
 // assembly) provides the full versions with [TermsPopup] and
 // live localization support.
 // ============================================================
@@ -17,7 +17,7 @@
 using System.Collections.Generic;
 using UnityEngine.UIElements;
 
-namespace Reflectis.LocalizedComponents
+namespace Virtuademy.LocalizedComponents
 {
 
 // ============================================================
@@ -182,5 +182,5 @@ public partial class LocalizedEnumField : EnumField
     string _k;
 }
 
-} // namespace Reflectis.LocalizedComponents
+} // namespace Virtuademy.LocalizedComponents
 #endif

@@ -1,9 +1,9 @@
-using Reflectis.SDK.Core.SystemFramework;
+using Virtuademy.SDK.Core.SystemFramework;
 
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Reflectis.SDK.Core.Cameras
+namespace Virtuademy.SDK.Core.Cameras
 {
     /// <summary>
     /// Camera system: owns the application's main camera rig independently

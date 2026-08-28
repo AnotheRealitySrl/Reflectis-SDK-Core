@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
-namespace Reflectis.SDK.Core.Fade
+namespace Virtuademy.SDK.Core.Fade
 {
     public abstract class LayerManagerBase : ScriptableObject, ILayerManager
     {

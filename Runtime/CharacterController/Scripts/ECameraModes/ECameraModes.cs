@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Reflectis.SDK.Core
+namespace Virtuademy.SDK.Core
 {
     public enum ECameraModes
     {

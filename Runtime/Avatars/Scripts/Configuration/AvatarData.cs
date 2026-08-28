@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Reflectis.SDK.Core.Avatars
+namespace Virtuademy.SDK.Core.Avatars
 {
     public enum AvatarGender
     {

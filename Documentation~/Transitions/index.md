@@ -1,4 +1,4 @@
-# Reflectis-SDK-Transitions
+# Virtuademy-SDK-Transitions
 
 Collection of scripts that help the visual transitions of the GameObjects they are attached to.
 

@@ -1,11 +1,11 @@
-using Reflectis.SDK.Core.SystemFramework;
+using Virtuademy.SDK.Core.SystemFramework;
 
 using System;
 using System.Collections.Generic;
 
 using UnityEngine;
 
-namespace Reflectis.SDK.Core.Fade
+namespace Virtuademy.SDK.Core.Fade
 {
     /// <summary>
     /// The Fade System manages fade in and fade out of what camera sees.

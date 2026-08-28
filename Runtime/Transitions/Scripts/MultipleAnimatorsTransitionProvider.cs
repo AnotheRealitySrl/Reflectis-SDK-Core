@@ -1,4 +1,4 @@
-﻿using Reflectis.SDK.Core.Utilities;
+﻿using Virtuademy.SDK.Core.Utilities;
 
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using UnityEngine;
 
-namespace Reflectis.SDK.Core.Transitions
+namespace Virtuademy.SDK.Core.Transitions
 {
     /// <summary>
     /// Transition provider that operates on a multiple animators simultauneously

@@ -2,7 +2,7 @@ using System;
 
 using UnityEngine;
 
-namespace Reflectis.SDK.Core
+namespace Virtuademy.SDK.Core
 {
     [Serializable, Newtonsoft.Json.JsonObject(Newtonsoft.Json.MemberSerialization.Fields)]
     public class ApiInfo

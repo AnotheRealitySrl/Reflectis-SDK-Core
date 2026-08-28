@@ -1,4 +1,4 @@
-namespace Reflectis.SDK.Core.ChatBot
+namespace Virtuademy.SDK.Core.ChatBot
 {
     public enum EChatBotVoice
     {

@@ -1,4 +1,4 @@
-using Reflectis.SDK.Core.SystemFramework;
+using Virtuademy.SDK.Core.SystemFramework;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Reflectis.SDK.Core.CharacterController
+namespace Virtuademy.SDK.Core.CharacterController
 {
     public interface ICharacterControllerSystem : ISystem
     {

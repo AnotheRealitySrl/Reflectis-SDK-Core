@@ -1,4 +1,4 @@
-namespace Reflectis.SDK.Core.VideoChat
+namespace Virtuademy.SDK.Core.VideoChat
 {
     public interface IVideoChatController
     {

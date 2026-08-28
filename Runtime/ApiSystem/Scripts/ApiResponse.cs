@@ -1,12 +1,12 @@
 ﻿using Newtonsoft.Json;
 
-using Reflectis.SDK.Core.Utilities;
+using Virtuademy.SDK.Core.Utilities;
 
 using System;
 
 using UnityEngine;
 
-namespace Reflectis.SDK.Http
+namespace Virtuademy.SDK.Http
 {
     [Serializable, JsonObject(MemberSerialization.Fields)]
     public class ApiResponse

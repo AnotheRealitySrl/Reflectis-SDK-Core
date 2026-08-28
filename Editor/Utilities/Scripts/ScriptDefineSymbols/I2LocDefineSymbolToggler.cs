@@ -8,7 +8,7 @@
 using System;
 using UnityEditor;
 using UnityEngine;
-using Reflectis.SDK.Core.Editor;
+using Virtuademy.SDK.Core.Editor;
 
 [InitializeOnLoad]
 public static class I2LocDefineSymbolToggler

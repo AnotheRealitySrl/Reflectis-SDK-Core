@@ -1,6 +1,6 @@
 using System;
 
-namespace Reflectis.SDK.Core.WebSocket
+namespace Virtuademy.SDK.Core.WebSocket
 {
     public class BaseWebSocketListener : IWebSocketListener
     {

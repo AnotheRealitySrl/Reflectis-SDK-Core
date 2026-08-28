@@ -1,8 +1,8 @@
-using Reflectis.SDK.Core.SystemFramework;
+using Virtuademy.SDK.Core.SystemFramework;
 
 using System.Threading.Tasks;
 
-namespace Reflectis.SDK.Core.ChatBot
+namespace Virtuademy.SDK.Core.ChatBot
 {
     public interface IChatBotSystem : ISystem
     {

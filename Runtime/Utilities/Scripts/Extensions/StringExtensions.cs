@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 
 using UnityEngine;
 
-namespace Reflectis.SDK.Core.Utilities
+namespace Virtuademy.SDK.Core.Utilities
 {
     public static class StringExtensions
     {

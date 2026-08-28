@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 #if !UNITY_WEBGL
 using UnityEngine;
 #endif
-namespace Reflectis.SDK.Core.Utilities
+namespace Virtuademy.SDK.Core.Utilities
 {
     public static class NetworkUtilities
     {

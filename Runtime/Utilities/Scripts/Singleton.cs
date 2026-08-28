@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Reflectis.SDK.Core.Utilities
+namespace Virtuademy.SDK.Core.Utilities
 {
     public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     {

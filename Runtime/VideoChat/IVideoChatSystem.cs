@@ -1,13 +1,13 @@
-using Reflectis.SDK.Core.SystemFramework;
+using Virtuademy.SDK.Core.SystemFramework;
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using UnityEngine.Events;
 
-using static Reflectis.SDK.Core.VideoChat.IVideoChatController;
+using static Virtuademy.SDK.Core.VideoChat.IVideoChatController;
 
-namespace Reflectis.SDK.Core.VideoChat
+namespace Virtuademy.SDK.Core.VideoChat
 {
     public interface IVideoChatSystem : ISystem
     {

@@ -1,4 +1,4 @@
-# Reflectis-SDK-CharacterController
+# Virtuademy-SDK-CharacterController
 
 This module contains the interfaces and base classes needed for building the interaction with a character controller,
 i.e. a character that is usually controlled by the input of the user.

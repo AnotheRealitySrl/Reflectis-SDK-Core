@@ -1,9 +1,9 @@
-using Reflectis.SDK.Core.SystemFramework;
+using Virtuademy.SDK.Core.SystemFramework;
 
 using System;
 using System.Collections.Generic;
 
-namespace Reflectis.SDK.Core.Notification
+namespace Virtuademy.SDK.Core.Notification
 {
     public interface INotificationSystem : ISystem
     {

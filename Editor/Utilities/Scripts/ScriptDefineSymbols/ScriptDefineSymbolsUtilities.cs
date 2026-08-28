@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEditor.Build;
 using UnityEngine;
 
-namespace Reflectis.SDK.Core.Editor
+namespace Virtuademy.SDK.Core.Editor
 {
     public static class ScriptDefineSymbolsUtilities
     {

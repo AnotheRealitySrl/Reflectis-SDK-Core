@@ -6,7 +6,7 @@ using UnityEditor;
 
 using UnityEngine;
 
-namespace Reflectis.SDK.Core.Utilities.Editor
+namespace Virtuademy.SDK.Core.Utilities.Editor
 {
     public static class ReflectisDocumentationImporter
     {
