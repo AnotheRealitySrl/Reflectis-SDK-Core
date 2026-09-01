@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 using Virtuademy.SDK.Core.Authentication;
 using Virtuademy.SDK.Core.SystemFramework;
@@ -42,6 +42,19 @@ namespace Virtuademy.SDK.Core.ApiSystem
         public TimeSpan ServerTimeOffset { get => serverTimeOffset; set => serverTimeOffset = value; }
 
         public string ApiLabel { get; private set; }
+
+        /// <summary>
+        /// Canonical platform type of the API this system talks to (<c>Application</c>,
+        /// <c>AI</c>, <c>Realtime</c>, …), used to resolve its base URL from endpoint
+        /// discovery instead of from the build. See ADR 0024 in the meta-repo.
+        /// </summary>
+        /// <remarks>
+        /// Null — the default — opts out and keeps the serialized
+        /// <see cref="AppIdentification.ApiBaseUrl"/>. The system that performs discovery
+        /// must stay opted out: it is the one endpoint that cannot be discovered, since
+        /// it is the one being asked.
+        /// </remarks>
+        protected virtual string DiscoveryApiType => null;
         #endregion
 
         public override async Task Init()
@@ -54,6 +67,28 @@ namespace Virtuademy.SDK.Core.ApiSystem
             if (string.IsNullOrEmpty(apiConfig.Credential.AppSecret))
             {
                 throw new Exception($"{name}: Missing {nameof(HmacCredential.AppSecret)}");
+            }
+
+            // Endpoint discovery (ADR 0024): prefer the base URL the platform reports for
+            // this API type over the one serialized into the build, so moving an API to a
+            // new hostname stops requiring a rebuild of the client.
+            //
+            // The serialized value is the fallback, and deliberately so: if no resolver is
+            // registered yet — this system initialising before the bootstrap one, or the
+            // platform unreachable — the system behaves exactly as it did before. That
+            // makes the boot order a preference rather than a requirement.
+            if (!string.IsNullOrEmpty(DiscoveryApiType)
+                && ApiEndpointResolver.Current != null
+                && ApiEndpointResolver.Current.TryGetBaseUrl(DiscoveryApiType, out string discoveredBaseUrl)
+                && !string.IsNullOrEmpty(discoveredBaseUrl))
+            {
+                if (!string.Equals(discoveredBaseUrl, apiConfig.ApiBaseUrl, StringComparison.OrdinalIgnoreCase))
+                {
+                    Debug.Log($"{name}: base URL resolved from discovery: {discoveredBaseUrl} " +
+                              $"(the build carried {apiConfig.ApiBaseUrl})");
+                }
+
+                apiConfig = new AppIdentification(apiConfig.Credential, discoveredBaseUrl, apiConfig.ApiVersion);
             }
 
             if (string.IsNullOrEmpty(apiConfig.ApiBaseUrl))
