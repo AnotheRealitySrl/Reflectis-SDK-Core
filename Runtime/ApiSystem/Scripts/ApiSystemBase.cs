@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 
 using Virtuademy.SDK.Core.Authentication;
 using Virtuademy.SDK.Core.SystemFramework;
@@ -44,6 +44,20 @@ namespace Virtuademy.SDK.Core.ApiSystem
         public string ApiLabel { get; private set; }
 
         /// <summary>
+        /// True when the address points at the machine running this build, in which case
+        /// endpoint discovery must not replace it — see <see cref="Init"/>.
+        /// </summary>
+        private static bool PointsAtLocalhost(string url)
+        {
+            if (string.IsNullOrEmpty(url) || !Uri.TryCreate(url, UriKind.Absolute, out Uri parsed))
+            {
+                return false;
+            }
+
+            return parsed.IsLoopback;
+        }
+
+        /// <summary>
         /// Canonical platform type of the API this system talks to (<c>Application</c>,
         /// <c>AI</c>, <c>Realtime</c>, …), used to resolve its base URL from endpoint
         /// discovery instead of from the build. See ADR 0024 in the meta-repo.
@@ -77,7 +91,13 @@ namespace Virtuademy.SDK.Core.ApiSystem
             // registered yet — this system initialising before the bootstrap one, or the
             // platform unreachable — the system behaves exactly as it did before. That
             // makes the boot order a preference rather than a requirement.
+            //
+            // A serialized localhost address wins outright: it can only have been set by
+            // someone deliberately pointing this build at an API on their own machine, and
+            // the platform would otherwise answer with the deployed hostname and take it
+            // away. Same rule the web clients apply to their own local override.
             if (!string.IsNullOrEmpty(DiscoveryApiType)
+                && !PointsAtLocalhost(apiConfig.ApiBaseUrl)
                 && ApiEndpointResolver.Current != null
                 && ApiEndpointResolver.Current.TryGetBaseUrl(DiscoveryApiType, out string discoveredBaseUrl)
                 && !string.IsNullOrEmpty(discoveredBaseUrl))
