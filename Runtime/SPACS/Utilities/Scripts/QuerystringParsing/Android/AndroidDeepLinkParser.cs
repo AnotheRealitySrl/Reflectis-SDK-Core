@@ -1,7 +1,3 @@
-#if UNITY_ANDROID && !UNITY_EDITOR
-using Virtuademy.SDK.Core.ApplicationManagement;
-#endif
-
 using System;
 using System.Collections.Generic;
 
@@ -44,7 +40,7 @@ namespace Virtuademy.SDK.Core.Utilities
 
         /// <summary>
         /// Esegue il parsing della querystring da un URL usando le librerie standard .NET.
-        /// È più robusto e leggibile rispetto all'iterazione tramite AndroidJavaObject.
+        /// Ãˆ piÃ¹ robusto e leggibile rispetto all'iterazione tramite AndroidJavaObject.
         /// </summary>
         /// <param name="url">L'URL completo da cui estrarre i parametri.</param>
         /// <returns>Un dizionario con i parametri della querystring.</returns>

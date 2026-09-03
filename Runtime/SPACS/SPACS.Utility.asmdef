@@ -1,13 +1,14 @@
 {
-    "name": "Virtuademy.SDK.Core.Editor",
-    "rootNamespace": "Virtuademy.SDK.Core.Editor",
+    "name": "SPACS.Utility",
+    "rootNamespace": "",
     "references": [
-        "GUID:ab59f74e483e1ee4595bfefea56493f2",
-        "GUID:d5647bb6580a4a92a6e0f29c3a9707fa"
+        "Unity.VisualScripting.Core",
+        "Unity.VisualScripting.Flow",
+        "Unity.InputSystem",
+        "Unity.TextMeshPro",
+        "UnityEngine.UI"
     ],
-    "includePlatforms": [
-        "Editor"
-    ],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

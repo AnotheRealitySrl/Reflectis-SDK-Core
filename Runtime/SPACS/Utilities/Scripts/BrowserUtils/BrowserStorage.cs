@@ -29,9 +29,9 @@ namespace Virtuademy.SDK.Core.Utilities
             string data = null;
 
 #if UNITY_WEBGL && !UNITY_EDITOR
-        // Nota: la gestione della memoria è complessa.
+        // Nota: la gestione della memoria Ã¨ complessa.
         // Il codice .jslib sopra alloca memoria che C# deve liberare.
-        // Un approccio più semplice è quando JS ritorna una stringa
+        // Un approccio piÃ¹ semplice Ã¨ quando JS ritorna una stringa
         // come nel nostro "LoadDataFromSessionStorage".
         // Unity gestisce la conversione del puntatore (buffer) in stringa.
         data = LoadDataFromSessionStorage(key);

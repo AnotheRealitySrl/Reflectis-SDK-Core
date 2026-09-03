@@ -36,21 +36,21 @@ namespace Virtuademy.SDK.Core.Utilities
             DateTime firstOfMonth = new DateTime(year, month, 1);
 
             // 2. Calcoliamo l'inizio della settimana. 
-            // In C# DayOfWeek.Monday è 1, Sunday è 0. 
-            // Vogliamo che la settimana inizi sempre di lunedì.
+            // In C# DayOfWeek.Monday Ã¨ 1, Sunday Ã¨ 0. 
+            // Vogliamo che la settimana inizi sempre di lunedÃ¬.
             int daysToSubtract = ((int)firstOfMonth.DayOfWeek + 6) % 7;
 
-            // Se il mese inizia di Lunedì, sottraiamo comunque 7 giorni per includere la settimana precedente
+            // Se il mese inizia di LunedÃ¬, sottraiamo comunque 7 giorni per includere la settimana precedente
             if (daysToSubtract == 0) daysToSubtract = 7;
 
             DateTime startDate = firstOfMonth.AddDays(-daysToSubtract);
 
             // 3. Riempiamo la lista fino a coprire l'intero mese e completare l'ultima settimana
-            // Utilizziamo un ciclo che continua finché non abbiamo completato le settimane 
+            // Utilizziamo un ciclo che continua finchÃ© non abbiamo completato le settimane 
             // e siamo passati al mese successivo.
             DateTime currentDay = startDate;
 
-            // Continuiamo ad aggiungere giorni finché:
+            // Continuiamo ad aggiungere giorni finchÃ©:
             // - Non abbiamo finito il mese corrente
             // - O non abbiamo finito la settimana (arrivando a domenica)
             // Per coprire il caso "mese finisce di domenica", forziamo l'aggiunta della settimana successiva.
