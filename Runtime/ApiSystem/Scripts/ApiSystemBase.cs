@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
 
+using SPACS.Utilities;
+
 namespace Virtuademy.SDK.Core.ApiSystem
 {
     /// <summary>

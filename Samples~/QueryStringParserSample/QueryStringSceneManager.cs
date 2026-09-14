@@ -1,10 +1,11 @@
+using SPACS.Utilities;
+
 using Newtonsoft.Json;
 
 using Virtuademy.SDK.Authentication;
 using Virtuademy.SDK.Authentication.Samples;
 using Virtuademy.SDK.Core.ApplicationManagement.Samples;
 using Virtuademy.SDK.Core.SystemFramework;
-using Virtuademy.SDK.Core.Utilities;
 using Virtuademy.SDK.Http;
 using Virtuademy.SDK.ApiData;
 
@@ -14,6 +15,7 @@ using System.Collections.Generic;
 using TMPro;
 
 using UnityEngine;
+
 
 public class QueryStringSceneManager : MonoBehaviour
 {

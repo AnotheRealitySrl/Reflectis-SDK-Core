@@ -3,6 +3,7 @@ using Virtuademy.SDK.Core.SystemFramework;
 
 using UnityEngine;
 
+
 namespace Virtuademy.SDK.Core.Avatars
 {
     public class AvatarConfigControllerStandard : AvatarConfigControllerBase

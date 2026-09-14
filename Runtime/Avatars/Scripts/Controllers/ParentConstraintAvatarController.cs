@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 
 using UnityEngine.Animations;
 
+
 namespace Virtuademy.SDK.Core.Avatars
 {
     /// <summary>

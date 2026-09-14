@@ -7,6 +7,9 @@ using UnityEngine.Events;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
+
+using SPACS.Utilities;
+
 namespace Virtuademy.SDK.Fade.Samples
 {
     public class VolumeManager : MonoBehaviour, IFadeManager

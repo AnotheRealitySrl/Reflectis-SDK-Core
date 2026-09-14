@@ -1,3 +1,5 @@
+using SPACS.Editor;
+
 // ============================================================
 // I2LocDefineSymbolToggler.cs  (Editor only)
 //
@@ -8,7 +10,7 @@
 using System;
 using UnityEditor;
 using UnityEngine;
-using Virtuademy.SDK.Core.Editor;
+
 
 [InitializeOnLoad]
 public static class I2LocDefineSymbolToggler

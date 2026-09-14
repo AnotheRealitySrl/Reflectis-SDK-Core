@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 
 using Virtuademy.SDK.Core.SystemFramework;
 
+using Virtuademy.SDK.Core;
+
 namespace Virtuademy.SDK.Core.CharacterController
 {
     [CreateAssetMenu(menuName = "Virtuademy/SDK-CharacterController/CharacterControllerBaseSystemConfig", fileName = "CharacterControllerBaseSystemConfig")]

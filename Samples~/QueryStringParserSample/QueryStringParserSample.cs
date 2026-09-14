@@ -1,6 +1,5 @@
 using Virtuademy.SDK.Core.Authentication;
 using Virtuademy.SDK.Core.SystemFramework;
-using Virtuademy.SDK.Core.Utilities;
 using Virtuademy.SDK.Http;
 using Virtuademy.SDK.RealtimeApi;
 using Virtuademy.SDK.ApiData;
@@ -11,6 +10,9 @@ using System.Threading.Tasks;
 
 using UnityEngine;
 using UnityEngine.Events;
+
+
+using SPACS.Utilities;
 
 namespace Virtuademy.SDK.Core.ApplicationManagement.Samples
 {

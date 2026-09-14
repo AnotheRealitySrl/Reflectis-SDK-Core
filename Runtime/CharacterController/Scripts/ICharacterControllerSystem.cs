@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 
+using Virtuademy.SDK.Core;
+
 namespace Virtuademy.SDK.Core.CharacterController
 {
     public interface ICharacterControllerSystem : ISystem
