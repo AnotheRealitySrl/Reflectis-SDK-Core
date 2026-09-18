@@ -180,14 +180,13 @@ namespace Virtuademy.SDK.Core.Avatars
 
         public void EnableAvatarInstanceMeshes(bool enable, bool fromCamera = false)
         {
-            CharacterControllerBase ccInstance = SM.GetSystem<CharacterControllerSystem>().CharacterControllerInstance;
-            if (ccInstance != null)
-            {
-                // Switch the characterControllerInstance layer to enable/Disable clicks on it. Currently just changing the root
-                // if colliders are added to children in the future, then we should rescursively change the childer collider's layers too
-                ccInstance.gameObject.layer = LayerMask.NameToLayer(enable ? PlayerLayerName : IgnoreRaycastLayerName);
-            }
-
+            // NOTE: the layer is NOT set here. It is driven by the COMBINED visibility state
+            // (reference count + camera) inside CheckAvatarActivation(), exactly like the mesh —
+            // and like the other-avatars path in CheckOtherAvatarActivation(). Setting it here from
+            // this single call's `enable` decoupled the layer from the actual visibility: when
+            // several systems toggle the avatar (e.g. a Visual Scripting pan-focus disable + a
+            // camera re-enable), the counter kept the mesh hidden while a stray enable flipped the
+            // root back to the Player layer, so the invisible avatar's collider still blocked clicks.
             if (fromCamera)
             {
               cameraDisable = !enable;
@@ -264,14 +263,19 @@ namespace Virtuademy.SDK.Core.Avatars
 
         internal void CheckAvatarActivation()
         {
-            if (avatarMeshDisablerCounter <= 0 && !cameraDisable)
-            {
-                AvatarInstanceConfigManager?.EnableAvatarMeshes(true);
-            }
-            if (avatarMeshDisablerCounter >= 1 || cameraDisable)
-            {
-                AvatarInstanceConfigManager?.EnableAvatarMeshes(false);
-            }
+            // The local avatar is visible (and clickable) only when nothing is disabling it and the
+            // camera isn't hiding it. Keep the ROOT layer in lock-step with the mesh: Player while
+            // visible (so it can be picked), IgnoreRaycast while hidden (so its collider never blocks
+            // clicks on what's behind it — e.g. a POI you panned into). Mirrors the other-avatars
+            // path in CheckOtherAvatarActivation(). (If child colliders are added later, their layers
+            // should be switched recursively too.)
+            bool visible = avatarMeshDisablerCounter <= 0 && !cameraDisable;
+
+            CharacterControllerBase ccInstance = SM.GetSystem<CharacterControllerSystem>().CharacterControllerInstance;
+            if (ccInstance != null)
+                ccInstance.gameObject.layer = LayerMask.NameToLayer(visible ? PlayerLayerName : IgnoreRaycastLayerName);
+
+            AvatarInstanceConfigManager?.EnableAvatarMeshes(visible);
         }
 
 
