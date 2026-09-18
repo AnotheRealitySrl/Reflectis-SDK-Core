@@ -84,7 +84,7 @@ namespace Virtuademy.SDK.Core.ApplicationManagement.Samples
 
         public async Task<UserDTO> RetrieveUserData()
         {
-            ApiResponse<UserDTO> userReq = await SM.GetSystem<ReflectisDataAccessSystem>().GetMyUserData();
+            ApiResponse<UserDTO> userReq = await PlatformClient.Current.GetMyUserData();
             if (userReq.IsSuccess)
             {
                 Debug.Log($"{nameof(QueryStringParserSample)}: Successfully retrieved user data - {userReq.Content.Id}");
@@ -98,7 +98,7 @@ namespace Virtuademy.SDK.Core.ApplicationManagement.Samples
 
         public async Task<WorldDTO> RetrieveWorldData(int worldId)
         {
-            ApiResponse<WorldDTO> worldReq = await SM.GetSystem<ReflectisDataAccessSystem>().GetWorld(worldId);
+            ApiResponse<WorldDTO> worldReq = await PlatformClient.Current.GetWorld(worldId);
             if (worldReq.IsSuccess)
             {
                 WorldDTO world = worldReq.Content;
@@ -114,7 +114,7 @@ namespace Virtuademy.SDK.Core.ApplicationManagement.Samples
 
         public async Task<SessionDTO> CreateSessionFromExperience(int worldId, int experienceId, int userId)
         {
-            ApiResponse<ExperienceDTO> experienceReq = await SM.GetSystem<ReflectisDataAccessSystem>().GetExperience(worldId, experienceId);
+            ApiResponse<ExperienceDTO> experienceReq = await PlatformClient.Current.GetExperience(worldId, experienceId);
             if (experienceReq.IsSuccess)
             {
                 ExperienceDTO experience = experienceReq.Content;
@@ -133,7 +133,7 @@ namespace Virtuademy.SDK.Core.ApplicationManagement.Samples
                     UserIds = Array.Empty<int>(),
                 };
 
-                ApiResponse<SessionDTO> newSessionReq = await SM.GetSystem<ReflectisDataAccessSystem>().CreateSession(worldId, experienceId, newSession);
+                ApiResponse<SessionDTO> newSessionReq = await PlatformClient.Current.CreateSession(worldId, experienceId, newSession);
                 if (newSessionReq.IsSuccess)
                 {
                     SessionDTO createdSession = newSessionReq.Content;
@@ -155,7 +155,7 @@ namespace Virtuademy.SDK.Core.ApplicationManagement.Samples
         private void CreateWebSocketConnection(SessionDTO session)
         {
             // Connect to the realtime api to ping user presence in the created session
-            RealtimeApiSystem realtimeApiSystem = SM.GetSystem<RealtimeApiSystem>();
+            RealtimeApiClient realtimeApiSystem = RealtimeApiClient.Current;
             realtimeApiSystem.ConnectToReflectisRealtime(
                 (handshake) =>
                 {

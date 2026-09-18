@@ -162,7 +162,7 @@ public class QueryStringSceneManager : MonoBehaviour
 
         Debug.Log($"Sending analytic: {JsonConvert.SerializeObject(experienceAnalyticDTO)}");
 
-        ApiResponse experienceAnalyticReq = await SM.GetSystem<ReflectisDataAccessSystem>().CreateExperienceAnalytic(experienceAnalyticDTO);
+        ApiResponse experienceAnalyticReq = await PlatformClient.Current.CreateExperienceAnalytic(experienceAnalyticDTO);
         if (experienceAnalyticReq.IsSuccess)
         {
             Debug.Log("Experience analytic sent successfully.");
